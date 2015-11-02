@@ -1,0 +1,29 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: pavelkononenko
+  pool: 5
+
+development:
+  <<: *default
+  database: agrofor_dev
+
+test:
+  <<: *default
+  database: agrofor_test
+
+staging:
+  <<: *default
+  database: agrofor_stage
+
+release:
+  <<: *default
+  database: agrofor_release
+
+
+
+production:
+  <<: *default
+  database: agrofor_prod
+  username: pavelkononenko
+  # password: <%= ENV['AGROAGORA_DATABASE_PASSWORD'] %>

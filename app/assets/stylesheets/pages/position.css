@@ -1,0 +1,39 @@
+.position-map {
+  height: 211px;
+}
+
+.upload-image {
+  height: 125px;
+  width: 125px;
+  border: 1px solid rgba(0,0,0,0.12);
+  cursor: pointer;
+  text-align: center;
+  padding: 45px 0;
+  color: #6A6A6A;
+  margin: 0;
+}
+
+.upload-image i {
+  font-size: 35px;
+}
+
+.upload-image__label {
+  font-size: 10px;
+}
+
+.upload-file {
+  border: 1px solid rgba(0,0,0,0.12);
+  padding: 0 14px 0 12px;
+  margin: 0;
+  color: #6A6A6A;
+}
+
+.upload-file i {
+  font-size: 18px;
+  vertical-align: middle;
+  padding-right: 5px;
+}
+
+.upload-file span {
+  vertical-align: middle;
+}

@@ -1,0 +1,12 @@
+.content-header ng-init="ctrl.templates = [{id: 1, title: 'Шаблонdqsdqwqeqweqw 1'},{id: 2, title: 'Шаблон 2'},{id: 3, title: 'Шаблон 3'}]"
+  .content-layout
+    div[layout="row" layout-wrap layout-padding layout-align="space-between center"]
+      h1.md-title[flex=""] Новая позиция
+      md-input-container.margin-0[flex="none"]
+        md-select[ng-model="ctrl.template" placeholder="Шаблон"]
+          md-option ng-repeat="template in ctrl.templates" value="{{template.id}}"
+            | {{template.title}}
+
+
+.content-layout
+  = render "form"

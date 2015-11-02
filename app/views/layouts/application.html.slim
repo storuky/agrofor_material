@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+html ng-app="app"
+  head
+    meta charset="UTF-8"
+    title Agrofor
+    link rel="icon" href="data:;base64,iVBORw0KGgo="
+    / link href='http://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'
+    = stylesheet_link_tag 'application'
+    = csrf_meta_tags
+    base href="/"
+  body.ng-cloak
+    md-content[layout="row" class="wrapper"]
+      .left-panel[flex="none" hide-sm layout="column" scroll]
+        = render "layouts/left_panel"
+      page[flex="auto"]
+        ui-view
+
+    = Gon::Base.render_data({})
+    = render 'modals/login'
+    script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"
+    = javascript_include_tag 'application'

@@ -1,0 +1,200 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *= require oxymoron/normalize
+ *= require oxymoron/ng-notify
+ *= require oxymoron/perfect-scrollbar
+ *= require angular-material
+ *= require_tree .
+ *= require_self
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+}
+
+
+.ng-cloak {
+  visibility: hidden !important;
+}
+
+.left-panel {
+  width: 260px;
+  background: white;
+  z-index: 2;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.md-yellow {
+  background: rgb(255, 219, 76) !important;
+  color: #fff !important;
+}
+
+.md-yellow span {
+  color: #2b2b2b !important;
+}
+
+.md-yellow:hover {
+  background: rgb(255, 226, 110) !important;
+}
+
+.md-lg {
+  min-height: 44px;
+  min-width: 185px;
+}
+
+.create_position {
+  width: 100%;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  padding: 10px;
+  display: block;
+  cursor: pointer;
+  margin: 0;
+}
+
+md-select.md-default-theme:not([disabled]):focus .md-select-value, md-select:not([disabled]):focus .md-select-value {
+  border-bottom-color: rgb(255, 219, 76);
+  color: rgba(0,0,0,0.87);
+}
+
+md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input, md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+  border-color: rgb(255, 219, 76);
+}
+
+md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label, md-input-container:not(.md-input-invalid).md-input-focused label {
+  color: rgba(0,0,0,0.87);
+}
+
+md-autocomplete[md-floating-label] md-input-container {
+  margin-bottom: 0;
+}
+
+md-autocomplete {
+  min-width: 100px;
+}
+
+md-checkbox.md-default-theme.md-checked .md-ink-ripple, md-checkbox.md-checked .md-ink-ripple {
+  color: rgb(255, 219, 76);
+}
+
+md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+  background-color: rgb(255, 219, 76);
+}
+
+md-checkbox.md-default-theme.md-checked .md-icon:after, md-checkbox.md-checked .md-icon:after {
+  border-color: rgb(77, 77, 79);
+}
+
+md-checkbox.md-default-theme.md-checked.md-focused .md-container:before, md-checkbox.md-checked.md-focused .md-container:before {
+  background-color: rgba(70, 70, 70, 0.13);
+}
+
+md-checkbox .md-icon {
+  border-width: 1px;
+}
+
+md-select-menu md-content {
+  min-width: 65px;
+}
+
+md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+  background: #f7f7f7;
+  color: #333;
+  border-bottom: 2px solid rgb(255, 219, 76);
+}
+
+md-toolbar.md-default-theme:not(.md-menu-toolbar) .md-button, md-toolbar:not(.md-menu-toolbar) .md-button {
+  color: #333;
+}
+
+.md-select-value {
+  min-width: 45px;
+}
+
+.logo {
+  text-decoration: none;
+  transition: .3s;
+  display: block;
+  margin: 20px 0;
+  position: relative;
+  z-index: 3;
+}
+
+page {
+  height: 100%;
+  display: block;
+  overflow-y: scroll;
+}
+
+.content {
+  padding: 12px;
+}
+
+.content-layout {
+  display: block;
+  max-width: 900px;
+  margin: auto;
+  padding: 0 15px;
+}
+
+.content-header {
+  border-bottom: 2px solid rgb(255, 219, 76);
+  margin-bottom: 20px;
+}
+
+.wrapper {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+map {
+  display: block;
+  background: #E1E1E1;
+}
+
+h1 {
+  margin: 0;
+  display: inline-block;
+  color: #333;
+  width: 100%;
+  background: #fff;
+}
+
+.addon {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+}
+
+.margin-0 {
+  margin: 0 !important;
+}
+
+.errors {
+  color: red;
+  font-size: 12px;
+}
+
+.error {
+  padding-top: 5px;
+}
+
+.icon-close {
+  font-size: 24px;
+  vertical-align: middle;
+}

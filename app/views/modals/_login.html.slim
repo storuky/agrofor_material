@@ -1,0 +1,22 @@
+script type="text/ng-template" id="dialog1.tmpl.html"
+  md-dialog aria-label="Mango (Fruit)"  ng-cloak=""
+    form
+      md-toolbar
+        .md-toolbar-tools
+          h2 Вход
+          span flex=""
+          md-button class="md-icon-button" ng-click="ctrl.cancel()" aria-label="close"
+            i.icon-close
+      md-dialog-content style="max-width:600px; max-height:810px;"
+        div[layout="row" layout-padding]
+          md-input-container[flex]
+            label Email
+            input type="text"
+          md-input-container[flex]
+            label Password
+            input type="text"
+      .md-actions layout="row"
+        md-button ng-click="ctrl.answer('not useful')"
+          | Отмена
+        md-button ng-click="ctrl.answer('useful')" style="margin-right:20px;"
+          | Войти

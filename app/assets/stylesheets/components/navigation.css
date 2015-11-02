@@ -1,0 +1,46 @@
+.navigation {
+  display: block;
+  text-align: left;
+  padding-top: 15px;
+}
+
+.navigation-item {
+  padding: 11px 33px;
+  display: block;
+  text-decoration: none;
+  transition: padding 0.3s;
+  font-size: 15px;
+  color: rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+
+.navigation-item.active {
+  box-shadow: -2px 0 0px #ffdb4c inset;
+  color: black;
+  background-color: whitesmoke;
+}
+
+.navigation-item:hover {
+  color: #333;
+}
+
+.navigation-footer {
+  text-align: left;
+  background: #f0f0f0;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+
+.navigation-footer .navigation-item:hover {
+  background-color: #e7e7e7;
+}
+
+.navigation-item i {
+  vertical-align: middle;
+  padding-right: 10px;
+  font-size: 20px;
+}
+
+.navigation-item span {
+  vertical-align: middle;
+}

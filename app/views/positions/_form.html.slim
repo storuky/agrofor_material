@@ -1,0 +1,70 @@
+= form_for Position.new, html: {name: "form"} do |f|
+  md-content[layout="row" layout-wrap layout-md="column"]
+    div[layout="row"  layout-sm="column" layout-wrap layout-padding flex=50 flex-sm=100 flex-md=100]
+      div[flex="none" flex-md=100 flex-sm=100]
+        md-input-container.md-block
+          = f.select :trade_type
+
+      md-autocomplete flex="" md-selected-item="ctrl.position.option" md-search-text="autocompleteText" md-items="item in gon.data.options | filter:autocompleteText" md-item-text="item.title" md-floating-label="Категория"
+        md-item-template
+          span md-highlight-text="ctrl.searchText"
+            | {{item.title}}
+
+      div[flex=100]
+        md-input-container.md-block
+          = f.text_field :title
+
+      div[layout="row" flex=50 flex-md=50 flex-sm=100]
+        md-input-container[flex]
+          = f.text_field :weight
+        md-input-container[flex="none"]
+          = f.select :weight_dimension, init: 1, collection: "gon.data.weight_dimensions"
+
+      div[layout="row" flex=50 flex-md=50 flex-sm=100]
+        md-input-container[flex]
+          = f.text_field :weight_min
+        md-input-container[flex="none"]
+          = f.select :weight_min_dimension, init: 1, collection: "gon.data.weight_dimensions"
+
+      div[layout="row" flex=50 flex-md=50 flex-sm=100]
+        md-input-container[flex]
+          = f.text_field :price
+        md-input-container[flex="none"]
+          = f.select :price_weight_dimension, init: 1, prefix: "руб/", collection: "gon.data.weight_dimensions"
+      div[layout="row" flex=50 flex-md=50 flex-sm=100]
+        md-input-container[flex]
+          = f.text_field :price_discount
+          i.addon
+            | %
+
+    div[layout="row" layout-wrap layout-padding flex-sm=100 flex-md=100 flex=50]
+      md-input-container[flex=100]
+        map.position-map
+      div[flex=100]
+        md-input-container.md-block
+          = f.text_field :address, class: "md-block"
+
+
+    div[layout="row" layout-padding flex=100]
+      div[flex=100]
+        md-input-container.md-block
+          = f.text_area :description
+    div[layout="row" layout-padding flex=100]
+      div[flex="none"]
+        md-button.upload-image href=""
+          i.icon-camera
+          .upload-image__label Прикрепить фото
+    div[layout="row" layout-margin flex=100]
+      div[flex="none"]
+        md-button.upload-file href=""
+          i.icon-upload
+          span Прикрепить документы
+    div[layout="row" layout-margin flex=100]
+      md-checkbox flex="auto" ng-model="ctrl.position.is_template" aria-label="Template" 
+      md-input-container flex="100" style="margin-left: -10px"
+        label
+        input flex="100" ng-model="ctrl.position.template" placeholder="Сохранить шаблон" ng-disabled="!ctrl.position.is_template"
+
+  div[layout="row" layout-align="end center" layout-padding]
+    md-button.md-raised.md-yellow.md-lg[flex-md="30" flex-sm="100"]
+      | Сохранить
