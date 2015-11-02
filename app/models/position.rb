@@ -35,10 +35,10 @@ class Position < ActiveRecord::Base
   @@dimensions_ids =  WeightDimension.pluck(:id)
   @@options_ids =  Option.pluck(:id)
 
+  validates_presence_of :trade_type_id, :title, :address, :trade_type_id, :option_id, :weight, :price
+
   validates :trade_type_id, inclusion: { in: @@trade_types_ids }
-  validates :title, presence: true, length: { maximum: 50 }
   validates :option_id, inclusion: { in: @@options_ids }
-  validates :address, presence: true
   validates :weight, numericality: { greater_than: 0 }
   validates :weight_min, numericality: { greater_than_or_equal_to: 0 }
   validates :weight_dimension_id, inclusion: { in: @@dimensions_ids }
