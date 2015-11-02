@@ -19,11 +19,16 @@ class AgroforFormBuilder < OxymoronFormBuilder
     collection = options[:collection] || "gon.data.#{plural}"
 
     if options[:init]
-      options["ng-init"] = ng_model("#{method}_id") + " = " + "#{collection}[0].id"
+      options["ng-init"] = ng_model("#{method}_id") + " = #{collection}[0].id"
     end
 
+    options = options.merge({
+      "ng-model" => options["ng-model"] || ng_model("#{method}_id"),
+      "aria-label" => "#{singular}.title || 'aria'"
+    })
+
     template = @template.content_tag :label, @object.class.human_attribute_name(method), options
-    template += @template.content_tag "md-select", {"ng-model" => options["ng-model"] || ng_model("#{method}_id"), "aria-label" => "#{singular}.title || 'aria'"} do
+    template += @template.content_tag "md-select", options do
       @template.content_tag "md-option", {"ng-repeat" => "#{singular} in #{collection}", value: "{{#{singular}.id}}"} do
         "#{options[:prefix]}{{#{singular}.title}}"
       end

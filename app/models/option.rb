@@ -54,7 +54,7 @@ class Option < ActiveRecord::Base
         end
       else
         Rails.cache.fetch("Option.all.#{I18n.locale}") do
-          Option.all.load
+          Option.includes(:category).all.load
         end
       end
     end

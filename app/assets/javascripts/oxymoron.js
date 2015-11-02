@@ -942,7 +942,7 @@
         if (res.data.msg)
           ngNotify.set(res.data.msg, 'error');
         else if (res.data.errors)
-          Validate(res.data.errors)
+          Validate(res.data.form, res.data.errors)
 
         if (res.data.redirect_to) {
           $state.go(res.data.redirect_to)
@@ -999,7 +999,7 @@
     }])
   
 
-  angular.module('oxymoron').factory('httpInterceptor', ['$q', '$rootScope', '$log', function ($q, $rootScope, $log) {
+  .factory('httpInterceptor', ['$q', '$rootScope', '$log', function ($q, $rootScope, $log) {
     return {
       request: function (config) {
         $rootScope.$broadcast('loading:progress');
@@ -1020,20 +1020,27 @@
   }])
 
   .factory('Validate', [function(){
-    return function (errors){
-      angular.element(document.querySelectorAll('.errors')).remove();
-      _.each(errors, function (v, k) {
-        var el = document.getElementById(k);
-        if (el) {
-          angular.element(document.getElementById(k)).append('<span class="errors"></span>');
-          var errors = angular.element(document.getElementById(k).querySelector('.errors'));
-          
-          errors.html('<span class="error">'+v+'</span>')
-          setTimeout(function (argument) {
-            errors.addClass('show');
-          }, 1)
-        }
-      })
+    return function (form, errors){
+      // var $form = angular.element(document.querySelector('[name="'+form+'"]')).scope()[form]
+
+      // angular.forEach($form, function(ctrl, name) {
+      //   if (name.indexOf('$') != 0) {
+      //     angular.forEach(ctrl.$error, function(value, name) {
+      //       ctrl.$setValidity(name, null);
+      //     });
+      //   }
+      // });
+      
+      // _.each(errors, function(errors_array, key) {
+      //   _.each(errors_array, function(error) {
+      //     try {
+      //       $form[form+'['+key+']'].$dirty = true;
+      //       $form[form+'['+key+']'].$setValidity(error, false);
+      //     } catch(e) {
+      //       console.warn('Element ' + form+'['+key+']' + ' not found for validation.')
+      //     }
+      //   });
+      // });
     };
   }])
 

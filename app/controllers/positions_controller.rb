@@ -22,12 +22,11 @@ class PositionsController < ApplicationController
   def create
     respond_to do |format|
       format.json {
-        ap position_params
         @position = Position.new position_params
         if @position.save
           render json: {msg: "Позиция успешно создана"}
         else
-          render json: {msg: @position.errors.full_messages.join(', ')}, status: 422
+          render json: {errors: @position.errors, form: :position}, status: 422
         end
       }
     end

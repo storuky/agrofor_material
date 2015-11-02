@@ -16,6 +16,7 @@ html ng-app="app"
         ui-view
 
     = Gon::Base.render_data({})
-    = render 'modals/login'
+    = render template: 'modals/index'
+    = render template: 'components/index'
     script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"
     = javascript_include_tag 'application'

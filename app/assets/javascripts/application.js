@@ -2,6 +2,7 @@
 //= require oxymoron/angular-resource
 //= require oxymoron/angular-animate
 //= require oxymoron/angular-aria
+//= require oxymoron/angular-messages
 //= require oxymoron/angular-ui-router
 //= require oxymoron/underscore
 //= require oxymoron/ng-notify
@@ -11,7 +12,7 @@
 //= require_self
 //= require_tree .
 
-var app = angular.module('app', ['ui.router', 'oxymoron', 'ngMaterial'])
+var app = angular.module('app', ['ui.router', 'oxymoron', 'ngMaterial', 'ngMessages'])
 
 app.run(['$rootScope', 'Sign', '$mdDialog', function ($rootScope, Sign, $mdDialog) {
   $rootScope.gon = gon;
