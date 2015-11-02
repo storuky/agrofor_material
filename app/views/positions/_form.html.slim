@@ -3,18 +3,13 @@
     div[layout="row"  layout-sm="column" layout-wrap layout-padding flex=50 flex-sm=100 flex-md=100]
       div[flex="none" flex-md=100 flex-sm=100]
         md-input-container.md-block
-          = f.select :trade_type, required: "", name: "position[trade_type]"
-          .errors ng-messages="position['position[trade_type]'].$error"
-            div ng-message="required" Не может быть пустым
+          = f.select :trade_type, required: "", name: "position[trade_type_id]"
 
-      
-      option-picker flex="" ng-model="ctrl.position.option"
+      option-picker flex="" ng-model="ctrl.position.option" name="position[option_id]"
 
       div[flex=100]
         md-input-container.md-block
-          = f.text_field :title, required: ""
-          .errors ng-messages="position['position[title]'].$error"
-            div ng-message="required" Не может быть пустым
+          = f.text_field :title
 
       div[layout="row" flex=50 flex-md=50 flex-sm=100]
         md-input-container[flex]

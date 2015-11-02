@@ -999,7 +999,7 @@
     }])
   
 
-  .factory('httpInterceptor', ['$q', '$rootScope', '$log', function ($q, $rootScope, $log) {
+  angular.module('oxymoron').factory('httpInterceptor', ['$q', '$rootScope', '$log', function ($q, $rootScope, $log) {
     return {
       request: function (config) {
         $rootScope.$broadcast('loading:progress');
@@ -1021,26 +1021,36 @@
 
   .factory('Validate', [function(){
     return function (form, errors){
-      // var $form = angular.element(document.querySelector('[name="'+form+'"]')).scope()[form]
+      var $form = angular.element(document.querySelector('[name="'+form+'"]')).scope()[form];
 
-      // angular.forEach($form, function(ctrl, name) {
-      //   if (name.indexOf('$') != 0) {
-      //     angular.forEach(ctrl.$error, function(value, name) {
-      //       ctrl.$setValidity(name, null);
-      //     });
-      //   }
-      // });
+      angular
+        .element(document.querySelectorAll('.rails-errors')).remove();
+
+      angular.forEach($form, function(ctrl, name) {
+        if (name.indexOf('$') != 0) {
+          angular.forEach(ctrl.$error, function(value, name) {
+            ctrl.$setValidity(name, null);
+          });
+        }
+      });
       
-      // _.each(errors, function(errors_array, key) {
-      //   _.each(errors_array, function(error) {
-      //     try {
-      //       $form[form+'['+key+']'].$dirty = true;
-      //       $form[form+'['+key+']'].$setValidity(error, false);
-      //     } catch(e) {
-      //       console.warn('Element ' + form+'['+key+']' + ' not found for validation.')
-      //     }
-      //   });
-      // });
+      _.each(errors, function(errors_array, key) {
+        _.each(errors_array, function(error, num) {
+          try {
+            var form_key = form+'['+key+']',
+                server_num = 'server['+num+']';
+            $form[form_key].$touched = true;
+            $form[form_key].$dirty = true;
+            $form[form_key].$setValidity(server_num, false);
+            angular
+              .element(document.querySelector('[name="'+form_key+'"]'))
+              .parent()
+              .append('<div class="rails-errors" ng-messages="'+form_key+'.$error"><div ng-message="'+server_num+'">'+error+'</div></div>')
+          } catch(e) {
+            console.warn('Element ' + form+'['+key+']' + ' not found for validation.')
+          }
+        });
+      });
     };
   }])
 

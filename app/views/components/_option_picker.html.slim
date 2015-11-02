@@ -1,5 +1,7 @@
 script type="text/ng-template" id="option-picker.html"
-  md-autocomplete flex="" md-selected-item="ngModel" md-search-text="autocompleteText" md-items="item in gon.data.options | filter:autocompleteText" md-item-text="item.title" md-floating-label="Категория"
-    md-item-template
-      span md-highlight-text="searchText"
-        | {{item.title}}
+  span
+    md-autocomplete md-selected-item="ngModel" md-search-text="autocompleteText" md-items="item in gon.data.options | filter:autocompleteText" md-item-text="item.title" md-floating-label="Категория"
+      span name="{{name}}"
+      md-item-template
+        span md-highlight-text="searchText"
+          | {{item.title}}

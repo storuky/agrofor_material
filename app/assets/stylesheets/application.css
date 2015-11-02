@@ -185,13 +185,8 @@ h1 {
   margin: 0 !important;
 }
 
-.errors {
-  color: red;
-  font-size: 12px;
-}
-
-.error {
-  padding-top: 5px;
+.rails-errors [ng-message] {
+  padding: 0 !important;
 }
 
 .icon-close {
