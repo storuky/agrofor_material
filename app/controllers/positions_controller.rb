@@ -51,6 +51,8 @@ class PositionsController < ApplicationController
         :price_weight_dimension_id,
         :weight_dimension_id,
         :weight_min_dimension_id,
+        :lat,
+        :lng
       ).merge({
         option_id: (params[:position][:option][:id] rescue nil)
       })

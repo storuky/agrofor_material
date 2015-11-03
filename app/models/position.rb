@@ -35,7 +35,7 @@ class Position < ActiveRecord::Base
   @@dimensions_ids =  WeightDimension.pluck(:id)
   @@options_ids =  Option.pluck(:id)
 
-  validates_presence_of :trade_type_id, :title, :address, :trade_type_id, :option_id, :weight, :price
+  validates_presence_of :trade_type_id, :title, :address, :option_id, :weight, :price
 
   validates :trade_type_id, inclusion: { in: @@trade_types_ids }
   validates :option_id, inclusion: { in: @@options_ids }
@@ -76,6 +76,10 @@ class Position < ActiveRecord::Base
     Position.aasm.states.map do |state|
       {id: state.name, title: I18n.t('position.status.'+state.name.to_s)}
     end
+  end
+
+  def self.trade_types
+    [{title: "Закупка", id: 1}, {title: "Продажа", id: 2}]
   end
 
   def self.full

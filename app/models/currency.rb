@@ -41,7 +41,7 @@ class Currency < ActiveRecord::Base
   end
 
   def self.get_rates name
-    rates = Currency.all_from_cache.map do |currency|
+    rates = Currency.cache.all.map do |currency|
       {id: currency.id, rate: currency.get_rate(name)}
     end
     rates.index_by{|rate| rate[:id]}
@@ -64,29 +64,78 @@ class Currency < ActiveRecord::Base
     end
   end
 
-
-  def self.by_index_from_cache
-    Rails.cache.fetch("currencies_by_index_#{I18n.locale}") do
-      ActiveModel::ArraySerializer.new(Currency.all_from_cache, each_serializer: CurrencySerializer).as_json.index_by {|wd| wd[:id]}
+  class << self
+    def normalize weight, weight_dimension_id
+      weight.to_f * Currency.serialize.cache.index_by[weight_dimension_id][:convert] rescue -1
     end
-  end
 
-  def self.all_from_cache
-    Rails.cache.fetch("currencies_all_#{I18n.locale}") do
-      Currency.all.load
+    def cache
+      @cache = true
+      self
     end
-  end
 
-  def self.get_from_cache id
-    Rails.cache.fetch("currency_#{id}_#{I18n.locale}") do
-      Currency.find(id)
+    def serialize
+      @serialize = true
+      self
+    end
+
+    def all
+      return super unless @cache
+
+      @cache = false
+
+      if @serialize
+        @serialize = false
+        Rails.cache.fetch("Currency.serialize.all.#{I18n.locale}") do
+          ActiveModel::ArraySerializer.new(Currency.cache.all, each_serializer: CurrencySerializer, root: false).as_json
+        end
+      else
+        Rails.cache.fetch("Currency.all.#{I18n.locale}") do
+          Currency.all.load
+        end
+      end
+    end
+
+    def find id
+      return super unless @cache
+      
+      @cache = false
+      
+      if @serialize
+        @serialize = false
+        Rails.cache.fetch("Currency.serialize.find(#{id}).#{I18n.locale}") do
+          CurrencySerializer.new(Currency.cache.find(id), root: false).as_json
+        end
+      else
+        Rails.cache.fetch("Currency.find(#{id}).#{I18n.locale}") do
+          Currency.find(id)
+        end
+      end
+    end
+
+    def index_by
+      return super unless @cache
+
+      if @serialize
+        @serialize = false
+        Rails.cache.fetch("Currency.serialize.index_by.#{I18n.locale}") do
+          ActiveModel::ArraySerializer.new(Currency.cache.all, each_serializer: CurrencySerializer, root: false).as_json.index_by {|wd| wd[:id]}
+        end
+      else
+        Rails.cache.fetch("Currency.index_by.#{I18n.locale}") do
+          Currency.cache.all.index_by(&:id)
+        end
+      end
     end
   end
 
   private
     def regenerate_cache
-      Rails.cache.delete("currencies_by_index_#{I18n.locale}")
-      Rails.cache.delete("currencies_all_#{I18n.locale}")
-      Rails.cache.delete("currencies_#{self.id}_#{I18n.locale}")
+      Rails.cache.delete("Currency.all.#{I18n.locale}")
+      Rails.cache.delete("Currency.serialize.all.#{I18n.locale}")
+      Rails.cache.delete("Currency.find(#{self.id}).#{I18n.locale}")
+      Rails.cache.delete("Currency.serialize.find(#{self.id}).#{I18n.locale}")
+      Rails.cache.delete("Currency.index_by.#{I18n.locale}")
+      Rails.cache.delete("Currency.serialize.index_by.#{I18n.locale}")
     end
 end

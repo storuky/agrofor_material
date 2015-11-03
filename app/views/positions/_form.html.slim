@@ -36,10 +36,10 @@
 
     div[layout="row" layout-wrap layout-padding flex-sm=100 flex-md=100 flex=50]
       md-input-container[flex=100]
-        map.position-map[name="position[lat]"]
+        location.position-map[name="position[lat]" draggable="true" info="ctrl.position"]
       div[flex=100]
         md-input-container.md-block
-          = f.text_field :address, class: "md-block"
+          = f.text_field :address, class: "md-block", suggest: "", lat: "ctrl.position.lat", lng: "ctrl.position.lng", rebuild: "ctrl.position.lat"
 
 
     div[layout="row" layout-padding flex=100]
