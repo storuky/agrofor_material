@@ -1,5 +1,5 @@
 class Option < ActiveRecord::Base
-  after_save :regenerate_cache
+  include Cacheable
 
   belongs_to :category
   has_many :position
@@ -30,75 +30,4 @@ class Option < ActiveRecord::Base
     "wood" => ["firewood", "sawdust"],
     "fertilizers and chemicals" => ["biofertilizers", "herbicides", "primers", "pesticides", "plant protection products", "fertilizers"]
   }
-
-  class << self
-    def cache
-      @cache = true
-      self
-    end
-
-    def serialize
-      @serialize = true
-      self
-    end
-
-    def all
-      return super unless @cache
-
-      @cache = false
-
-      if @serialize
-        @serialize = false
-        Rails.cache.fetch("Option.serialize.all.#{I18n.locale}") do
-          ActiveModel::ArraySerializer.new(Option.cache.all, each_serializer: OptionSerializer, root: false).as_json
-        end
-      else
-        Rails.cache.fetch("Option.all.#{I18n.locale}") do
-          Option.includes(:category).all.load
-        end
-      end
-    end
-
-    def find id
-      return super unless @cache
-      
-      @cache = false
-      
-      if @serialize
-        @serialize = false
-        Rails.cache.fetch("Option.serialize.find(#{id}).#{I18n.locale}") do
-          OptionSerializer.new(Option.cache.find(id), root: false).as_json
-        end
-      else
-        Rails.cache.fetch("Option.find(#{id}).#{I18n.locale}") do
-          Option.find(id)
-        end
-      end
-    end
-
-    def index_by
-      return super unless @cache
-
-      if @serialize
-        @serialize = false
-        Rails.cache.fetch("Option.serialize.index_by.#{I18n.locale}") do
-          ActiveModel::ArraySerializer.new(Option.cache.all, each_serializer: OptionSerializer, root: false).as_json.index_by {|wd| wd[:id]}
-        end
-      else
-        Rails.cache.fetch("Option.index_by.#{I18n.locale}") do
-          Option.cache.all.index_by(&:id)
-        end
-      end
-    end
-  end
-
-  private
-    def regenerate_cache
-      Rails.cache.delete("Option.all.#{I18n.locale}")
-      Rails.cache.delete("Option.serialize.all.#{I18n.locale}")
-      Rails.cache.delete("Option.find(#{self.id}).#{I18n.locale}")
-      Rails.cache.delete("Option.serialize.find(#{self.id}).#{I18n.locale}")
-      Rails.cache.delete("Option.index_by.#{I18n.locale}")
-      Rails.cache.delete("Option.serialize.index_by.#{I18n.locale}")
-    end
 end

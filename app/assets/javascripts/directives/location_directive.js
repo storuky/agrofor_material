@@ -79,12 +79,12 @@ app.directive('location', ['$timeout', 'Map', function ($timeout, Map) {
           function serializePosition () {
             var info = {
               weight: $scope.info.weight || 0,
-              trade_type: $scope.info.trade_type_id ? gon.data.index_by.trade_types[$scope.info.trade_type_id].title : "Тип",
+              trade_type: $scope.info.trade_type_id ? gon.data.by_index.trade_types[$scope.info.trade_type_id].title : "Тип",
               title: $scope.info.option ? $scope.info.option.title : 'Категория',
-              weight_dimension: $scope.info.weight_dimension_id ? gon.data.index_by.weight_dimensions[$scope.info.weight_dimension_id].title : "",
+              weight_dimension: $scope.info.weight_dimension_id ? gon.data.by_index.weight_dimensions[$scope.info.weight_dimension_id].title : "",
               price: $scope.info.price || "0",
               currency: gon.locale.currency.title,
-              price_weight_dimension: $scope.info.price_weight_dimension_id ? gon.data.index_by.weight_dimensions[$scope.info.price_weight_dimension_id].title : "",
+              price_weight_dimension: $scope.info.price_weight_dimension_id ? gon.data.by_index.weight_dimensions[$scope.info.price_weight_dimension_id].title : "",
             }
 
             return info;

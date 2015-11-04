@@ -112,7 +112,7 @@ md-select-menu md-content {
 }
 
 md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
-  background: #f7f7f7;
+  background: #fff;
   color: #333;
   border-bottom: 2px solid rgb(255, 219, 76);
 }

@@ -1,5 +1,5 @@
 class Category < ActiveRecord::Base
-  after_commit :regenerate_cache
+  include Cacheable
 
   has_many :options
 
@@ -28,16 +28,4 @@ class Category < ActiveRecord::Base
       "wood",
       "fertilizers and chemicals"]
 
-
-  def self.all_from_cache
-    Rails.cache.fetch("categories_all_#{I18n.locale}") do
-      categories = ActiveModel::ArraySerializer.new(Category.includes(:options), each_serializer: CategoryWithOptionsSerializer)
-    end
-  end
-
-
-  private
-    def regenerate_cache
-      Rails.cache.delete("categories_all_#{I18n.locale}")
-    end
 end

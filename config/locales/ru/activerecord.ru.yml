@@ -1,0 +1,18 @@
+ru:
+  activerecord:
+    attributes:
+      position:
+        trade_type: "Тип позиции"
+        title: "Название"
+        weight: "Вес"
+        weight_dimension: ""
+        weight_min: "Мин. заказ"
+        weight_min_dimension: ""
+        price: "Цена"
+        price_weight_dimension: ""
+        price_discount: "Допуск"
+        address: "Адрес"
+        description: "Описание позиции"
+        save_template: ""
+        template: "Шаблон"
+        status: "Статус"

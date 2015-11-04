@@ -1,11 +1,13 @@
-app.controller('SignInCtrl', ['$scope', '$mdDialog', function ($scope, $mdDialog) {
+app.controller('SignInCtrl', ['$scope', '$mdDialog', 'Sign', function ($scope, $mdDialog, Sign) {
   var ctrl = this;
 
   ctrl.cancel = function () {
     $mdDialog.cancel();
   }
 
-  ctrl.answer = function(answer) {
-    $mdDialog.hide(answer);
+  ctrl.sign_in = function(form) {
+    if (Sign.in(form)) {
+      $mdDialog.hide();
+    }
   }
 }])

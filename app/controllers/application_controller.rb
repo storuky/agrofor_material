@@ -9,19 +9,24 @@ class ApplicationController < ActionController::Base
     ActionView::Base.default_form_builder = AgroforFormBuilder
 
     gon.data = {
-      trade_types: Position.trade_types,
+      trade_types: TradeType.serialize.cache.all,
       weight_dimensions: WeightDimension.serialize.cache.all,
       options: Option.serialize.cache.all,
       currencies: Currency.serialize.cache.all,
-      index_by: {
-        currencies: Currency.serialize.cache.index_by,
-        weight_dimensions: WeightDimension.serialize.cache.index_by,
-        trade_types: Position.trade_types.index_by{|i| i[:id]}
+      by_index: {
+        currencies: Currency.serialize.cache.by_index,
+        weight_dimensions: WeightDimension.serialize.cache.by_index,
+        trade_types: Position.serialize.cache.by_index
       }
     }
 
-    gon.locale = {
-      currency: Currency.serialize.cache.find(1)
+    if current_user
+      gon.current_user = current_user.info
+    end
+
+    gon.settings = {
+      locale: I18n.locale,
+      currency: (gon.current_user.currency rescue Currency.serialize.cache.by_index[1])
     }
 
     render template: "layouts/application"

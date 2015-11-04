@@ -38,6 +38,7 @@ def create_position u
 end
 
 puts "Создание категории"
+Category.destroy_all
 Category::CATEGORY.each do |title|
   category = Category.where(title: title).first_or_create
 
@@ -47,13 +48,21 @@ Category::CATEGORY.each do |title|
 end
 
 
+puts "Создание типов позиций"
+TradeType.destroy_all
+TradeType::TRADETYPES.each do |trade_type|
+  TradeType.create(title: trade_type[:title], can_be_with: trade_type[:can_be_with])
+end
+
 puts "Создание размерности"
+WeightDimension.destroy_all
 WeightDimension::DIMENSIONS.each do |weight_dimension|
   WeightDimension.where(name: weight_dimension[:name]).first_or_create(:convert => weight_dimension[:convert])
 end
 
 
 puts "Создание валют"
+Currency.destroy_all
 Currency::CURRENCY.each do |currency|
   Currency.where(name: currency[:name]).first_or_create
 end
@@ -65,7 +74,7 @@ create_position admin
 
 
 puts "Создание пользователей"
-10.times do
+(10-User.count).times do
   u = User.create({
     email: Faker::Internet.free_email,
     fullname: Faker::Name.name,

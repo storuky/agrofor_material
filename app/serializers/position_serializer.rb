@@ -14,21 +14,21 @@ class PositionSerializer < ActiveModel::Serializer
     {
       id: object.user.id,
       fullname: object.user.fullname,
-      avatar: object.user.avatar.thumb.url
+      avatar: (object.user.avatar.thumb.url rescue nil)
     }
   end
 
   def status
     {
       id: object.status.to_sym,
-      title: I18n.t("position.status")[object.status.to_sym]
+      title: I18n.t("status")[object.try(:status).try(:to_sym)]
     }
   end
 
   def trade_type
     {
       id: object.trade_type_id,
-      title: I18n.t("position.dictionary.trade_types")[object.trade_type_id]
+      title: I18n.t("trade_type")[object.trade_type.try(:title).try(:to_sym)]
     }
   end
 
@@ -42,21 +42,21 @@ class PositionSerializer < ActiveModel::Serializer
   def weight_min_dimension
     {
       id: object.weight_min_dimension_id,
-      title: I18n.t("weight")[object.weight_min_dimension.try(:name).try(:to_sym)],
+      title: I18n.t("weight_dimension")[object.weight_min_dimension.try(:name).try(:to_sym)],
     }
   end
 
   def weight_dimension
     {
       id: object.weight_dimension_id,
-      title: I18n.t("weight")[object.weight_dimension.try(:name).try(:to_sym)]
+      title: I18n.t("weight_dimension")[object.weight_dimension.try(:name).try(:to_sym)]
     }
   end
 
   def price_weight_dimension
     {
       id: object.price_weight_dimension_id,
-      title: I18n.t("weight")[object.price_weight_dimension.try(:name).try(:to_sym)]
+      title: I18n.t("weight_dimension")[object.price_weight_dimension.try(:name).try(:to_sym)]
     }
   end
 end

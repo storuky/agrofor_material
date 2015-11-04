@@ -1,0 +1,11 @@
+ru:
+  currency:
+    AUD: "AUD"
+    CAD: "CAD"
+    CNY: "CNY"
+    EUR: "€"
+    GBP: "£"
+    JPY: "¥"
+    NZD: "NZD"
+    RUB: "руб"
+    USD: "$"

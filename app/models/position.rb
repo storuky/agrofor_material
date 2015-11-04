@@ -1,15 +1,12 @@
 class Position < ActiveRecord::Base
   include AASM
-
-  TRADE_TYPES_ASOCIATION = {1 => 2, 2 => 1}
+  include Cacheable
 
   geocoded_by :address, :latitude  => :lat, :longitude => :lng
 
   before_save :set_category_id
   before_save :set_etalon
   before_save :set_index_field
-
-  after_commit :regenerate_cache
 
   has_many :positions_offers, foreign_key: :offer_id
   has_many :positions, through: :positions_offers
@@ -30,8 +27,9 @@ class Position < ActiveRecord::Base
   belongs_to :price_weight_dimension, class_name: WeightDimension
   belongs_to :option
   belongs_to :category
+  belongs_to :trade_type
 
-  @@trade_types_ids = [1, 2]
+  @@trade_types_ids = TradeType.pluck(:id)
   @@dimensions_ids =  WeightDimension.pluck(:id)
   @@options_ids =  Option.pluck(:id)
 
@@ -78,19 +76,15 @@ class Position < ActiveRecord::Base
     end
   end
 
-  def self.trade_types
-    [{title: "Закупка", id: 1}, {title: "Продажа", id: 2}]
-  end
-
   def self.full
     includes(:offers, :positions_offers, :user, :option, :category, :weight_dimension, :price_weight_dimension, :weight_min_dimension, :currency, :images, :documents)
   end
 
   def self.filter filters = []
-    currencies = Currency.all
+    currencies = Currency.cache.all
     sql = []
     filters.each do |filter|
-      user_currency = Currency.serialize.cache.index_by[filter[:currency_id]]
+      user_currency = Currency.serialize.cache.by_index[filter[:currency_id]]
       
       query = {}
       query[:trade_type_id] = filter["trade_type_id"] if filter["trade_type_id"]
@@ -98,15 +92,14 @@ class Position < ActiveRecord::Base
 
       
       if filter["weight_from"] or filter["weight_to"]
-        weight_from = (filter["weight_from"] || 0).to_f * WeightDimension.serialize.cache.index_by[filter["weight_from_dimension_id"]][:convert] rescue 0
-        weight_to = (filter["weight_to"] || Float::INFINITY).to_f * WeightDimension.serialize.cache.index_by[filter["weight_to_dimension_id"]][:convert] rescue Float::INFINITY
-        # query[:weight_min_etalon] = (weight_from..Float::INFINITY)
+        weight_from = (filter["weight_from"] || 0).to_f * WeightDimension.serialize.cache.by_index[filter["weight_from_dimension_id"]][:convert] rescue 0
+        weight_to = (filter["weight_to"] || Float::INFINITY).to_f * WeightDimension.serialize.cache.by_index[filter["weight_to_dimension_id"]][:convert] rescue Float::INFINITY
         query[:weight_etalon] = (weight_from..weight_to)
       end
 
       if filter["price_from"] or filter["price_to"]
-        price_from = (filter["price_from"] || 0).to_f / WeightDimension.serialize.cache.index_by[filter["price_from_weight_dimension_id"]][:convert] rescue 0
-        price_to = (filter["price_to"] || Float::INFINITY).to_f / WeightDimension.serialize.cache.index_by[filter["price_to_weight_dimension_id"]][:convert] rescue Float::INFINITY
+        price_from = (filter["price_from"] || 0).to_f / WeightDimension.serialize.cache.by_index[filter["price_from_weight_dimension_id"]][:convert] rescue 0
+        price_to = (filter["price_to"] || Float::INFINITY).to_f / WeightDimension.serialize.cache.by_index[filter["price_to_weight_dimension_id"]][:convert] rescue Float::INFINITY
 
         price_sql = []
         currencies.each do |currency|
@@ -157,12 +150,12 @@ class Position < ActiveRecord::Base
         currency_id: position.currency_id
       }
 
+      res[:trade_type_id] = TradeType.cache.by_index[position.trade_type_id].trade_type_id
+
       if position.trade_type_id == 1
-        res[:trade_type_id] = 2
         res[:price_to] = position.price * (1 + position.price_discount/100.0)
         res[:price_to_weight_dimension_id] = position.price_weight_dimension_id
       elsif position.trade_type_id == 2
-        res[:trade_type_id] = 1
         res[:price_from] = position.price * (1 - position.price_discount/100.0)
         res[:price_from_weight_dimension_id] = position.price_weight_dimension_id
       end
@@ -174,24 +167,6 @@ class Position < ActiveRecord::Base
 
   def self.pluck_fields
     self.pluck(:id, :lat, :lng, :trade_type_id, :option_id, :weight, :weight_dimension_id, :price, :currency_id, :price_weight_dimension_id)
-  end
-
-  def self.from_cache id
-    Rails.cache.fetch("position_#{id}_#{I18n.locale}") do
-      Position.find(id)
-    end
-  end
-
-  def self.serialize_from_cache id
-    Rails.cache.fetch("serialize_position_#{id}_#{I18n.locale}") do
-      PositionSerializer.new(Position.from_cache(id), root: false).as_json
-    end
-  end
-
-  def self.all_from_cache
-    Rails.cache.fetch("positions_all_#{I18n.locale}") do
-      Position.all.pluck_fields
-    end
   end
 
 
@@ -214,7 +189,7 @@ class Position < ActiveRecord::Base
     #
 
     def set_category_id
-      self.category_id = Option.find(option_id).category_id
+      self.category_id = Option.cache.by_index[option_id].category_id
     end
 
     def set_index_field
@@ -222,37 +197,14 @@ class Position < ActiveRecord::Base
       [:en, :ru].each do |locale|
         temp << I18n.t('position.dictionary.trade_types', :locale => locale)[self.trade_type_id]
         temp << I18n.t('category.items.'+self.option.category.title, :locale => locale)
-        temp << I18n.t('option.'+Option.find(self.option_id).title, :locale => locale)
+        temp << I18n.t('option.'+Option.cache.by_index[option_id].title, :locale => locale)
       end
       self.index_field = temp.join(" ")
     end
 
     def set_etalon
-      self.weight_etalon = self.weight * WeightDimension.serialize.cache.index_by[self.weight_dimension_id][:convert]
-      self.weight_min_etalon = self.weight_min * WeightDimension.serialize.cache.index_by[self.weight_min_dimension_id][:convert]
-      self.price_etalon = self.price / WeightDimension.serialize.cache.index_by[self.price_weight_dimension_id][:convert]
+      self.weight_etalon = self.weight * WeightDimension.serialize.cache.by_index[self.weight_dimension_id][:convert]
+      self.weight_min_etalon = self.weight_min * WeightDimension.serialize.cache.by_index[self.weight_min_dimension_id][:convert]
+      self.price_etalon = self.price / WeightDimension.serialize.cache.by_index[self.price_weight_dimension_id][:convert]
     end
-    
-    #
-    # AFTER ACTION
-    #
-
-    def regenerate_cache
-      Rails.cache.delete("user_position_#{self.user_id}_#{self.id}_#{I18n.locale}")
-      Rails.cache.delete("user_offers_#{self.id}_#{I18n.locale}")
-
-      Position.statuses.each do |status|
-        Rails.cache.delete("user_positions_#{self.user_id}_#{status[:id]}_#{I18n.locale}")
-      end
-      
-      Rails.cache.delete("position_#{self.id}_#{I18n.locale}")
-      Rails.cache.delete("serialize_position_#{self.id}_#{I18n.locale}")
-      Rails.cache.delete("positions_all_#{I18n.locale}")
-
-      self.correspondences.pluck(:id).each do |correspondence_id|
-        Rails.cache.delete("correspondence_position_#{correspondence_id}_#{I18n.locale}")
-        Rails.cache.delete("correspondence_positions_#{correspondence_id}_#{I18n.locale}")
-      end
-    end
-
 end
