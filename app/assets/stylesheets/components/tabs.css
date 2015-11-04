@@ -1,0 +1,32 @@
+.noTabPanel md-tabs-wrapper {
+  display: none !important;
+}
+
+.tabs {
+
+}
+
+.tab {
+  display: inline-block;
+  font-size: 15px !important;
+  text-transform: inherit !important;
+  cursor: pointer;
+  background: white !important;
+  border-radius: 0 !important;
+  line-height: 30px !important;
+  min-height: 30px !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+}
+
+.tabs .tab:not(:last-child) {
+  margin: 0 10px 0 0 !important;
+}
+
+.tab.active {
+  border-bottom: 2px solid rgb(255, 74, 60);
+}
+
+.tab .md-ripple-container {
+  border-radius: 0 !important;
+}

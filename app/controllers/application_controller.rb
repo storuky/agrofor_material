@@ -13,10 +13,11 @@ class ApplicationController < ActionController::Base
       weight_dimensions: WeightDimension.serialize.cache.all,
       options: Option.serialize.cache.all,
       currencies: Currency.serialize.cache.all,
+      statuses: Position.statuses,
       by_index: {
         currencies: Currency.serialize.cache.by_index,
         weight_dimensions: WeightDimension.serialize.cache.by_index,
-        trade_types: Position.serialize.cache.by_index
+        trade_types: TradeType.serialize.cache.by_index
       }
     }
 

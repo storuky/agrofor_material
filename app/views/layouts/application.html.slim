@@ -2,15 +2,16 @@
 html ng-app="app"
   head
     meta charset="UTF-8"
+    meta name="viewport" content="width=device-width, initial-scale=1"
     title Agrofor
     link rel="icon" href="data:;base64,iVBORw0KGgo="
     link href='http://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'
     = stylesheet_link_tag 'application'
     = csrf_meta_tags
     base href="/"
-  body.ng-cloak
-    md-content[layout="row" class="wrapper"]
-      .left-panel[flex="none" hide-sm layout="column" scroll]
+  body.ng-cloak ng-controller="MainCtrl"
+    .wrapper[layout="row"]
+      md-sidenav.md-sidenav-left.md-whiteframe-z2.left-panel.hidden-scroll[flex="none" style="height: 100%" layout="column" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"]
         = render "layouts/left_panel"
       page[flex="auto"]
         ui-view

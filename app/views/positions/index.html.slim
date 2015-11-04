@@ -1,18 +1,35 @@
-<md-toolbar class="md-theme-light">
-  <h2 class="md-toolbar-tools">
-    <span>Full Bleed</span>
-  </h2>
-</md-toolbar>
-<md-content>
-  <md-list>
-    <md-list-item class="md-3-line" ng-repeat="item in messages">
-      <div class="md-list-item-text">
-        <h3>{{item.what}}</h3>
-        <h4>{{item.who}}</h4>
-        <p>{{item.notes}}</p>
-      </div>
-      <md-button class="md-secondary">Respond</md-button>
-      <md-divider ng-if="!$last"></md-divider>
-    </md-list-item>
-  </md-list>
-</md-content>
+md-toolbar[layout="row" layout-wrap layout-align="space-between center"]
+  .content-layout[flex="" style="padding: 15px 55px !important"]
+    div[layout="row" layout-wrap layout-align="space-between center"]
+      h1.md-title[flex="" flex-sm="100"]
+        toggle-nav.hide-gt-md id="left"
+        span Мои позиции
+
+      .hide-gt-sm style="height: 20px; width: 100%;"
+
+      div[flex="none" flex-sm=100]
+        .tabs.hide-sm
+          md-button.tab ng-repeat="status in gon.data.statuses" ng-class="{active: ctrl.currentTab == $index}" ng-click="ctrl.currentTab = $index"
+            | {{status.title}}
+        md-input-container.md-block.margin-0.hide-gt-sm
+          md-select[ng-model="ctrl.currentTab" placeholder="Статус"]
+            md-option ng-repeat="status in gon.data.statuses" value="{{status.id}}"
+              | {{status.title}}
+
+        
+      
+div
+  md-tabs[md-dynamic-height md-selected="ctrl.currentTab" class="noTabPanel"]
+    md-tab[ng-repeat="item in [1,2,3,4]" label="tab"]
+      md-list
+        md-list-item.md-3-line ng-repeat="item in messages"
+          .md-list-item-text.content-layout[style="padding: 0 44px !important"]
+            h3
+              | {{item.what}}
+            h4
+              | {{item.who}}
+            p
+              | {{item.notes}}
+          md-button.md-secondary
+            | Respond
+          md-divider ng-if="!$last"

@@ -1,4 +1,4 @@
-app.directive('location', ['$timeout', 'Map', function ($timeout, Map) {
+app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function ($timeout, Map, $mdMedia, $timeout) {
   // Runs during compile
   return {
     // name: '',
@@ -28,8 +28,6 @@ app.directive('location', ['$timeout', 'Map', function ($timeout, Map) {
               maxZoom: $scope.maxZoom || 15,
               suppressMapOpenBlock: true,
           });
-
-
 
           var marker = new ymaps.Placemark(
               $scope.info.lng ? [$scope.info.lat, $scope.info.lng] : center, serializePosition(), {
@@ -61,6 +59,14 @@ app.directive('location', ['$timeout', 'Map', function ($timeout, Map) {
             }
           }, true)
 
+          $scope.$watch(function () {
+            return $mdMedia('gt-md')
+          }, function (v) {
+            $timeout(function () {
+              map.container.fitToViewport()
+            }, 600)
+          })
+
 
           /*
           *  Lib
@@ -83,7 +89,7 @@ app.directive('location', ['$timeout', 'Map', function ($timeout, Map) {
               title: $scope.info.option ? $scope.info.option.title : 'Категория',
               weight_dimension: $scope.info.weight_dimension_id ? gon.data.by_index.weight_dimensions[$scope.info.weight_dimension_id].title : "",
               price: $scope.info.price || "0",
-              currency: gon.locale.currency.title,
+              currency: gon.settings.currency.title,
               price_weight_dimension: $scope.info.price_weight_dimension_id ? gon.data.by_index.weight_dimensions[$scope.info.price_weight_dimension_id].title : "",
             }
 

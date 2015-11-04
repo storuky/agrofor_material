@@ -71,8 +71,8 @@ class Position < ActiveRecord::Base
   end
 
   def self.statuses
-    Position.aasm.states.map do |state|
-      {id: state.name, title: I18n.t('position.status.'+state.name.to_s)}
+    Position.aasm.states.each_with_index.map do |state, index|
+      {id: index, name: state.name, title: I18n.t('position.status.'+state.name.to_s)}
     end
   end
 

@@ -8,11 +8,11 @@
 def create_position u
   lat = 55.831903 + Random.rand(-1.0..1.0)
   lng = 37.411961 + Random.rand(-1.0..1.0)
-  option = Random.rand(1..327)
+  option = Option.pluck(:id).sample
   weight = Random.rand(10..1000)
-  currency_id = Random.rand(1..8)
+  currency_id = Currency.pluck(:id).sample
   
-  weight_dimension_id = WeightDimension.all.sample.id
+  weight_dimension_id = WeightDimension.pluck(:id).sample
   params = {
       lat: lat,
       lng: lng,
@@ -29,7 +29,7 @@ def create_position u
       user_id: u.id,
       address: Faker::Address.street_address,
       city: Faker::Address.city,
-      trade_type_id: Random.rand(1..2),
+      trade_type_id: TradeType.pluck(:id).sample,
       description: Faker::Lorem.paragraph
   }
 
@@ -51,7 +51,7 @@ end
 puts "Создание типов позиций"
 TradeType.destroy_all
 TradeType::TRADETYPES.each do |trade_type|
-  TradeType.create(title: trade_type[:title], can_be_with: trade_type[:can_be_with])
+  TradeType.create(title: trade_type[:title], trade_type_id: trade_type[:trade_type_id])
 end
 
 puts "Создание размерности"

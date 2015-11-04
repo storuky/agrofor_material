@@ -1,3 +1,7 @@
 ru:
-  status:
-    opened: "Открыто"
+  position:
+    status:
+      opened: "Открыто"
+      in_process: "В процессе"
+      completed: "Завершенные"
+      archive: "Архив"
