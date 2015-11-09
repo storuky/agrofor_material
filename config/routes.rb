@@ -1,29 +1,26 @@
 Rails.application.routes.draw do
+  
   root to: "application#index"
 
-  scope :spa do
-    devise_for :users, controllers: {
-          sessions: 'users/sessions',
-          registrations: 'users/registrations'
-    }
+  devise_for :users, controllers: {
+        sessions: 'users/sessions',
+        registrations: 'users/registrations'
+  }
 
-    get 'search' => 'search#index'
-    get 'support' => 'support#index'
-    get 'help' => 'help#index'
-    get 'settings' => 'settings#index'
+  get 'search' => 'search#index'
+  get 'support' => 'support#index'
+  get 'help' => 'help#index'
+  get 'settings' => 'settings#index'
 
-    resources :positions
-    resources :favorites
-    resources :templates
-    resources :messages
-    resources :correspondences
-    resources :offers
-    resources :profile
-    
-    resources :positions
-  end
-
-  get '/*path' => 'application#index'
+  resources :positions
+  resources :favorites
+  resources :templates
+  resources :messages
+  resources :correspondences
+  resources :offers
+  resources :profile
+  
+  resources :positions
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

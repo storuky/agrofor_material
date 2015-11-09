@@ -1,0 +1,34 @@
+ui-view {
+  min-height: 100%;
+}
+
+.page {
+  top: 0;
+  left: 270px;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  overflow-y: auto;
+  transition: .5s;
+}
+
+.page-layout {
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 15px 0;
+}
+
+.page-header {
+  background: white;
+  border-bottom: 2px solid rgb(255, 219, 76);
+}
+
+.page-content {
+  background: white;
+}
+
+.page-header > .page-layout {
+  padding: 15px;
+}

@@ -1,0 +1,118 @@
+.table {
+  width: 100%;
+  border-spacing: 0;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.table > thead > tr > th {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.54);
+  white-space: nowrap;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > td {
+  text-align: left;
+}
+
+.table > thead > tr > th:first-child,
+.table > tbody > tr > td:first-child {
+  width: 18px;
+  padding: 0 24px;
+  width: 1px;
+}
+
+.table > thead > tr > th {
+  padding: 0 28px;
+}
+
+.table > thead > tr > th > div {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 56px;
+  line-height: 18px;
+}
+
+.table > thead > tr > th.numeric > div {
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.table > tbody > tr {
+  height: 48px;
+}
+
+.table > tbody > tr:hover {
+  background-color: #fafafa;
+}
+
+.table > tbody.active > tr:first-child {
+  background-color: #fafafa !important;
+}
+
+.table > tbody > tr > td {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.87);
+  border-top: 1px rgba(0, 0, 0, 0.12) solid;
+}
+
+.table > tbody > tr > th {
+  padding: 0 28px;
+}
+
+.table > tbody > tr > td {
+  padding: 0 28px;
+}
+
+.table > tbody > tr > td.btns {
+  padding: 0 0 0 28px;
+  white-space: nowrap;
+}
+
+.table > thead > tr > th:nth-child(2),
+.table > tbody > tr > td:nth-child(2) {
+  padding-left: 0;
+}
+
+.table > tbody > tr > td.numeric {
+  text-align: right;
+}
+
+.table > tbody > tr {
+  cursor: pointer;
+}
+
+.table tbody tr td i {
+  font-size: 20px;
+}
+
+.table > tbody > tr:nth-child(2) td {
+  box-shadow: 0px 6px 5px -4px rgba(0, 0, 0, 0.15) inset
+}
+
+.table > tbody > tr:not(:first-child) {
+  background-color: rgba(241, 241, 241, 0.83);
+  cursor: default;
+}
+
+.table > tbody > tr:not(:first-child) td {
+  color: rgba(0,0,0,.7);
+}
+
+.table > tbody:last-child > tr td {
+  border-bottom: 1px rgba(0, 0, 0, 0.12) solid;
+}
+
+.table > tbody > tr:not(:first-child):hover td {
+  color: black;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}

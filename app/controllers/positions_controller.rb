@@ -1,6 +1,15 @@
 class PositionsController < ApplicationController
-  def index
+  before_action :check_user
+  before_action :set_position, only: [:show, :destroy, :update, :edit]
 
+  def index
+    respond_to do |format|
+      format.html
+      format.json {
+        @positions = Position.all
+        render json: @positions, root: false
+      }
+    end
   end
 
   def new
@@ -8,11 +17,15 @@ class PositionsController < ApplicationController
   end
 
   def edit
-
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: @position, root: false
+      }
+    end
   end
 
   def show
-
   end
 
   def destroy
@@ -22,11 +35,11 @@ class PositionsController < ApplicationController
   def create
     respond_to do |format|
       format.json {
-        @position = Position.new position_params
+        @position = current_user.positions.new position_params
         if @position.save
           render json: {msg: "Позиция успешно создана"}
         else
-          render json: {errors: @position.errors, form: :position}, status: 422
+          render json: {errors: @position.errors}, status: 422
         end
       }
     end
@@ -37,6 +50,14 @@ class PositionsController < ApplicationController
   end
 
   private
+    def set_position
+      @position = current_user.positions.find_by(id: params[:id])
+
+      unless @position
+        render json: {msg: "Позиция не найдена", redirect_to: "positions_path"}, status: 404
+      end
+    end
+
     def position_params
       params.require(:position).permit(
         :title,

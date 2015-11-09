@@ -30,6 +30,6 @@ class User < ActiveRecord::Base
   end
 
   def info
-    self.as_json(only: [:fullname, :avatar, :phones, :city, :address, :lat, :lng, :company, :additional])
+    self.as_json(only: [:id, :fullname, :avatar, :phones, :city, :address, :lat, :lng, :company, :additional])
   end
 end

@@ -10,14 +10,15 @@ html ng-app="app"
     = csrf_meta_tags
     base href="/"
   body.ng-cloak ng-controller="MainCtrl"
-    .wrapper[layout="row"]
-      md-sidenav.md-sidenav-left.md-whiteframe-z2.left-panel.hidden-scroll[flex="none" style="height: 100%" layout="column" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"]
-        = render "layouts/left_panel"
-      page[flex="auto"]
-        ui-view
+    aside.sidebar.md-whiteframe-1dp
+      = render "layouts/sidebar"
+
+    .page
+      ui-view[layout="column"]
 
     = Gon::Base.render_data({})
     = render template: 'modals/index'
     = render template: 'components/index'
+    = render 'layouts/cache'
     script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"
     = javascript_include_tag 'application'

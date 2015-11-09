@@ -19,7 +19,7 @@
   min-width: 0 !important;
 }
 
-.tabs .tab:not(:last-child) {
+.tabs .tab {
   margin: 0 10px 0 0 !important;
 }
 

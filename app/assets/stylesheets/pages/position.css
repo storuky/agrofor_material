@@ -1,5 +1,5 @@
 .position-map {
-  height: 245px;
+  height: 220px;
 }
 
 .upload-image {
@@ -36,4 +36,28 @@
 
 .upload-file span {
   vertical-align: middle;
+}
+
+.positions-table > tbody > tr:not(:first-child) {
+  display: none;
+}
+
+.positions-table > tbody.active > tr:not(:first-child) {
+  display: table-row;
+}
+
+.positions-table tbody.active .icon-chevron-down {
+  display: inline-block;
+}
+
+.positions-table tbody.active .icon-chevron-right {
+  display: none;
+}
+
+.positions-table tbody:not(.active) .icon-chevron-down {
+  display: none;
+}
+
+.positions-table tbody:not(.active) .icon-chevron-right {
+  display: inline-block;
 }

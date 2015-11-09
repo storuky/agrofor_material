@@ -13,10 +13,11 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
     // restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
     // template: '',
     // templateUrl: '',
-    // replace: true,
+    replace: true,
     // transclude: true,
     // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
     link: function($scope, iElm, iAttrs, controller) {
+
       var center = [55.7, 37.6];
       ymaps.ready(function () {
         $timeout(function () {

@@ -8,6 +8,7 @@
 //= require oxymoron/underscore
 //= require oxymoron/ng-notify
 //= require oxymoron/perfect-scrollbar
+//= require oxymoron/store
 //= require oxymoron
 //= require angular-material
 //= require_self
@@ -15,10 +16,11 @@
 
 var app = angular.module('app', ['ui.router', 'oxymoron', 'ngMaterial', 'ngMessages', 'ngTouch'])
 
-app.run(['$rootScope', 'Sign', '$mdDialog', function ($rootScope, Sign, $mdDialog) {
+app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', function ($rootScope, Sign, $mdDialog, Cache) {
   $rootScope._ = _;
   $rootScope.gon = gon;
   $rootScope.Sign = Sign;
+  $rootScope.Cache = Cache;
 
   Sign.showLogin = function(ev) {
     $mdDialog.show({

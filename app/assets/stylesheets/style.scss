@@ -22,7 +22,27 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-
+.icon-message-text:before {
+	content: "\e90e";
+}
+.icon-pencil:before {
+	content: "\e90f";
+}
+.icon-eye:before {
+	content: "\e910";
+}
+.icon-chevron-up:before {
+	content: "\e90a";
+}
+.icon-chevron-right:before {
+	content: "\e90b";
+}
+.icon-chevron-left:before {
+	content: "\e90c";
+}
+.icon-chevron-down:before {
+	content: "\e90d";
+}
 .icon-menu:before {
 	content: "\e909";
 }
@@ -53,3 +73,5 @@
 .icon-magnify:before {
 	content: "\e906";
 }
+
+

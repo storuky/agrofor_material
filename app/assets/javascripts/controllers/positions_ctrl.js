@@ -1,45 +1,21 @@
-app.controller('PositionsCtrl', ['$scope', 'action', 'Position', function ($scope, action, Position) {
+app.controller('PositionsCtrl', ['$scope', '$stateParams', 'action', 'Position', 'Cache', function ($scope, $stateParams, action, Position, Cache) {
   var ctrl = this;
 
+
   action('index', function () {
-    $scope.messages = [{
-          face : 'imagePath',
-          what: 'Brunch this weekend?',
-          who: 'Min Li Chan',
-          when: '3:08PM',
-          notes: " I'll be in your neighborhood doing errands"
-        }, {
-          face : 'imagePath',
-          what: 'Brunch this weekend?',
-          who: 'Min Li Chan',
-          when: '3:08PM',
-          notes: " I'll be in your neighborhood doing errands"
-        }, {
-          face : 'imagePath',
-          what: 'Brunch this weekend?',
-          who: 'Min Li Chan',
-          when: '3:08PM',
-          notes: " I'll be in your neighborhood doing errands"
-        }, {
-          face : 'imagePath',
-          what: 'Brunch this weekend?',
-          who: 'Min Li Chan',
-          when: '3:08PM',
-          notes: " I'll be in your neighborhood doing errands"
-        }, {
-          face : 'imagePath',
-          what: 'Brunch this weekend?',
-          who: 'Min Li Chan',
-          when: '3:08PM',
-          notes: " I'll be in your neighborhood doing errands"
-        }];
+    ctrl.limitTo = 5;
+
+    // Position.query(function (res) {
+    //   Cache.set('positions', res)
+    // });
   })
 
   action('new', function () {
-    ctrl.save = Position.create
+    ctrl.save = Position.create;
   })
 
   action('edit', function () {
-    ctrl.save = Position.update
+    ctrl.position = Position.edit({id: $stateParams.id})
+    ctrl.save = Position.update;
   })
 }])

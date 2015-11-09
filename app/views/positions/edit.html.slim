@@ -5,12 +5,5 @@
         toggle-sidebar.hide-gt-md id="left"
         span Создать позицию
 
-      .hide-gt-sm style="height: 20px; width: 100%;"
-
-      md-input-container.margin-0[flex="none" flex-sm="100"]
-        md-select[ng-model="ctrl.template" placeholder="Шаблон"]
-          md-option ng-repeat="template in ctrl.templates" value="{{template.id}}"
-            | {{template.title}}
-
 .page-content.page-layout.md-whiteframe-1dp[flex="" layout="row" layout-wrap layout-padding-sm]
-  = render "positions/form"
+  = render "form"
