@@ -1,7 +1,9 @@
 app.service('Cache', [function () {
   var Cache = this;
 
-  angular.extend(Cache, store.get('cache'))
+  if (store.get('cache')) {
+    angular.extend(Cache, store.get('cache'))
+  }
 
   Cache.set = function (name, data) {
     if (!Cache[name] || JSON.stringify(data) != JSON.stringify(Cache.positions)) {

@@ -63,6 +63,8 @@
   cursor: pointer;
   white-space: nowrap;
   vertical-align: middle;
+  overflow: hidden;
+  position: relative;
 }
 
 .nav__link.active {

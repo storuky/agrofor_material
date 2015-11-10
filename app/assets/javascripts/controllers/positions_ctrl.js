@@ -1,13 +1,16 @@
-app.controller('PositionsCtrl', ['$scope', '$stateParams', 'action', 'Position', 'Cache', function ($scope, $stateParams, action, Position, Cache) {
+app.controller('PositionsCtrl', ['$scope', '$stateParams', 'action', 'Position', 'Cache', '$timeout', function ($scope, $stateParams, action, Position, Cache, $timeout) {
   var ctrl = this;
 
 
   action('index', function () {
+    $scope.Cache = Cache;
+
     ctrl.limitTo = 5;
 
-    // Position.query(function (res) {
-    //   Cache.set('positions', res)
-    // });
+    Position.query(function (res) {
+      Cache.set('positions', res)
+    });
+
   })
 
   action('new', function () {

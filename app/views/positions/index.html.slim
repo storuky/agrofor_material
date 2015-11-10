@@ -19,72 +19,72 @@
 
         
 .page-content.page-layout.md-whiteframe-1dp[flex=""]
-  / md-tabs[md-dynamic-height md-selected="ctrl.currentTab" class="noTabPanel"]
-    / md-tab[ng-repeat="item in [1, 2, 3, 4]" label="tab"]
-  .table-wrapper ng-init="limitTo = 10" ng-repeat="tab in [1, 2, 3, 4]" ng-show="ctrl.currentTab == $index"
-    table.table.positions-table
-      thead
-        tr
-          th
-            div
-          th
-            div Дата
-          th
-            div Категория
-          th.numeric
-            div Цена
-          th.numeric
-            div Вес
-          th.numeric
-            div Мин. вес
-          th
-      thead ng-if="!Cache.positions"
-        tr
-          td colspan="7"
-            md-progress-linear md-mode="indeterminate"
-      tbody ng-repeat="position in Cache.positions | limitTo:limitTo" ng-class="{active: opened}"
-        tr ng-click="opened = !opened"
-          td
-            i.icon-chevron-right
-            i.icon-chevron-down
-          td
-            | {{::position.created_at | date:"dd.MM.yyyy"}}
-          td
-            | {{::position.option.title}}
-          td.numeric
-            | {{::position.price | number:2}}
-            .dim
-              | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
-          td.numeric
-            | {{::position.weight | number}}
-            .dim
-              | {{::position.weight_dimension.title}}
-          td.numeric
-            | {{::position.weight_min | number}}
-            .dim
-              | {{::position.weight_min_dimension.title}}
-          td.btns ng-click="$event.stopPropagation()"
-            a.icon-btn ui-sref="edit_position_path(position)"
-              i.icon-pencil
-            a.icon-btn
-              i.icon-eye
-        tr ng-repeat="offer in [1,2,3]"
-          td
-          td
-            | {{::position.created_at | date:"dd.MM.yyyy"}}
-          td
-            | {{::position.option.title}}
-          td.numeric
-            | {{::position.price | number:2}} {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
-          td.numeric
-            | {{::position.weight | number}} {{::position.weight_dimension.title}}
-          td.numeric
-            | {{::position.weight_min | number}} {{::position.weight_min_dimension.title}}
-          td.btns
-            a.icon-btn
-              i.icon-message-text
-            a.icon-btn
-              i.icon-eye
-    .show-more
-      md-button.md-raised.md-lg ng-click="limitTo = limitTo + 10" ng-show="Cache.positions.length > limitTo" Показать еще
-      
+  md-tabs[md-dynamic-height md-selected="ctrl.currentTab" class="noTabPanel"]
+    md-tab[ng-repeat="item in [1, 2, 3, 4]" label="tab"]
+      .table-wrapper ng-init="limitTo = 10"
+        table.table.positions-table
+          thead
+            tr
+              th
+                div
+              th
+                div Дата
+              th
+                div Категория
+              th.numeric
+                div Цена
+              th.numeric
+                div Вес
+              th.numeric
+                div Мин. вес
+              th
+          thead ng-if="!Cache.positions"
+            tr
+              td colspan="7"
+                md-progress-linear md-mode="indeterminate"
+          tbody ng-repeat="position in Cache.positions | limitTo:limitTo" ng-class="{active: opened}"
+            tr ng-click="opened = !opened"
+              td
+                i.icon-chevron-right
+                i.icon-chevron-down
+              td
+                | {{::position.created_at | date:"dd.MM.yyyy"}}
+              td
+                | {{::position.option.title}}
+              td.numeric
+                | {{::position.price | number:2}}
+                .dim
+                  | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
+              td.numeric
+                | {{::position.weight | number}}
+                .dim
+                  | {{::position.weight_dimension.title}}
+              td.numeric
+                | {{::position.weight_min | number}}
+                .dim
+                  | {{::position.weight_min_dimension.title}}
+              td.btns ng-click="$event.stopPropagation()"
+                a.icon-btn ui-sref="edit_position_path(position)"
+                  i.icon-pencil
+                a.icon-btn
+                  i.icon-eye
+            tr ng-repeat="offer in [1,2,3]"
+              td
+              td
+                | {{::position.created_at | date:"dd.MM.yyyy"}}
+              td
+                | {{::position.option.title}}
+              td.numeric
+                | {{::position.price | number:2}} {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
+              td.numeric
+                | {{::position.weight | number}} {{::position.weight_dimension.title}}
+              td.numeric
+                | {{::position.weight_min | number}} {{::position.weight_min_dimension.title}}
+              td.btns
+                a.icon-btn
+                  i.icon-message-text
+                a.icon-btn
+                  i.icon-eye
+        .show-more
+          md-button.md-raised.md-lg ng-click="limitTo = limitTo + 10" ng-show="Cache.positions.length > limitTo" Показать еще
+          

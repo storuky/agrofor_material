@@ -2,6 +2,10 @@ class Position < ActiveRecord::Base
   include AASM
   include Cacheable
 
+  default_scope {
+    includes(:trade_type, :images, :documents, :user, :currency, :weight_dimension, :weight_min_dimension, :price_weight_dimension, :option, :category, :trade_type, option: [:category])
+  }
+
   geocoded_by :address, :latitude  => :lat, :longitude => :lng
 
   before_save :set_category_id
@@ -74,10 +78,6 @@ class Position < ActiveRecord::Base
     Position.aasm.states.each_with_index.map do |state, index|
       {id: index, name: state.name, title: I18n.t('position.status.'+state.name.to_s)}
     end
-  end
-
-  def self.full
-    includes(:offers, :positions_offers, :user, :option, :category, :weight_dimension, :price_weight_dimension, :weight_min_dimension, :currency, :images, :documents)
   end
 
   def self.filter filters = []

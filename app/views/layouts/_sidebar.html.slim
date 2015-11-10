@@ -9,24 +9,24 @@
     tr
       td.v-top
         nav.nav
-          a.nav__link ui-sref="search_path" ui-sref-active="active" ng-class="{active: $state.current.name=='root_path'}" Поиск
-          a.nav__link ui-sref="profile_path(gon.current_user)" ui-sref-active="active" Мой профиль
-          a.nav__link ui-sref="positions_path" ui-sref-active="active" Мои позиции
-          a.nav__link ui-sref="messages_path" ui-sref-active="active" Мои сообщения
-          a.nav__link ui-sref="help_path" ui-sref-active="active" Помощь
-          a.nav__link ui-sref="support_path" ui-sref-active="active" Поддержка
+          a.nav__link md-ink-ripple="" ui-sref="search_path" ui-sref-active="active" ng-class="{active: $state.current.name=='root_path'}" Поиск
+          a.nav__link md-ink-ripple="" ui-sref="profile_path(gon.current_user)" ui-sref-active="active" Мой профиль
+          a.nav__link md-ink-ripple="" ui-sref="positions_path" ui-sref-active="active" Мои позиции
+          a.nav__link md-ink-ripple="" ui-sref="messages_path" ui-sref-active="active" Мои сообщения
+          a.nav__link md-ink-ripple="" ui-sref="help_path" ui-sref-active="active" Помощь
+          a.nav__link md-ink-ripple="" ui-sref="support_path" ui-sref-active="active" Поддержка
     tr.h0
       td
         footer
-          a.nav__link ui-sref="settings_path"
+          a.nav__link md-ink-ripple="" ui-sref="settings_path"
             i.icon-settings
             span Настройки
           - if user_signed_in?
-            a.nav__link ng-click="Sign.out($event)"
+            a.nav__link md-ink-ripple="" ng-click="Sign.out($event)"
               i.icon-logout
               span Выход
           - else
-            a.nav__link ng-click="Sign.showLogin($event)"
+            a.nav__link md-ink-ripple="" ng-click="Sign.showLogin($event)"
               i.icon-login
               span Вход
 

@@ -20,7 +20,7 @@ app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', function ($rootScope, Sign,
   $rootScope._ = _;
   $rootScope.gon = gon;
   $rootScope.Sign = Sign;
-  $rootScope.Cache = Cache;
+  // $rootScope.Cache = Cache;
 
   Sign.showLogin = function(ev) {
     $mdDialog.show({
