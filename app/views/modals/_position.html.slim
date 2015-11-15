@@ -1,0 +1,182 @@
+script type="text/ng-template" id="position.tmpl.html"
+  md-dialog.position-modal aria-label="Mango (Fruit)"  ng-cloak=""
+    md-toolbar.position-modal__header
+      .position-modal__title
+        .position-modal__avatar
+          img src="/avatar.png" height="35"
+        .position-modal__fullname
+          | {{ctrl.position.user.fullname}}
+      .close ng-click="ctrl.close()"
+        .icon-close
+    md-dialog-content
+      = form_for Position.new, html: {class: "position_show"} do |f|
+        div[layout="row" layout-wrap layout-padding]
+          div[flex flex-sm=100]
+            md-input-container.md-block
+              label Пользователь
+              input[type="text" ng-model="ctrl.position.user.fullname" disabled]
+          div[flex-sm=100]
+            md-input-container.md-block
+              label Дата
+              md-icon.icon-calendar
+              input[type="text" ng-model="ctrl.position.created_at" disabled]
+        div[layout="row" layout-wrap layout-padding]
+          div[flex flex-sm=100]
+            md-input-container.md-block
+              label Тип
+              input[type="text" ng-model="ctrl.position.trade_type.title" disabled]
+          div[flex flex-sm=100]
+            md-input-container.md-block
+              label Категория
+              input[type="text" ng-model="ctrl.position.option.title" disabled]
+
+        div[layout="row" layout-wrap layout-padding]
+          div[flex]
+            md-input-container.md-block
+              = f.text_area :title, disabled: ""
+
+        div[layout="row" layout-padding layout-sm="column"]
+          div[layout="row" flex]
+            md-input-container[flex]
+              = f.text_field :weight, disabled: ""
+            md-input-container[flex="none"]
+              = f.select :weight_dimension, collection: "gon.data.weight_dimensions"
+
+          div[layout="row" flex style="min-width: 150px"]
+            md-input-container[flex]
+              = f.text_field :weight_min, disabled: ""
+            md-input-container[flex="none"]
+              = f.select :weight_min_dimension, collection: "gon.data.weight_dimensions"
+
+          div[layout="row" flex style="min-width: 180px"]
+            md-input-container[flex]
+              = f.text_field :price, disabled: ""
+              div ng-messages=""
+                div[ng-message style="color: green; padding: 0;white-space: nowrap"]
+                  | {{ctrl.position.price * gon.data.rates[ctrl.position.currency.id].rate | number:2}} {{gon.settings.currency.title}}/{{gon.data.by_index.weight_dimensions[ctrl.position.price_weight_dimension_id].title}}
+            md-input-container[flex="none" ng-if="ctrl.position.currency"]
+              = f.select :price_weight_dimension, prefix: "{{ctrl.position.currency.title}}/", collection: "gon.data.weight_dimensions"
+
+        div[layout="row" layout-padding]
+          div[flex=100]
+            md-input-container.md-block
+              = f.text_area :description, disabled: ""
+
+    md-dialog-actions.position-modal__footer[layout="row" layout-align="end center"]
+      md-button.md-raised.md-yellow.md-lg[flex-md="30" flex-sm="100"] Отправить предложение
+
+      /.position-modal__content
+        .position-modal__left
+          table.position-info
+            tr
+              td.dt Статус:
+              td.dd class="{{ctrl.position.status.id}}"
+                | {{ctrl.position.status.title}}
+            tr
+              td.dt Дата:
+              td.dd
+                | {{ctrl.position.created_at | date:"dd.MM.yyyy"}}
+            tr
+              td.dt Пользователь:
+              td.dd
+                a.link ui-sref="profile_path(ctrl.position.user)"
+                  | {{ctrl.position.user.fullname}}
+            tr
+              td.dt Тип:
+              td.dd
+                | {{ctrl.position.trade_type.title}}
+            tr
+              td.dt Категория:
+              td.dd
+                | {{ctrl.position.option.title}}
+            tr
+              td.dt Название:
+              td.dd
+                | {{ctrl.position.title}}
+            tr
+              td.dt Адрес:
+              td.dd
+                | {{ctrl.position.address}}
+            tr
+              td.dt Вес (объем):
+              td.dd
+                | {{ctrl.position.weight}} {{ctrl.position.weight_dimension.title}}
+            tr
+              td.dt Мин. заказ:
+              td.dd
+                | {{ctrl.position.weight_min}} {{ctrl.position.weight_min_dimension.title}}
+            tr
+              td.dt Цена:
+              td.dd
+                | {{ctrl.position.price}} {{ctrl.position.currency.title}}/{{ctrl.position.price_weight_dimension.title}}
+                div style="color: green"
+                  | по текущему курсу {{ctrl.position.price * gon.data.rates[ctrl.position.currency.id].rate | number:2}} {{gon.settings.currency.title}}/{{ctrl.position.price_weight_dimension.title}}
+            tr
+              td.dt Описание:
+              td.dd
+                | {{ctrl.position.description}}
+
+      /.position-modal__left scroll="" ng-hide="ctrl.spinner" rebuld="{{ctrl.position}}"
+        .row
+          label.col.label Статус:
+          .span class="{{ctrl.position.status.id}}"
+        .row
+          label.col.label Дата:
+          .span
+            | {{ctrl.position.created_at | date:"dd.MM.yyyy"}}
+        .row
+          label.col.label Пользователь:
+          .span
+            a.link ng-href="/profile/{{ctrl.position.user.id}}"
+              | {{ctrl.position.user.fullname}}
+        .row
+          label.col.label Тип:
+          .span
+            | {{ctrl.position.trade_type.title}}
+        .row
+          label.col.label Категория:
+          .span
+            | {{ctrl.position.category.title}} / {{ctrl.position.option.title}}
+        .row
+          label.col.label Название:
+          .span
+            | {{ctrl.position.title}}
+        
+        .row
+          label.col.label Регион:
+          .span
+            | {{ctrl.position.city}}
+        
+        .row
+          label.col.label Вес (объем):
+          .span
+            | {{ctrl.position.weight}} {{ctrl.position.weight_dimension.title}}
+        
+        .row ng-show="ctrl.position.weight_min"
+          label.col.label Мин. заказ:
+          .span
+            | {{ctrl.position.weight_min}} {{ctrl.position.weight_min_dimension.title}}
+        
+        .row
+          label.col.label Цена:
+          .span
+            | {{ctrl.position.price}} {{ctrl.position.currency.title}}/{{ctrl.ctive_position.price_weight_dimension.title}}
+            div style="color: green"
+              | по текущему курсу {{ctrl.position.price * gon.data.rates[ctrl.position.urrency.id].rate | number:2}} {{gon.user.currency.title}}/{{ctrl.position.rice_weight_dimension.title}}
+        
+        .row ng-show="ctrl.position.description"
+          label.col.label Описание:
+          .span
+            | {{ctrl.position.description}}
+
+      /.position-modal__right ng-hide="ctrl.spinner"
+        label.label Прикрепленные документы:
+        .position-modal__photos.dcbox scroll="" axis="x" rebuild="{{Search.position_info.photos.ength}}" ng-class="{'no-photo': !Search.position_info.photos.length}"
+          .no-result ng-show="!Search.position_info.photos.length"
+            | #{t "position.dictionary.attached_images_no"}
+          a ng-href="{{photo.photo.url}}" ng-repeat="photo in Search.position_info.photos"
+            img ng-src="{{photo.photo.thumb.url}}" height="70"
+        div ng-hide="ctrl.position.user_id == gon.user.info.id"
+           label.label Выберите подходящую позицию:
+           suitable ng-click="ctrl.suit_position ? '' : Page.goToCreateSuitable(ctrl.position.id)" positions="ctrl.suit_positions" ng-model="ctrl.suit_position"
+           button.btn.btn-primary.position-modal__send-offer.ripple ng-disabled="!ctrl.suit_position" ng-click="ctrl.sendOffer(ctrl.position.id, ctrl.suit_position)" Отправить предложение

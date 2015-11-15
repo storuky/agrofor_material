@@ -11,6 +11,10 @@ class PositionSerializer < ActiveModel::Serializer
   has_many :images, serializer: ImageSerializer
   has_many :documents, serializer: DocumentSerializer
 
+  def created_at
+    I18n.l object.created_at.to_date
+  end
+
   def user
     {
       id: object.user.id,

@@ -47,7 +47,7 @@
       div[layout-gt-md="row" layout-padding-sm]
         div[flex=100]
           md-input-container.md-block
-            = f.text_field :address, class: "md-block", suggest: "", lat: "ctrl.position.lat", lng: "ctrl.position.lng", rebuild: "ctrl.position.lat"    
+            = f.text_field :address, class: "md-block", suggest: "", lat: "ctrl.position.lat", lng: "ctrl.position.lng", rebuild: "ctrl.position.lat"
 
     div[layout="column" flex=100]
       div[layout="row" layout-padding-sm]
@@ -68,6 +68,6 @@
             span Прикрепить документы
  
 
-  div[layout="row" layout-align="end center"]
+  div[layout="row"]
     md-button.md-raised.md-yellow.md-lg[flex-md="30" flex-sm="100"]
       | Сохранить

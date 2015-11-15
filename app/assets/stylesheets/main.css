@@ -17,19 +17,6 @@ body {
   visibility: hidden !important;
 }
 
-.md-yellow, .md-yellow.md-button {
-  background: rgb(255, 219, 76);
-  color: #2b2b2b;
-  text-decoration: none;
-  overflow: hidden;
-  position: relative;
-  text-align: center;
-}
-
-.md-yellow:not([disabled]):hover, .md-yellow.md-button:not([disabled]):hover {
-  background: rgb(255, 226, 110);
-}
-
 h1 {
   color: #333;
   margin: 0;
@@ -132,4 +119,33 @@ h1 {
 
 .show-more {
   text-align: center;
+}
+
+.title {
+  font-size: 20px;
+  padding: 18px 12px 0 18px;
+}
+
+.close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: red;
+}
+
+.overflow {
+  overflow: hidden !important;
+}
+
+a.link {
+  color: #2278cc;
+}
+
+a.link:active {
+  color: red;
 }

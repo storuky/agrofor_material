@@ -5,7 +5,7 @@
   height: 100%;
   overflow: hidden;
   position: relative;
-  z-index: 60;
+  z-index: 999;
   margin: 0;
   transition: .5s;
 }
@@ -87,9 +87,35 @@
   vertical-align: middle;
 }
 
+.nav__profile {
+  border-top: 1px solid #d8d8d8;
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.nav__profile img {
+  width: 50px;
+  border-radius: 60px;
+  float: left;
+  margin-right: 15px;
+}
+
+.nav__profile__fio {
+  padding: 10px 0 0 0;
+}
+
+.nav__profile__status {
+  font-size: 13px;
+  color: rgba(119, 119, 119, 0.81);
+}
+
 footer {
   text-align: left;
   background: #f0f0f0;
   margin-top: 20px;
   transition: 0.3s;
 }
+
+footer .nav__link:hover {
+  background: #e7e7e7;
+}
+

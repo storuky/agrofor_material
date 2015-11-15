@@ -10,6 +10,11 @@ ui-view {
   position: absolute;
   overflow-y: auto;
   transition: .5s;
+  overflow-x: hidden;
+}
+
+.page md-backdrop {
+  display: none;
 }
 
 .page-layout {

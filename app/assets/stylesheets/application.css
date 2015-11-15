@@ -27,3 +27,11 @@
     left: 0;
   }
 }
+
+@media screen and (max-width: 700px) {
+  .search__extended {
+    left: 0;
+    margin-left: 0;
+    margin-top: 23px;
+  }
+}

@@ -1,4 +1,4 @@
-app.service('Map', [function () {
+app.service('Map', ['pluralize', '$location', 'Position', function (pluralize, $location, Position) {
   var Map = this;
 
   ymaps.ready(function () {
@@ -24,8 +24,10 @@ app.service('Map', [function () {
             Map.markerLayout.superclass.build.call(this);
             this._events = ymaps.domEvent.manager.group(this.getElement());
             this._events.add('click', function (event) {
-              if (this.getData().properties.get('id')) {
-                alert(111)
+              var id = this.getData().properties.get('id');
+              if (id) {
+                $location.search({id: id});
+                Position.openModal(id);
               }
             }, this);
           },

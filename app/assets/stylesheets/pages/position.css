@@ -1,63 +1,117 @@
 .position-map {
   height: 220px;
 }
-
 .upload-image {
   height: 125px;
   width: 125px;
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   cursor: pointer;
   text-align: center;
   padding: 45px 0;
   color: #6A6A6A;
   margin: 0;
 }
-
 .upload-image i {
   font-size: 35px;
 }
-
 .upload-image__label {
   font-size: 10px;
 }
-
 .upload-file {
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   padding: 0 14px 0 12px;
   margin: 0;
   color: #6A6A6A;
 }
-
 .upload-file i {
   font-size: 18px;
   vertical-align: middle;
   padding-right: 5px;
 }
-
 .upload-file span {
   vertical-align: middle;
 }
-
 .positions-table > tbody > tr:not(:first-child) {
   display: none;
 }
-
 .positions-table > tbody.active > tr:not(:first-child) {
   display: table-row;
 }
-
 .positions-table tbody.active .icon-chevron-down {
   display: inline-block;
 }
-
 .positions-table tbody.active .icon-chevron-right {
   display: none;
 }
-
 .positions-table tbody:not(.active) .icon-chevron-down {
   display: none;
 }
-
 .positions-table tbody:not(.active) .icon-chevron-right {
   display: inline-block;
+}
+.position-modal {
+  width: 760px;
+  max-width: 100%;
+  margin: 15px;
+  overflow-x: hidden;
+}
+.position-modal__left {
+  padding: 10px;
+}
+.position-modal__header {
+  height: 50px !important;
+  padding: 15px 18px;
+  background: transparent !important;
+  color: #272727 !important;
+  box-shadow: 0px 0px 16px 12px #FFF;
+}
+.position-modal__fullname {
+  display: inline-block;
+  vertical-align: top;
+  padding: 8px;
+}
+.position-modal__avatar {
+  display: inline-block;
+}
+.position-modal__title {
+  font-size: 16px;
+}
+
+.position_show {
+  padding: 0px;
+}
+
+md-icon.icon-calendar {
+  font-size: 22px;
+  color: #5C5C5C;
+}
+
+.position_show md-input-container.md-default-theme .md-input[disabled],
+.position_show md-input-container .md-input[disabled],
+.position_show md-input-container.md-default-theme .md-input [disabled],
+.position_show md-input-container .md-input [disabled] {
+  color: rgba(0,0,0,0.87);
+  border-color: rgba(0,0,0,0.12);
+  background-image: none;
+  -webkit-appearance: none;
+  opacity: 1;
+}
+
+md-dialog.position-modal md-dialog-content {
+  -webkit-order: 0; 
+  -ms-flex-order: 0;
+  order: 0;
+}
+
+.position-modal__footer {
+  padding: 6px 10px;
+  background: #f0f0f0;
+  overflow: hidden;
+  text-align: right;
+  height: 65px;
+  min-height: 65px;
+}
+
+.position_show md-input-container {
+  margin: 8px 0;
 }

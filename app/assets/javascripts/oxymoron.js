@@ -17,6 +17,20 @@
      *  $stateProvider Rails
     */
 
+    var resolve = function (action) {
+      return function (actionNames, callback) {
+        try {
+          var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
+          
+          if (actionNames.indexOf(action)!=-1) {
+            callback();
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+
     $stateProvider.rails = function () {
       $stateProvider
       
@@ -25,22 +39,11 @@
           templateUrl: function(params) {
             return Routes['root_path'](params);
           },
-          // templateUrl: '/',
           reloadOnSearch: false,
           controller: 'ApplicationCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('index')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('index')
             }
           }
         })
@@ -50,22 +53,11 @@
           templateUrl: function(params) {
             return Routes['new_user_session_path'](params);
           },
-          // templateUrl: '/users/sign_in',
           reloadOnSearch: false,
           controller: 'UsersSessionsCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('new')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('new')
             }
           }
         })
@@ -75,22 +67,11 @@
           templateUrl: function(params) {
             return Routes['new_user_password_path'](params);
           },
-          // templateUrl: '/users/password/new',
           reloadOnSearch: false,
           controller: 'DevisePasswordsCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('new')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('new')
             }
           }
         })
@@ -100,22 +81,11 @@
           templateUrl: function(params) {
             return Routes['edit_user_password_path'](params);
           },
-          // templateUrl: '/users/password/edit',
           reloadOnSearch: false,
           controller: 'DevisePasswordsCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('edit')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('edit')
             }
           }
         })
@@ -125,22 +95,11 @@
           templateUrl: function(params) {
             return Routes['cancel_user_registration_path'](params);
           },
-          // templateUrl: '/users/cancel',
           reloadOnSearch: false,
           controller: 'UsersRegistrationsCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('cancel')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('cancel')
             }
           }
         })
@@ -150,22 +109,11 @@
           templateUrl: function(params) {
             return Routes['new_user_registration_path'](params);
           },
-          // templateUrl: '/users/sign_up',
           reloadOnSearch: false,
           controller: 'UsersRegistrationsCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('new')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('new')
             }
           }
         })
@@ -175,47 +123,39 @@
           templateUrl: function(params) {
             return Routes['edit_user_registration_path'](params);
           },
-          // templateUrl: '/users/edit',
           reloadOnSearch: false,
           controller: 'UsersRegistrationsCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('edit')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('edit')
             }
           }
         })
       
-        .state('search_path', {
-          url: '/search',
+        .state('map_path', {
+          url: '/search/map',
           templateUrl: function(params) {
-            return Routes['search_path'](params);
+            return Routes['map_path'](params);
           },
-          // templateUrl: '/search',
           reloadOnSearch: false,
           controller: 'SearchCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('index')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('map')
+            }
+          }
+        })
+      
+        .state('list_path', {
+          url: '/search/list',
+          templateUrl: function(params) {
+            return Routes['list_path'](params);
+          },
+          reloadOnSearch: false,
+          controller: 'SearchCtrl as ctrl',
+          resolve: {
+            action: function () {
+              return resolve('list')
             }
           }
         })
@@ -225,22 +165,11 @@
           templateUrl: function(params) {
             return Routes['support_path'](params);
           },
-          // templateUrl: '/support',
           reloadOnSearch: false,
           controller: 'SupportCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('index')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('index')
             }
           }
         })
@@ -250,22 +179,11 @@
           templateUrl: function(params) {
             return Routes['help_path'](params);
           },
-          // templateUrl: '/help',
           reloadOnSearch: false,
           controller: 'HelpCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('index')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('index')
             }
           }
         })
@@ -275,22 +193,11 @@
           templateUrl: function(params) {
             return Routes['settings_path'](params);
           },
-          // templateUrl: '/settings',
           reloadOnSearch: false,
           controller: 'SettingsCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('index')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('index')
             }
           }
         })
@@ -300,22 +207,11 @@
           templateUrl: function(params) {
             return Routes['positions_path'](params);
           },
-          // templateUrl: '/positions',
           reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('index')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('index')
             }
           }
         })
@@ -325,22 +221,11 @@
           templateUrl: function(params) {
             return Routes['new_position_path'](params);
           },
-          // templateUrl: '/positions/new',
           reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('new')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('new')
             }
           }
         })
@@ -350,22 +235,11 @@
           templateUrl: function(params) {
             return Routes['edit_position_path'](params);
           },
-          // templateUrl: '/positions/:id/edit',
           reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('edit')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('edit')
             }
           }
         })
@@ -375,22 +249,11 @@
           templateUrl: function(params) {
             return Routes['position_path'](params);
           },
-          // templateUrl: '/positions/:id',
           reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('show')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('show')
             }
           }
         })
@@ -400,22 +263,11 @@
           templateUrl: function(params) {
             return Routes['favorites_path'](params);
           },
-          // templateUrl: '/favorites',
           reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('index')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('index')
             }
           }
         })
@@ -425,22 +277,11 @@
           templateUrl: function(params) {
             return Routes['new_favorite_path'](params);
           },
-          // templateUrl: '/favorites/new',
           reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('new')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('new')
             }
           }
         })
@@ -450,22 +291,11 @@
           templateUrl: function(params) {
             return Routes['edit_favorite_path'](params);
           },
-          // templateUrl: '/favorites/:id/edit',
           reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('edit')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('edit')
             }
           }
         })
@@ -475,22 +305,11 @@
           templateUrl: function(params) {
             return Routes['favorite_path'](params);
           },
-          // templateUrl: '/favorites/:id',
           reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('show')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('show')
             }
           }
         })
@@ -500,22 +319,11 @@
           templateUrl: function(params) {
             return Routes['templates_path'](params);
           },
-          // templateUrl: '/templates',
           reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('index')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('index')
             }
           }
         })
@@ -525,22 +333,11 @@
           templateUrl: function(params) {
             return Routes['new_template_path'](params);
           },
-          // templateUrl: '/templates/new',
           reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('new')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('new')
             }
           }
         })
@@ -550,22 +347,11 @@
           templateUrl: function(params) {
             return Routes['edit_template_path'](params);
           },
-          // templateUrl: '/templates/:id/edit',
           reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('edit')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('edit')
             }
           }
         })
@@ -575,22 +361,11 @@
           templateUrl: function(params) {
             return Routes['template_path'](params);
           },
-          // templateUrl: '/templates/:id',
           reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('show')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('show')
             }
           }
         })
@@ -600,22 +375,11 @@
           templateUrl: function(params) {
             return Routes['messages_path'](params);
           },
-          // templateUrl: '/messages',
           reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('index')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('index')
             }
           }
         })
@@ -625,22 +389,11 @@
           templateUrl: function(params) {
             return Routes['new_message_path'](params);
           },
-          // templateUrl: '/messages/new',
           reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('new')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('new')
             }
           }
         })
@@ -650,22 +403,11 @@
           templateUrl: function(params) {
             return Routes['edit_message_path'](params);
           },
-          // templateUrl: '/messages/:id/edit',
           reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('edit')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('edit')
             }
           }
         })
@@ -675,22 +417,11 @@
           templateUrl: function(params) {
             return Routes['message_path'](params);
           },
-          // templateUrl: '/messages/:id',
           reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('show')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('show')
             }
           }
         })
@@ -700,22 +431,11 @@
           templateUrl: function(params) {
             return Routes['correspondences_path'](params);
           },
-          // templateUrl: '/correspondences',
           reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('index')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('index')
             }
           }
         })
@@ -725,22 +445,11 @@
           templateUrl: function(params) {
             return Routes['new_correspondence_path'](params);
           },
-          // templateUrl: '/correspondences/new',
           reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('new')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('new')
             }
           }
         })
@@ -750,22 +459,11 @@
           templateUrl: function(params) {
             return Routes['edit_correspondence_path'](params);
           },
-          // templateUrl: '/correspondences/:id/edit',
           reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('edit')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('edit')
             }
           }
         })
@@ -775,22 +473,11 @@
           templateUrl: function(params) {
             return Routes['correspondence_path'](params);
           },
-          // templateUrl: '/correspondences/:id',
           reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('show')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('show')
             }
           }
         })
@@ -800,22 +487,11 @@
           templateUrl: function(params) {
             return Routes['offers_path'](params);
           },
-          // templateUrl: '/offers',
           reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('index')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('index')
             }
           }
         })
@@ -825,22 +501,11 @@
           templateUrl: function(params) {
             return Routes['new_offer_path'](params);
           },
-          // templateUrl: '/offers/new',
           reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('new')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('new')
             }
           }
         })
@@ -850,22 +515,11 @@
           templateUrl: function(params) {
             return Routes['edit_offer_path'](params);
           },
-          // templateUrl: '/offers/:id/edit',
           reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('edit')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('edit')
             }
           }
         })
@@ -875,22 +529,11 @@
           templateUrl: function(params) {
             return Routes['offer_path'](params);
           },
-          // templateUrl: '/offers/:id',
           reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('show')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('show')
             }
           }
         })
@@ -900,22 +543,11 @@
           templateUrl: function(params) {
             return Routes['profile_index_path'](params);
           },
-          // templateUrl: '/profile',
           reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('index')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('index')
             }
           }
         })
@@ -925,22 +557,11 @@
           templateUrl: function(params) {
             return Routes['new_profile_path'](params);
           },
-          // templateUrl: '/profile/new',
           reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('new')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('new')
             }
           }
         })
@@ -950,22 +571,11 @@
           templateUrl: function(params) {
             return Routes['edit_profile_path'](params);
           },
-          // templateUrl: '/profile/:id/edit',
           reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('edit')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('edit')
             }
           }
         })
@@ -975,22 +585,11 @@
           templateUrl: function(params) {
             return Routes['profile_path'](params);
           },
-          // templateUrl: '/profile/:id',
           reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('show')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('show')
             }
           }
         })
@@ -1000,22 +599,11 @@
           templateUrl: function(params) {
             return Routes['rails_info_properties_path'](params);
           },
-          // templateUrl: '/rails/info/properties',
           reloadOnSearch: false,
           controller: 'RailsInfoCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('properties')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('properties')
             }
           }
         })
@@ -1025,22 +613,11 @@
           templateUrl: function(params) {
             return Routes['rails_info_routes_path'](params);
           },
-          // templateUrl: '/rails/info/routes',
           reloadOnSearch: false,
           controller: 'RailsInfoCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('routes')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('routes')
             }
           }
         })
@@ -1050,22 +627,11 @@
           templateUrl: function(params) {
             return Routes['rails_info_path'](params);
           },
-          // templateUrl: '/rails/info',
           reloadOnSearch: false,
           controller: 'RailsInfoCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('index')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('index')
             }
           }
         })
@@ -1075,22 +641,11 @@
           templateUrl: function(params) {
             return Routes['rails_mailers_path'](params);
           },
-          // templateUrl: '/rails/mailers',
           reloadOnSearch: false,
           controller: 'RailsMailersCtrl as ctrl',
           resolve: {
             action: function () {
-              return function (actionNames, callback) {
-                try {
-                  var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
-                  
-                  if (actionNames.indexOf('index')!=-1) {
-                    callback();
-                  }
-                } catch (e) {
-                  console.error(e);
-                }
-              }
+              return resolve('index')
             }
           }
         })
@@ -1101,8 +656,7 @@
 
   .config(['$provide',
     function($provide) {
-      $provide.decorator('$state', function($delegate) {
-
+      $provide.decorator('$state', ['$delegate', function($delegate) {
         var state = $delegate;
         state.baseGo = state.go;
 
@@ -1117,7 +671,7 @@
         state.go = go;
 
         return $delegate;
-      });
+      }]);
     }
   ])
 
@@ -1165,40 +719,46 @@
   */
   window.Resources = {}
 
+  angular.module('oxymoron').factory('resourceBinder', [function () {
+    return function(resource) {
+      return resource;
+    };
+  }]);
+
   
     Resources['Position'] = {"new":{"method":"GET","url":"/positions/:id/new.json"},"edit":{"method":"GET","url":"/positions/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}};
-    angular.module('oxymoron').factory('Position', ['$resource', function ($resource) {
-      return $resource('/positions/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/positions/:id/new.json"},"edit":{"method":"GET","url":"/positions/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}})
+    angular.module('oxymoron').factory('Position', ['$resource', 'resourceBinder', function ($resource, resourceBinder) {
+      return resourceBinder($resource('/positions/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/positions/:id/new.json"},"edit":{"method":"GET","url":"/positions/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
     }])
   
     Resources['Favorite'] = {"new":{"method":"GET","url":"/favorites/:id/new.json"},"edit":{"method":"GET","url":"/favorites/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}};
-    angular.module('oxymoron').factory('Favorite', ['$resource', function ($resource) {
-      return $resource('/favorites/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/favorites/:id/new.json"},"edit":{"method":"GET","url":"/favorites/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}})
+    angular.module('oxymoron').factory('Favorite', ['$resource', 'resourceBinder', function ($resource, resourceBinder) {
+      return resourceBinder($resource('/favorites/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/favorites/:id/new.json"},"edit":{"method":"GET","url":"/favorites/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
     }])
   
     Resources['Template'] = {"new":{"method":"GET","url":"/templates/:id/new.json"},"edit":{"method":"GET","url":"/templates/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}};
-    angular.module('oxymoron').factory('Template', ['$resource', function ($resource) {
-      return $resource('/templates/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/templates/:id/new.json"},"edit":{"method":"GET","url":"/templates/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}})
+    angular.module('oxymoron').factory('Template', ['$resource', 'resourceBinder', function ($resource, resourceBinder) {
+      return resourceBinder($resource('/templates/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/templates/:id/new.json"},"edit":{"method":"GET","url":"/templates/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
     }])
   
     Resources['Message'] = {"new":{"method":"GET","url":"/messages/:id/new.json"},"edit":{"method":"GET","url":"/messages/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}};
-    angular.module('oxymoron').factory('Message', ['$resource', function ($resource) {
-      return $resource('/messages/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/messages/:id/new.json"},"edit":{"method":"GET","url":"/messages/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}})
+    angular.module('oxymoron').factory('Message', ['$resource', 'resourceBinder', function ($resource, resourceBinder) {
+      return resourceBinder($resource('/messages/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/messages/:id/new.json"},"edit":{"method":"GET","url":"/messages/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
     }])
   
     Resources['Correspondence'] = {"new":{"method":"GET","url":"/correspondences/:id/new.json"},"edit":{"method":"GET","url":"/correspondences/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}};
-    angular.module('oxymoron').factory('Correspondence', ['$resource', function ($resource) {
-      return $resource('/correspondences/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/correspondences/:id/new.json"},"edit":{"method":"GET","url":"/correspondences/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}})
+    angular.module('oxymoron').factory('Correspondence', ['$resource', 'resourceBinder', function ($resource, resourceBinder) {
+      return resourceBinder($resource('/correspondences/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/correspondences/:id/new.json"},"edit":{"method":"GET","url":"/correspondences/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
     }])
   
     Resources['Offer'] = {"new":{"method":"GET","url":"/offers/:id/new.json"},"edit":{"method":"GET","url":"/offers/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}};
-    angular.module('oxymoron').factory('Offer', ['$resource', function ($resource) {
-      return $resource('/offers/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/offers/:id/new.json"},"edit":{"method":"GET","url":"/offers/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}})
+    angular.module('oxymoron').factory('Offer', ['$resource', 'resourceBinder', function ($resource, resourceBinder) {
+      return resourceBinder($resource('/offers/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/offers/:id/new.json"},"edit":{"method":"GET","url":"/offers/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
     }])
   
     Resources['Profile'] = {"new":{"method":"GET","url":"/profile/:id/new.json"},"edit":{"method":"GET","url":"/profile/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}};
-    angular.module('oxymoron').factory('Profile', ['$resource', function ($resource) {
-      return $resource('/profile/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/profile/:id/new.json"},"edit":{"method":"GET","url":"/profile/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}})
+    angular.module('oxymoron').factory('Profile', ['$resource', 'resourceBinder', function ($resource, resourceBinder) {
+      return resourceBinder($resource('/profile/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/profile/:id/new.json"},"edit":{"method":"GET","url":"/profile/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
     }])
   
 
@@ -1350,7 +910,7 @@
 (function () {
   var Routes = function () {
     var self = this,
-        routes = {"root":"/","new_user_session":"/users/sign_in","user_session":"/users/sign_in","destroy_user_session":"/users/sign_out","user_password":"/users/password","new_user_password":"/users/password/new","edit_user_password":"/users/password/edit","cancel_user_registration":"/users/cancel","user_registration":"/users","new_user_registration":"/users/sign_up","edit_user_registration":"/users/edit","search":"/search","support":"/support","help":"/help","settings":"/settings","positions":"/positions","new_position":"/positions/new","edit_position":"/positions/:id/edit","position":"/positions/:id","favorites":"/favorites","new_favorite":"/favorites/new","edit_favorite":"/favorites/:id/edit","favorite":"/favorites/:id","templates":"/templates","new_template":"/templates/new","edit_template":"/templates/:id/edit","template":"/templates/:id","messages":"/messages","new_message":"/messages/new","edit_message":"/messages/:id/edit","message":"/messages/:id","correspondences":"/correspondences","new_correspondence":"/correspondences/new","edit_correspondence":"/correspondences/:id/edit","correspondence":"/correspondences/:id","offers":"/offers","new_offer":"/offers/new","edit_offer":"/offers/:id/edit","offer":"/offers/:id","profile_index":"/profile","new_profile":"/profile/new","edit_profile":"/profile/:id/edit","profile":"/profile/:id","rails_info_properties":"/rails/info/properties","rails_info_routes":"/rails/info/routes","rails_info":"/rails/info","rails_mailers":"/rails/mailers"};
+        routes = {"root":"/","new_user_session":"/users/sign_in","user_session":"/users/sign_in","destroy_user_session":"/users/sign_out","user_password":"/users/password","new_user_password":"/users/password/new","edit_user_password":"/users/password/edit","cancel_user_registration":"/users/cancel","user_registration":"/users","new_user_registration":"/users/sign_up","edit_user_registration":"/users/edit","map":"/search/map","list":"/search/list","support":"/support","help":"/help","settings":"/settings","positions":"/positions","new_position":"/positions/new","edit_position":"/positions/:id/edit","position":"/positions/:id","favorites":"/favorites","new_favorite":"/favorites/new","edit_favorite":"/favorites/:id/edit","favorite":"/favorites/:id","templates":"/templates","new_template":"/templates/new","edit_template":"/templates/:id/edit","template":"/templates/:id","messages":"/messages","new_message":"/messages/new","edit_message":"/messages/:id/edit","message":"/messages/:id","correspondences":"/correspondences","new_correspondence":"/correspondences/new","edit_correspondence":"/correspondences/:id/edit","correspondence":"/correspondences/:id","offers":"/offers","new_offer":"/offers/new","edit_offer":"/offers/:id/edit","offer":"/offers/:id","profile_index":"/profile","new_profile":"/profile/new","edit_profile":"/profile/:id/edit","profile":"/profile/:id","rails_info_properties":"/rails/info/properties","rails_info_routes":"/rails/info/routes","rails_info":"/rails/info","rails_mailers":"/rails/mailers"};
 
     self.defaultParams = {}
 

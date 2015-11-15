@@ -7,7 +7,11 @@ Rails.application.routes.draw do
         registrations: 'users/registrations'
   }
 
-  get 'search' => 'search#index'
+  scope :search, controller: "search" do
+    get "map"
+    get "list"
+  end
+
   get 'support' => 'support#index'
   get 'help' => 'help#index'
   get 'settings' => 'settings#index'

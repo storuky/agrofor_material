@@ -22,6 +22,19 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
+.icon-calendar:before {
+	content: "\e908";
+}
+.icon-close:before {
+	content: "\e602";
+}
+.icon-earth:before {
+	content: "\e603";
+}
+.icon-marker:before {
+	content: "\e604";
+}
 .icon-message-text:before {
 	content: "\e90e";
 }
@@ -45,9 +58,6 @@
 }
 .icon-menu:before {
 	content: "\e909";
-}
-.icon-close:before {
-	content: "\e908";
 }
 .icon-camera:before {
 	content: "\e907";
@@ -73,5 +83,3 @@
 .icon-magnify:before {
 	content: "\e906";
 }
-
-

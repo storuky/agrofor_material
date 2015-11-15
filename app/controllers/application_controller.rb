@@ -13,12 +13,17 @@ class ApplicationController < ActionController::Base
   }
 
   def index
-    redirect_to search_path
+    redirect_to map_path
   end
 
   private
     def set_gon
       ActionView::Base.default_form_builder = AgroforFormBuilder
+
+      gon.settings = {
+        locale: I18n.locale,
+        currency: (gon.current_user.currency rescue Currency.serialize.cache.by_index[1])
+      }
 
       gon.data = {
         trade_types: TradeType.serialize.cache.all,
@@ -26,11 +31,7 @@ class ApplicationController < ActionController::Base
         options: Option.serialize.cache.all,
         currencies: Currency.serialize.cache.all,
         statuses: Position.statuses,
-        by_index: {
-          currencies: Currency.serialize.cache.by_index,
-          weight_dimensions: WeightDimension.serialize.cache.by_index,
-          trade_types: TradeType.serialize.cache.by_index
-        }
+        rates: Currency.get_rates(gon.settings[:currency][:name]),
       }
 
 
@@ -38,10 +39,6 @@ class ApplicationController < ActionController::Base
         gon.current_user = current_user.info
       end
 
-      gon.settings = {
-        locale: I18n.locale,
-        currency: (gon.current_user.currency rescue Currency.serialize.cache.by_index[1])
-      }
     end
 
     def check_user

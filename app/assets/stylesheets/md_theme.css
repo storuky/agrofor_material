@@ -62,3 +62,26 @@ md-progress-linear.md-default-theme .md-container, md-progress-linear .md-contai
 md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   background-color: rgb(255, 219, 76);
 }
+
+.md-yellow, .md-yellow.md-button {
+  background: rgb(255, 219, 76);
+  color: #2b2b2b;
+  text-decoration: none;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  font-weight: normal;
+  font-size: 15px;
+}
+
+.md-yellow:not([disabled]):hover, .md-yellow.md-button:not([disabled]):hover {
+  background: rgb(255, 226, 110);
+}
+
+a.md-button.md-yellow.md-default-theme.md-raised:not([disabled]).md-focused,
+a.md-button.md-yellow.md-raised:not([disabled]).md-focused,
+.md-button.md-yellow.md-default-theme.md-raised:not([disabled]).md-focused,
+.md-button.md-yellow.md-raised:not([disabled]).md-focused {
+  background-color: rgb(255, 219, 76);
+}

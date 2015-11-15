@@ -13,7 +13,7 @@ html ng-app="app"
     aside.sidebar.md-whiteframe-1dp
       = render "layouts/sidebar"
 
-    .page
+    .page ng-class="{overflow: Search.type == 'map'}"
       ui-view[layout="column"]
 
     = Gon::Base.render_data({})

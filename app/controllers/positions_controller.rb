@@ -1,6 +1,6 @@
 class PositionsController < ApplicationController
   before_action :check_user
-  before_action :set_position, only: [:show, :destroy, :update, :edit]
+  before_action :set_position, only: [:destroy, :update, :edit]
 
   def index
     respond_to do |format|
@@ -25,9 +25,6 @@ class PositionsController < ApplicationController
     end
   end
 
-  def show
-  end
-
   def destroy
 
   end
@@ -47,6 +44,15 @@ class PositionsController < ApplicationController
 
   def update
 
+  end
+
+  def show
+    respond_to do |format|
+      format.json {
+        @position = Position.find(params[:id])
+        render json: @position
+      }
+    end
   end
 
   private
