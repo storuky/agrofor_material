@@ -50,25 +50,32 @@
   display: inline-block;
 }
 .position-modal {
-  width: 760px;
+  width: 870px;
   max-width: 100%;
   margin: 15px;
   overflow-x: hidden;
 }
-.position-modal__left {
-  padding: 10px;
-}
+
 .position-modal__header {
-  height: 50px !important;
-  padding: 15px 18px;
+  min-height: 70px;
+  max-height: 70px;
+  padding: 18px 18px;
   background: transparent !important;
   color: #272727 !important;
-  box-shadow: 0px 0px 16px 12px #FFF;
+  border-bottom: 1px solid #E1E1E1;
+  box-shadow: 0px -1px 6px rgba(0,0,0,.2);
+  z-index: 99;
 }
-.position-modal__fullname {
+.position-modal__user {
   display: inline-block;
   vertical-align: top;
-  padding: 8px;
+  padding: 0 8px;
+}
+.position-modal__user i {
+  display: block;
+  font-size: 12px;
+  color: #7B7B7B;
+  white-space: nowrap;
 }
 .position-modal__avatar {
   display: inline-block;
@@ -79,8 +86,15 @@
 
 .position_show {
   padding: 0px;
+  transform: scale(1);
+  transition: .3s;
+  opacity: 1;
+  padding-top: 15px;
 }
-
+.position_show.active {
+  transform: scale(.8);
+  opacity: 0;
+}
 md-icon.icon-calendar {
   font-size: 22px;
   color: #5C5C5C;
@@ -114,4 +128,169 @@ md-dialog.position-modal md-dialog-content {
 
 .position_show md-input-container {
   margin: 8px 0;
+}
+
+.position-modal__sep {
+  height: 15px;
+  width: 1px;
+  background: #7B7B7B;
+  display: inline-block;
+  vertical-align: top;
+  margin: 11px 25px;
+}
+
+.position-modal__rating {
+  display: inline-block;
+  vertical-align: top;
+  margin: 6px 15px;
+}
+
+
+.position-modal__favorite {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 24px;
+  margin-top: 6px;
+  color: #c3c3c3;
+  cursor: pointer;
+}
+
+.position-modal__favorite:hover,  .position-modal__favorite.active{
+  color: #ffc107;
+}
+
+
+.position-info {
+  margin-top: 5px;
+}
+
+
+.position-modal__offer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 70px;
+  bottom: 0;
+  background: white;
+  transition: .3s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 10;
+  margin-left: 100%;
+}
+
+.position-modal__offer.active {
+  visibility: visible;
+  opacity: 1;
+  margin-left: 0;
+  overflow-y: auto;
+}
+.position-modal__back {
+  border-right: 1px solid rgba(225, 225, 225, 0.27);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 70px;
+  background: rgba(231, 231, 231, 0.2);
+  font-size: 34px;
+  text-align: center;
+  color: #6B6B6B;
+  cursor: pointer;
+}
+
+
+.position-modal__back:hover {
+  background: rgba(231, 231, 231, 0.33);
+}
+
+
+.position-modal__date {
+  display: inline-block;
+  vertical-align: top;
+  margin: 7px 15px;
+  font-size: 20px;
+  font-weight: lighter;
+  color: #7B7B7B;
+}
+
+
+.position-modal__offer__content {
+  padding: 0;
+  padding-left: 75px;
+  min-height: 100%;
+}
+
+.position-modal__suitable {
+  padding-top: 15px !important;
+  /* min-width: 330px; */
+}
+
+.position-modal__suitable .suitable {
+  margin-top: 10px;
+  max-width: 360px;
+}
+
+.position-modal__other-offers {
+  border-left: 1px solid #E1E1E1;
+  padding-top: 15px !important;
+  min-width: 266px;
+  position: relative;
+}
+
+.add-offer {
+  width: 100%;
+  max-width: 360px;
+  margin: 15px 0;
+}
+
+
+.add-offer i {
+  font-size: 28px;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+}
+
+.position-modal__back-text {
+  display: none;
+  font-size: 16px;
+  text-align: left;
+}
+
+
+.position-modal__other-offer {
+  /* border-bottom: 1px solid #E5E5E5; */
+  /* padding: 12px; */
+  border: 1px solid #e5e5e5;
+  height: 90px;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 16px;
+  position: relative;
+  width: 100%;
+  margin-top: 5px;
+  line-height: 18px;
+  font-size: 14px;
+  max-width: 360px;
+}
+
+.position-modal__other-offer__date {
+  font-weight: 500;
+}
+
+.position-modal__other-offer__title {
+  font-weight: 500;
+}
+.position-modal__other-offers__list {
+  margin-top: 10px;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  padding-left: 10px;
+  border-bottom: 1px solid #E1E1E1;
+  box-shadow: -4px 0px 6px rgba(0,0,0,.2) inset;
 }

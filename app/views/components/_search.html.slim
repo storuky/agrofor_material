@@ -4,8 +4,8 @@ script type="text/ng-template" id="search.html"
       .search__input
         input hint="Полнотекстовый поиск" place="right-bottom" ng-model="Search.query" ng-model-options="{debounce: 300}" type="text" placeholder="Купить пщеницу" ng-focus="Search.showFooter = true"
         .search__addons hint="Вид отображения результатов поиска" place="left-bottom"
-          a.icon-earth href="?type=map" ng-class="{active: Search.type == 'map'}"
-          a.icon-list href="?type=list" ng-class="{active: Search.type == 'list'}"
+          a.icon-earth ui-sref="map_path" ng-class="{active: Search.type == 'map'}"
+          a.icon-list ui-sref="list_path" ng-class="{active: Search.type == 'list'}"
       .search__btn
         span Найти
     

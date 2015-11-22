@@ -1,0 +1,45 @@
+.rating {
+  display: inline-block;
+  font-size: 0;
+  top: -1px;
+  position: relative;
+}
+
+.rating__positive, .rating__negative {
+  display: inline-block;
+  color: #fff;
+  padding: 4px 11px;
+  font-size: 14px;
+}
+
+.rating__negative {
+  padding: 4px 13px;
+  background: #f44336;
+}
+
+.rating__positive {
+  background: #4caf50;
+  position: relative;
+}
+
+.rating__positive:before, .rating__positive:after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  right: -10px;
+}
+
+.rating__positive:before {
+  border-width: 13px 10px 0 0;
+  border-color: #4caf50 transparent transparent transparent;
+  top: 0;
+}
+
+.rating__positive:after {
+  border-width: 12px 0 0 10px;
+  border-color: transparent transparent transparent #4caf50;
+  bottom: 0;
+}

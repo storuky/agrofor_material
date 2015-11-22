@@ -24,7 +24,7 @@
 }
 
 .table > thead > tr > th {
-  padding: 0 28px;
+  padding: 0 34px;
 }
 
 .table > thead > tr > th > div {
@@ -67,7 +67,7 @@
 }
 
 .table > tbody > tr > td {
-  padding: 0 28px;
+  padding: 0 34px;
 }
 
 .table > tbody > tr > td.btns {
