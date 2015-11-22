@@ -22,7 +22,7 @@ app.controller('PositionsCtrl', ['$scope', '$stateParams', 'action', 'Position',
     ctrl.save = Position.update;
   })
 
-  action('modal', function (id) {
+  action('modal', function (position) {
     $scope.gon = gon;
     ctrl.close = function () {
       $mdDialog.cancel();
@@ -30,7 +30,7 @@ app.controller('PositionsCtrl', ['$scope', '$stateParams', 'action', 'Position',
       $location.search('id', undefined);
     }
 
-    ctrl.position = Position.get({id: id});
+    ctrl.position = position;
 
     $scope.$watch('ctrl.position.price_weight_dimension_id', function (wd) {
       if (wd!==undefined) {
