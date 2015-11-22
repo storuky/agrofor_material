@@ -260,20 +260,24 @@ md-dialog.position-modal md-dialog-content {
 
 
 .position-modal__other-offer {
-  /* border-bottom: 1px solid #E5E5E5; */
-  /* padding: 12px; */
-  border: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
   height: 90px;
-  border-radius: 4px;
   cursor: pointer;
   padding: 8px 16px;
   position: relative;
   width: 100%;
-  margin-top: 5px;
   line-height: 18px;
   font-size: 14px;
-  max-width: 360px;
 }
+
+.position-modal__other-offer:hover {
+  background: #f7f7f7;
+}
+
+.position-modal__other-offer:first-child {
+  border-top: 1px solid #e5e5e5;
+}
+
 
 .position-modal__other-offer__date {
   font-weight: 500;
@@ -290,7 +294,6 @@ md-dialog.position-modal md-dialog-content {
   right: 0;
   bottom: 0;
   overflow-y: auto;
-  padding-left: 10px;
   border-bottom: 1px solid #E1E1E1;
   box-shadow: -4px 0px 6px rgba(0,0,0,.2) inset;
 }

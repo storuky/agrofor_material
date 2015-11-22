@@ -26,6 +26,10 @@
   .page {
     left: 0;
   }
+
+  .search__input input[type="text"] {
+    padding-left: 50px;
+  }
 }
 
 @media screen and (max-width: 700px) {

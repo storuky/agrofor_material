@@ -171,3 +171,7 @@ a.link:active {
   font-size: 18px;
   vertical-align: top;
 }
+
+label.label {
+  font-weight: 500;
+}

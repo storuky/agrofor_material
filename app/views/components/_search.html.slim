@@ -1,6 +1,7 @@
 script type="text/ng-template" id="search.html"
   .search ng-class="{transparent: Page.transparent, search__full: Search.type=='list'}"
     .search__form
+      toggle-sidebar.hide-gt-md id="left"
       .search__input
         input hint="Полнотекстовый поиск" place="right-bottom" ng-model="Search.query" ng-model-options="{debounce: 300}" type="text" placeholder="Купить пщеницу" ng-focus="Search.showFooter = true"
         .search__addons hint="Вид отображения результатов поиска" place="left-bottom"

@@ -295,3 +295,20 @@ map {
   overflow: hidden;
   text-align: right;
 }
+
+.search__full   .search__extended {
+  right: 0;
+  left: auto;
+  margin-right: 82px;
+  margin-top: 23px;
+}
+
+.search__form .toggle-nav {
+  position: absolute;
+  z-index: 9;
+  margin: 0 0 0 2px;
+  display: block;
+  padding: 8px;
+  box-shadow: 0px 0px 0px 3px #FFDB4C;
+  background: white;
+}
