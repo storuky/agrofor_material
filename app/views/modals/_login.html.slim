@@ -15,7 +15,9 @@ script type="text/ng-template" id="sign.html"
           md-input-container.md-block[flex]
             label Password
             input type="password" value="" name="user[password]" ng-model="Sign.form.password"
-        div[layout="row" layout-align="end center"]
-          md-button.md-lg ng-href="" Регистрация
-          md-button.md-raised.md-yellow.md-lg[style="margin: 0"]
+        div[layout="column"]
+          / md-button.md-lg ng-href="" Регистрация
+          md-button.md-raised.md-yellow.md-lg[style="margin: 0;" flex=100]
             | Войти
+
+          a.link[flex href="" style="margin-top: 20px"] Забыли пароль?
