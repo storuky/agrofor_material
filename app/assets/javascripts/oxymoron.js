@@ -7,6 +7,8 @@
     */
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'AngularXMLHttpRequest'
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name=csrf-token]').content;
+    $httpProvider.defaults.paramSerializer = '$httpParamSerializerJQLike';
+
 
     /*
      *  Enable HTML5 History API
@@ -17,13 +19,13 @@
      *  $stateProvider Rails
     */
 
-    var resolve = function (action) {
+    var resolve = function (action, $stateParams) {
       return function (actionNames, callback) {
         try {
           var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
           
           if (actionNames.indexOf(action)!=-1) {
-            callback();
+            callback($stateParams);
           }
         } catch (e) {
           console.error(e);
@@ -44,9 +46,9 @@
           reloadOnSearch: false,
           controller: 'ApplicationCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
@@ -60,9 +62,9 @@
           reloadOnSearch: false,
           controller: 'UsersSessionsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
@@ -76,9 +78,9 @@
           reloadOnSearch: false,
           controller: 'DevisePasswordsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
@@ -92,9 +94,9 @@
           reloadOnSearch: false,
           controller: 'DevisePasswordsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
@@ -108,9 +110,9 @@
           reloadOnSearch: false,
           controller: 'UsersRegistrationsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('cancel')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('cancel', $stateParams)
+            }]
           }
         })
       
@@ -124,9 +126,9 @@
           reloadOnSearch: false,
           controller: 'UsersRegistrationsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
@@ -140,9 +142,9 @@
           reloadOnSearch: false,
           controller: 'UsersRegistrationsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
@@ -156,9 +158,9 @@
           reloadOnSearch: false,
           controller: 'SearchCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('map')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('map', $stateParams)
+            }]
           }
         })
       
@@ -172,9 +174,9 @@
           reloadOnSearch: false,
           controller: 'SearchCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('list')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('list', $stateParams)
+            }]
           }
         })
       
@@ -188,9 +190,9 @@
           reloadOnSearch: false,
           controller: 'SupportCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
@@ -204,9 +206,9 @@
           reloadOnSearch: false,
           controller: 'HelpCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
@@ -220,9 +222,9 @@
           reloadOnSearch: false,
           controller: 'SettingsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
@@ -236,9 +238,9 @@
           reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
@@ -252,9 +254,9 @@
           reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
@@ -268,9 +270,9 @@
           reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
@@ -284,9 +286,9 @@
           reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('show')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
           }
         })
       
@@ -300,9 +302,9 @@
           reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
@@ -316,9 +318,9 @@
           reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
@@ -332,9 +334,9 @@
           reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
@@ -348,9 +350,9 @@
           reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('show')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
           }
         })
       
@@ -364,9 +366,9 @@
           reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
@@ -380,9 +382,9 @@
           reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
@@ -396,9 +398,9 @@
           reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
@@ -412,9 +414,9 @@
           reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('show')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
           }
         })
       
@@ -428,9 +430,9 @@
           reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
@@ -444,9 +446,9 @@
           reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
@@ -460,9 +462,9 @@
           reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
@@ -476,9 +478,9 @@
           reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('show')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
           }
         })
       
@@ -492,9 +494,9 @@
           reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
@@ -508,9 +510,9 @@
           reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
@@ -524,9 +526,9 @@
           reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
@@ -540,9 +542,9 @@
           reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('show')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
           }
         })
       
@@ -556,9 +558,9 @@
           reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
@@ -572,9 +574,9 @@
           reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
@@ -588,9 +590,9 @@
           reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
@@ -604,9 +606,9 @@
           reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('show')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
           }
         })
       
@@ -620,9 +622,9 @@
           reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
@@ -636,9 +638,9 @@
           reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
@@ -652,9 +654,9 @@
           reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
@@ -668,9 +670,9 @@
           reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('show')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
           }
         })
       
@@ -684,9 +686,9 @@
           reloadOnSearch: false,
           controller: 'RailsInfoCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('properties')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('properties', $stateParams)
+            }]
           }
         })
       
@@ -700,9 +702,9 @@
           reloadOnSearch: false,
           controller: 'RailsInfoCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('routes')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('routes', $stateParams)
+            }]
           }
         })
       
@@ -716,9 +718,9 @@
           reloadOnSearch: false,
           controller: 'RailsInfoCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
@@ -732,9 +734,9 @@
           reloadOnSearch: false,
           controller: 'RailsMailersCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
@@ -998,7 +1000,7 @@
 (function () {
   var Routes = function () {
     var self = this,
-        routes = {"root":"/","new_user_session":"/users/sign_in","user_session":"/users/sign_in","destroy_user_session":"/users/sign_out","user_password":"/users/password","new_user_password":"/users/password/new","edit_user_password":"/users/password/edit","cancel_user_registration":"/users/cancel","user_registration":"/users","new_user_registration":"/users/sign_up","edit_user_registration":"/users/edit","map":"/search/map","list":"/search/list","support":"/support","help":"/help","settings":"/settings","positions":"/positions","new_position":"/positions/new","edit_position":"/positions/:id/edit","position":"/positions/:id","favorites":"/favorites","new_favorite":"/favorites/new","edit_favorite":"/favorites/:id/edit","favorite":"/favorites/:id","templates":"/templates","new_template":"/templates/new","edit_template":"/templates/:id/edit","template":"/templates/:id","messages":"/messages","new_message":"/messages/new","edit_message":"/messages/:id/edit","message":"/messages/:id","correspondences":"/correspondences","new_correspondence":"/correspondences/new","edit_correspondence":"/correspondences/:id/edit","correspondence":"/correspondences/:id","offers":"/offers","new_offer":"/offers/new","edit_offer":"/offers/:id/edit","offer":"/offers/:id","profile_index":"/profile","new_profile":"/profile/new","edit_profile":"/profile/:id/edit","profile":"/profile/:id","rails_info_properties":"/rails/info/properties","rails_info_routes":"/rails/info/routes","rails_info":"/rails/info","rails_mailers":"/rails/mailers"};
+        routes = {"root":{"defaults":{},"path":"/"},"new_user_session":{"defaults":{},"path":"/users/sign_in"},"user_session":{"defaults":{},"path":"/users/sign_in"},"destroy_user_session":{"defaults":{},"path":"/users/sign_out"},"user_password":{"defaults":{},"path":"/users/password"},"new_user_password":{"defaults":{},"path":"/users/password/new"},"edit_user_password":{"defaults":{},"path":"/users/password/edit"},"cancel_user_registration":{"defaults":{},"path":"/users/cancel"},"user_registration":{"defaults":{},"path":"/users"},"new_user_registration":{"defaults":{},"path":"/users/sign_up"},"edit_user_registration":{"defaults":{},"path":"/users/edit"},"map":{"defaults":{},"path":"/search/map"},"list":{"defaults":{},"path":"/search/list"},"support":{"defaults":{},"path":"/support"},"help":{"defaults":{},"path":"/help"},"settings":{"defaults":{},"path":"/settings"},"positions":{"defaults":{},"path":"/positions"},"new_position":{"defaults":{},"path":"/positions/new"},"edit_position":{"defaults":{},"path":"/positions/:id/edit"},"position":{"defaults":{},"path":"/positions/:id"},"favorites":{"defaults":{},"path":"/favorites"},"new_favorite":{"defaults":{},"path":"/favorites/new"},"edit_favorite":{"defaults":{},"path":"/favorites/:id/edit"},"favorite":{"defaults":{},"path":"/favorites/:id"},"templates":{"defaults":{},"path":"/templates"},"new_template":{"defaults":{},"path":"/templates/new"},"edit_template":{"defaults":{},"path":"/templates/:id/edit"},"template":{"defaults":{},"path":"/templates/:id"},"messages":{"defaults":{},"path":"/messages"},"new_message":{"defaults":{},"path":"/messages/new"},"edit_message":{"defaults":{},"path":"/messages/:id/edit"},"message":{"defaults":{},"path":"/messages/:id"},"correspondences":{"defaults":{},"path":"/correspondences"},"new_correspondence":{"defaults":{},"path":"/correspondences/new"},"edit_correspondence":{"defaults":{},"path":"/correspondences/:id/edit"},"correspondence":{"defaults":{},"path":"/correspondences/:id"},"offers":{"defaults":{},"path":"/offers"},"new_offer":{"defaults":{},"path":"/offers/new"},"edit_offer":{"defaults":{},"path":"/offers/:id/edit"},"offer":{"defaults":{},"path":"/offers/:id"},"profile_index":{"defaults":{},"path":"/profile"},"new_profile":{"defaults":{},"path":"/profile/new"},"edit_profile":{"defaults":{},"path":"/profile/:id/edit"},"profile":{"defaults":{},"path":"/profile/:id"},"rails_info_properties":{"defaults":{},"path":"/rails/info/properties"},"rails_info_routes":{"defaults":{},"path":"/rails/info/routes"},"rails_info":{"defaults":{},"path":"/rails/info"},"rails_mailers":{"defaults":{},"path":"/rails/mailers"}};
 
     self.defaultParams = {}
 
@@ -1046,8 +1048,8 @@
       }
 
       self[key+'_path'] = function (params) {
-        var params = params || {};
-        result = val;
+        var params = angular.extend(angular.copy(val.defaults), params || {});
+        result = val.path;
         var defaultParams = angular.copy(self.defaultParams);
         return gsub(angular.extend(defaultParams, params));
       }

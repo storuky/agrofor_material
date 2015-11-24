@@ -20,5 +20,7 @@ html ng-app="app"
     = render template: 'modals/index'
     = render template: 'components/index'
     = render 'layouts/cache'
+
+    div ng-include="'sign.html'"
     script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"
     = javascript_include_tag 'application'

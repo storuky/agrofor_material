@@ -1,6 +1,7 @@
-app.controller('PositionsCtrl', ['$scope', '$stateParams', 'action', 'Position', 'Cache', '$timeout', '$mdDialog', '$location', function ($scope, $stateParams, action, Position, Cache, $timeout, $mdDialog, $location) {
+app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Cache', '$timeout', '$mdDialog', '$location',
+                        function ($scope, action, Position, Cache, $timeout, $mdDialog, $location) {
+  
   var ctrl = this;
-
 
   action('index', function () {
     $scope.Cache = Cache;
@@ -17,8 +18,8 @@ app.controller('PositionsCtrl', ['$scope', '$stateParams', 'action', 'Position',
     ctrl.save = Position.create;
   })
 
-  action('edit', function () {
-    ctrl.position = Position.edit({id: $stateParams.id})
+  action('edit', function (params) {
+    ctrl.position = Position.edit({id: params.id})
     ctrl.save = Position.update;
   })
 
