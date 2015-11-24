@@ -12,6 +12,16 @@ body {
   background-color: #f5f5f5;
 }
 
+.wrapper {
+  transform: scale(1);
+  transition: .3s;
+  height: 100%;
+}
+
+.wrapper.active {
+  transform: scale(0.8);
+}
+
 
 .ng-cloak {
   visibility: hidden !important;

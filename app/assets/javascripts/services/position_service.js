@@ -30,7 +30,6 @@ app.run(['Position', 'Search', '$mdDialog', '$location', function (Position, Sea
         $location.search('id', undefined)
       })
     })
-    
   }
 
   Position.closeModal = function () {

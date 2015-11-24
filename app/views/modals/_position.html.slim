@@ -85,11 +85,7 @@ script type="text/ng-template" id="position.tmpl.html"
               .required
                 | *
               | Выберите подходящую позицию
-            .suitable
-              .suitable__selected[layout="row" layout-align="center center"]
-                .suitable__no-result[flex-gt-sm]
-                  b У вас нет подходящего предложения
-                  span Нажмите, чтобы создать
+            suitable
             md-button.md-yellow.md-raised.md-lg.add-offer
               | Добавить предложение
               i.icon-chevron-right

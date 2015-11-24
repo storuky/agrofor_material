@@ -1,5 +1,5 @@
 class PositionsController < ApplicationController
-  before_action :check_user
+  before_action :check_user, except: [:show]
   before_action :set_position, only: [:destroy, :update, :edit]
 
   def index

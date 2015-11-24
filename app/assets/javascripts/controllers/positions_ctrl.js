@@ -1,7 +1,14 @@
-app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Cache', '$timeout', '$mdDialog', '$location',
-                        function ($scope, action, Position, Cache, $timeout, $mdDialog, $location) {
+app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Cache', '$timeout', '$mdDialog', '$location', 'Sign', '$state',
+                        function ($scope, action, Position, Cache, $timeout, $mdDialog, $location, Sign, $state) {
   
   var ctrl = this;
+
+  action(['new', 'edit', 'index'], function () {
+    if (!gon.current_user) {
+      $state.go('map_path');
+      Sign.isShow = true;
+    }
+  })
 
   action('index', function () {
     $scope.Cache = Cache;
@@ -11,8 +18,8 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Cache', '$time
     Position.query(function (res) {
       Cache.set('positions', res)
     });
-
   })
+
 
   action('new', function () {
     ctrl.save = Position.create;
@@ -22,6 +29,7 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Cache', '$time
     ctrl.position = Position.edit({id: params.id})
     ctrl.save = Position.update;
   })
+
 
   action('modal', function (position) {
     $scope.gon = gon;

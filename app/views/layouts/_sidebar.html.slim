@@ -9,29 +9,30 @@
     tr
       td.v-top
         nav.nav
-          a.nav__link md-ink-ripple="" ui-sref="map_path" ui-sref-active="active" ng-class="{active: $state.current.name=='root_path'}" Поиск
-          a.nav__link md-ink-ripple="" ui-sref="positions_path" ui-sref-active="active" Мои позиции
-          a.nav__link md-ink-ripple="" ui-sref="messages_path" ui-sref-active="active" Мои сообщения
-          a.nav__link md-ink-ripple="" ui-sref="help_path" ui-sref-active="active" Помощь
-          a.nav__link md-ink-ripple="" ui-sref="support_path" ui-sref-active="active" Поддержка
+          nav-link sref="map_path" ng-class="{active: $state.current.name=='root_path'}" Поиск
+          nav-link sref="positions_path" sign-only="true" Мои позиции
+          nav-link sref="messages_path" sign-only="true" Мои сообщения
+          nav-link sref="help_path" Помощь
+          nav-link sref="support_path" Поддержка
     tr.h0
       td
         footer
-          a.nav__link.nav__profile md-ink-ripple="" ui-sref="profile_path(gon.current_user)"
+          a.nav__link.nav__profile md-ink-ripple="" ui-sref="profile_path(gon.current_user)" sign-only="true"
             img src="/avatar.png"
             .nav__profile__fio
               | Кононенко П. В.
             .nav__profile__status
               | Фермер
-          a.nav__link md-ink-ripple="" ui-sref="settings_path"
+
+          nav-link sref="support_path"
             i.icon-settings
             span Настройки
           - if user_signed_in?
-            a.nav__link md-ink-ripple="" ng-click="Sign.out($event)"
+            nav-link ng-click="Sign.out($event)"
               i.icon-logout
               span Выход
           - else
-            a.nav__link md-ink-ripple="" ng-click="Sign.isShow = true;"
+            nav-link ng-click="Sign.isShow = true;"
               i.icon-login
               span Вход
 

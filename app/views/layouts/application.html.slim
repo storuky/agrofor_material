@@ -10,11 +10,12 @@ html ng-app="app"
     = csrf_meta_tags
     base href="/"
   body.ng-cloak ng-controller="MainCtrl"
-    aside.sidebar.md-whiteframe-1dp
-      = render "layouts/sidebar"
+    .wrapper ng-class="{active: Sign.isShow}"
+      aside.sidebar.md-whiteframe-1dp
+        = render "layouts/sidebar"
 
-    .page ng-class="{overflow: Search.type == 'map'}"
-      ui-view[layout="column"]
+      .page ng-class="{overflow: Search.type == 'map'}"
+        ui-view[layout="column"]
 
     = Gon::Base.render_data({})
     = render template: 'modals/index'
