@@ -87,6 +87,14 @@
     right: 15px;
     top: 23px;
   }
+
+  .message-page__contacts {
+    margin-left: -260px;
+  }
+
+  .message-page__body {
+    left: 0;
+  }
 }
 
 @media screen and (max-width: 450px) {

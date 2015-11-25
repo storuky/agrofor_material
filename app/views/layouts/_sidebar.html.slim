@@ -28,11 +28,11 @@
             i.icon-settings
             span Настройки
           - if user_signed_in?
-            nav-link ng-click="Sign.out($event)"
+            a.nav__link ng-click="Sign.out($event);"
               i.icon-logout
               span Выход
           - else
-            nav-link ng-click="Sign.isShow = true;"
+            a.nav__link ng-click="Sign.isShow = true;"
               i.icon-login
               span Вход
 

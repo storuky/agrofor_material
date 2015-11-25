@@ -7,6 +7,8 @@
     */
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'AngularXMLHttpRequest'
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name=csrf-token]').content;
+    $httpProvider.defaults.paramSerializer = '$httpParamSerializerJQLike';
+
 
     /*
      *  Enable HTML5 History API
@@ -17,13 +19,13 @@
      *  $stateProvider Rails
     */
 
-    var resolve = function (action) {
+    var resolve = function (action, $stateParams) {
       return function (actionNames, callback) {
         try {
           var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
           
           if (actionNames.indexOf(action)!=-1) {
-            callback();
+            callback($stateParams);
           }
         } catch (e) {
           console.error(e);
@@ -37,616 +39,704 @@
         .state('root_path', {
           url: '/',
           templateUrl: function(params) {
-            return Routes['root_path'](params);
+            
+              return Routes['root_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'ApplicationCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
         .state('new_user_session_path', {
           url: '/users/sign_in',
           templateUrl: function(params) {
-            return Routes['new_user_session_path'](params);
+            
+              return Routes['new_user_session_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'UsersSessionsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
         .state('new_user_password_path', {
           url: '/users/password/new',
           templateUrl: function(params) {
-            return Routes['new_user_password_path'](params);
+            
+              return Routes['new_user_password_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'DevisePasswordsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
         .state('edit_user_password_path', {
           url: '/users/password/edit',
           templateUrl: function(params) {
-            return Routes['edit_user_password_path'](params);
+            
+              return Routes['edit_user_password_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'DevisePasswordsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
         .state('cancel_user_registration_path', {
           url: '/users/cancel',
           templateUrl: function(params) {
-            return Routes['cancel_user_registration_path'](params);
+            
+              return Routes['cancel_user_registration_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'UsersRegistrationsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('cancel')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('cancel', $stateParams)
+            }]
           }
         })
       
         .state('new_user_registration_path', {
           url: '/users/sign_up',
           templateUrl: function(params) {
-            return Routes['new_user_registration_path'](params);
+            
+              return Routes['new_user_registration_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'UsersRegistrationsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
         .state('edit_user_registration_path', {
           url: '/users/edit',
           templateUrl: function(params) {
-            return Routes['edit_user_registration_path'](params);
+            
+              return Routes['edit_user_registration_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'UsersRegistrationsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
         .state('map_path', {
           url: '/search/map',
           templateUrl: function(params) {
-            return Routes['map_path'](params);
+            
+              return Routes['map_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'SearchCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('map')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('map', $stateParams)
+            }]
           }
         })
       
         .state('list_path', {
           url: '/search/list',
           templateUrl: function(params) {
-            return Routes['list_path'](params);
+            
+              return Routes['list_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'SearchCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('list')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('list', $stateParams)
+            }]
           }
         })
       
         .state('support_path', {
           url: '/support',
           templateUrl: function(params) {
-            return Routes['support_path'](params);
+            
+              return Routes['support_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'SupportCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
         .state('help_path', {
           url: '/help',
           templateUrl: function(params) {
-            return Routes['help_path'](params);
+            
+              return Routes['help_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'HelpCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
         .state('settings_path', {
           url: '/settings',
           templateUrl: function(params) {
-            return Routes['settings_path'](params);
+            
+              return Routes['settings_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'SettingsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
         .state('positions_path', {
           url: '/positions',
           templateUrl: function(params) {
-            return Routes['positions_path'](params);
+            
+              return Routes['positions_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
         .state('new_position_path', {
           url: '/positions/new',
           templateUrl: function(params) {
-            return Routes['new_position_path'](params);
+            
+              return Routes['new_position_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
         .state('edit_position_path', {
           url: '/positions/:id/edit',
           templateUrl: function(params) {
-            return Routes['edit_position_path'](params);
+            
+              return Routes['edit_position_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
         .state('position_path', {
           url: '/positions/:id',
           templateUrl: function(params) {
-            return Routes['position_path'](params);
+            
+              return Routes['position_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('show')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
           }
         })
       
         .state('favorites_path', {
           url: '/favorites',
           templateUrl: function(params) {
-            return Routes['favorites_path'](params);
+            
+              return Routes['favorites_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
         .state('new_favorite_path', {
           url: '/favorites/new',
           templateUrl: function(params) {
-            return Routes['new_favorite_path'](params);
+            
+              return Routes['new_favorite_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
         .state('edit_favorite_path', {
           url: '/favorites/:id/edit',
           templateUrl: function(params) {
-            return Routes['edit_favorite_path'](params);
+            
+              return Routes['edit_favorite_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
         .state('favorite_path', {
           url: '/favorites/:id',
           templateUrl: function(params) {
-            return Routes['favorite_path'](params);
+            
+              return Routes['favorite_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('show')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
           }
         })
       
         .state('templates_path', {
           url: '/templates',
           templateUrl: function(params) {
-            return Routes['templates_path'](params);
+            
+              return Routes['templates_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
         .state('new_template_path', {
           url: '/templates/new',
           templateUrl: function(params) {
-            return Routes['new_template_path'](params);
+            
+              return Routes['new_template_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
         .state('edit_template_path', {
           url: '/templates/:id/edit',
           templateUrl: function(params) {
-            return Routes['edit_template_path'](params);
+            
+              return Routes['edit_template_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
         .state('template_path', {
           url: '/templates/:id',
           templateUrl: function(params) {
-            return Routes['template_path'](params);
+            
+              return Routes['template_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('show')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
           }
         })
       
         .state('messages_path', {
           url: '/messages',
           templateUrl: function(params) {
-            return Routes['messages_path'](params);
+            
+              return Routes['messages_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
         .state('new_message_path', {
           url: '/messages/new',
           templateUrl: function(params) {
-            return Routes['new_message_path'](params);
+            
+              return Routes['new_message_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
         .state('edit_message_path', {
           url: '/messages/:id/edit',
           templateUrl: function(params) {
-            return Routes['edit_message_path'](params);
+            
+              return Routes['edit_message_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
         .state('message_path', {
           url: '/messages/:id',
           templateUrl: function(params) {
-            return Routes['message_path'](params);
+            
+              return Routes['message_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('show')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
           }
         })
       
         .state('correspondences_path', {
           url: '/correspondences',
           templateUrl: function(params) {
-            return Routes['correspondences_path'](params);
+            
+              return Routes['correspondences_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
         .state('new_correspondence_path', {
           url: '/correspondences/new',
           templateUrl: function(params) {
-            return Routes['new_correspondence_path'](params);
+            
+              return Routes['new_correspondence_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
         .state('edit_correspondence_path', {
           url: '/correspondences/:id/edit',
           templateUrl: function(params) {
-            return Routes['edit_correspondence_path'](params);
+            
+              return Routes['edit_correspondence_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
         .state('correspondence_path', {
           url: '/correspondences/:id',
           templateUrl: function(params) {
-            return Routes['correspondence_path'](params);
+            
+              return Routes['correspondence_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('show')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
           }
         })
       
         .state('offers_path', {
           url: '/offers',
           templateUrl: function(params) {
-            return Routes['offers_path'](params);
+            
+              return Routes['offers_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
         .state('new_offer_path', {
           url: '/offers/new',
           templateUrl: function(params) {
-            return Routes['new_offer_path'](params);
+            
+              return Routes['new_offer_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
         .state('edit_offer_path', {
           url: '/offers/:id/edit',
           templateUrl: function(params) {
-            return Routes['edit_offer_path'](params);
+            
+              return Routes['edit_offer_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
         .state('offer_path', {
           url: '/offers/:id',
           templateUrl: function(params) {
-            return Routes['offer_path'](params);
+            
+              return Routes['offer_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('show')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
           }
         })
       
         .state('profile_index_path', {
           url: '/profile',
           templateUrl: function(params) {
-            return Routes['profile_index_path'](params);
+            
+              return Routes['profile_index_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
         .state('new_profile_path', {
           url: '/profile/new',
           templateUrl: function(params) {
-            return Routes['new_profile_path'](params);
+            
+              return Routes['new_profile_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('new')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
           }
         })
       
         .state('edit_profile_path', {
           url: '/profile/:id/edit',
           templateUrl: function(params) {
-            return Routes['edit_profile_path'](params);
+            
+              return Routes['edit_profile_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('edit')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
           }
         })
       
         .state('profile_path', {
           url: '/profile/:id',
           templateUrl: function(params) {
-            return Routes['profile_path'](params);
+            
+              return Routes['profile_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('show')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
           }
         })
       
         .state('rails_info_properties_path', {
           url: '/rails/info/properties',
           templateUrl: function(params) {
-            return Routes['rails_info_properties_path'](params);
+            
+              return Routes['rails_info_properties_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'RailsInfoCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('properties')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('properties', $stateParams)
+            }]
           }
         })
       
         .state('rails_info_routes_path', {
           url: '/rails/info/routes',
           templateUrl: function(params) {
-            return Routes['rails_info_routes_path'](params);
+            
+              return Routes['rails_info_routes_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'RailsInfoCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('routes')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('routes', $stateParams)
+            }]
           }
         })
       
         .state('rails_info_path', {
           url: '/rails/info',
           templateUrl: function(params) {
-            return Routes['rails_info_path'](params);
+            
+              return Routes['rails_info_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'RailsInfoCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
         .state('rails_mailers_path', {
           url: '/rails/mailers',
           templateUrl: function(params) {
-            return Routes['rails_mailers_path'](params);
+            
+              return Routes['rails_mailers_path'](params) + "?ng-view";
+            
           },
           reloadOnSearch: false,
           controller: 'RailsMailersCtrl as ctrl',
           resolve: {
-            action: function () {
-              return resolve('index')
-            }
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
           }
         })
       
@@ -910,7 +1000,7 @@
 (function () {
   var Routes = function () {
     var self = this,
-        routes = {"root":"/","new_user_session":"/users/sign_in","user_session":"/users/sign_in","destroy_user_session":"/users/sign_out","user_password":"/users/password","new_user_password":"/users/password/new","edit_user_password":"/users/password/edit","cancel_user_registration":"/users/cancel","user_registration":"/users","new_user_registration":"/users/sign_up","edit_user_registration":"/users/edit","map":"/search/map","list":"/search/list","support":"/support","help":"/help","settings":"/settings","positions":"/positions","new_position":"/positions/new","edit_position":"/positions/:id/edit","position":"/positions/:id","favorites":"/favorites","new_favorite":"/favorites/new","edit_favorite":"/favorites/:id/edit","favorite":"/favorites/:id","templates":"/templates","new_template":"/templates/new","edit_template":"/templates/:id/edit","template":"/templates/:id","messages":"/messages","new_message":"/messages/new","edit_message":"/messages/:id/edit","message":"/messages/:id","correspondences":"/correspondences","new_correspondence":"/correspondences/new","edit_correspondence":"/correspondences/:id/edit","correspondence":"/correspondences/:id","offers":"/offers","new_offer":"/offers/new","edit_offer":"/offers/:id/edit","offer":"/offers/:id","profile_index":"/profile","new_profile":"/profile/new","edit_profile":"/profile/:id/edit","profile":"/profile/:id","rails_info_properties":"/rails/info/properties","rails_info_routes":"/rails/info/routes","rails_info":"/rails/info","rails_mailers":"/rails/mailers"};
+        routes = {"root":{"defaults":{},"path":"/"},"new_user_session":{"defaults":{},"path":"/users/sign_in"},"user_session":{"defaults":{},"path":"/users/sign_in"},"destroy_user_session":{"defaults":{},"path":"/users/sign_out"},"user_password":{"defaults":{},"path":"/users/password"},"new_user_password":{"defaults":{},"path":"/users/password/new"},"edit_user_password":{"defaults":{},"path":"/users/password/edit"},"cancel_user_registration":{"defaults":{},"path":"/users/cancel"},"user_registration":{"defaults":{},"path":"/users"},"new_user_registration":{"defaults":{},"path":"/users/sign_up"},"edit_user_registration":{"defaults":{},"path":"/users/edit"},"map":{"defaults":{},"path":"/search/map"},"list":{"defaults":{},"path":"/search/list"},"support":{"defaults":{},"path":"/support"},"help":{"defaults":{},"path":"/help"},"settings":{"defaults":{},"path":"/settings"},"positions":{"defaults":{},"path":"/positions"},"new_position":{"defaults":{},"path":"/positions/new"},"edit_position":{"defaults":{},"path":"/positions/:id/edit"},"position":{"defaults":{},"path":"/positions/:id"},"favorites":{"defaults":{},"path":"/favorites"},"new_favorite":{"defaults":{},"path":"/favorites/new"},"edit_favorite":{"defaults":{},"path":"/favorites/:id/edit"},"favorite":{"defaults":{},"path":"/favorites/:id"},"templates":{"defaults":{},"path":"/templates"},"new_template":{"defaults":{},"path":"/templates/new"},"edit_template":{"defaults":{},"path":"/templates/:id/edit"},"template":{"defaults":{},"path":"/templates/:id"},"messages":{"defaults":{},"path":"/messages"},"new_message":{"defaults":{},"path":"/messages/new"},"edit_message":{"defaults":{},"path":"/messages/:id/edit"},"message":{"defaults":{},"path":"/messages/:id"},"correspondences":{"defaults":{},"path":"/correspondences"},"new_correspondence":{"defaults":{},"path":"/correspondences/new"},"edit_correspondence":{"defaults":{},"path":"/correspondences/:id/edit"},"correspondence":{"defaults":{},"path":"/correspondences/:id"},"offers":{"defaults":{},"path":"/offers"},"new_offer":{"defaults":{},"path":"/offers/new"},"edit_offer":{"defaults":{},"path":"/offers/:id/edit"},"offer":{"defaults":{},"path":"/offers/:id"},"profile_index":{"defaults":{},"path":"/profile"},"new_profile":{"defaults":{},"path":"/profile/new"},"edit_profile":{"defaults":{},"path":"/profile/:id/edit"},"profile":{"defaults":{},"path":"/profile/:id"},"rails_info_properties":{"defaults":{},"path":"/rails/info/properties"},"rails_info_routes":{"defaults":{},"path":"/rails/info/routes"},"rails_info":{"defaults":{},"path":"/rails/info"},"rails_mailers":{"defaults":{},"path":"/rails/mailers"}};
 
     self.defaultParams = {}
 
@@ -958,8 +1048,8 @@
       }
 
       self[key+'_path'] = function (params) {
-        var params = params || {};
-        result = val;
+        var params = angular.extend(angular.copy(val.defaults), params || {});
+        result = val.path;
         var defaultParams = angular.copy(self.defaultParams);
         return gsub(angular.extend(defaultParams, params));
       }
