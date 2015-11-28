@@ -12,6 +12,7 @@
           nav-link sref="map_path" ng-class="{active: $state.current.name=='root_path'}" Поиск
           nav-link sref="positions_path" sign-only="true" Мои позиции
           nav-link sref="messages_path" sign-only="true" Мои сообщения
+          nav-link sref="analytic_path" Аналитика
           nav-link sref="help_path" Помощь
           nav-link sref="support_path" Поддержка
     tr.h0
@@ -24,7 +25,7 @@
             .nav__profile__status
               | Фермер
 
-          nav-link sref="support_path"
+          nav-link sref="settings_path"
             i.icon-settings
             span Настройки
           - if user_signed_in?

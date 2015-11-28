@@ -16,6 +16,7 @@ body {
   transform: scale(1);
   transition: .3s;
   height: 100%;
+  position: relative;
 }
 
 .wrapper.active {

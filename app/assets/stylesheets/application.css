@@ -30,6 +30,10 @@
   .search__input input[type="text"] {
     padding-left: 50px;
   }
+
+  .message-page {
+    top: 75px;
+  }
 }
 
 @media screen and (max-width: 700px) {
@@ -89,7 +93,7 @@
   }
 
   .message-page__contacts {
-    margin-left: -260px;
+    margin-left: -275px;
   }
 
   .message-page__body {

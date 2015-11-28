@@ -88,8 +88,8 @@
 }
 
 .nav__profile {
-  border-top: 1px solid #d8d8d8;
-  border-bottom: 1px solid #d8d8d8;
+  border-top: 1px solid #E4E4E4;
+  border-bottom: 1px solid #E4E4E4;
 }
 
 .nav__profile img {
@@ -110,7 +110,7 @@
 
 footer {
   text-align: left;
-  background: #f0f0f0;
+  background: #FAFAFA;
   margin-top: 20px;
   transition: 0.3s;
 }

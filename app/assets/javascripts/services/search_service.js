@@ -12,7 +12,6 @@ app.service('Search', ['$rootScope', '$http', 'ngNotify', function ($rootScope, 
   }
 
   Search.byParams = function (params) {
-    console.log(Search.type)
     $http.get(Routes[Search.type + "_path"]({format: "json"}), {params: params})
       .then(searchCallback)
   }

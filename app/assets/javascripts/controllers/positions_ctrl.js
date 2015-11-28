@@ -43,19 +43,19 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Cache', '$time
 
     $scope.$watch('ctrl.position.price_weight_dimension_id', function (wd) {
       if (wd!==undefined) {
-        ctrl.position.price = ctrl.position.price_etalon * gon.data.by_index.weight_dimensions[wd].convert;
+        ctrl.position.price = (ctrl.position.price_etalon * gon.data.by_index.weight_dimensions[wd].convert).toFixed(2);
       }
     })
 
     $scope.$watch('ctrl.position.weight_dimension_id', function (wd) {
       if (wd!==undefined) {
-        ctrl.position.weight = ctrl.position.weight_etalon / gon.data.by_index.weight_dimensions[wd].convert;
+        ctrl.position.weight = (ctrl.position.weight_etalon / gon.data.by_index.weight_dimensions[wd].convert).toFixed(2);
       }
     })
 
     $scope.$watch('ctrl.position.weight_min_dimension_id', function (wd) {
       if (wd!==undefined) {
-        ctrl.position.weight_min = ctrl.position.weight_min_etalon / gon.data.by_index.weight_dimensions[wd].convert;
+        ctrl.position.weight_min = (ctrl.position.weight_min_etalon / gon.data.by_index.weight_dimensions[wd].convert).toFixed(2);
       }
     })
   })

@@ -55,6 +55,10 @@ md-input-container.md-block {
   padding: 0 20px;
 }
 
+.md-sm {
+  padding: 0 15px;
+}
+
 md-progress-linear.md-default-theme .md-container, md-progress-linear .md-container {
   background-color: rgba(255, 219, 76, 0.37);
 }

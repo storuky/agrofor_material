@@ -3,6 +3,7 @@
   border-spacing: 0;
   background-color: #fff;
   overflow: hidden;
+  position: relative;
 }
 
 .table > thead > tr > th {
