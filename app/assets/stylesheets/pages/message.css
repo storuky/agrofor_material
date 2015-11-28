@@ -37,6 +37,7 @@
   left: 0;
   right: 0;
   background-color: white;
+  overflow-y: auto;
 }
 
 .message-page__send {
@@ -45,14 +46,14 @@
   left: 0;
   right: 0;
   min-height: 90px;
-  /* background-color: #FAFAFA; */
-  /* border-top: 1px solid #E4E4E4; */
 }
 
 .message-page__body__wrapper {
   margin: auto;
   max-width: 600px;
   padding: 0 15px;
+  /* overflow-y: scroll; */
+  background: white;
 }
 
 .message-page__send__textarea {
@@ -214,4 +215,35 @@
   left: 28px;
   font-size: 21px;
   color: #9A9A9A;
+}
+
+
+.message {
+
+padding: 11px 0;}
+
+.message__avatar {
+
+}
+
+.message__body {
+
+padding: 0 20px;}
+
+.message__fullname {
+
+font-weight: 500;display: inline-block;text-decoration: none;color: black;}
+
+.message__text {
+
+margin-top: 2px;}
+
+.message__created_at {
+
+color: #999;font-size: 13px;}
+
+
+.message__avatar img {
+  border-radius: 40px;
+  width: 44px;
 }

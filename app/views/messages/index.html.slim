@@ -31,20 +31,31 @@
 
 
   .message-page__body
-      .message-page__messages
-        .message-page__body__wrapper
+    .message-page__messages
+      .message-page__body__wrapper
+        .message[layout="row" ng-repeat="message in _.range(100)"]
+          .message__avatar[flex="none"]
+            img ng-src="/avatar.png" width="40"
+          .message__body[flex]
+            a.link.message__fullname ui-sref="profile_path(message.user)"
+              | Кононенко Павел
+            .message__text
+              | Привет, Дорогой друг!
+          .message__created_at[flex="none"]
+            | Сегодня в 21:00
 
-      .message-page__send
-        .message-page__body__wrapper
-          .message-page__send__textarea
-            md-input-container.md-block md-no-float=""
-              textarea placeholder="Текст сообщения"
-          .message-page__send__actions[layout="row" layout-align="space-between center"]
-            .message-page__send__attach
-              i.icon-attachment
-              span
-                | Прикрепить файл
-            
-            .message-page__send__button
-              md-button.md-raised.md-yellow.md-sm Отправить
-        
+
+    .message-page__send
+      .message-page__body__wrapper
+        .message-page__send__textarea
+          md-input-container.md-block md-no-float=""
+            textarea placeholder="Текст сообщения"
+        .message-page__send__actions[layout="row" layout-align="space-between center"]
+          .message-page__send__attach
+            i.icon-attachment
+            span
+              | Прикрепить файл
+          
+          .message-page__send__button
+            md-button.md-raised.md-yellow.md-sm Отправить
+      
