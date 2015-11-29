@@ -9,14 +9,16 @@
   .message-page__contacts
     .message-page__contacts__search
       i.icon-magnify
-      input type="text" placeholder="Поиск"
+      input type="text" placeholder="Поиск" ng-model="ctrl.contactSearch"
     md-tabs.message-page__contacts__content[md-dynamic-height md-selected="ctrl.contactsTab" class="noTabPanel"]
       md-tab [ng-repeat="item in [1,2]" label="tab"]
-        md-list-item class="md-3-line" ng-repeat="item in _.range(20)" ng-class="{active: item==ctrl.contact}" ng-click="ctrl.contact = item"
+        md-list-item class="md-3-line" ng-repeat="item in _.range(20) | filter:ctrl.contactSearch" ng-class="{active: item==ctrl.contact}" ng-click="ctrl.contact = item"
           img.md-avatar ng-src="/avatar.png" alt="{{item.who}}"
           .md-list-item-text layout="column"
             h3
-              | Кононенко Павел
+              | Кононенко Павел Вячеславович
+            .message-page__contacts__time
+              | 14:30
             p
               | ajdsladas djkas jdasl d
 
