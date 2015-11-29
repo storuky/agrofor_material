@@ -81,4 +81,4 @@ gem 'geocoder'
 gem 'angularjs-rails'
 gem 'underscore-rails'
 
-gem "oxymoron", :path => "../oxymoron"
+gem "oxymoron", :path => "../oxymoron", git: "https://github.com/storuky/oxymoron.git", branch: :master

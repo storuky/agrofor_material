@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/storuky/oxymoron.git
+  revision: 7c8597e4a75d61e7eca19b3432dfc3330a5a6de2
+  branch: master
+  specs:
+
 PATH
   remote: ../oxymoron
   specs:
