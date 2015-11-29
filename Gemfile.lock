@@ -1,11 +1,7 @@
 GIT
   remote: https://github.com/storuky/oxymoron.git
-  revision: 7c8597e4a75d61e7eca19b3432dfc3330a5a6de2
+  revision: 1dbaad269accf39a14a68532c91b4ad2ec409b47
   branch: master
-  specs:
-
-PATH
-  remote: ../oxymoron
   specs:
     oxymoron (0.0.2)
       awesome_print
