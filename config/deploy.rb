@@ -2,10 +2,11 @@ set :application, 'agrofor'
 set :repo_url, 'git@github.com:storuky/agrofor_material.git'
 # set :rvm_type, :user
 
-set :bundle_path, nil
-set :bundle_flags, '--system'
+# set :bundle_path, nil
+# set :bundle_flags, '--system'
 
 # set :rvm_bin_path, "/home/deploy/.rvm/bin"
+set :rvm_ruby_version, '2.2.3@agrofor'
 
 set :deploy_to, '/home/deploy/wheat'
 
