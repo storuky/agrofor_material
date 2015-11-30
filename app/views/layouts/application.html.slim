@@ -25,7 +25,8 @@ html ng-app="app"
     = render 'layouts/cache'
 
     div ng-include="'sign.html'"
-    = stylesheet_link_tag 'application'
     link href='http://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'
     script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript" async=""
-    = javascript_include_tag 'application', :async => Rails.env.production?
+
+= stylesheet_link_tag 'application'
+= javascript_include_tag 'application', :async => Rails.env.production?
