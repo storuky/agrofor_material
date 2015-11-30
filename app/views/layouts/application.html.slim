@@ -7,6 +7,10 @@ html ng-app="app"
     link rel="icon" href="data:;base64,iVBORw0KGgo="
     = csrf_meta_tags
     base href="/"
+    css:
+      .ng-cloak {
+        visibility: hidden;
+      }
   body.ng-cloak ng-controller="MainCtrl"
     .wrapper ng-class="{active: Sign.isShow}"
       aside.sidebar.md-whiteframe-1dp
