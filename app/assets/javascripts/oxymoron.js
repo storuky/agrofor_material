@@ -6,9 +6,7 @@
      *  Set token for AngularJS ajax methods
     */
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'AngularXMLHttpRequest'
-    $httpProvider.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name=csrf-token]').content;
     $httpProvider.defaults.paramSerializer = '$httpParamSerializerJQLike';
-
 
     /*
      *  Enable HTML5 History API
@@ -765,7 +763,7 @@
     }
   ])
 
-  .run(['$rootScope', 'ngNotify', 'Validate', '$state', function ($rootScope, ngNotify, Validate, $state) {
+  .run(['$rootScope', 'ngNotify', 'Validate', '$state', '$http', function ($rootScope, ngNotify, Validate, $state, $http) {
     ngNotify.config({
         theme: 'pure',
         position: 'top',
@@ -774,6 +772,8 @@
     });
 
     $rootScope.$on('loading:finish', function (h, res) {
+      $http.defaults.headers.common['X-CSRF-Token'] = res.headers()['X-CSRF-Token'] || document.querySelector('meta[name=csrf-token]').content;
+
       if (res.data && res.data.msg) {
         ngNotify.set(res.data.msg, 'success');
       }
