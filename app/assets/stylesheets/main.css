@@ -23,11 +23,6 @@ body {
   transform: scale(0.8);
 }
 
-
-.ng-cloak {
-  visibility: hidden !important;
-}
-
 h1 {
   color: #333;
   margin: 0;

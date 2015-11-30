@@ -6,7 +6,9 @@
      *  Set token for AngularJS ajax methods
     */
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'AngularXMLHttpRequest'
+    $httpProvider.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name=csrf-token]').content;
     $httpProvider.defaults.paramSerializer = '$httpParamSerializerJQLike';
+
 
     /*
      *  Enable HTML5 History API
@@ -174,6 +176,22 @@
           resolve: {
             action: ['$stateParams', function ($stateParams) {
               return resolve('list', $stateParams)
+            }]
+          }
+        })
+      
+        .state('analytics_path', {
+          url: '/analytics',
+          templateUrl: function(params) {
+            
+              return Routes['analytics_path'](params) + "?ng-view";
+            
+          },
+          reloadOnSearch: false,
+          controller: 'AnalyticsCtrl as ctrl',
+          resolve: {
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
             }]
           }
         })
@@ -763,7 +781,7 @@
     }
   ])
 
-  .run(['$rootScope', 'ngNotify', 'Validate', '$state', '$http', function ($rootScope, ngNotify, Validate, $state, $http) {
+  .run(['$rootScope', 'ngNotify', 'Validate', '$state', function ($rootScope, ngNotify, Validate, $state) {
     ngNotify.config({
         theme: 'pure',
         position: 'top',
@@ -772,8 +790,6 @@
     });
 
     $rootScope.$on('loading:finish', function (h, res) {
-      $http.defaults.headers.common['X-CSRF-Token'] = res.headers()['X-CSRF-Token'] || document.querySelector('meta[name=csrf-token]').content;
-
       if (res.data && res.data.msg) {
         ngNotify.set(res.data.msg, 'success');
       }
@@ -1000,7 +1016,7 @@
 (function () {
   var Routes = function () {
     var self = this,
-        routes = {"root":{"defaults":{},"path":"/"},"new_user_session":{"defaults":{},"path":"/users/sign_in"},"user_session":{"defaults":{},"path":"/users/sign_in"},"destroy_user_session":{"defaults":{},"path":"/users/sign_out"},"user_password":{"defaults":{},"path":"/users/password"},"new_user_password":{"defaults":{},"path":"/users/password/new"},"edit_user_password":{"defaults":{},"path":"/users/password/edit"},"cancel_user_registration":{"defaults":{},"path":"/users/cancel"},"user_registration":{"defaults":{},"path":"/users"},"new_user_registration":{"defaults":{},"path":"/users/sign_up"},"edit_user_registration":{"defaults":{},"path":"/users/edit"},"map":{"defaults":{},"path":"/search/map"},"list":{"defaults":{},"path":"/search/list"},"support":{"defaults":{},"path":"/support"},"help":{"defaults":{},"path":"/help"},"settings":{"defaults":{},"path":"/settings"},"positions":{"defaults":{},"path":"/positions"},"new_position":{"defaults":{},"path":"/positions/new"},"edit_position":{"defaults":{},"path":"/positions/:id/edit"},"position":{"defaults":{},"path":"/positions/:id"},"favorites":{"defaults":{},"path":"/favorites"},"new_favorite":{"defaults":{},"path":"/favorites/new"},"edit_favorite":{"defaults":{},"path":"/favorites/:id/edit"},"favorite":{"defaults":{},"path":"/favorites/:id"},"templates":{"defaults":{},"path":"/templates"},"new_template":{"defaults":{},"path":"/templates/new"},"edit_template":{"defaults":{},"path":"/templates/:id/edit"},"template":{"defaults":{},"path":"/templates/:id"},"messages":{"defaults":{},"path":"/messages"},"new_message":{"defaults":{},"path":"/messages/new"},"edit_message":{"defaults":{},"path":"/messages/:id/edit"},"message":{"defaults":{},"path":"/messages/:id"},"correspondences":{"defaults":{},"path":"/correspondences"},"new_correspondence":{"defaults":{},"path":"/correspondences/new"},"edit_correspondence":{"defaults":{},"path":"/correspondences/:id/edit"},"correspondence":{"defaults":{},"path":"/correspondences/:id"},"offers":{"defaults":{},"path":"/offers"},"new_offer":{"defaults":{},"path":"/offers/new"},"edit_offer":{"defaults":{},"path":"/offers/:id/edit"},"offer":{"defaults":{},"path":"/offers/:id"},"profile_index":{"defaults":{},"path":"/profile"},"new_profile":{"defaults":{},"path":"/profile/new"},"edit_profile":{"defaults":{},"path":"/profile/:id/edit"},"profile":{"defaults":{},"path":"/profile/:id"},"rails_info_properties":{"defaults":{},"path":"/rails/info/properties"},"rails_info_routes":{"defaults":{},"path":"/rails/info/routes"},"rails_info":{"defaults":{},"path":"/rails/info"},"rails_mailers":{"defaults":{},"path":"/rails/mailers"}};
+        routes = {"root":{"defaults":{},"path":"/"},"new_user_session":{"defaults":{},"path":"/users/sign_in"},"user_session":{"defaults":{},"path":"/users/sign_in"},"destroy_user_session":{"defaults":{},"path":"/users/sign_out"},"user_password":{"defaults":{},"path":"/users/password"},"new_user_password":{"defaults":{},"path":"/users/password/new"},"edit_user_password":{"defaults":{},"path":"/users/password/edit"},"cancel_user_registration":{"defaults":{},"path":"/users/cancel"},"user_registration":{"defaults":{},"path":"/users"},"new_user_registration":{"defaults":{},"path":"/users/sign_up"},"edit_user_registration":{"defaults":{},"path":"/users/edit"},"map":{"defaults":{},"path":"/search/map"},"list":{"defaults":{},"path":"/search/list"},"analytics":{"defaults":{},"path":"/analytics"},"support":{"defaults":{},"path":"/support"},"help":{"defaults":{},"path":"/help"},"settings":{"defaults":{},"path":"/settings"},"positions":{"defaults":{},"path":"/positions"},"new_position":{"defaults":{},"path":"/positions/new"},"edit_position":{"defaults":{},"path":"/positions/:id/edit"},"position":{"defaults":{},"path":"/positions/:id"},"favorites":{"defaults":{},"path":"/favorites"},"new_favorite":{"defaults":{},"path":"/favorites/new"},"edit_favorite":{"defaults":{},"path":"/favorites/:id/edit"},"favorite":{"defaults":{},"path":"/favorites/:id"},"templates":{"defaults":{},"path":"/templates"},"new_template":{"defaults":{},"path":"/templates/new"},"edit_template":{"defaults":{},"path":"/templates/:id/edit"},"template":{"defaults":{},"path":"/templates/:id"},"messages":{"defaults":{},"path":"/messages"},"new_message":{"defaults":{},"path":"/messages/new"},"edit_message":{"defaults":{},"path":"/messages/:id/edit"},"message":{"defaults":{},"path":"/messages/:id"},"correspondences":{"defaults":{},"path":"/correspondences"},"new_correspondence":{"defaults":{},"path":"/correspondences/new"},"edit_correspondence":{"defaults":{},"path":"/correspondences/:id/edit"},"correspondence":{"defaults":{},"path":"/correspondences/:id"},"offers":{"defaults":{},"path":"/offers"},"new_offer":{"defaults":{},"path":"/offers/new"},"edit_offer":{"defaults":{},"path":"/offers/:id/edit"},"offer":{"defaults":{},"path":"/offers/:id"},"profile_index":{"defaults":{},"path":"/profile"},"new_profile":{"defaults":{},"path":"/profile/new"},"edit_profile":{"defaults":{},"path":"/profile/:id/edit"},"profile":{"defaults":{},"path":"/profile/:id"},"rails_info_properties":{"defaults":{},"path":"/rails/info/properties"},"rails_info_routes":{"defaults":{},"path":"/rails/info/routes"},"rails_info":{"defaults":{},"path":"/rails/info"},"rails_mailers":{"defaults":{},"path":"/rails/mailers"}};
 
     self.defaultParams = {}
 

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+
   root to: "application#index"
 
   devise_for :users, controllers: {
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
     get "list"
   end
 
+  get 'analytics' => 'analytics#index'
   get 'support' => 'support#index'
   get 'help' => 'help#index'
   get 'settings' => 'settings#index'
