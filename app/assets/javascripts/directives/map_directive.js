@@ -47,6 +47,7 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', function (Map, Se
       function drawMarkers (markers) {
         map.geoObjects.removeAll();
         clusterer.removeAll();
+        geoObjects = [];
 
         _.each(markers, function (marker) {
           var coords = [marker[1], marker[2]],
