@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  after_action :set_csrf_cookie
+
   layout proc {
     if request.xhr?
       false
@@ -17,19 +19,23 @@ class ApplicationController < ActionController::Base
   end
 
   private
+    def set_csrf_cookie
+      response.headers['X-CSRF-Token'] = form_authenticity_token if protect_against_forgery?
+    end
+
     def set_gon
       ActionView::Base.default_form_builder = AgroforFormBuilder
 
       gon.settings = {
         locale: I18n.locale,
-        currency: (gon.current_user.currency rescue Currency.serialize.cache.by_index[1])
+        currency: (gon.current_user.currency rescue Currency.all_by_index_from_cache(serializer: CurrencySerializer)[1])
       }
 
       gon.data = {
-        trade_types: TradeType.serialize.cache.all,
-        weight_dimensions: WeightDimension.serialize.cache.all,
-        options: Option.serialize.cache.all,
-        currencies: Currency.serialize.cache.all,
+        trade_types: TradeType.all_from_cache(serializer: TradeTypeSerializer),
+        weight_dimensions: WeightDimension.all_from_cache(serializer: WeightDimensionSerializer),
+        options: Option.all_from_cache(serializer: OptionSerializer),
+        currencies: Currency.all_from_cache(serializer: CurrencySerializer),
         statuses: Position.statuses,
         rates: Currency.get_rates(gon.settings[:currency][:name]),
       }

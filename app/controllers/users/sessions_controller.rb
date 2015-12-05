@@ -12,7 +12,13 @@ class Users::SessionsController < Devise::SessionsController
     self.resource = warden.authenticate(auth_options)
     if self.resource
       sign_in(resource_name, self.resource)
-      render json: {msg: "Осуществляется вход в систему"}
+      render json: {
+        current_user: self.resource.info,
+        settings: {
+          locale: I18n.locale,
+          currency: (gon.current_user.currency rescue Currency.all_by_index_from_cache(serializer: CurrencySerializer)[1])
+        }
+      }
     else
       render json: {msg: "Email или пароль указаны неверно"}, status: 401
     end

@@ -1,13 +1,14 @@
 class PositionsController < ApplicationController
   before_action :check_user, except: [:show]
-  before_action :set_position, only: [:destroy, :update, :edit]
+  before_action :set_position, only: [:show, :destroy, :update, :edit]
+  before_action :check_owner, only: [:destroy, :update, :edit]
 
   def index
     respond_to do |format|
       format.html
       format.json {
-        @positions = Position.all
-        render json: @positions, root: false
+        @positions = Position.all_from_cache(serializer: PositionSerializer)
+        render json: Oj.dump(@positions)
       }
     end
   end
@@ -20,7 +21,7 @@ class PositionsController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        render json: @position, root: false
+        render json: Oj.dump(@position)
       }
     end
   end
@@ -49,17 +50,18 @@ class PositionsController < ApplicationController
   def show
     respond_to do |format|
       format.json {
-        @position = Position.find(params[:id])
-        render json: @position
+        render json: Oj.dump(@position)
       }
     end
   end
 
   private
     def set_position
-      @position = current_user.positions.find_by(id: params[:id])
+      @position = Position.find_from_cache(params[:id], serializer: PositionSerializer)
+    end
 
-      unless @position
+    def check_owner
+      if @position[:user_id] != current_user.id
         render json: {msg: "Позиция не найдена", redirect_to: "positions_path"}, status: 404
       end
     end

@@ -11,7 +11,7 @@ class WeightDimension < ActiveRecord::Base
 
   class << self
     def normalize weight, weight_dimension_id
-      weight.to_f * WeightDimension.serialize.cache.by_index[weight_dimension_id][:convert] rescue -1
+      weight.to_f * WeightDimension.all_by_index_from_cache(serializer: WeightDimensionSerializer)[weight_dimension_id][:convert] rescue -1
     end
   end
 end

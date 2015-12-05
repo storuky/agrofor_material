@@ -3,7 +3,7 @@ class SearchController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        render json: MultiJson.dump(Position.pluck_fields)
+        render json: Oj.dump(Position.pluck_fields)
       }
     end
   end
@@ -12,7 +12,8 @@ class SearchController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        render json: Position.all
+        @positions = Position.all_from_cache(serializer: PublicationSerializer)
+        render json: Oj.dump(@positions)
       }
     end
   end

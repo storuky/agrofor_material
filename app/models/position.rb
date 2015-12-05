@@ -81,25 +81,26 @@ class Position < ActiveRecord::Base
   end
 
   def self.filter filters = []
-    currencies = Currency.cache.all
+    currencies = Currency.all_from_cache
     sql = []
     filters.each do |filter|
-      user_currency = Currency.serialize.cache.by_index[filter[:currency_id]]
+      user_currency = Currency.all_by_index_from_cache(serializer: CurrencySerializer)[filter[:currency_id]]
       
       query = {}
       query[:trade_type_id] = filter["trade_type_id"] if filter["trade_type_id"]
       query[:option_id] = filter["option_id"] if filter["option_id"]
 
+      wd_cache = WeightDimension.all_by_index_from_cache(serializer: WeightDimensionSerializer)
       
       if filter["weight_from"] or filter["weight_to"]
-        weight_from = (filter["weight_from"] || 0).to_f * WeightDimension.serialize.cache.by_index[filter["weight_from_dimension_id"]][:convert] rescue 0
-        weight_to = (filter["weight_to"] || Float::INFINITY).to_f * WeightDimension.serialize.cache.by_index[filter["weight_to_dimension_id"]][:convert] rescue Float::INFINITY
+        weight_from = (filter["weight_from"] || 0).to_f * wd_cache[filter["weight_from_dimension_id"]][:convert] rescue 0
+        weight_to = (filter["weight_to"] || Float::INFINITY).to_f * wd_cache[filter["weight_to_dimension_id"]][:convert] rescue Float::INFINITY
         query[:weight_etalon] = (weight_from..weight_to)
       end
 
       if filter["price_from"] or filter["price_to"]
-        price_from = (filter["price_from"] || 0).to_f / WeightDimension.serialize.cache.by_index[filter["price_from_weight_dimension_id"]][:convert] rescue 0
-        price_to = (filter["price_to"] || Float::INFINITY).to_f / WeightDimension.serialize.cache.by_index[filter["price_to_weight_dimension_id"]][:convert] rescue Float::INFINITY
+        price_from = (filter["price_from"] || 0).to_f / wd_cache[filter["price_from_weight_dimension_id"]][:convert] rescue 0
+        price_to = (filter["price_to"] || Float::INFINITY).to_f / wd_cache[filter["price_to_weight_dimension_id"]][:convert] rescue Float::INFINITY
 
         price_sql = []
         currencies.each do |currency|
@@ -150,7 +151,7 @@ class Position < ActiveRecord::Base
         currency_id: position.currency_id
       }
 
-      res[:trade_type_id] = TradeType.cache.by_index[position.trade_type_id].trade_type_id
+      res[:trade_type_id] = TradeType.all_by_index_from_cache[position.trade_type_id].trade_type_id
 
       if position.trade_type_id == 1
         res[:price_to] = position.price * (1 + position.price_discount/100.0)
@@ -189,7 +190,7 @@ class Position < ActiveRecord::Base
     #
 
     def set_category_id
-      self.category_id = Option.cache.by_index[option_id].category_id
+      self.category_id = Option.all_by_index_from_cache[option_id].category_id
     end
 
     def set_index_field
@@ -197,14 +198,14 @@ class Position < ActiveRecord::Base
       [:en, :ru].each do |locale|
         temp << I18n.t('position.dictionary.trade_types', :locale => locale)[self.trade_type_id]
         temp << I18n.t('category.items.'+self.option.category.title, :locale => locale)
-        temp << I18n.t('option.'+Option.cache.by_index[option_id].title, :locale => locale)
+        temp << I18n.t('option.'+Option.all_by_index_from_cache[option_id].title, :locale => locale)
       end
       self.index_field = temp.join(" ")
     end
 
     def set_etalon
-      self.weight_etalon = self.weight * WeightDimension.serialize.cache.by_index[self.weight_dimension_id][:convert]
-      self.weight_min_etalon = self.weight_min * WeightDimension.serialize.cache.by_index[self.weight_min_dimension_id][:convert]
-      self.price_etalon = self.price / WeightDimension.serialize.cache.by_index[self.price_weight_dimension_id][:convert]
+      self.weight_etalon = self.weight * WeightDimension.all_by_index_from_cache(serializer: WeightDimensionSerializer)[self.weight_dimension_id][:convert]
+      self.weight_min_etalon = self.weight_min * WeightDimension.all_by_index_from_cache(serializer: WeightDimensionSerializer)[self.weight_min_dimension_id][:convert]
+      self.price_etalon = self.price / WeightDimension.all_by_index_from_cache(serializer: WeightDimensionSerializer)[self.price_weight_dimension_id][:convert]
     end
 end

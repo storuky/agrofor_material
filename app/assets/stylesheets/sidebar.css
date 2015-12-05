@@ -89,7 +89,7 @@
 
 .nav__profile {
   border-top: 1px solid #E4E4E4;
-  border-bottom: 1px solid #E4E4E4;
+  /* border-bottom: 1px solid #E4E4E4; */
 }
 
 .nav__profile img {

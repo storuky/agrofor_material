@@ -38,14 +38,14 @@ class Currency < ActiveRecord::Base
 
   class << self
     def get_rates name
-      rates = Currency.cache.all.map do |currency|
+      rates = Currency.all_from_cache.map do |currency|
         {id: currency.id, rate: currency.get_rate(name)}
       end
       rates.index_by{|rate| rate[:id]}
     end
 
     def normalize weight, weight_dimension_id
-      weight.to_f * Currency.serialize.cache.by_index[weight_dimension_id][:convert] rescue -1
+      weight.to_f * Currency.all_by_index_from_cache(serializer: CurrencySerializer)[weight_dimension_id][:convert] rescue -1
     end
   end
 
