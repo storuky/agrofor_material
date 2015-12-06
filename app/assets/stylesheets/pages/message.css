@@ -129,6 +129,7 @@
   position: absolute;
   bottom: 0;
   width: 275px;
+  /* box-shadow: 0px 0px 10px white; */
 }
 
 .message-page__contacts__footer .md-button {
@@ -153,6 +154,7 @@
   background: white !important;
   cursor: default;
   box-shadow: none;
+  color: #2278CC;
 }
 
 .message-page__contacts__footer .md-button .icon-account-multiple-outline {

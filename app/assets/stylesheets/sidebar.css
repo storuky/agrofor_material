@@ -50,7 +50,7 @@
 
 .nav {
   display: block;
-  padding-top: 15px;
+  padding: 15px 0;
 }
 
 .nav__link {
@@ -111,8 +111,8 @@
 footer {
   text-align: left;
   background: #FAFAFA;
-  margin-top: 20px;
-  transition: 0.3s;
+  /* margin-top: 20px; */
+  /* transition: 0.3s; */
 }
 
 footer .nav__link:hover {

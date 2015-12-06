@@ -75,11 +75,17 @@
               td
                 | {{::position.option.title}}
               td.numeric
-                | {{::position.price | number:2}} {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
+                | {{::position.price | number:2}}
+                .dim
+                  | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
               td.numeric
-                | {{::position.weight | number}} {{::position.weight_dimension.title}}
+                | {{::position.weight | number}}
+                .dim
+                  | {{::position.weight_dimension.title}}
               td.numeric
-                | {{::position.weight_min | number}} {{::position.weight_min_dimension.title}}
+                | {{::position.weight_min | number}}
+                .dim
+                  | {{::position.weight_min_dimension.title}}
               td.btns
                 a.icon-btn
                   i.icon-message-text
