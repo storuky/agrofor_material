@@ -8,6 +8,7 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Cache', '$time
       $state.go('map_path');
       Sign.isShow = true;
     }
+
   })
 
   action('index', function () {
@@ -23,6 +24,7 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Cache', '$time
 
   action('new', function () {
     ctrl.save = Position.create;
+    ctrl.templates = [{title: "lol", id: 1},{title: "lal", id: 2},]
   })
 
   action('edit', function (params) {

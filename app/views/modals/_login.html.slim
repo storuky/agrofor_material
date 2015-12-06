@@ -8,16 +8,18 @@ script type="text/ng-template" id="sign.html"
         h2 Вход
 
         input[style="display: none" type="password" value=""]
-        div[layout="column"]
-          md-input-container.md-block[flex]
+        div[layout="row" layout-wrap]
+          md-input-container.md-block[flex=100]
             label Email
             input type="email" value="" name="user[email]" ng-model="Sign.form.email"
-          md-input-container.md-block[flex]
+          md-input-container.md-block[flex=100]
             label Password
             input type="password" value="" name="user[password]" ng-model="Sign.form.password"
-        div[layout="column"]
+
+        div[layout="row" layout-wrap]
           / md-button.md-lg ng-href="" Регистрация
           md-button.md-raised.md-yellow.md-lg[style="margin: 0;" flex=100 type="submit"]
             | Войти
 
-          a.link[flex href="" style="margin-top: 20px"] Забыли пароль?
+          div[flex=100 style="margin-top: 20px"]
+            a.link href="" Забыли пароль?

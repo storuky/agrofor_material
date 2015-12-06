@@ -17,7 +17,13 @@ html ng-app="app"
         = render "layouts/sidebar"
 
       .page ng-class="{overflow: Search.type == 'map'}"
-        ui-view[layout="column"]
+        table.page-table
+          tr
+            td.h0 ng-yield="header"
+          tr
+            td style="vertical-align: top"
+              .page-background.page-layout
+              ui-view
 
     = Gon::Base.render_data({})
     = render template: 'modals/index'

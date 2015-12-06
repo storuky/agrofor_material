@@ -117,4 +117,6 @@
 
 .table-wrapper {
   overflow-x: auto;
+  border-bottom: 1px solid #C7C7C7;
+  width: 100%;
 }

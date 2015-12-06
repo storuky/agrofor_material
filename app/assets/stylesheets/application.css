@@ -110,6 +110,10 @@
   .search__footer, .search__tags {
     min-width: 285px;
   }
+
+  .position-modal__offer__content {
+    height: auto;
+  }
 }
 
 @media screen and (max-width: 450px) {

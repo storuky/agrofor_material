@@ -1,24 +1,25 @@
-.page-header[flex="none"]
-  .page-layout
-    div[layout="row" layout-wrap layout-align="space-between center"]
-      h1.md-title[flex="" flex-sm="100"]
-        toggle-sidebar.hide-gt-md id="left"
-        span Мои позиции
+div content-for="header"
+  .page-header
+    .page-layout
+      div[layout="row" layout-wrap layout-align="space-between center"]
+        h1.md-title[flex="" flex-sm="100"]
+          toggle-sidebar.hide-gt-md id="left"
+          span Мои позиции
 
-      .hide-gt-sm style="height: 20px; width: 100%;"
+        .hide-gt-sm style="height: 20px; width: 100%;"
 
-      div[flex="none" flex-sm=100 ng-init="ctrl.currentTab = 0"]
-        .tabs.hide-sm
-          md-button.tab ng-repeat="status in gon.data.statuses" ng-class="{active: ctrl.currentTab == $index}" ng-click="ctrl.currentTab = $index"
-            | {{status.title}}
-        md-input-container.md-block.margin-0.hide-gt-sm
-          md-select[ng-model="ctrl.currentTab" placeholder="Статус"]
-            md-option ng-repeat="status in gon.data.statuses" value="{{status.id}}"
+        div[flex="none" flex-sm=100 ng-init="ctrl.currentTab = 0"]
+          .tabs.hide-sm
+            md-button.tab ng-repeat="status in gon.data.statuses" ng-class="{active: ctrl.currentTab == $index}" ng-click="ctrl.currentTab = $index"
               | {{status.title}}
+          md-input-container.md-block.margin-0.hide-gt-sm
+            md-select[ng-model="ctrl.currentTab" placeholder="Статус"]
+              md-option ng-repeat="status in gon.data.statuses" value="{{status.id}}"
+                | {{status.title}}
 
 
         
-.page-content.page-layout.md-whiteframe-1dp[flex=""]
+.page-content.page-layout
   md-tabs[md-dynamic-height md-selected="ctrl.currentTab" class="noTabPanel"]
     md-tab [ng-repeat="item in [1, 2, 3, 4]" label="tab"]
       .table-wrapper ng-init="limitTo = 10"
@@ -68,7 +69,7 @@
                   i.icon-pencil
                 a.icon-btn
                   i.icon-eye
-            tr ng-repeat="offer in [1,2,3]"
+            /tr ng-repeat="offer in [1,2,3]"
               td
               td
                 | {{::position.created_at | date:"dd.MM.yyyy"}}

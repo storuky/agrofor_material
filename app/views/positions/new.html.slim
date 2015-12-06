@@ -1,16 +1,17 @@
-.page-header[flex="none"]
-  .page-layout
-    div[layout="row" layout-wrap layout-align="space-between center"]
-      h1.md-title[flex="" flex-sm="100"]
-        toggle-sidebar.hide-gt-md id="left"
-        span Создать позицию
+div content-for="header"
+  .page-header
+    .page-layout
+      div[layout="row" layout-wrap layout-align="space-between center"]
+        h1.md-title[flex="" flex-sm="100"]
+          toggle-sidebar.hide-gt-md id="left"
+          span Создать позицию
 
-      .hide-gt-sm style="height: 20px; width: 100%;"
-
-      md-input-container.margin-0[flex="none" flex-sm="100"]
-        md-select[ng-model="ctrl.template" placeholder="Шаблон"]
-          md-option ng-repeat="template in ctrl.templates" value="{{template.id}}"
-            | {{template.title}}
-
-.page-content.page-layout.md-whiteframe-1dp[flex="" layout="row" layout-wrap layout-padding-sm]
+        .hide-gt-sm style="height: 20px; width: 100%;"
+        md-input-container.margin-0[flex="none" flex-sm="100"]
+          md-select[ng-model="ctrl.template" placeholder="Шаблон"]
+            md-option ng-repeat="template in ctrl.templates" value="{{template.id}}"
+              | {{template.title}}
+        
+.page-content.page-layout.md-whiteframe-1dp[layout="row" layout-wrap layout-padding-sm]
   = render "positions/form"
+

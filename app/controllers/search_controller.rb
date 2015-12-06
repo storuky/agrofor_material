@@ -12,7 +12,7 @@ class SearchController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        @positions = Position.all_from_cache(serializer: PublicationSerializer)
+        @positions = Position.all_from_cache(serializer: PositionSerializer)
         render json: Oj.dump(@positions)
       }
     end
