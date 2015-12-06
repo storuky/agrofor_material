@@ -34,8 +34,10 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
       t.timestamps null: false
 
-      t.string :fullname
+      t.string :first_name
+      t.string :last_name
       t.string :avatar
+      
       t.string :phones, array: true, default: []
       
       t.string :city
@@ -50,6 +52,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.json :events, default: {}
 
       t.boolean :banned
+
+      t.integer :role_id
+      t.string :timezone
 
       t.string :locale, default: "ru", null: false
     end

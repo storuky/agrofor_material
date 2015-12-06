@@ -37,6 +37,10 @@ ui-view {
   table-layout: fixed;
 }
 
+.page.overflow .page-background {
+  display: none;
+}
+
 .page-layout {
   display: block;
   width: 100%;

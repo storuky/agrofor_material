@@ -19,12 +19,14 @@ Rails.application.routes.draw do
   get 'settings' => 'settings#index'
 
   resources :positions
+  resources :offers
   resources :favorites
   resources :templates
   resources :messages
   resources :correspondences
   resources :offers
   resources :profile
+  resources :users
   
   resources :positions
 

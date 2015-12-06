@@ -6,8 +6,8 @@ module Cacheable
     
     private
       def clear_cache
-        Rails.cache.delete_matched(/#{self.to_s}\.cache\.all/)
-        Rails.cache.delete_matched(/#{self.to_s}\.cache\.find\(#{self.id}\)/)
+        Rails.cache.delete_matched(/#{self.class.to_s}\.cache\.all/)
+        Rails.cache.delete_matched(/#{self.class.to_s}\.cache\.find\(#{self.id}\)/)
       end
   end
 

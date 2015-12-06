@@ -5,5 +5,44 @@ div content-for="header"
         h1.md-title[flex="" flex-sm="100"]
           toggle-sidebar.hide-gt-md id="left"
           span Профиль
+        
+        .hide-gt-sm style="height: 20px; width: 100%;"
 
-.page-content.page-layout.md-whiteframe-1dp
+        div[flex="none" flex-sm=100 ng-init="ctrl.currentTab = 0"]
+          .tabs.hide-sm
+            md-button.tab ng-repeat="tab in ctrl.tabs" ng-class="{active: ctrl.currentTab == $index}" ng-click="ctrl.currentTab = $index"
+              | {{tab.title}}
+
+          md-input-container.md-block.margin-0.hide-gt-sm
+            md-select[ng-model="ctrl.currentTab" placeholder="Статус"]
+              md-option ng-repeat="tab in ctrl.tabs" value="{{tab.id}}"
+                | {{tab.title}}
+
+.page-content.page-layout.profile-page
+  = form_for User.new do |f|
+    div[layout="row" layout-padding layout-wrap]
+      .md-title[flex=100] Личные данные
+      .profile-avatar[flex="none" flex-sm="100"]
+        div
+          img height="145" width="145" src="/avatar.png"
+        md-button.md-lg.md-yellow Загрузить
+      .profile-info[flex flex-sm="100" layout="row" layout-padding layout-wrap]
+        div[flex=100]
+          md-input-container.md-block
+            = f.label :company
+            = f.text_field :company
+        div[flex=50 flex-sm=100]
+          md-input-container.md-block
+            = f.label :first_name
+            = f.text_field :first_name
+        div[flex=50 flex-sm=100]
+          md-input-container.md-block
+            = f.label :last_name
+            = f.text_field :last_name
+        div[flex=100]
+          md-input-container.md-block
+            = f.label :address
+            = f.text_field :address
+    /div[layout="row" layout-wrap layout-padding style="padding-top: 0"]
+      div[flex=100]
+        location.profile-map[name="user[lat]" draggable="isEdit" info="ctrl.user" type="user"]

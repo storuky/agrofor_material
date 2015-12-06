@@ -1,0 +1,25 @@
+.profile-page {
+  /* padding: 20px; */
+}
+
+.profile-info {
+  padding-right: 0 !important;
+}
+.profile-avatar {
+  margin-top: 15px;
+  max-width: 160px !important;
+  margin: auto;
+}
+.profile-avatar .md-button {
+  margin: 0;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.profile-info md-input-container {
+  margin-bottom: 5px;
+}
+
+.profile-map {
+  height: 220px;
+}

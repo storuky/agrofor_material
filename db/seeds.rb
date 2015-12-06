@@ -69,7 +69,7 @@ end
 
 
 puts "Создание админа"
-admin = User.where(email: "admin@admin.com").first_or_create(password: "123123123", fullname: "Кононенко Павел Вячеславович", phones: ["+7 (988) 999 6543"])
+admin = User.where(email: "admin@admin.com").first_or_create(password: "123123123", first_name: "Павел", last_name: "Кононенко", phones: ["+7 (988) 999 6543"])
 create_position admin
 
 
@@ -77,7 +77,8 @@ puts "Создание пользователей"
 (10-User.count).times do
   u = User.create({
     email: Faker::Internet.free_email,
-    fullname: Faker::Name.name,
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
     password: "123123123",
     phones: ["+7 (988) 999 6543"]
   })

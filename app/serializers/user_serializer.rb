@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :fullname, :email, :phones, :city, :address, :lat, :lng, :company, :additional, :avatar
+  attributes *(User.attribute_names - []), :avatar
 
   def avatar
     if object.avatar

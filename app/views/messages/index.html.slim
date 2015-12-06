@@ -12,43 +12,38 @@ div content-for="header"
       i.icon-magnify
       input type="text" placeholder="Поиск" ng-model="ctrl.contactSearch"
     md-tabs.message-page__contacts__content[md-dynamic-height md-selected="ctrl.contactsTab" class="noTabPanel"]
-      md-tab [ng-repeat="item in [1,2]" label="tab"]
+      md-tab[label="tab"]
         md-list-item class="md-3-line" ng-repeat="item in _.range(20) | filter:ctrl.contactSearch" ng-class="{active: item==ctrl.contact}" ng-click="ctrl.contact = item"
           img.md-avatar ng-src="/avatar.png" alt="{{item.who}}"
           .md-list-item-text layout="column"
-            h3
-              | Кононенко Павел Вячеславович
-            .message-page__contacts__time
-              | 14:30
+            .md-list-item-author[layout="row"]
+              h3[flex]
+                | Кононенко Павел Вячеславович
+              .message-page__contacts__time[flex="none"]
+                | 14:30
             p
-              | ajdsladas djkas jdasl d
-
-    .message-page__contacts__footer
-      md-button md-no-ink="true" ng-class="{active: ctrl.contactsTab == 0}" ng-click="ctrl.contactsTab = 0"
-        i.icon-list
-        div Позиции
-      md-button md-no-ink="true" ng-class="{active: ctrl.contactsTab == 1}" ng-click="ctrl.contactsTab = 1"
-        i.icon-account-multiple-outline
-        div Пользователи
+              | Заупка "Морковь" 996 м³, 76.66 $/м³
 
 
 
   .message-page__body
-    .message-page__messages
+    .message-page__messages ng-show="ctrl.contact"
       .message-page__body__wrapper
         .message[layout="row" ng-repeat="message in _.range(100)"]
           .message__avatar[flex="none"]
             img ng-src="/avatar.png" width="40"
-          .message__body[flex]
-            a.link.message__fullname ui-sref="profile_path(message.user)"
-              | Кононенко Павел
-            .message__text
-              | Привет, Дорогой друг!
-          .message__created_at[flex="none"]
-            | Сегодня в 21:00
+          div[flex]
+            .message__head[layout="row"]
+              a.link.message__fullname[ui-sref="profile_path(message.user)" flex=""]
+                | Кононенко Павел
+              .message__created_at[flex="none"]
+                | Сегодня в 21:00
+            .message__body
+              .message__text
+                | Привет, Дорогой друг!
 
 
-    .message-page__send
+    .message-page__send ng-show="ctrl.contact"
       .message-page__body__wrapper
         .message-page__send__textarea
           md-input-container.md-block md-no-float=""

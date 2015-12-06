@@ -38,6 +38,7 @@ class ApplicationController < ActionController::Base
         currencies: Currency.all_from_cache(serializer: CurrencySerializer),
         statuses: Position.statuses,
         rates: Currency.get_rates(gon.settings[:currency][:name]),
+        roles: Role.all_from_cache
       }
 
 

@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :templates
 
   belongs_to :currency
+  belongs_to :role
 
   has_many :correspondence_users
   has_many :correspondences, through: :correspondence_users
@@ -23,7 +24,7 @@ class User < ActiveRecord::Base
   has_many :favorites, through: :favorite_positions, source: :position
 
 
-  validates_presence_of :fullname, :phones
+  validates_presence_of :first_name, :last_name, :phones
 
   def offers
     self.positions.joins("INNER JOIN positions_offers ON positions_offers.offer_id = positions.id")

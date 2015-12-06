@@ -25,6 +25,7 @@
   width: 270px;
   min-height: 100%;
   display: table;
+  height: 100%;
 }
 
 .logo {

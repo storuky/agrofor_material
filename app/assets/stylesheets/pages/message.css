@@ -49,8 +49,8 @@
 }
 
 .message-page__body__wrapper {
-  margin: auto;
-  max-width: 600px;
+  margin: 0 20px;
+  /* max-width: 600px; */
   padding: 0 15px;
   background: white;
 }
@@ -71,7 +71,7 @@
 .message-page__contacts__content {
   position: absolute;
   top: 50px;
-  bottom: 55px;
+  bottom: 0;
   width: 300px;
   padding-right: 25px;
   overflow-y: auto;
@@ -151,9 +151,9 @@
 }
 
 .message-page__contacts__footer .md-button.active {
-  background: white !important;
+  /* background: white !important; */
   cursor: default;
-  box-shadow: none;
+  /* box-shadow: none; */
   color: #2278CC;
 }
 
@@ -257,9 +257,21 @@ color: #999;font-size: 13px;}
 
 
 .message-page__contacts__time {
-  position: absolute;
-  top: 16px;
-  right: 5px;
+  /* position: absolute; */
+  /* top: 13px; */
+  /* right: 5px; */
   font-size: 13px;
   color: #999;
+  position: relative;
+  left: 8px;
+  line-height: 21px;
+}
+
+
+.message__head {
+  padding: 0 20px;
+}
+
+.md-list-item-author {
+  height: 20px;
 }

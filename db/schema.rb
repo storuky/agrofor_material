@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151104102328) do
+ActiveRecord::Schema.define(version: 20151206182034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,12 @@ ActiveRecord::Schema.define(version: 20151104102328) do
   add_index "positions_offers", ["offer_id"], name: "index_positions_offers_on_offer_id", using: :btree
   add_index "positions_offers", ["position_id"], name: "index_positions_offers_on_position_id", using: :btree
 
+  create_table "roles", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "templates", force: :cascade do |t|
     t.string   "title"
     t.integer  "user_id"
@@ -195,7 +201,8 @@ ActiveRecord::Schema.define(version: 20151104102328) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
-    t.string   "fullname"
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "avatar"
     t.string   "phones",                 default: [],                array: true
     t.string   "city"
@@ -207,6 +214,8 @@ ActiveRecord::Schema.define(version: 20151104102328) do
     t.text     "additional"
     t.json     "events",                 default: {}
     t.boolean  "banned"
+    t.integer  "role_id"
+    t.string   "timezone"
     t.string   "locale",                 default: "ru", null: false
   end
 

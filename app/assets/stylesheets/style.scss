@@ -23,6 +23,15 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-email-outline:before {
+	content: "\e914";
+}
+.icon-skype-business:before {
+	content: "\e915";
+}
+.icon-phone:before {
+	content: "\e916";
+}
 .icon-account-multiple-outline:before {
 	content: "\e912";
 }
