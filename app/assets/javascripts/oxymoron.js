@@ -1043,7 +1043,7 @@
         }
       };
     }
-  ]);
+  ])
 
   .directive('clickOutside', ['$document', function ($document) {
     return {

@@ -182,3 +182,8 @@ a.link:active {
 label.label {
   font-weight: 500;
 }
+
+.dashed  {
+  border-bottom: 1px dashed #e7e7e7;
+  margin: 15px 0;
+}

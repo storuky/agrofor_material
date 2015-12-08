@@ -89,3 +89,47 @@ a.md-button.md-yellow.md-raised:not([disabled]).md-focused,
 .md-button.md-yellow.md-raised:not([disabled]).md-focused {
   background-color: rgb(255, 219, 76);
 }
+
+.md-chips .md-chip {
+  font-size: 13px;
+  min-height: 27px;
+  line-height: 32px;
+  border: 1px solid #F5B800;
+  background: #FFF09C;
+  border-radius: 2px;
+  color: #6A5218 !important;
+  display: inline-block;
+  position: relative;
+  padding: 0 25px 0 9px;
+  margin: 9px 6px 0 0;
+  cursor: pointer;
+}
+
+.md-chips  md-icon {
+  color: #6A5218 !important;
+  font-weight: lighter;
+}
+
+.md-chips strong {
+  font-weight: 500;
+}
+
+.md-chip.md-focused {
+  background-color: #FFD83D !important;
+}
+
+.md-chips  md-icon:hover {
+  color: red !important;
+}
+
+.md-chips.md-focused {
+  box-shadow: 0 2px rgb(255, 219, 76) !important;
+}
+
+.md-highlight-checked {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  border-radius: 10px;
+  background-color: red;
+}

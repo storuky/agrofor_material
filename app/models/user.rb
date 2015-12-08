@@ -23,6 +23,9 @@ class User < ActiveRecord::Base
   has_many :favorite_positions
   has_many :favorites, through: :favorite_positions, source: :position
 
+  has_many :user_interests
+  has_many :interests, through: :user_interests, source: :category
+
 
   validates_presence_of :first_name, :last_name, :phones
 
@@ -32,5 +35,9 @@ class User < ActiveRecord::Base
 
   def info
     self.as_json(only: [:id, :fullname, :avatar, :phones, :city, :address, :lat, :lng, :company, :additional], include: [:currency])
+  end
+
+  def fullname
+    "#{first_name} #{last_name}"
   end
 end

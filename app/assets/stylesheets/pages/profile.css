@@ -3,12 +3,12 @@
 }
 
 .profile-info {
-  padding-right: 0 !important;
+  /* padding-right: 0 !important; */
 }
 .profile-avatar {
-  margin-top: 15px;
-  max-width: 160px !important;
-  margin: auto;
+  /* max-width: 160px !important; */
+  margin: 24px 0 0 18px;
+  overflow: hidden;
 }
 .profile-avatar .md-button {
   margin: 0;
@@ -21,5 +21,13 @@
 }
 
 .profile-map {
-  height: 220px;
+  height: 250px;
+  margin-bottom: 15px;
+  border-top: 3px solid rgb(255, 219, 76);
+  border-bottom: 3px solid rgb(255, 219, 76);
+}
+
+.profile-info .md-title {
+  padding: 5px 17px;
+  margin-top: 20px;
 }

@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
         trade_types: TradeType.all_from_cache(serializer: TradeTypeSerializer),
         weight_dimensions: WeightDimension.all_from_cache(serializer: WeightDimensionSerializer),
         options: Option.all_from_cache(serializer: OptionSerializer),
+        categories: Category.all_from_cache(serializer: CategorySerializer),
         currencies: Currency.all_from_cache(serializer: CurrencySerializer),
         statuses: Position.statuses,
         rates: Currency.get_rates(gon.settings[:currency][:name]),
