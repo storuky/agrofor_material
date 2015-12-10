@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/storuky/oxymoron.git
-  revision: 1ebb553600f8e40999d507bf8b8b0fe83c0fdf84
+  revision: 664c7098c0d35312d41a32f91c4d66f5eb67f1bf
   branch: master
   specs:
     oxymoron (0.0.2)

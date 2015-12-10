@@ -9,77 +9,82 @@ div content-for="header"
         .hide-gt-sm style="height: 20px; width: 100%;"
 
         div[flex="none" flex-sm=100 ng-init="ctrl.currentTab = 0"]
-          .tabs.hide-sm
-            md-button.tab ng-repeat="tab in ctrl.tabs" ng-class="{active: ctrl.currentTab == $index}" ng-click="ctrl.currentTab = $index"
-              | {{tab.title}}
 
-          md-input-container.md-block.margin-0.hide-gt-sm
-            md-select[ng-model="ctrl.currentTab" placeholder="Статус"]
-              md-option ng-repeat="tab in ctrl.tabs" value="{{tab.id}}"
-                | {{tab.title}}
 
 .page-content.page-layout.profile-page
   = form_for User.new do |f|
     .profile-info
       div[layout="row" layout-wrap layout-align="center start"]
-        .md-title[flex=100] Личные данные 
-        .profile-avatar[flex="none"]
-          div
-            img height="143" src="/avatar2.png"
-          md-button.md-lg.md-yellow Загрузить
+        .md-title[flex="100"]
+          md-input-container.md-block.margin-0.hide-gt-sm
+            md-select[ng-model="ctrl.currentTab" placeholder="Статус"]
+              md-option ng-repeat="tab in ctrl.tabs" value="{{tab.id}}"
+                | {{tab.title}}
+          .tabs.hide-sm[style="text-align: left"]
+            md-button.tab.md-title-tab ng-repeat="tab in ctrl.tabs" ng-class="{active: ctrl.currentTab == $index}" ng-click="ctrl.currentTab = $index"
+              | {{tab.title}}
+      md-tabs[md-dynamic-height md-selected="ctrl.currentTab" class="noTabPanel"]
+        md-tab label="tab"
+          div[layout="row" layout-wrap layout-align="center start"]
+            .profile-avatar[flex="none"]
+              div
+                img height="143" src="/avatar2.png"
+              md-button.md-lg.md-yellow Загрузить
 
-        div[flex flex-sm=100 layout="row" layout-wrap layout-padding]
-          div[flex=100]
-            md-input-container.md-block
-              = f.text_field :company
-          div[flex=50 flex-sm=100]
-            md-input-container.md-block
-              = f.text_field :first_name
-          div[flex=50 flex-sm=100]
-            md-input-container.md-block
-              = f.text_field :last_name
+            div[flex flex-sm=100 layout="row" layout-wrap layout-padding]
+              div[flex=100]
+                md-input-container.md-block
+                  = f.text_field :company
+              div[flex=50 flex-sm=100]
+                md-input-container.md-block
+                  = f.text_field :first_name
+              div[flex=50 flex-sm=100]
+                md-input-container.md-block
+                  = f.text_field :last_name
 
-          div[flex=33]
-            md-input-container.md-block
-              label Страна
-              input type="text" value="Россия"
-          div[flex=33]
-            md-input-container.md-block
-              label Язык
-              input type="text" value="Русский"
-          div[flex=33]
-            md-input-container.md-block
-              label Валюта
-              input type="text" value="RUB"
+              div[flex=33]
+                md-input-container.md-block
+                  = f.text_field :country
+              div[flex=33]
+                md-input-container.md-block
+                  = f.text_field :language
+              div[flex=33]
+                md-input-container.md-block
+                  = f.text_field :currency
+          div[layout="row" layout-wrap layout-padding style="margin-top: -20px;"]
+            div[flex=100]
+              md-chips ng-model="ctrl.user.interests" md-require-match="true"
+                md-autocomplete placeholder="+ Добавить интерес" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.title"
+                  span md-highlight-text="ctrl.searchText"
+                    | {{item.title}}
+                md-chip-template
+                  span
+                    strong
+                      | {{$chip.title}}
+            div[flex=100]
+              md-input-container.md-block
+                = f.text_area :additional
+        md-tab label="tab"
+          div[layout="row" layout-padding]
+            div[flex=100]
+              md-input-container.md-block
+                = f.text_field :address
+          location.profile-map[name="user[lat]" draggable="isEdit" info="ctrl.user" type="user"]
+        md-tab label="tab"
+          div[layout="row" layout-wrap layout-align="center start"]
+            div[flex flex-sm=100 layout="row" layout-wrap layout-padding]
+              div[flex=100]
+                md-input-container.md-block
+                  = f.text_field :email
+              div[flex=100]
+                md-input-container.md-block
+                  = f.text_field :website
+              div[flex=100 ng-repeat="phone in ctrl.user.phones"]
+                md-input-container.md-block
+                  = f.label :phones
+                  input type="text" ng-model="phone"
+              div[flex=100]
+                md-input-container.md-block
+                  = f.text_field :skype
 
-      div[layout="row" layout-wrap layout-padding style="margin-top: -20px;"]
-        div[flex=100]
-          md-chips ng-model="ctrl.user.interests" md-require-match="true"
-            md-autocomplete placeholder="+ Добавить интерес" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.title"
-              span md-highlight-text="ctrl.searchText"
-                | {{item.title}}
-            md-chip-template
-              span
-                strong
-                  | {{$chip.title}}
-        div[flex=100]
-          md-input-container.md-block
-            = f.text_area :additional
-      .md-title[flex=100] Местоположение
-      div[layout="row" layout-padding]
-        div[flex=100]
-          md-input-container.md-block
-            = f.text_field :address
-      location.profile-map[name="user[lat]" draggable="isEdit" info="ctrl.user" type="user"]
-      / .dashed
-      div[layout="row" layout-wrap layout-align="center start"]
-        .md-title[flex=100] Контактная информация
 
-        div[flex flex-sm=100 layout="row" layout-wrap layout-padding]
-          div[flex="none"]
-            md-input-container.md-block
-              = f.text_field :email
-          div[flex="none" ng-repeat="phone in ctrl.user.phones"]
-            md-input-container.md-block
-              = f.label :phones
-              input type="text" ng-model="phone"

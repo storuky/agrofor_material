@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes *(User.attribute_names - []), :avatar
+  attributes *(User.attribute_names - []), :avatar, :language, :currency
 
   has_many :interests
 
@@ -10,5 +10,9 @@ class UserSerializer < ActiveModel::Serializer
         thumb: object.avatar.thumb.url
       }
     end
+  end
+
+  def currency
+    object.currency.try(:name)
   end
 end

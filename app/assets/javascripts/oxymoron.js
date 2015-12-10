@@ -852,19 +852,20 @@
     });
 
     $rootScope.$on('loading:finish', function (h, res) {
-      $http.defaults.headers.common['X-CSRF-Token'] = res.headers()['x-csrf-token'] || document.querySelector('meta[name=csrf-token]').content;
+      if (res.headers()['x-csrf-token']) {
+        $http.defaults.headers.common['X-CSRF-Token'] = res.headers()['x-csrf-token'];
+      }
 
       if (res.data && res.data.msg) {
         ngNotify.set(res.data.msg, 'success');
       }
 
-      if (res.data.redirect_to) {
+      if (res.data && res.data.redirect_to) {
         $state.go(res.data.redirect_to, res.data.redirect_options || {})
       }
     })
 
     $rootScope.$on('loading:error', function (h, res, p) {
-      $http.defaults.headers.common['X-CSRF-Token'] = res.headers()['x-csrf-token'] || document.querySelector('meta[name=csrf-token]').content;
       if (angular.isObject(res.data)) {
         if (res.data.msg)
           ngNotify.set(res.data.msg, 'error');
@@ -872,7 +873,7 @@
           Validate(res.data.form_name || res.config.data.form_name, res.data.errors)
         }
 
-        if (res.data.redirect_to) {
+        if (res.data && res.data.redirect_to) {
           $state.go(res.data.redirect_to)
         }
       } else {

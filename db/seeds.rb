@@ -69,7 +69,22 @@ end
 
 
 puts "Создание админа"
-admin = User.where(email: "admin@admin.com").first_or_create(password: "123123123", first_name: "Павел", last_name: "Кононенко", phones: ["+7 (988) 999 6543"])
+admin = User.where(email: "admin@admin.com").first_or_create(
+  password: "123123123",
+  first_name: "Павел",
+  last_name: "Кононенко",
+  phones: ["+7 (988) 999 6543", "+7 (906) 180 0923"],
+  skype: "storuky",
+  website: "http://agrofor.pro",
+  company: "Agrofor",
+  additional: Faker::Lorem.paragraph(6),
+  address: "#{Faker::Address.city}, #{Faker::Address.street_address}",
+  lat: Faker::Address.latitude,
+  lng: Faker::Address.longitude,
+  country: Faker::Address.country,
+  currency_id: Currency.first.id,
+  interest_ids: Category.pluck(:id).sample(4)
+)
 create_position admin
 
 

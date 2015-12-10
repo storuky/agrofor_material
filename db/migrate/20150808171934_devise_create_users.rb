@@ -39,6 +39,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :avatar
       
       t.string :phones, array: true, default: []
+      t.string :website
+      t.string :skype
       
       t.string :city
       t.string :address
@@ -55,6 +57,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
       t.integer :role_id
       t.string :timezone
+      t.string :country
 
       t.string :locale, default: "ru", null: false
     end

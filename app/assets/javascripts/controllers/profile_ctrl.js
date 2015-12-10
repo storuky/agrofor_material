@@ -1,7 +1,7 @@
 app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', function ($scope, action, Profile) {
   var ctrl = this;
 
-  ctrl.tabs = [{id: 0, title: 'Общая информация'}, {id: 1, title: "Активность"}]
+  ctrl.tabs = [{id: 0, title: 'Личные данные'}, {id: 1, title: "Местоположение"}, {id: 2, title: "Контактные данные"}]
 
   ctrl.currentTab = 0;
 

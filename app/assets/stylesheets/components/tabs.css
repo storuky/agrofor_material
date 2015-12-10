@@ -30,3 +30,17 @@ text-align: center;}
 .tab .md-ripple-container {
   border-radius: 0 !important;
 }
+
+
+.md-title-tab {
+  color: #919191;
+  display: inline-block;
+  margin-right: 15px;
+  font-size: 18px !important;
+  cursor: pointer;
+}
+
+.md-title-tab:hover,
+.md-title-tab.active {
+  color: #333;
+}

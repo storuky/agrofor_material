@@ -212,6 +212,8 @@ ActiveRecord::Schema.define(version: 20151208204145) do
     t.string   "last_name"
     t.string   "avatar"
     t.string   "phones",                 default: [],                array: true
+    t.string   "website"
+    t.string   "skype"
     t.string   "city"
     t.string   "address"
     t.float    "lat"
@@ -223,6 +225,7 @@ ActiveRecord::Schema.define(version: 20151208204145) do
     t.boolean  "banned"
     t.integer  "role_id"
     t.string   "timezone"
+    t.string   "country"
     t.string   "locale",                 default: "ru", null: false
   end
 
