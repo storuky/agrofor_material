@@ -8,22 +8,19 @@ div content-for="header"
         
         .hide-gt-sm style="height: 20px; width: 100%;"
 
-        div[flex="none" flex-sm=100 ng-init="ctrl.currentTab = 0"]
-
-
 .page-content.page-layout.profile-page
   = form_for User.new do |f|
     .profile-info
       div[layout="row" layout-wrap layout-align="center start"]
         .md-title[flex="100"]
           md-input-container.md-block.margin-0.hide-gt-sm
-            md-select[ng-model="ctrl.currentTab" placeholder="Статус"]
-              md-option ng-repeat="tab in ctrl.tabs" value="{{tab.id}}"
+            md-select[ng-model="ctrl.profileInfoTab" placeholder="Статус"]
+              md-option ng-repeat="tab in ctrl.profileInfoTabs" value="{{tab.id}}"
                 | {{tab.title}}
           .tabs.hide-sm[style="text-align: left"]
-            md-button.tab.md-title-tab ng-repeat="tab in ctrl.tabs" ng-class="{active: ctrl.currentTab == $index}" ng-click="ctrl.currentTab = $index"
+            md-button.tab.md-title-tab ng-repeat="tab in ctrl.profileInfoTabs" ng-class="{active: ctrl.profileInfoTab == $index}" ng-click="ctrl.profileInfoTab = $index"
               | {{tab.title}}
-      md-tabs[md-dynamic-height md-selected="ctrl.currentTab" class="noTabPanel"]
+      md-tabs[md-dynamic-height md-selected="ctrl.profileInfoTab" class="noTabPanel"]
         md-tab label="tab"
           div[layout="row" layout-wrap layout-align="center start"]
             .profile-avatar[flex="none"]
@@ -87,4 +84,13 @@ div content-for="header"
                 md-input-container.md-block
                   = f.text_field :skype
 
-
+    .profile-positions
+      div[layout="row" layout-wrap layout-align="center start"]
+        .md-title[flex="100"]
+          md-input-container.md-block.margin-0.hide-gt-sm
+            md-select[ng-model="ctrl.profilePositionsTab" placeholder="Статус"]
+              md-option ng-repeat="tab in ctrl.profilePositionsTabs" value="{{tab.id}}"
+                | {{tab.title}}
+          .tabs.hide-sm[style="text-align: left"]
+            md-button.tab.md-title-tab ng-repeat="tab in ctrl.profilePositionsTabs" ng-class="{active: ctrl.profilePositionsTab == $index}" ng-click="ctrl.profilePositionsTab = $index"
+              | {{tab.title}}

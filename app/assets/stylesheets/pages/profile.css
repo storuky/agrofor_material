@@ -27,7 +27,8 @@
   border-bottom: 3px solid rgb(255, 219, 76);
 }
 
-.profile-info .md-title {
+.profile-info .md-title,
+.profile-positions .md-title {
   padding: 5px 17px;
   margin-top: 20px;
 }

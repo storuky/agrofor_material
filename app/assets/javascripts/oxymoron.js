@@ -867,12 +867,12 @@
 
     $rootScope.$on('loading:error', function (h, res, p) {
       if (angular.isObject(res.data)) {
-        if (res.data.msg)
+        if (res.data.msg) {
           ngNotify.set(res.data.msg, 'error');
+        }
         if (res.data.errors) {
           Validate(res.data.form_name || res.config.data.form_name, res.data.errors)
         }
-
         if (res.data && res.data.redirect_to) {
           $state.go(res.data.redirect_to)
         }
@@ -880,7 +880,9 @@
         if (res.status == -1) {
           ngNotify.set("Сервер не отвечает", 'error');
         } else {
-          ngNotify.set(res.statusText, 'error');
+          if (res.status != 304) {
+            ngNotify.set(res.statusText, 'error');
+          }
         }
       }
     })
