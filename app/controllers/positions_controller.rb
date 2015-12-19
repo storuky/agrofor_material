@@ -14,7 +14,12 @@ class PositionsController < ApplicationController
   end
 
   def new
-
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: Oj.dump(Position.new)
+      }
+    end
   end
 
   def edit
@@ -44,7 +49,15 @@ class PositionsController < ApplicationController
   end
 
   def update
-
+    respond_to do |format|
+      format.json {
+        if @position.update(position_params)
+          render json: {msg: "Позиция успешно изменена", redirect_to: "positions_path"}
+        else
+          render json: {errors: @position.errors}, status: 422
+        end
+      }
+    end
   end
 
   def show

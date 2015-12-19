@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208204145) do
+ActiveRecord::Schema.define(version: 20151218103235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,16 @@ ActiveRecord::Schema.define(version: 20151208204145) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "feedbacks", force: :cascade do |t|
+    t.integer  "author_id"
+    t.integer  "user_id"
+    t.integer  "position_id"
+    t.text     "description"
+    t.boolean  "positive",    default: true
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "images", force: :cascade do |t|
     t.string   "file"
     t.integer  "user_id"
@@ -114,19 +124,19 @@ ActiveRecord::Schema.define(version: 20151208204145) do
     t.text     "description"
     t.integer  "user_id"
     t.integer  "option_id"
-    t.integer  "category_id"
-    t.integer  "trade_type_id"
-    t.integer  "currency_id"
+    t.integer  "category_id",               default: 1
+    t.integer  "trade_type_id",             default: 1
+    t.integer  "currency_id",               default: 1
     t.float    "price"
     t.float    "price_etalon"
-    t.float    "price_discount",            default: 0.0,      null: false
-    t.integer  "price_weight_dimension_id"
+    t.float    "price_discount",            default: 5.0,      null: false
+    t.integer  "price_weight_dimension_id", default: 1
     t.float    "weight"
     t.float    "weight_min",                default: 0.0,      null: false
     t.float    "weight_etalon"
     t.float    "weight_min_etalon",         default: 0.0,      null: false
-    t.integer  "weight_dimension_id"
-    t.integer  "weight_min_dimension_id"
+    t.integer  "weight_dimension_id",       default: 1
+    t.integer  "weight_min_dimension_id",   default: 1
     t.text     "index_field"
     t.string   "city"
     t.string   "address"

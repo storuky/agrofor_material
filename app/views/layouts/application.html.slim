@@ -16,13 +16,13 @@ html ng-app="app"
       aside.sidebar.md-whiteframe-1dp
         = render "layouts/sidebar"
 
-      .page ng-class="{overflow: Search.type == 'map'}"
+      .page ng-class="{'overflow page-map': Search.type == 'map'}"
         table.page-table
           tr
             td.h0 ng-yield="header"
           tr
             td style="vertical-align: top"
-              .page-background.page-layout
+              .page-background.page-layout ng-class="{'page-search': Search.type == 'list'}"
               ui-view
 
     = Gon::Base.render_data({})

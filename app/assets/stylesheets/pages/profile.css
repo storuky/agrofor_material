@@ -1,11 +1,13 @@
 .profile-page {
+
   /* padding: 20px; */
 }
-
 .profile-info {
+
   /* padding-right: 0 !important; */
 }
 .profile-avatar {
+
   /* max-width: 160px !important; */
   margin: 24px 0 0 18px;
   overflow: hidden;
@@ -15,20 +17,83 @@
   width: 100%;
   margin-top: 5px;
 }
-
 .profile-info md-input-container {
   margin-bottom: 5px;
 }
-
 .profile-map {
   height: 280px;
   margin-bottom: 15px;
   border-top: 3px solid rgb(255, 219, 76);
   border-bottom: 3px solid rgb(255, 219, 76);
 }
-
-.profile-info .md-title,
-.profile-positions .md-title {
+.profile-info .md-title, .profile-positions .md-title {
   padding: 5px 17px;
   margin-top: 20px;
+}
+.feedback {
+  margin: 20px 25px;
+  padding-left: 15px;
+}
+.feedback.positive {
+  border-left: 3px solid #4CAF50;
+}
+.feedback.negative {
+  border-left: 3px solid #F44336;
+}
+.feedback__from {
+  font-size: 18px;
+}
+.feedback.positive .feedback__from {
+  color: #4CAF50;
+}
+.feedback.negative .feedback__from {
+  color: #F44336;
+}
+.feedback__description {
+  margin-top: 10px;
+}
+.feedback__params {
+  width: 200px;
+  font-size: 16px;
+}
+.feedback__params table {
+  margin: 6px 0;
+}
+.feedback__params tr {
+}
+.feedback__params tr td:first-child {
+  padding-right: 15px;
+  color: #A0A0A0;
+}
+.feedback__params td {
+  padding-bottom: 6px;
+}
+.feedback__date {
+  color: #A0A0A0;
+  position: absolute;
+  bottom: 3px;
+}
+.feedback__goto {
+  text-decoration: none;
+}
+.feedback__goto i {
+  vertical-align: middle;
+}
+.feedback__from a {
+  font-weight: 500;
+}
+.feedback.positive .feedback__from a {
+  color: #4CAF50;
+}
+.feedback.negative .feedback__from a {
+  color: #F44336;
+}
+.feedback__left {
+  position: relative;
+  padding-bottom: 25px;
+}
+
+.profile-positions__content {
+  min-height: 300px;
+  width: 100%;
 }

@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   has_many :documents
   has_many :templates
 
+  has_many :feedbacks
+
   belongs_to :currency
   belongs_to :role
 

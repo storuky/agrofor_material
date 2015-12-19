@@ -187,3 +187,8 @@ label.label {
   border-bottom: 1px dashed #e7e7e7;
   margin: 15px 0;
 }
+
+hr {
+  border: none;
+  border-bottom: 1px solid #E1E1E1;
+}

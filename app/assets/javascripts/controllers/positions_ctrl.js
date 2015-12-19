@@ -24,11 +24,12 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Cache', '$time
 
   action('new', function () {
     ctrl.save = Position.create;
+    ctrl.position = Position.new();
     ctrl.templates = [{title: "lol", id: 1},{title: "lal", id: 2},]
   })
 
   action('edit', function (params) {
-    ctrl.position = Position.edit({id: params.id})
+    ctrl.position = Position.edit({id: params.id});
     ctrl.save = Position.update;
   })
 

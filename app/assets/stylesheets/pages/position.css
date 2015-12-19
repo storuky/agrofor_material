@@ -1,5 +1,5 @@
 .position-map {
-  height: 220px;
+  height: 215px;
 }
 .upload-image {
   height: 125px;
@@ -296,4 +296,48 @@ md-dialog.position-modal md-dialog-content {
   overflow-y: auto;
   border-bottom: 1px solid #E1E1E1;
   box-shadow: -4px 0px 6px rgba(0,0,0,.2) inset;
+}
+
+
+.position_form {
+  padding: 15px !important;
+}
+
+
+.profile-positions__content__no {
+  padding: 60px 20px;
+  font-size: 24px;
+  text-align: center;
+}
+
+
+.positions-filter {
+  padding: 20px 20px 10px 13px;
+  /* border-bottom: 1px solid #C7C7C7; */
+}
+
+
+.positions-filter__search {
+  /* max-width: 400px; */
+}
+
+.positions-filter__search input[type="text"] {
+  padding-left: 50px;
+  height: 41px;
+  border: none;
+  width: 100%;
+}
+
+.positions-filter__search i {
+  position: absolute;
+  z-index: 2;
+  color: #505050;
+  font-size: 24px;
+  padding: 10px;
+}
+
+.page-map .md-dialog-container {
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack:  flex-start;
+  justify-content:  flex-start;
 }

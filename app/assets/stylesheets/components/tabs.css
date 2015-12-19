@@ -1,3 +1,7 @@
+.noTabPanel {
+  width: 100%;
+}
+
 .noTabPanel md-tabs-wrapper {
   display: none !important;
 }

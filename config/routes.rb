@@ -25,7 +25,12 @@ Rails.application.routes.draw do
   resources :messages
   resources :correspondences
   resources :offers
-  resources :profile
+  resources :profile do
+    member do
+      get 'positions', is_array: true
+      get 'feedbacks', is_array: true
+    end
+  end
   resources :users
   
   resources :positions

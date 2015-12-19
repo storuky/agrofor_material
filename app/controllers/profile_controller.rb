@@ -22,6 +22,24 @@ class ProfileController < ApplicationController
     end
   end
 
+  def positions
+    respond_to do |format|
+      format.json {
+        @positions = ActiveModel::ArraySerializer.new(Position.where(user_id: params[:id]), each_serializer: PositionSerializer)
+        render json: Oj.dump(@positions)
+      }
+    end
+  end
+
+  def feedbacks
+    respond_to do |format|
+      format.json {
+        @feedbacks = ActiveModel::ArraySerializer.new(Feedback.where(user_id: params[:id]), each_serializer: FeedbackSerializer)
+        render json: Oj.dump(@feedbacks)
+      }
+    end
+  end
+
   private
     def set_user
       @user = User.find_from_cache(params[:id], serializer: UserSerializer)

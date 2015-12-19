@@ -12,7 +12,7 @@ md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused labe
 }
 
 md-autocomplete[md-floating-label] md-input-container {
-  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 md-autocomplete {

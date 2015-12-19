@@ -23,6 +23,12 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-arrow-left:before {
+	content: "\e917";
+}
+.icon-arrow-right:before {
+	content: "\e918";
+}
 .icon-email-outline:before {
 	content: "\e914";
 }

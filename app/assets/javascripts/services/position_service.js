@@ -1,4 +1,4 @@
-app.run(['Position', 'Search', '$mdDialog', '$location', function (Position, Search, $mdDialog, $location) {
+app.run(['Position', 'Search', '$mdDialog', '$location', '$state', function (Position, Search, $mdDialog, $location, $state) {
   Position.openModal = function (id) {
 
     Position.get({id: id}, function (res) {
@@ -34,5 +34,9 @@ app.run(['Position', 'Search', '$mdDialog', '$location', function (Position, Sea
 
   Position.closeModal = function () {
     $mdDialog.cancel();
+  }
+
+  Position.goTo = function (id, $event) {
+    $location.url('/search/map?id='+id)
   }
 }])

@@ -20,6 +20,10 @@ div content-for="header"
 
         
 .page-content.page-layout
+  .positions-filter
+    .positions-filter__search
+      i.icon-magnify
+      input type="text" placeholder="Поиск" ng-model="search"
   md-tabs[md-dynamic-height md-selected="ctrl.currentTab" class="noTabPanel"]
     md-tab [ng-repeat="item in [1, 2, 3, 4]" label="tab"]
       .table-wrapper ng-init="limitTo = 10"
@@ -43,7 +47,7 @@ div content-for="header"
             tr
               td colspan="7"
                 md-progress-linear md-mode="indeterminate"
-          tbody ng-repeat="position in Cache.positions | limitTo:limitTo" ng-class="{active: opened}"
+          tbody ng-repeat="position in Cache.positions | filter: search | limitTo:limitTo" ng-class="{active: opened}"
             tr ng-click="opened = !opened"
               td
                 i.icon-chevron-right
