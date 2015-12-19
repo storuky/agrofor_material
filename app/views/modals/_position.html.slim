@@ -24,7 +24,7 @@ script type="text/ng-template" id="position.tmpl.html"
         .position-modal__date
       .close ng-click="ctrl.close()"
         .icon-close
-    md-dialog-content
+    md-dialog-content.disabled-show
       /md-tabs[md-dynamic-height md-selected="ctrl.currentTab" class="noTabPanel"]
         /md-tab[label="tab"]
       = form_for Position.new, html: {class: "position_show", "ng-class" => "{active: isShowOfferOverlay}"} do |f|

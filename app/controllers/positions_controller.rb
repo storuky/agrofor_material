@@ -1,13 +1,14 @@
 class PositionsController < ApplicationController
   before_action :check_user, except: [:show]
-  before_action :set_position, only: [:show, :destroy, :update, :edit]
+  before_action :set_position, only: [:destroy, :update]
+  before_action :set_serialized_position, only: [:show, :edit]
   before_action :check_owner, only: [:destroy, :update, :edit]
 
   def index
     respond_to do |format|
       format.html
       format.json {
-        @positions = Position.all_from_cache(serializer: PositionSerializer)
+        @positions = current_user.positions_from_cache
         render json: Oj.dump(@positions)
       }
     end
@@ -40,7 +41,7 @@ class PositionsController < ApplicationController
       format.json {
         @position = current_user.positions.new position_params
         if @position.save
-          render json: {msg: "Позиция успешно создана"}
+          render json: {msg: "Позиция успешно создана", redirect_to: "positions_path"}
         else
           render json: {errors: @position.errors}, status: 422
         end
@@ -69,8 +70,12 @@ class PositionsController < ApplicationController
   end
 
   private
+    def set_serialized_position
+      @position = Position.find_from_cache params[:id], serializer: PositionSerializer
+    end
+
     def set_position
-      @position = Position.find_from_cache(params[:id], serializer: PositionSerializer)
+      @position = Position.find_from_cache params[:id]
     end
 
     def check_owner
@@ -80,6 +85,9 @@ class PositionsController < ApplicationController
     end
 
     def position_params
+      params[:position][:images] ||= []
+      params[:position][:documents] ||= []
+
       params.require(:position).permit(
         :title,
         :description,
@@ -96,7 +104,9 @@ class PositionsController < ApplicationController
         :lat,
         :lng
       ).merge({
-        option_id: (params[:position][:option][:id] rescue nil)
+        option_id: (params[:position][:option][:id] rescue nil),
+        image_ids: (params[:position][:images].map{|i| i[:id]} rescue nil),
+        document_ids: (params[:position][:documents].map{|i| i[:id]} rescue nil),
       })
     end
 end

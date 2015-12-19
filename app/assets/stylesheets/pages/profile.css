@@ -97,3 +97,29 @@
   min-height: 300px;
   width: 100%;
 }
+
+.edit-profile-btn {
+  background: #FFDB4C;
+  height: 40px;
+  width: 40px;
+  display: block;
+  border-radius: 30px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.58);
+  cursor: pointer;
+}
+
+.edit-profile-btn .icon-pencil {
+  padding: 12px;
+  display: block;
+}
+
+.edit-profile-btn .icon-close {
+  padding: 9px;
+  font-size: 22px;
+  display: block;
+}
+
+.edit-profile-btn:hover {
+  color: black;
+}

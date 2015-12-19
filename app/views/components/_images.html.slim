@@ -1,0 +1,10 @@
+script type="text/ng-template" id="images.html"
+  .uploaded-images
+    .dcbox
+      a ng-repeat="image in ngModel" ng-href="{{image.url.original}}"
+        img ng-src="{{image.url.thumb}}"
+        i.icon-close ng-click="destroy(image, $event)" ng-show="$parent.allowDestroy"
+      label.md-button.md-ink-ripple.upload-image ng-show="upload"
+        i.icon-camera
+        .upload-image__label Прикрепить фото
+        input type="file" fileupload="Routes.images_path()" ng-model="ngModel" multiple="true"

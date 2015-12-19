@@ -18,6 +18,16 @@ class ApplicationController < ActionController::Base
     redirect_to map_path
   end
 
+  def serialize res, options = {}
+    if res.try(:any?)
+      serializer = options[:serializer] || "#{res.model_name.name}Serializer"
+      ActiveModel::ArraySerializer.new(res, each_serializer: options[:serializer] || serializer.constantize, scope: self, root: false).as_json
+    else
+      serializer = options[:serializer] || "#{res.model_name.name}Serializer"
+      serializer.constantize.new(res, scope: self, root: false).as_json
+    end
+  end
+
   private
     def set_csrf_cookie
       response.headers['X-CSRF-Token'] = form_authenticity_token if protect_against_forgery?

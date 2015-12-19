@@ -12,6 +12,7 @@ module Cacheable
   end
 
   class_methods do
+
     def cache_name name, options
       "#{self.to_s}.cache.#{name}(locale: #{I18n.locale}, serializer: #{options[:serializer]})"
     end

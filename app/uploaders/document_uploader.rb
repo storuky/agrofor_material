@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class DocumentUploader < CarrierWave::Uploader::Base
-
+  CarrierWave::SanitizedFile.sanitize_regexp = /[^[:word:]\.\-\+]/
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -48,4 +48,14 @@ class DocumentUploader < CarrierWave::Uploader::Base
   #   "something.jpg" if original_filename
   # end
 
+  def filename
+    model.filename = (original_filename || model.filename)
+    "#{secure_token}.#{file.extension}" if original_filename.present?
+  end
+
+  protected
+    def secure_token
+      var = :"@#{mounted_as}_secure_token"
+      model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
+    end
 end

@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get 'help' => 'help#index'
   get 'settings' => 'settings#index'
 
+  resources :images
+  resources :documents
   resources :positions
   resources :offers
   resources :favorites

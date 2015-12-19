@@ -17,11 +17,24 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', functi
   }
   
   action('show', function (params) {
+    ctrl.disabled = true;
+
     ctrl.user = Profile.get({id: params.id})
 
     ctrl.positions = Profile.positions({id: params.id})
     ctrl.feedbacks = Profile.feedbacks({id: params.id})
 
-    ctrl.save = Profile.update;
+    ctrl.resetProfile = function () {
+      Profile.get({id: params.id}, function (res) {
+        ctrl.user = res;
+      })
+    }
+
+    ctrl.save = function () {
+      Profile.update({form_name: 'user', id: ctrl.user.id, user: ctrl.user}, function (res) {
+        ctrl.disabled = true;
+        ctrl.user = res.user;
+      })
+    }
   })
 }])

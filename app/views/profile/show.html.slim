@@ -2,15 +2,20 @@ div content-for="header"
   .page-header
     .page-layout
       div[layout="row" layout-wrap layout-align="space-between center"]
-        h1.md-title[flex="" flex-sm="100"]
+        h1.md-title[flex=""]
           toggle-sidebar.hide-gt-md id="left"
-          span Профиль
+          span
+            | {{ctrl.disabled ? 'Профиль' : 'Редактирование профиля'}}
         
-        .hide-gt-sm style="height: 20px; width: 100%;"
+        div flex="none" ng-show="ctrl.user.id == gon.current_user.id"
+          .edit-profile-btn ng-click="ctrl.disabled = !ctrl.disabled"
+            i.icon-pencil ng-show="ctrl.disabled"
+            i.icon-close ng-hide="ctrl.disabled" ng-click="ctrl.resetProfile()"
+        /.hide-gt-sm style="height: 20px; width: 100%;"
 
-.page-content.page-layout.profile-page
+.page-content.page-layout.profile-page ng-show="ctrl.user.id"
   = form_for User.new do |f|
-    .profile-info
+    .profile-info.disabled-show
       div[layout="row" layout-wrap layout-align="center start"]
         .md-title[flex="100"]
           md-input-container.md-block.margin-0.hide-gt-sm
@@ -22,69 +27,16 @@ div content-for="header"
               | {{tab.title}}
       md-tabs[md-dynamic-height md-selected="ctrl.profileInfoTab" class="noTabPanel"]
         md-tab label="tab"
-          div[layout="row" layout-wrap layout-align="center start"]
-            .profile-avatar[flex="none"]
-              div
-                img height="143" src="/avatar2.png"
-              md-button.md-lg.md-yellow Загрузить
-
-            div[flex flex-sm=100 layout="row" layout-wrap layout-padding]
-              div[flex=100]
-                md-input-container.md-block
-                  = f.text_field :company
-              div[flex=50 flex-sm=100]
-                md-input-container.md-block
-                  = f.text_field :first_name
-              div[flex=50 flex-sm=100]
-                md-input-container.md-block
-                  = f.text_field :last_name
-
-              div[flex=33]
-                md-input-container.md-block
-                  = f.text_field :country
-              div[flex=33]
-                md-input-container.md-block
-                  = f.text_field :language
-              div[flex=33]
-                md-input-container.md-block
-                  = f.text_field :currency
-          div[layout="row" layout-wrap layout-padding style="margin-top: -20px;"]
-            div[flex=100]
-              md-chips ng-model="ctrl.user.interests" md-require-match="true"
-                md-autocomplete placeholder="+ Добавить интерес" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.title" md-no-cache="true"
-                  span md-highlight-text="ctrl.searchText"
-                    | {{item.title}}
-                md-chip-template
-                  span
-                    strong
-                      | {{$chip.title}}
-            div[flex=100]
-              md-input-container.md-block
-                = f.text_area :additional
+          = render "personal_info", {f: f}
         md-tab label="tab"
-          div[layout="row" layout-padding]
-            div[flex=100]
-              md-input-container.md-block
-                = f.text_field :address
-          location.profile-map[name="user[lat]" draggable="isEdit" info="ctrl.user" type="user"]
+          = render "address", {f: f}
         md-tab label="tab"
-          div[layout="row" layout-wrap layout-align="center start"]
-            div[flex flex-sm=100 layout="row" layout-wrap layout-padding]
-              div[flex=100]
-                md-input-container.md-block
-                  = f.text_field :email
-              div[flex=100]
-                md-input-container.md-block
-                  = f.text_field :website
-              div[flex=100 ng-repeat="phone in ctrl.user.phones"]
-                md-input-container.md-block
-                  = f.label :phones
-                  input type="text" ng-model="phone"
-              div[flex=100]
-                md-input-container.md-block
-                  = f.text_field :skype
+          = render "contacts", {f: f}
+      
+      div[layout-row style="text-align: right; padding: 0 10px" ng-show="!ctrl.disabled"]
+        md-button.md-raised.md-yellow.md-lg[flex-md="30" flex-sm="100" type="submit"] Сохранить
 
-    .profile-positions
+    .profile-positions ng-show="ctrl.disabled"
       div[layout="row" layout-wrap layout-align="center start"]
         .md-title[flex="100"]
           md-input-container.md-block.margin-0.hide-gt-sm
@@ -97,84 +49,6 @@ div content-for="header"
         .profile-positions__content
           md-tabs[md-dynamic-height md-selected="ctrl.profilePositionsTab" class="noTabPanel"]
             md-tab[label="tab"]
-              .profile-positions__content__no ng-show="ctrl.feedbacks.length==0" Нет совершенных сделок
-              div ng-repeat="feedback in ctrl.feedbacks"
-                .feedback[layout="row" ng-class="{positive: feedback.positive, negative: !feedback.positive}"]
-                  .feedback__left[flex]
-                    .feedback__from
-                      span Сделка с  
-                      a ui-sref="profile_path({id: feedback.author.id})"
-                        | {{feedback.author.fullname}}
-                    .feedback__description
-                      | Все прошло отлично! Договорились обо всем.
-                    .feedback__date
-                      | {{feedback.created_at | date:"dd.MM.yyyy"}}
-                  .feedback__params[flex="none"]
-                    table
-                      tr
-                        td Тип:
-                        td
-                          | {{feedback.position.trade_type.title}}
-                      tr
-                        td Категория:
-                        td
-                          | {{feedback.position.option.title}}
-                      tr
-                        td Вес (объем):
-                        td
-                          | {{feedback.position.weight}}
-                          |  {{feedback.position.weight_dimension.title}}
-                      tr
-                        td Цена:
-                        td
-                          | {{feedback.position.price}}
-                          |  {{feedback.position.currency.title}}/{{feedback.position.price_weight_dimension.title}}
-                    a.link.feedback__goto href=""
-                      | На страницу сделки  
-                      i.icon-arrow-right
-                hr
+              = render "positions"
             md-tab[label="tab"]
-              .profile-positions__content__no ng-show="ctrl.positions.length==0" Нет открытых позиций
-              .table-wrapper ng-init="limitTo = 10"
-                table.table.positions-table
-                  thead
-                    tr
-                      th
-                        div Дата
-                      th
-                        div Категория
-                      th.numeric
-                        div Цена
-                      th.numeric
-                        div Вес
-                      th.numeric
-                        div Мин. вес
-                      th
-                  thead ng-if="!ctrl.positions"
-                    tr
-                      td colspan="7"
-                        md-progress-linear md-mode="indeterminate"
-                  tbody ng-repeat="position in ctrl.positions | limitTo:limitTo"
-                    tr ng-click="Position.goTo(position.id, $event)"
-                      td
-                        | {{::position.created_at | date:"dd.MM.yyyy"}}
-                      td
-                        | {{::position.option.title}}
-                      td.numeric
-                        | {{::position.price | number:2}}
-                        .dim
-                          | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
-                      td.numeric
-                        | {{::position.weight | number}}
-                        .dim
-                          | {{::position.weight_dimension.title}}
-                      td.numeric
-                        | {{::position.weight_min | number}}
-                        .dim
-                          | {{::position.weight_min_dimension.title}}
-                      td.btns ng-click="$event.stopPropagation()"
-                        a.icon-btn
-                          i.icon-eye
-
-
-
+              = render "feedbacks"

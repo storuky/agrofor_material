@@ -6,6 +6,8 @@ class Position < ActiveRecord::Base
     includes(:trade_type, :images, :documents, :user, :currency, :weight_dimension, :weight_min_dimension, :price_weight_dimension, :option, :category, :trade_type, option: [:category])
   }
 
+  after_commit :user_positions_cache
+
   geocoded_by :address, :latitude  => :lat, :longitude => :lng
 
   before_save :set_category_id
@@ -207,5 +209,9 @@ class Position < ActiveRecord::Base
       self.weight_etalon = self.weight * WeightDimension.all_by_index_from_cache(serializer: WeightDimensionSerializer)[self.weight_dimension_id][:convert]
       self.weight_min_etalon = self.weight_min * WeightDimension.all_by_index_from_cache(serializer: WeightDimensionSerializer)[self.weight_min_dimension_id][:convert]
       self.price_etalon = self.price / WeightDimension.all_by_index_from_cache(serializer: WeightDimensionSerializer)[self.price_weight_dimension_id][:convert]
+    end
+
+    def user_positions_cache
+      Rails.cache.delete("User.positions_from_cache(#{self.user_id})")
     end
 end

@@ -242,6 +242,134 @@
           }
         })
       
+        .state('images_path', {
+          url: '/images',
+          templateUrl: function(params) {
+            
+              return Routes['images_path'](params) + "?ng-view";
+            
+          },
+          reloadOnSearch: false,
+          controller: 'ImagesCtrl as ctrl',
+          resolve: {
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
+          }
+        })
+      
+        .state('new_image_path', {
+          url: '/images/new',
+          templateUrl: function(params) {
+            
+              return Routes['new_image_path'](params) + "?ng-view";
+            
+          },
+          reloadOnSearch: false,
+          controller: 'ImagesCtrl as ctrl',
+          resolve: {
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
+          }
+        })
+      
+        .state('edit_image_path', {
+          url: '/images/:id/edit',
+          templateUrl: function(params) {
+            
+              return Routes['edit_image_path'](params) + "?ng-view";
+            
+          },
+          reloadOnSearch: false,
+          controller: 'ImagesCtrl as ctrl',
+          resolve: {
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
+          }
+        })
+      
+        .state('image_path', {
+          url: '/images/:id',
+          templateUrl: function(params) {
+            
+              return Routes['image_path'](params) + "?ng-view";
+            
+          },
+          reloadOnSearch: false,
+          controller: 'ImagesCtrl as ctrl',
+          resolve: {
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
+          }
+        })
+      
+        .state('documents_path', {
+          url: '/documents',
+          templateUrl: function(params) {
+            
+              return Routes['documents_path'](params) + "?ng-view";
+            
+          },
+          reloadOnSearch: false,
+          controller: 'DocumentsCtrl as ctrl',
+          resolve: {
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
+          }
+        })
+      
+        .state('new_document_path', {
+          url: '/documents/new',
+          templateUrl: function(params) {
+            
+              return Routes['new_document_path'](params) + "?ng-view";
+            
+          },
+          reloadOnSearch: false,
+          controller: 'DocumentsCtrl as ctrl',
+          resolve: {
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
+          }
+        })
+      
+        .state('edit_document_path', {
+          url: '/documents/:id/edit',
+          templateUrl: function(params) {
+            
+              return Routes['edit_document_path'](params) + "?ng-view";
+            
+          },
+          reloadOnSearch: false,
+          controller: 'DocumentsCtrl as ctrl',
+          resolve: {
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
+          }
+        })
+      
+        .state('document_path', {
+          url: '/documents/:id',
+          templateUrl: function(params) {
+            
+              return Routes['document_path'](params) + "?ng-view";
+            
+          },
+          reloadOnSearch: false,
+          controller: 'DocumentsCtrl as ctrl',
+          resolve: {
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
+          }
+        })
+      
         .state('positions_path', {
           url: '/positions',
           templateUrl: function(params) {
@@ -932,6 +1060,16 @@
   }]);
 
   
+    Resources['Image'] = {"new":{"method":"GET","url":"/images/:id/new.json"},"edit":{"method":"GET","url":"/images/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}};
+    angular.module('oxymoron').factory('Image', ['$resource', 'resourceDecorator', function ($resource, resourceDecorator) {
+      return resourceDecorator($resource('/images/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/images/:id/new.json"},"edit":{"method":"GET","url":"/images/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
+    }])
+  
+    Resources['Document'] = {"new":{"method":"GET","url":"/documents/:id/new.json"},"edit":{"method":"GET","url":"/documents/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}};
+    angular.module('oxymoron').factory('Document', ['$resource', 'resourceDecorator', function ($resource, resourceDecorator) {
+      return resourceDecorator($resource('/documents/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/documents/:id/new.json"},"edit":{"method":"GET","url":"/documents/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
+    }])
+  
     Resources['Position'] = {"new":{"method":"GET","url":"/positions/:id/new.json"},"edit":{"method":"GET","url":"/positions/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}};
     angular.module('oxymoron').factory('Position', ['$resource', 'resourceDecorator', function ($resource, resourceDecorator) {
       return resourceDecorator($resource('/positions/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/positions/:id/new.json"},"edit":{"method":"GET","url":"/positions/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
@@ -1120,6 +1258,8 @@
             fd.append("attachments[]", file);
           })
 
+          console.log($scope.fileupload)
+
           $http.post($scope.fileupload, fd, {headers: {'Content-Type': undefined}})
             .success(function (res) {
               if (attrs.multiple) {
@@ -1283,7 +1423,7 @@
 (function () {
   var Routes = function () {
     var self = this,
-        routes = {"root":{"defaults":{},"path":"/"},"new_user_session":{"defaults":{},"path":"/users/sign_in"},"user_session":{"defaults":{},"path":"/users/sign_in"},"destroy_user_session":{"defaults":{},"path":"/users/sign_out"},"user_password":{"defaults":{},"path":"/users/password"},"new_user_password":{"defaults":{},"path":"/users/password/new"},"edit_user_password":{"defaults":{},"path":"/users/password/edit"},"cancel_user_registration":{"defaults":{},"path":"/users/cancel"},"user_registration":{"defaults":{},"path":"/users"},"new_user_registration":{"defaults":{},"path":"/users/sign_up"},"edit_user_registration":{"defaults":{},"path":"/users/edit"},"map":{"defaults":{},"path":"/search/map"},"list":{"defaults":{},"path":"/search/list"},"analytics":{"defaults":{},"path":"/analytics"},"support":{"defaults":{},"path":"/support"},"help":{"defaults":{},"path":"/help"},"settings":{"defaults":{},"path":"/settings"},"positions":{"defaults":{},"path":"/positions"},"new_position":{"defaults":{},"path":"/positions/new"},"edit_position":{"defaults":{},"path":"/positions/:id/edit"},"position":{"defaults":{},"path":"/positions/:id"},"offers":{"defaults":{},"path":"/offers"},"new_offer":{"defaults":{},"path":"/offers/new"},"edit_offer":{"defaults":{},"path":"/offers/:id/edit"},"offer":{"defaults":{},"path":"/offers/:id"},"favorites":{"defaults":{},"path":"/favorites"},"new_favorite":{"defaults":{},"path":"/favorites/new"},"edit_favorite":{"defaults":{},"path":"/favorites/:id/edit"},"favorite":{"defaults":{},"path":"/favorites/:id"},"templates":{"defaults":{},"path":"/templates"},"new_template":{"defaults":{},"path":"/templates/new"},"edit_template":{"defaults":{},"path":"/templates/:id/edit"},"template":{"defaults":{},"path":"/templates/:id"},"messages":{"defaults":{},"path":"/messages"},"new_message":{"defaults":{},"path":"/messages/new"},"edit_message":{"defaults":{},"path":"/messages/:id/edit"},"message":{"defaults":{},"path":"/messages/:id"},"correspondences":{"defaults":{},"path":"/correspondences"},"new_correspondence":{"defaults":{},"path":"/correspondences/new"},"edit_correspondence":{"defaults":{},"path":"/correspondences/:id/edit"},"correspondence":{"defaults":{},"path":"/correspondences/:id"},"positions_profile":{"defaults":{},"path":"/profile/:id/positions"},"feedbacks_profile":{"defaults":{},"path":"/profile/:id/feedbacks"},"profile_index":{"defaults":{},"path":"/profile"},"new_profile":{"defaults":{},"path":"/profile/new"},"edit_profile":{"defaults":{},"path":"/profile/:id/edit"},"profile":{"defaults":{},"path":"/profile/:id"},"users":{"defaults":{},"path":"/users"},"new_user":{"defaults":{},"path":"/users/new"},"edit_user":{"defaults":{},"path":"/users/:id/edit"},"user":{"defaults":{},"path":"/users/:id"},"rails_info_properties":{"defaults":{},"path":"/rails/info/properties"},"rails_info_routes":{"defaults":{},"path":"/rails/info/routes"},"rails_info":{"defaults":{},"path":"/rails/info"},"rails_mailers":{"defaults":{},"path":"/rails/mailers"}};
+        routes = {"root":{"defaults":{},"path":"/"},"new_user_session":{"defaults":{},"path":"/users/sign_in"},"user_session":{"defaults":{},"path":"/users/sign_in"},"destroy_user_session":{"defaults":{},"path":"/users/sign_out"},"user_password":{"defaults":{},"path":"/users/password"},"new_user_password":{"defaults":{},"path":"/users/password/new"},"edit_user_password":{"defaults":{},"path":"/users/password/edit"},"cancel_user_registration":{"defaults":{},"path":"/users/cancel"},"user_registration":{"defaults":{},"path":"/users"},"new_user_registration":{"defaults":{},"path":"/users/sign_up"},"edit_user_registration":{"defaults":{},"path":"/users/edit"},"map":{"defaults":{},"path":"/search/map"},"list":{"defaults":{},"path":"/search/list"},"analytics":{"defaults":{},"path":"/analytics"},"support":{"defaults":{},"path":"/support"},"help":{"defaults":{},"path":"/help"},"settings":{"defaults":{},"path":"/settings"},"images":{"defaults":{},"path":"/images"},"new_image":{"defaults":{},"path":"/images/new"},"edit_image":{"defaults":{},"path":"/images/:id/edit"},"image":{"defaults":{},"path":"/images/:id"},"documents":{"defaults":{},"path":"/documents"},"new_document":{"defaults":{},"path":"/documents/new"},"edit_document":{"defaults":{},"path":"/documents/:id/edit"},"document":{"defaults":{},"path":"/documents/:id"},"positions":{"defaults":{},"path":"/positions"},"new_position":{"defaults":{},"path":"/positions/new"},"edit_position":{"defaults":{},"path":"/positions/:id/edit"},"position":{"defaults":{},"path":"/positions/:id"},"offers":{"defaults":{},"path":"/offers"},"new_offer":{"defaults":{},"path":"/offers/new"},"edit_offer":{"defaults":{},"path":"/offers/:id/edit"},"offer":{"defaults":{},"path":"/offers/:id"},"favorites":{"defaults":{},"path":"/favorites"},"new_favorite":{"defaults":{},"path":"/favorites/new"},"edit_favorite":{"defaults":{},"path":"/favorites/:id/edit"},"favorite":{"defaults":{},"path":"/favorites/:id"},"templates":{"defaults":{},"path":"/templates"},"new_template":{"defaults":{},"path":"/templates/new"},"edit_template":{"defaults":{},"path":"/templates/:id/edit"},"template":{"defaults":{},"path":"/templates/:id"},"messages":{"defaults":{},"path":"/messages"},"new_message":{"defaults":{},"path":"/messages/new"},"edit_message":{"defaults":{},"path":"/messages/:id/edit"},"message":{"defaults":{},"path":"/messages/:id"},"correspondences":{"defaults":{},"path":"/correspondences"},"new_correspondence":{"defaults":{},"path":"/correspondences/new"},"edit_correspondence":{"defaults":{},"path":"/correspondences/:id/edit"},"correspondence":{"defaults":{},"path":"/correspondences/:id"},"positions_profile":{"defaults":{},"path":"/profile/:id/positions"},"feedbacks_profile":{"defaults":{},"path":"/profile/:id/feedbacks"},"profile_index":{"defaults":{},"path":"/profile"},"new_profile":{"defaults":{},"path":"/profile/new"},"edit_profile":{"defaults":{},"path":"/profile/:id/edit"},"profile":{"defaults":{},"path":"/profile/:id"},"users":{"defaults":{},"path":"/users"},"new_user":{"defaults":{},"path":"/users/new"},"edit_user":{"defaults":{},"path":"/users/:id/edit"},"user":{"defaults":{},"path":"/users/:id"},"rails_info_properties":{"defaults":{},"path":"/rails/info/properties"},"rails_info_routes":{"defaults":{},"path":"/rails/info/routes"},"rails_info":{"defaults":{},"path":"/rails/info"},"rails_mailers":{"defaults":{},"path":"/rails/mailers"}};
 
     self.defaultParams = {}
 

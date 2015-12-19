@@ -30,26 +30,48 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
               suppressMapOpenBlock: true,
           });
 
-          var marker = new ymaps.Placemark(
-              $scope.info.lng ? [$scope.info.lat, $scope.info.lng] : center, serializePosition(), {
-                iconLayout: Map.markerLayout,
-                iconPane: 'overlaps',
-                draggable: $scope.draggable
-              }
-            )
+          var marker;
 
-          map.geoObjects.add(marker)
+          var drawMarker = function () {
+            marker = new ymaps.Placemark(
+                $scope.info.lng ? [$scope.info.lat, $scope.info.lng] : center, serializePosition(), {
+                  iconLayout: Map.markerLayout,
+                  iconPane: 'overlaps',
+                  draggable: $scope.draggable
+                }
+              )
+            map.geoObjects.add(marker)
+          }
 
-          map.events.add('click', function (e) {
+
+          var dragClick = function (e) {
             marker.geometry.setCoordinates(e.get('coords'))
             fillGeodata(e.get('coords'))
-          });
+          }
 
-          marker.events.add('dragend', function(e) {
+          var dragMarker = function (e) {
             var thisPlacemark = e.get('target');
             var coords = thisPlacemark.geometry.getCoordinates();
             fillGeodata(coords);
-          });
+          }
+
+          if ($scope.draggable) {
+            drawMarker();
+            map.events.add('click', dragClick);
+            marker.events.add('dragend', dragMarker);
+          }
+
+          $scope.$watch('draggable', function (draggable) {
+            map.geoObjects.removeAll();
+            drawMarker();
+            if (draggable) {
+              map.events.add('click', dragClick);
+              marker.events.add('dragend', dragMarker);
+            } else {
+              map.events.remove('click', dragClick);
+              marker.events.remove('dragend', dragMarker);
+            }
+          })
 
           $scope.$watch('info', function (info) {
             marker.properties.set(serializePosition());

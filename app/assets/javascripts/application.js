@@ -1,3 +1,4 @@
+
 //= require oxymoron/angular
 //= require oxymoron/angular-resource
 //= require oxymoron/angular-animate
@@ -9,6 +10,7 @@
 //= require oxymoron/perfect-scrollbar
 //= require oxymoron/store
 //= require oxymoron
+//= require dcbox
 //= require angular-material
 //= require_self
 //= require_tree .
@@ -19,7 +21,7 @@ app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', function ($rootScope, Sign,
   $rootScope._ = _;
   $rootScope.gon = gon;
   $rootScope.Sign = Sign;
-  // $rootScope.Cache = Cache;
+  $rootScope.Routes = Routes;
 }])
 
 app.run([function(){

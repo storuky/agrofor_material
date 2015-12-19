@@ -100,7 +100,7 @@ a.md-button.md-yellow.md-raised:not([disabled]).md-focused,
   color: #6A5218 !important;
   display: inline-block;
   position: relative;
-  padding: 0 25px 0 9px;
+  padding: 0 10px;
   margin: 9px 6px 0 0;
   cursor: pointer;
 }
@@ -132,4 +132,8 @@ a.md-button.md-yellow.md-raised:not([disabled]).md-focused,
   width: 10px;
   border-radius: 10px;
   background-color: red;
+}
+
+md-autocomplete[disabled] input {
+  cursor: default;
 }

@@ -1,5 +1,5 @@
 class ProfileController < ApplicationController
-  before_action :set_user, only: [:show, :update]
+  before_action :set_serialized_user, only: [:show]
 
   def show
     respond_to do |format|
@@ -13,10 +13,12 @@ class ProfileController < ApplicationController
   def update
     respond_to do |format|
       format.json {
-        if @user[:id] == current_user.id
+        if params[:id].to_i == current_user.id
           current_user.update(user_params)
+          set_serialized_user
+          render json: {msg: "Профиль успешно обновлен", user: @user}
         else
-          render json: {msg: "Профиль не найден"}
+          render json: {msg: "Профиль не найден"}, status: 422
         end
       }
     end
@@ -25,7 +27,7 @@ class ProfileController < ApplicationController
   def positions
     respond_to do |format|
       format.json {
-        @positions = ActiveModel::ArraySerializer.new(Position.where(user_id: params[:id]), each_serializer: PositionSerializer)
+        @positions = current_user.positions_from_cache
         render json: Oj.dump(@positions)
       }
     end
@@ -34,7 +36,7 @@ class ProfileController < ApplicationController
   def feedbacks
     respond_to do |format|
       format.json {
-        @feedbacks = ActiveModel::ArraySerializer.new(Feedback.where(user_id: params[:id]), each_serializer: FeedbackSerializer)
+        @feedbacks = current_user.feedbacks_from_cache
         render json: Oj.dump(@feedbacks)
       }
     end
@@ -42,10 +44,32 @@ class ProfileController < ApplicationController
 
   private
     def set_user
-      @user = User.find_from_cache(params[:id], serializer: UserSerializer)
+      @user = User.find_from_cache params[:id]
+    end
+
+    def set_serialized_user
+      @user = User.find_from_cache params[:id], serializer: UserSerializer
     end
 
     def user_params
-      params.permit(:first_name, :last_name, :company, :address, :additional, phones: [])
+      params.require(:user).permit(
+        :first_name,
+        :last_name,
+        :company,
+        :country,
+        :currency_id,
+        # :language,
+        :currency_id,
+        :address,
+        :additional,
+        :email,
+        :website,
+        :skype,
+        :lat,
+        :lng,
+        phones: []
+      ).merge({
+        interest_ids: (params[:user][:interests].map{|i| i[:id]} rescue nil),
+      })
     end
 end

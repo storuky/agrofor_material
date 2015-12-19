@@ -1,0 +1,15 @@
+div[layout="row" layout-wrap layout-align="center start"]
+  div[flex flex-sm=100 layout="row" layout-wrap layout-padding]
+    div[flex=100]
+      md-input-container.md-block
+        = f.text_field :email, "ng-disabled" => "ctrl.disabled"
+    div[flex=100]
+      md-input-container.md-block
+        = f.text_field :website, "ng-disabled" => "ctrl.disabled"
+    div[flex=100 ng-repeat="phone in ctrl.user.phones"]
+      md-input-container.md-block
+        = f.label :phones
+        input type="text" ng-model="phone" ng-disabled="ctrl.disabled"
+    div[flex=100]
+      md-input-container.md-block
+        = f.text_field :skype, "ng-disabled" => "ctrl.disabled"
