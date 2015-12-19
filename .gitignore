@@ -18,3 +18,5 @@
 config/database.yml
 
 /app/assets/javascripts/oxymoron.js
+
+/public/uploads
