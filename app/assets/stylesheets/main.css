@@ -17,6 +17,7 @@ body {
   transition: .3s;
   height: 100%;
   position: relative;
+  overflow: hidden;
 }
 
 .wrapper.active {

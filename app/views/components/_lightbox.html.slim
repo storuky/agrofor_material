@@ -1,5 +1,5 @@
 script type="text/ng-template" id="lightbox.html"
-  .lightbox
+  .lightbox tabindex="1" ng-keydown="key($event)"
     .lightbox__header
       b.lightbox__counter
         | {{activeImage+1}} из {{images.length}}
@@ -9,8 +9,8 @@ script type="text/ng-template" id="lightbox.html"
       i.icon-chevron-left
     .lightbox__images
       .lightbox__image
-        img ng-src="{{images[activeImage].url.original}}"
-    .lightbox__images__overlay ng-swipe-left="next()" ng-swipe-right="prev()"
+        img ng-src="{{images[activeImage].url.original}}" style="transform: scale({{1-scale/300}});" ng-swipe-left="next(true)" ng-swipe-right="prev(true)"
+    /.lightbox__images__overlay
 
     .lightbox__right ng-hide="activeImage==images.length-1" ng-click="next()"
       i.icon-chevron-right

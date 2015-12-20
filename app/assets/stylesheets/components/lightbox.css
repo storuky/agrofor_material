@@ -17,6 +17,8 @@
   background: -o-linear-gradient(rgba(81,81,81,.75),rgba(74,74,74,.75));
   border-bottom: 1px solid #111;
   border-bottom: 1px solid rgba(67,67,67,.85);
+  position: relative;
+  z-index: 1;
 }
 .lightbox__close{
   color: rgba(255, 255, 255, 0.74);
@@ -75,6 +77,10 @@
   max-width: 100%;
   vertical-align: middle;
   margin-left: -4px;
+  transition: .3s;
+  user-drag: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
 }
 .lightbox__right{
   right: 0;

@@ -362,6 +362,7 @@ md-dialog.position-modal md-dialog-content {
   border: 1px solid #e6e6e6;
   border-width: 1px 0;
   text-align: justify;
+  background: rgba(245, 245, 245, 0.63);
 }
 
 
@@ -411,4 +412,11 @@ md-dialog.position-modal md-dialog-content {
 
 .position-modal .uploaded-documents {
   padding: 0 20px 20px 20px;
+}
+
+
+.position-modal .md-title span {
+  border-bottom: 2px solid #FFDB4C;
+  margin-left: -20px;
+  padding-left: 20px;
 }

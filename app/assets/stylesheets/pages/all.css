@@ -10,7 +10,9 @@ ui-view {
   bottom: 0;
   position: absolute;
   overflow-y: auto;
-  transition: .5s;  /* overflow-x: hidden; */
+  transition: .5s;
+  /* overflow-x: hidden; */
+  -webkit-overflow-scrolling: touch;
   max-width: 100%;
 }
 .page-background {
@@ -112,6 +114,7 @@ input.solid-input:focus {
   padding: 0;
   position: relative;
   overflow: hidden;
+  margin-top: -1px;
 }
 
 .uploaded-images.border {
