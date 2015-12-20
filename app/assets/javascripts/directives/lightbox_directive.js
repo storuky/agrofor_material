@@ -47,11 +47,19 @@ app.directive('lightbox', ['$compile', function($compile) {
       }
 
       $scope.prev = function () {
-        $scope.activeImage = $scope.activeImage!=0 ? $scope.activeImage-1 : 0
+        $scope.activeImage = $scope.activeImage!=0 ? $scope.activeImage-1 : $scope.images.length-1;
+        if (template[0].querySelector('.lightbox__footer').scrollLeft > -100 + template[0].querySelector('.lightbox__footer__image.active').offsetLeft)
+          template[0].querySelector('.lightbox__footer').scrollLeft = -110 + template[0].querySelector('.lightbox__footer__image.active').offsetLeft;
+        if ($scope.activeImage == $scope.images.length-1)
+          template[0].querySelector('.lightbox__footer').scrollLeft = template[0].querySelector('.lightbox__footer').offsetWidth;
       }
 
       $scope.next = function () {
-        $scope.activeImage = $scope.activeImage!=$scope.images.length-1 ? $scope.activeImage+1 : 0
+        $scope.activeImage = $scope.activeImage!=$scope.images.length-1 ? $scope.activeImage+1 : 0;
+        if (document.body.offsetWidth - 250 < document.querySelector('.lightbox__footer__image.active').offsetLeft)
+          template[0].querySelector('.lightbox__footer').scrollLeft = 300 - document.body.offsetWidth + template[0].querySelector('.lightbox__footer__image.active').offsetLeft;
+        if ($scope.activeImage == 0)
+          template[0].querySelector('.lightbox__footer').scrollLeft = 0;
       }
     }
   };
