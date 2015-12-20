@@ -107,6 +107,16 @@ input.solid-input:focus {
 
 .uploaded-images {
   display: inline-block;
+  white-space: nowrap;
+  width: 100%;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.uploaded-images.border {
+  border: 3px solid #FFDB4C;
+  border-width: 3px 0px;
 }
 
 .uploaded-images img {
@@ -115,17 +125,20 @@ input.solid-input:focus {
 
 .uploaded-images a {
   display: inline-block;
-  margin: 0 15px 15px 0;
-  opacity: .8;
+  margin: 3px;
   position: relative;
-  border: 1px solid #E1E1E1;
   vertical-align: middle;
-  border-radius: 3px;
-  overflow: hidden;
 }
 
-.uploaded-images a:hover {
-  opacity: 1;
+.uploaded-images a:hover:before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: '';
+  /* border: 4px solid #ffdb4d; */
+  background: rgba(70, 70, 70, 0.24);
 }
 
 
@@ -145,4 +158,9 @@ input.solid-input:focus {
 
 .uploaded-images .icon-close:hover {
   background: white;
+}
+
+
+.uploaded-images__more:hover {
+  color: black;
 }

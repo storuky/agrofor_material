@@ -10,7 +10,7 @@
 //= require oxymoron/perfect-scrollbar
 //= require oxymoron/store
 //= require oxymoron
-//= require dcbox
+//= require wheelzoom
 //= require angular-material
 //= require_self
 //= require_tree .

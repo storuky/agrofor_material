@@ -221,6 +221,7 @@ ActiveRecord::Schema.define(version: 20151218103235) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "avatar"
+    t.string   "language"
     t.string   "phones",                 default: [],                array: true
     t.string   "website"
     t.string   "skype"

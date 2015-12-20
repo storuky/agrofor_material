@@ -169,7 +169,7 @@ class Position < ActiveRecord::Base
   end
 
   def self.pluck_fields
-    self.pluck(:id, :lat, :lng, :trade_type_id, :option_id, :weight, :weight_dimension_id, :price, :currency_id, :price_weight_dimension_id)
+    self.distinct.pluck(:id, :lat, :lng, :trade_type_id, :option_id, :weight, :weight_dimension_id, :price, :currency_id, :price_weight_dimension_id)
   end
 
 

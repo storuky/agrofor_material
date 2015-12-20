@@ -27,7 +27,7 @@ class ProfileController < ApplicationController
   def positions
     respond_to do |format|
       format.json {
-        @positions = current_user.positions_from_cache
+        @positions = User.positions_from_cache(params[:id])
         render json: Oj.dump(@positions)
       }
     end
@@ -36,7 +36,7 @@ class ProfileController < ApplicationController
   def feedbacks
     respond_to do |format|
       format.json {
-        @feedbacks = current_user.feedbacks_from_cache
+        @feedbacks = User.feedbacks_from_cache(params[:id])
         render json: Oj.dump(@feedbacks)
       }
     end
@@ -58,17 +58,15 @@ class ProfileController < ApplicationController
         :company,
         :country,
         :currency_id,
-        # :language,
-        :currency_id,
+        :language,
         :address,
         :additional,
-        :email,
         :website,
         :skype,
         :lat,
         :lng,
-        phones: []
       ).merge({
+        phones: (params[:user][:phones].select{|i| i.present?} rescue nil),
         interest_ids: (params[:user][:interests].map{|i| i[:id]} rescue nil),
       })
     end

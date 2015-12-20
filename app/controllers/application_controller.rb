@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  serialization_scope :view_context
+
   after_action :set_csrf_cookie
 
   layout proc {
@@ -49,7 +51,8 @@ class ApplicationController < ActionController::Base
         currencies: Currency.all_from_cache(serializer: CurrencySerializer),
         statuses: Position.statuses,
         rates: Currency.get_rates(gon.settings[:currency][:name]),
-        roles: Role.all_from_cache
+        roles: Role.all_from_cache,
+        languages: [{id: "ru", title: "Русский"}, {id: "en", title: "English"}]
       }
 
 

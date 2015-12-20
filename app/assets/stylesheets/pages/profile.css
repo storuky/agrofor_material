@@ -22,7 +22,6 @@
 }
 .profile-map {
   height: 280px;
-  margin-bottom: 15px;
   border-top: 3px solid rgb(255, 219, 76);
   border-bottom: 3px solid rgb(255, 219, 76);
 }
@@ -122,4 +121,47 @@
 
 .edit-profile-btn:hover {
   color: black;
+}
+
+
+.profile-address {
+  background: #FAFAFA;
+  border-top: 1px solid #E4E4E4;
+  padding-left: 0;
+  margin-bottom: 0;
+  margin-top: 20px;
+}
+
+
+.profile-address .icon-marker {
+  font-size: 20px;
+  margin: 2px;
+  text-align: center;
+  color: #AACBD9;
+}
+
+.profile-contacts [class*="icon-"] {
+  font-size: 20px;
+  margin: 2px;
+  text-align: center;
+  color: #2278cc;
+}
+
+.profile-contacts__phones {
+  padding-left: 20px;
+  position: relative;
+}
+
+
+.profile-contacts__phones .icon-close {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  cursor: pointer;
+  color: red;
+  font-size: 18px;
+}
+
+.profile-contacts__phones .mb-25 {
+  position: relative;
 }

@@ -192,3 +192,16 @@ hr {
   border: none;
   border-bottom: 1px solid #E1E1E1;
 }
+
+.icon-addon {
+  /* position: absolute; */
+}
+
+.mb-25 {
+  margin-bottom: 25px;
+  /* position: relative; */
+}
+
+.hidden-scroll [class*="ps-scrollbar"]{
+  display: none !important;
+}

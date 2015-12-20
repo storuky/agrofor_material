@@ -12,15 +12,17 @@ class PositionSerializer < ActiveModel::Serializer
   has_many :documents, serializer: DocumentSerializer
 
   def created_at
-    I18n.l object.created_at.to_date
+    I18n.l object.created_at.to_date rescue nil
   end
 
   def user
-    {
-      id: object.user.id,
-      fullname: object.user.fullname,
-      avatar: (object.user.avatar.thumb.url rescue nil)
-    }
+    if object.user
+      {
+        id: object.user.id,
+        fullname: object.user.fullname,
+        avatar: (object.user.avatar.thumb.url rescue nil)
+      }
+    end
   end
 
   def status
@@ -63,5 +65,17 @@ class PositionSerializer < ActiveModel::Serializer
       id: object.price_weight_dimension_id,
       title: I18n.t("weight_dimension")[object.price_weight_dimension.try(:name).try(:to_sym)]
     }
+  end
+
+  def lat
+    object.lat || scope.current_user.lat
+  end
+
+  def lng
+    object.lng || scope.current_user.lng
+  end
+
+  def address
+    object.address || scope.current_user.address
   end
 end

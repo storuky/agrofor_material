@@ -76,6 +76,10 @@
 }
 
 @media screen and (max-width: 600px) {
+  .profile-contacts__phones {
+    padding-left: 8px;
+  }
+
   .position-modal__other-offers {
     border: none;
   }

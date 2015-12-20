@@ -8,7 +8,7 @@ class PositionsController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        @positions = current_user.positions_from_cache
+        @positions = User.positions_from_cache(current_user.id)
         render json: Oj.dump(@positions)
       }
     end
@@ -18,7 +18,8 @@ class PositionsController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        render json: Oj.dump(Position.new)
+        @position = serialize(Position.new)
+        render json: Oj.dump(@position)
       }
     end
   end

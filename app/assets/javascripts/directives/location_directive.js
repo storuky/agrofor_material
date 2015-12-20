@@ -97,6 +97,7 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
 
           function fillGeodata (coords) {
             ymaps.geocode(coords).then(function (res) {
+              $scope.info.country = res.geoObjects.get(0).properties.get('description');
               // $scope.info.city = res.geoObjects.get(0).properties.get('description');
               $scope.info.address = res.geoObjects.get(0).properties.get('description') + ' ' + res.geoObjects.get(0).properties.get('name');
               $scope.info.lat = coords[0];

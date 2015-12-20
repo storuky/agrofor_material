@@ -1,11 +1,11 @@
-app.directive('images', ['Image', function (Image) {
+app.directive('lightbox', ['$compile', function($compile) {
   // Runs during compile
   return {
     // name: '',
     // priority: 1,
     // terminal: true,
     scope: {
-      ngModel: "=",
+      images: "=",
       allowDestroy: "=",
       upload: "="
     }, // {} = isolate, true = child, false/undefined = no change
@@ -18,7 +18,23 @@ app.directive('images', ['Image', function (Image) {
     // transclude: true,
     // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
     link: function($scope, iElm, iAttrs, controller) {
-      $scope.Routes = Routes;
+      var template;
+
+      $scope.$watch('isShow', function (isShow) {
+        if (isShow) {
+          template = $compile(document.getElementById('lightbox.html').innerHTML)($scope);
+          angular.element(document.body).append(template);
+          wheelzoom(document.querySelectorAll('.lightbox__image'));
+        } else if (template) {
+          template.remove();
+        }
+      })
+
+      $scope.show = function ($index, $event) {
+        $scope.isShow = true;
+        $scope.activeImage = $index;
+        $event.preventDefault();
+      }
 
       $scope.destroy = function (document, $event) {
         Image.destroy({id: document.id}, function () {
@@ -30,6 +46,13 @@ app.directive('images', ['Image', function (Image) {
         $event.preventDefault();
       }
 
+      $scope.prev = function () {
+        $scope.activeImage = $scope.activeImage!=0 ? $scope.activeImage-1 : 0
+      }
+
+      $scope.next = function () {
+        $scope.activeImage = $scope.activeImage!=$scope.images.length-1 ? $scope.activeImage+1 : 0
+      }
     }
   };
 }]);

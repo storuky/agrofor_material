@@ -14,21 +14,20 @@ app.directive('scroll', ['$timeout', function($timeout) {
     // transclude: true,
     // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
     link: function($scope, el, attrs, controller) {
-      Ps.initialize(el[0], {suppressScrollX: true});
-      // if (attrs.axis=='x') {
-        // Ps.initialize(el[0], {suppressScrollY: true, useBothWheelAxes: true});
-      // } else {
-      //   Ps.initialize(el[0], {suppressScrollX: true});
-      // }
+      if (attrs.axis=='x') {
+        Ps.initialize(el[0], {suppressScrollY: true, useBothWheelAxes: true});
+      } else {
+        Ps.initialize(el[0], {suppressScrollX: true});
+      }
 
-      // $scope.$watch(function () {
-      //   return attrs.rebuld
-      // }, function(val) {
-      //   $timeout(function () {
-      //     Ps.update(el[0]);
-      //     el[0].scrollTop = 0;
-      //   })
-      // });
+      $scope.$watch(function () {
+        return el.html()
+      }, function(val) {
+        $timeout(function () {
+          Ps.update(el[0]);
+          el[0].scrollTop = 0;
+        })
+      });
 
     }
   };

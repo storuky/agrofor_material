@@ -25,9 +25,41 @@ script type="text/ng-template" id="position.tmpl.html"
       .close ng-click="ctrl.close()"
         .icon-close
     md-dialog-content.disabled-show
+      .position_show ng-class="{active: isShowOfferOverlay}"
+        .md-title
+          | {{ctrl.position.title}}
+          .position-status ng-class="ctrl.position.status.id"
+            | {{ctrl.position.status.title}}
+        .position-modal__info
+          .position-modal__info__item
+            b
+              | {{ctrl.position.trade_type.title}}
+            span Тип
+          .position-modal__info__item
+            b
+              | {{ctrl.position.option.title}}
+            span Категория
+          .position-modal__info__item
+            b
+              | {{ctrl.position.price | number}} {{ctrl.position.currency.title}}/{{ctrl.position.weight_dimension.title}}
+            span Цена
+          .position-modal__info__item
+            b
+              | {{ctrl.position.weight | number}} {{ctrl.position.weight_dimension.title}}
+            span Вес (объем)
+          .position-modal__info__item
+            b
+              | {{ctrl.position.weight_min | number}} {{ctrl.position.weight_min_dimension.title}}
+            span Мин. заказ
+
+        .position-modal__info__description
+          | {{ctrl.position.description}}
+        documents ng-model="ctrl.position.documents"
+        lightbox images="ctrl.position.images"
+
       /md-tabs[md-dynamic-height md-selected="ctrl.currentTab" class="noTabPanel"]
         /md-tab[label="tab"]
-      = form_for Position.new, html: {class: "position_show", "ng-class" => "{active: isShowOfferOverlay}"} do |f|
+      /= form_for Position.new, html: {class: "position_show", "ng-class" => "{active: isShowOfferOverlay}"} do |f|
         div[layout="row" layout-wrap layout-padding]
           div[flex-sm=100]
             md-input-container.md-block

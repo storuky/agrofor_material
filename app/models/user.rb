@@ -43,19 +43,15 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def language
-    "Русский"
-  end
-
-  def positions_from_cache
-    Rails.cache.fetch("User.positions_from_cache(#{self.id})") do
-      ActiveModel::ArraySerializer.new(self.positions, each_serializer: PositionSerializer, root: false).as_json
+  def self.positions_from_cache id
+    Rails.cache.fetch("User.positions_from_cache(#{id})") do
+      ActiveModel::ArraySerializer.new(User.find(id).positions, each_serializer: PositionSerializer, root: false).as_json
     end
   end
 
-  def feedbacks_from_cache
-    Rails.cache.fetch("User.feedbacks_from_cache(#{self.id})") do
-      ActiveModel::ArraySerializer.new(self.feedbacks, each_serializer: FeedbackSerializer, root: false).as_json
+  def self.feedbacks_from_cache id
+    Rails.cache.fetch("User.feedbacks_from_cache(#{id})") do
+      ActiveModel::ArraySerializer.new(User.find(id).feedbacks, each_serializer: FeedbackSerializer, root: false).as_json
     end
   end
 end

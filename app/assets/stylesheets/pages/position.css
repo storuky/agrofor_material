@@ -10,7 +10,7 @@
   text-align: center;
   padding: 56px 0;
   color: #6A6A6A;
-  margin: 0 15px 15px 0;
+  margin: 3px;
 }
 .upload-image i {
   font-size: 35px;
@@ -95,7 +95,6 @@
   transform: scale(1);
   transition: .3s;
   opacity: 1;
-  padding-top: 15px;
 }
 .position_show.active {
   transform: scale(.8);
@@ -109,7 +108,8 @@ md-icon.icon-calendar {
 .disabled-show md-input-container.md-default-theme .md-input[disabled],
 .disabled-show md-input-container .md-input[disabled],
 .disabled-show md-input-container.md-default-theme .md-input [disabled],
-.disabled-show md-input-container .md-input [disabled] {
+.disabled-show md-input-container .md-input [disabled],
+.disabled-show md-select.md-default-theme[disabled] .md-select-value, md-select[disabled] .md-select-value {
   color: rgba(0,0,0,0.87);
   border-color: rgba(0,0,0,0.12);
   background-image: none;
@@ -117,6 +117,9 @@ md-icon.icon-calendar {
   opacity: 1;
 }
 
+.disabled-show md-select.md-default-theme[disabled] .md-select-value, md-select[disabled] .md-select-icon {
+  display: none;
+}
 md-dialog.position-modal md-dialog-content {
   -webkit-order: 0; 
   -ms-flex-order: 0;
@@ -314,6 +317,10 @@ md-dialog.position-modal md-dialog-content {
   padding: 60px 20px;
   font-size: 24px;
   text-align: center;
+  background: #FAFAFA;
+  border-bottom: 1px solid #E4E4E4;
+  border-top: 1px solid #E4E4E4;
+  margin: 15px 0;
 }
 
 
@@ -347,4 +354,61 @@ md-dialog.position-modal md-dialog-content {
   -webkit-justify-content: flex-start;
   -ms-flex-pack:  flex-start;
   justify-content:  flex-start;
+}
+
+
+.position-modal__info {
+  min-height: 85px;
+  border: 1px solid #e6e6e6;
+  border-width: 1px 0;
+  text-align: justify;
+}
+
+
+.position-modal__info__item {
+  display: inline-block;
+  height: 85px;
+  vertical-align: top;
+  padding: 20px;
+}
+
+.position-modal__info__item b {
+  display: block;
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+
+.position-modal .md-title {
+  padding: 20px;
+}
+
+.position-modal__info__item span {
+  font-size: 14px;
+  color: #777;
+}
+
+
+.position-modal__info__description {
+  padding: 20px;
+  font-size: 16px;
+  line-height: 25px;
+  text-align: justify;
+}
+
+.position-status {
+  height: 25px;
+  line-height: 25px;
+  color: #000;
+  background: #d8f5c0;
+  font-size: 16px;
+  margin-left: 10px;
+  display: inline-block;
+  padding: 0 10px;
+}
+
+
+.position-modal .uploaded-documents {
+  padding: 0 20px 20px 20px;
 }

@@ -20,10 +20,10 @@ div[layout="row" layout-wrap layout-align="center start"]
         = f.text_field :country, "ng-disabled" => "ctrl.disabled"
     div[flex=33]
       md-input-container.md-block
-        = f.text_field :language, "ng-disabled" => "ctrl.disabled"
+        = f.select :language, collection: "gon.data.languages", "ng-disabled" => "ctrl.disabled", "ng-model" => "ctrl.user.language"
     div[flex=33]
       md-input-container.md-block
-        = f.text_field :currency, "ng-disabled" => "ctrl.disabled"
+        = f.select :currency, collection: "gon.data.currencies", "ng-disabled" => "ctrl.disabled"
 div[layout="row" layout-wrap layout-padding style="margin-top: -20px;"]
   div[flex=100]
     md-chips ng-model="ctrl.user.interests" md-require-match="true" readonly="ctrl.disabled"
