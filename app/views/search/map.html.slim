@@ -1,4 +1,4 @@
 div ng-class="{blur: Search.blur}"
   div content-for="header"
-    div ng-include="'search.html'"
+    div ng-include="'search.html'" ng-class="{blur: Search.blur}" style="position: relative; z-index: 1;"
   .map ng-click="Search.showExtended=false; Search.showFooter=false;"

@@ -40,13 +40,14 @@
             .addon
               | %
     div[layout="column" flex=100 flex-gt-md=50 layout-padding-sm]
-      div[layout-gt-md="row" layout-padding-sm]
-        md-input-container.md-block[flex=100 style="margin: 0"]
+      .pb-0[layout-gt-md="row" layout-padding-sm]
+        md-input-container.pb-0.md-block[flex=100 style="margin: 0"]
           location.position-map[name="position[lat]" draggable="true" info="ctrl.position"]
       
-      div[layout-gt-md="row" layout-padding-sm]
+      .position-form__address[layout-gt-md="row" layout-padding-sm]
         div[flex=100]
           md-input-container.md-block
+            md-icon.icon-marker
             = f.text_field :address, class: "md-block", suggest: "", lat: "ctrl.position.lat", lng: "ctrl.position.lng", rebuild: "ctrl.position.lat"
 
     div[layout="column" flex=100]

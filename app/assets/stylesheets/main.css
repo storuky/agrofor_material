@@ -206,3 +206,7 @@ hr {
 .hidden-scroll [class*="ps-scrollbar"]{
   display: none !important;
 }
+
+.pb-0 {
+  padding-bottom: 0;
+}

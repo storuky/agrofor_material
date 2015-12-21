@@ -120,6 +120,7 @@ input.solid-input:focus {
 .uploaded-images.border {
   border: 3px solid #FFDB4C;
   border-width: 3px 0px;
+  height: 162px;
 }
 
 .uploaded-images img {

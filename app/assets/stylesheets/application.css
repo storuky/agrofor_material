@@ -18,6 +18,13 @@
  *= require_self
  */
 
+@media screen and (max-height: 460px) {
+  .position-modal {
+    top: 20px;
+    max-height: 90%;
+  }
+}
+
 @media screen and (max-width: 960px) {
   .sidebar {
     margin-left: -270px;
@@ -33,6 +40,10 @@
 
   .message-page {
     top: 75px;
+  }
+
+  .position-form__address {
+    margin-bottom: 15px;
   }
 }
 
@@ -76,6 +87,10 @@
 }
 
 @media screen and (max-width: 600px) {
+  .position-modal {
+    margin-right: 20px;
+  }
+
   .profile-contacts__phones {
     padding-left: 8px;
   }

@@ -21,6 +21,14 @@ app.directive('lightbox', ['$compile', '$timeout', function($compile, $timeout) 
       var template;
       $scope.scale = 0;
 
+      $scope.$watch('images', function (images) {
+        if ($scope.upload && images) {
+          $timeout(function () {
+            iElm[0].scrollLeft = iElm[0].scrollWidth;
+          }, 100)
+        }
+      }, true)
+
       function keydownManage ($event){
         if ($event.keyCode == 39)
           $scope.next();

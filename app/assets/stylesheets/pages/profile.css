@@ -24,6 +24,7 @@
   height: 280px;
   border-top: 3px solid rgb(255, 219, 76);
   border-bottom: 3px solid rgb(255, 219, 76);
+  /* margin-top: 20px; */
 }
 .profile-info .md-title, .profile-positions .md-title {
   padding: 5px 17px;
@@ -127,8 +128,11 @@
 .profile-address {
   background: #FAFAFA;
   border-top: 1px solid #E4E4E4;
+  border-bottom: 1px solid #E4E4E4;
   padding-left: 0;
   margin-bottom: 0;
+  /* margin-top: 20px; */
+  /* overflow: auto; */
   margin-top: 20px;
 }
 
@@ -137,7 +141,7 @@
   font-size: 20px;
   margin: 2px;
   text-align: center;
-  color: #AACBD9;
+  color: #2278cc;
 }
 
 .profile-contacts [class*="icon-"] {

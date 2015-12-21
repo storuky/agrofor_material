@@ -1,5 +1,7 @@
 .position-map {
   height: 215px;
+  /* box-shadow: 0px 0px 0px 3px #FFDB4C inset; */
+  position: relative;
 }
 .upload-image {
   height: 152px;
@@ -56,10 +58,14 @@
   display: inline-block;
 }
 .position-modal {
-  width: 870px;
+  width: auto;
   max-width: 100%;
-  margin: 15px;
+  margin: 0 107px 20px 15px;
   overflow-x: hidden;
+  position: absolute;
+  top: 88px;
+  left: 0;
+  right: 0;
 }
 
 .position-modal__header {
@@ -354,6 +360,14 @@ md-dialog.position-modal md-dialog-content {
   -webkit-justify-content: flex-start;
   -ms-flex-pack:  flex-start;
   justify-content:  flex-start;
+  /* -webkit-align-items: flex-start; */
+  -ms-flex-align: flex-start;
+  /* align-items: flex-start; */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 
@@ -361,7 +375,7 @@ md-dialog.position-modal md-dialog-content {
   min-height: 85px;
   border: 1px solid #e6e6e6;
   border-width: 1px 0;
-  text-align: justify;
+  /* text-align: justify; */
   background: rgba(245, 245, 245, 0.63);
 }
 
@@ -371,6 +385,7 @@ md-dialog.position-modal md-dialog-content {
   height: 85px;
   vertical-align: top;
   padding: 20px;
+  width: 151px;
 }
 
 .position-modal__info__item b {
@@ -419,4 +434,32 @@ md-dialog.position-modal md-dialog-content {
   border-bottom: 2px solid #FFDB4C;
   margin-left: -20px;
   padding-left: 20px;
+}
+
+
+.position-map:before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  box-shadow: 0px 0px 0px 3px #FFDB4C inset;*/;
+  z-index: 1;
+}
+
+.position-form__address {
+  background: #FAFAFA;
+  border: 1px solid #E4E4E4;
+  margin: 0 8px;
+  padding-top: 10px;
+}
+
+
+.position-form__address .icon-marker {
+  font-size: 20px;
+  margin: 2px;
+  text-align: center;
+  color: #2278cc;
 }
