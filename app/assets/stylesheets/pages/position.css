@@ -446,7 +446,7 @@ md-dialog.position-modal md-dialog-content {
   left: 0;
   bottom: 0;
   right: 0;
-  box-shadow: 0px 0px 0px 3px #FFDB4C inset;*/;
+  box-shadow: 0px 0px 0px 3px #FFDB4C inset;
   z-index: 1;
 }
 
