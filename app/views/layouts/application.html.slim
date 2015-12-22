@@ -36,5 +36,6 @@
       div ng-include="'sign.html'"
       script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript" async=""
 
-      = stylesheet_link_tag 'application', :async => Rails.env.production?
       = javascript_include_tag 'application', :async => Rails.env.production?
+
+  = stylesheet_link_tag 'application'
