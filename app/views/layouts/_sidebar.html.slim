@@ -10,12 +10,12 @@
       td.v-top
         nav.nav
           a.nav__link ui-sref="map_path" ng-class="{active: $state.current.name=='root_path'}" Поиск
-          a.nav__link.ng-cloak ui-sref="positions_path" ng-show="gon.current_user" Мои позиции
-          a.nav__link.ng-cloak ui-sref="offers_path" ng-show="gon.current_user" Мои предложения
-          a.nav__link.ng-cloak ui-sref="messages_path" ng-show="gon.current_user" Мои сообщения
-          a.nav__link ui-sref="analytics_path" Аналитика
-          a.nav__link ui-sref="help_path" Помощь
-          a.nav__link ui-sref="support_path" Поддержка
+          a.nav__link.ng-cloak ui-sref="positions_path" ui-sref-active="positions_path" ng-show="gon.current_user" Мои позиции
+          a.nav__link.ng-cloak ui-sref="offers_path" ui-sref-active="offers_path" ng-show="gon.current_user" Мои предложения
+          a.nav__link.ng-cloak ui-sref="messages_path" ui-sref-active="messages_path" ng-show="gon.current_user" Мои сообщения
+          a.nav__link ui-sref="analytics_path" ui-sref-active="analytics_path" Аналитика
+          a.nav__link ui-sref="help_path" ui-sref-active="help_path" Помощь
+          a.nav__link ui-sref="support_path" ui-sref-active="support_path" Поддержка
     tr.h0 disable-animate=""
       td
         footer
