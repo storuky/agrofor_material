@@ -210,3 +210,23 @@ hr {
 .pb-0 {
   padding-bottom: 0;
 }
+
+.md-lg {
+  padding: 0 20px;
+}
+
+.md-sm {
+  padding: 0 15px;
+}
+
+.md-yellow, .md-yellow.md-button {
+  background: rgb(255, 219, 76);
+  color: #2b2b2b;
+  text-decoration: none;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  font-weight: normal;
+  font-size: 15px;
+}

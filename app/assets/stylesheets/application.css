@@ -14,6 +14,8 @@
  *= require oxymoron/perfect-scrollbar
  *= require oxymoron/md-data-table
  *= require angular-material
+ *= stub sidebar
+ *= stub main
  *= require_tree .
  *= require_self
  */

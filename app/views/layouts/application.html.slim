@@ -1,4 +1,4 @@
-= cache "application" do
+= cache "application1" do
   <!DOCTYPE html>
   html ng-app="app"
     head
@@ -10,14 +10,17 @@
       base href="/"
       css:
         .ng-cloak {
-          visibility: hidden;
+          display: none !important;
         }
-    body.ng-cloak ng-controller="MainCtrl"
+      style
+        = Rails.application.assets.find_asset('main').to_s
+        = Rails.application.assets.find_asset('sidebar').to_s
+    body ng-controller="MainCtrl"
       .wrapper ng-class="{active: Sign.isShow}"
         aside.sidebar.md-whiteframe-1dp
           = render "layouts/sidebar"
 
-        .page ng-class="{'overflow page-map': Search.type == 'map'}"
+        .page.ng-cloak ng-class="{'overflow page-map': Search.type == 'map'}"
           table.page-table
             tr
               td.h0 ng-yield="header"
