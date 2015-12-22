@@ -4,19 +4,19 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background: rgb(1, 1, 1);
+  background: rgba(1, 1, 1, 0.72);
   z-index: 999;
 }
 
 .lightbox__header{
   height: 42px;
-  background: #666;
-  background: rgba(81,81,81,.75);
+  background: rgba(102, 102, 102, 0.59);
+  /* background: rgba(81,81,81,.75); */
   background: -moz-linear-gradient(top,rgba(81,81,81,.75),rgba(74,74,74,.75));
-  background: -webkit-gradient(linear,0 0,0 100%,from(rgba(81,81,81,.75)),to(rgba(74,74,74,.75)));
+  /* background: -webkit-gradient(linear,0 0,0 100%,from(rgba(81,81,81,.75)),to(rgba(74,74,74,.75))); */
   background: -o-linear-gradient(rgba(81,81,81,.75),rgba(74,74,74,.75));
-  border-bottom: 1px solid #111;
-  border-bottom: 1px solid rgba(67,67,67,.85);
+  /* border-bottom: 1px solid #111; */
+  /* border-bottom: 1px solid rgba(67,67,67,.85); */
   position: relative;
   z-index: 1;
 }
@@ -96,6 +96,7 @@
 
 .lightbox__right:hover, .lightbox__left:hover {
   color: white;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 
