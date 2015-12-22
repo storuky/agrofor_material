@@ -13,8 +13,7 @@
           display: none !important;
         }
       style
-        = Rails.application.assets.find_asset('main').to_s
-        = Rails.application.assets.find_asset('sidebar').to_s
+        = Rails.application.assets.find_asset('before').to_s
     body ng-controller="MainCtrl"
       .wrapper ng-class="{active: Sign.isShow}"
         aside.sidebar.md-whiteframe-1dp
