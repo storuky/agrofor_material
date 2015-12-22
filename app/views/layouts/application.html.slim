@@ -16,7 +16,7 @@
         = Rails.application.assets.find_asset('before').to_s
     body ng-controller="MainCtrl"
       .wrapper ng-class="{active: Sign.isShow}"
-        aside.sidebar.md-whiteframe-1dp
+        aside.sidebar
           = render "layouts/sidebar"
 
         .page.ng-cloak ng-class="{'overflow page-map': Search.type == 'map'}"
