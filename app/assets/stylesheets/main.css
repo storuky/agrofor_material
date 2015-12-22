@@ -3,6 +3,10 @@
   outline: none !important;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
