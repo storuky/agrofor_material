@@ -20,6 +20,8 @@
  *= require_self
  */
 
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300&subset=latin,cyrillic);
+
 @media screen and (max-height: 460px) {
   .position-modal {
     top: 20px;
