@@ -2,6 +2,8 @@
   height: 215px;
   /* box-shadow: 0px 0px 0px 3px #FFDB4C inset; */
   position: relative;
+  /* z-index: 9999; */
+  box-shadow: 0px 0px 0px 3px #FFDB4C;
 }
 .upload-image {
   height: 152px;
@@ -436,25 +438,11 @@ md-dialog.position-modal md-dialog-content {
   margin-left: -20px;
   padding-left: 20px;
 }
-
-
-.position-map:before {
-  content: "";
-  position: absolute;
-  display: block;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  box-shadow: 0px 0px 0px 3px #FFDB4C inset;
-  z-index: 1;
-}
-
 .position-form__address {
   background: #FAFAFA;
   border: 1px solid #E4E4E4;
-  margin: 0 8px;
-  padding-top: 10px;
+  margin: -5px 8px;
+  padding-top: 8px;
 }
 
 
