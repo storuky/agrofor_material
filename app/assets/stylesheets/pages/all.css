@@ -91,13 +91,14 @@ input.solid-input:focus {
   display: inline-block;
   border: 1px solid #03A9F4;
   background: #03A9F4;
-  padding: 2px 0;
+  padding: 2px 0 4px 0;
   width: 40px;
   text-align: center;
   border-radius: 3px;
   color: white;
   font-size: 12px;
   vertical-align: middle;
+  line-height: 12px;
 }
 .uploaded-documents .icon-close {
   font-size: 15px;
@@ -115,6 +116,7 @@ input.solid-input:focus {
   position: relative;
   overflow: hidden;
   margin-top: -1px;
+  overflow: hidden;
 }
 
 .uploaded-images__container.border {
@@ -176,4 +178,8 @@ input.solid-input:focus {
 
 .uploaded-images .flickity-page-dots {
   display: none !important;
+}
+
+.flickity-prev-next-button:disabled {
+  display: none;
 }

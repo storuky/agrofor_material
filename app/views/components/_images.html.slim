@@ -1,7 +1,7 @@
 script type="text/ng-template" id="images.html"
   .uploaded-images.hidden-scroll
     .uploaded-images__container ng-class="images.length ? 'border' : ''"
-      a ng-repeat="image in images"
+      a ng-repeat="image in images" index="{{$index}}"
         img ng-src="{{image.url.thumb}}"
         i.icon-close ng-click="destroy(image, $event)" ng-show="$parent.allowDestroy"
     label.md-button.md-ink-ripple.upload-image ng-show="upload"
