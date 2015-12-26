@@ -1,6 +1,6 @@
 script type="text/ng-template" id="position.tmpl.html"
   md-dialog.position-modal aria-label="Mango (Fruit)"  ng-cloak=""
-    md-toolbar.position-modal__header
+    md-toolbar.position-modal__header ng-class="{'position-modal-shadow': scrollPosition > 0}"
       .position-modal__title
         .position-modal__avatar
           img src="/avatar.png" height="35"
@@ -24,14 +24,14 @@ script type="text/ng-template" id="position.tmpl.html"
         .position-modal__date
       .close ng-click="ctrl.close()"
         .icon-close
-    md-dialog-content.disabled-show
+    md-dialog-content.disabled-show scroll-position="scrollPosition"
       .position_show ng-class="{active: isShowOfferOverlay}"
         .md-title
           span
             | {{ctrl.position.title}}
           .position-status ng-class="ctrl.position.status.id"
             | {{ctrl.position.status.title}}
-        .position-modal__info
+        .position-modal__info slick="" reload="ctrl.position"
           .position-modal__info__item
             b
               | {{ctrl.position.trade_type.title}}

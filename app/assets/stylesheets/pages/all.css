@@ -125,6 +125,8 @@ input.solid-input:focus {
 
 .uploaded-images img {
   display: block;
+  width: 150px;
+  height: 150px;
 }
 
 .uploaded-images a {
@@ -169,4 +171,9 @@ input.solid-input:focus {
 
 .uploaded-images__more:hover {
   color: black;
+}
+
+
+.uploaded-images .flickity-page-dots {
+  display: none !important;
 }

@@ -10,6 +10,7 @@
 //= require oxymoron/perfect-scrollbar
 //= require oxymoron/store
 //= require oxymoron
+//= require flickity.pkgd.min
 //= require angular-material
 //= require_self
 //= require_tree .

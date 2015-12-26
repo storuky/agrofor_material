@@ -1,8 +1,9 @@
 script type="text/ng-template" id="images.html"
-  .uploaded-images.hidden-scroll scroll="" axis="x" ng-class="images.length ? 'border' : ''"
-    a ng-click="show($index, $event)" ng-repeat="image in images" ng-href="{{image.url.original}}"
-      img ng-src="{{image.url.thumb}}"
-      i.icon-close ng-click="destroy(image, $event)" ng-show="$parent.allowDestroy"
+  .uploaded-images.hidden-scroll
+    .uploaded-images__container ng-class="images.length ? 'border' : ''"
+      a ng-repeat="image in images"
+        img ng-src="{{image.url.thumb}}"
+        i.icon-close ng-click="destroy(image, $event)" ng-show="$parent.allowDestroy"
     label.md-button.md-ink-ripple.upload-image ng-show="upload"
       i.icon-camera
       .upload-image__label Прикрепить фото

@@ -2,5 +2,5 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
   $stateProvider
     .rails()
 
-  $urlRouterProvider.otherwise('/search');
+  $urlRouterProvider.otherwise('/search/map');
 }])

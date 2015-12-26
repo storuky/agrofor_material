@@ -1,4 +1,4 @@
-app.directive('lightbox', ['$compile', '$timeout', function($compile, $timeout) {
+app.directive('lightbox', ['$compile', '$timeout', '$rootScope', function($compile, $timeout, $rootScope) {
   // Runs during compile
   return {
     // name: '',
@@ -18,14 +18,26 @@ app.directive('lightbox', ['$compile', '$timeout', function($compile, $timeout) 
     // transclude: true,
     // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
     link: function($scope, iElm, iAttrs, controller) {
-      var template;
+      var template, flkty, flktyLightbox;
       $scope.scale = 0;
 
       $scope.$watch('images', function (images) {
-        if ($scope.upload && images) {
+        if (images) {
           $timeout(function () {
-            iElm[0].scrollLeft = iElm[0].scrollWidth;
-          }, 100)
+            if (flkty) {
+              flkty.destroy()
+            }
+            flkty = new Flickity(iElm[0].querySelector('.uploaded-images__container'), {
+              cellAlign: 'left',
+              contain: true,
+              freeScroll: true
+            });
+
+            flkty.on('staticClick', function (event, pointer, cellElement, cellIndex) {
+              $scope.show(cellIndex, event);
+              $scope.$apply();
+            })
+          }, 100);
         }
       }, true)
 
@@ -41,14 +53,53 @@ app.directive('lightbox', ['$compile', '$timeout', function($compile, $timeout) 
 
       $scope.$watch('isShow', function (isShow) {
         if (isShow) {
+          $rootScope.blurPage = true;
           template = $compile(document.getElementById('lightbox.html').innerHTML)($scope);
           angular.element(document.body).append(template);
 
           document.addEventListener("keydown", keydownManage, false);
-          // wheel(document.querySelector('.lightbox__images__overlay'));
-          wheel(document.querySelector('.lightbox__image img'));
+          // wheel(document.querySelector('.lightbox__image img'));
+
+          $timeout(function () {
+            flktyLightbox = new Flickity(template[0].querySelector('.lightbox__images'), {
+              cellAlign: 'left',
+              contain: true,
+              selectedAttraction: 0.2,
+              friction: 0.8,
+              lazyLoad: true
+            });
+
+            flktyLightboxMin = new Flickity(template[0].querySelector('.lightbox__footer'), {
+              cellAlign: 'left',
+              contain: true,
+              freeScroll: true
+            });
+
+            flktyLightboxMin.stopPlayer();
+
+            // flktyLightboxMin.on('cellSelect', function (event, pointer, cellElement, cellIndex) {
+            //   if (flktyLightbox.selectedIndex != flktyLightboxMin.selectedIndex)
+            //     flktyLightbox.select(flktyLightboxMin.selectedIndex)
+            // })
+
+            flktyLightboxMin.on('staticClick', function (event, pointer, cellElement, cellIndex) {
+              if (flktyLightbox.selectedIndex != cellIndex)
+                flktyLightbox.select(cellIndex);
+            })
+
+            flktyLightbox.on('cellSelect', function () {
+              if (flktyLightbox.selectedIndex != flktyLightboxMin.selectedIndex) {
+                $scope.activeImage = flktyLightbox.selectedIndex;
+                $scope.$apply();
+                flktyLightboxMin.select(flktyLightbox.selectedIndex);
+              }
+            })
+          })
         } else if (template) {
+          $rootScope.blurPage = false;
           template.remove();
+          flktyLightbox.destroy()
+          flktyLightboxMin.destroy()
           document.removeEventListener("keydown", keydownManage, false)
         }
       })
@@ -56,6 +107,10 @@ app.directive('lightbox', ['$compile', '$timeout', function($compile, $timeout) 
       $scope.show = function ($index, $event) {
         $scope.isShow = true;
         $scope.activeImage = $index;
+        if (flktyLightbox) {
+          flktyLightbox.select($index);
+          flktyLightboxMin.select($index);
+        }
         $event.preventDefault();
       }
 
@@ -69,57 +124,7 @@ app.directive('lightbox', ['$compile', '$timeout', function($compile, $timeout) 
         $event.preventDefault();
       }
 
-      $scope.prev = function (stopIfScale) {
-        if (stopIfScale && $scope.scale!=0) return false;
-        $scope.scale = 0;
-        if ($scope.activeImage!=0) {
-          $scope.activeImage = $scope.activeImage-1;
-          if (template[0].querySelector('.lightbox__footer').scrollLeft > -100 + template[0].querySelector('.lightbox__footer__image.active').offsetLeft)
-            template[0].querySelector('.lightbox__footer').scrollLeft = -110 + template[0].querySelector('.lightbox__footer__image.active').offsetLeft;
-        } else {
-          $scope.activeImage = $scope.images.length-1;
-          template[0].querySelector('.lightbox__footer').scrollLeft = template[0].querySelector('.lightbox__footer').offsetWidth;
-        }
-      }
-
-      $scope.next = function (stopIfScale) {
-        if (stopIfScale && $scope.scale!=0) return false;
-        $scope.scale = 0;
-        if ($scope.activeImage!=$scope.images.length-1) {
-          $scope.activeImage = $scope.activeImage+1;
-          if (document.body.offsetWidth - 250 < document.querySelector('.lightbox__footer__image.active').offsetLeft)
-            template[0].querySelector('.lightbox__footer').scrollLeft = 300 - document.body.offsetWidth + template[0].querySelector('.lightbox__footer__image.active').offsetLeft;
-        } else {
-          $scope.activeImage = 0;
-          template[0].querySelector('.lightbox__footer').scrollLeft = 0;
-        }
-      }
-
-      function wheel (elem) {
-        if (elem.addEventListener) {
-          if ('onwheel' in document) {
-            // IE9+, FF17+, Ch31+
-            elem.addEventListener("wheel", onWheel);
-          } else if ('onmousewheel' in document) {
-            // устаревший вариант события
-            elem.addEventListener("mousewheel", onWheel);
-          } else {
-            // Firefox < 17
-            elem.addEventListener("MozMousePixelScroll", onWheel);
-          }
-        } else { // IE8-
-          elem.attachEvent("onmousewheel", onWheel);
-        }
-
-        function onWheel(e) {
-          if ((e.deltaY < 0 && $scope.scale > -300) || (e.deltaY > 0 && $scope.scale < 0)) {
-            $scope.scale += e.deltaY;
-            if ($scope.scale>0) $scope.scale = 0;
-            if ($scope.scale<-300) $scope.scale = -300;
-          }
-          $scope.$apply();
-        }
-      }      
+    
     }
   };
 }]);

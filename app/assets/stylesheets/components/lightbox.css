@@ -4,8 +4,33 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background: rgba(1, 1, 1, 0.72);
+  background: rgba(255, 255, 255, 0.86);
   z-index: 999;
+}
+
+.lightbox .flickity-viewport {
+  height: 100% !important;
+}
+
+/* big buttons, no circle */
+.lightbox__images .flickity-prev-next-button {
+  width: 60px;
+  height: 60px;
+  background: transparent;
+}
+.lightbox__images .flickity-prev-next-button:hover {
+  background: transparent;
+}
+/* arrow color */
+.lightbox__images .flickity-prev-next-button .arrow {
+  fill: #333;
+}
+.lightbox__images .flickity-prev-next-button.no-svg {
+  color: #333;
+}
+/* hide disabled button */
+.lightbox__images .flickity-prev-next-button:disabled {
+  display: none;
 }
 
 .lightbox__header{
@@ -19,44 +44,24 @@
   /* border-bottom: 1px solid rgba(67,67,67,.85); */
   position: relative;
   z-index: 1;
+  background: hsla(0, 100%, 100%, 0.71);
+  box-shadow: 0 0px 3px 2px rgba(0,0,0,.2);
 }
 .lightbox__close{
-  color: rgba(255, 255, 255, 0.74);
+  color: rgba(0, 0, 0, 0.74);
   position: absolute;
   right: 0;
   top: 0;
   padding: 9px 10px;
   cursor: pointer;
 }
-.lightbox__right,
-.lightbox__left{
-  font-size: 40px;
-  color: rgba(255, 255, 255, 0.55);
-  position: absolute;
-  top: 42px;
-  bottom: 0;
-  width: 45px;
-  background: rgba(40, 40, 40, 0.39);
-  cursor: pointer;
-  z-index: 1;
-}
-.lightbox__left{
-  left: 0;
-}
-.lightbox__left i.icon-chevron-left,
-.lightbox__right i.icon-chevron-right{
-  position: absolute;
-  top: 50%;
-  margin-top: -21px;
-  cursor: pointer;
-}
 .lightbox__images,
 .lightbox__images__overlay {
   position: absolute;
-  top: 44px;
-  bottom: 105px;
-  left: 45px;
-  right: 45px;
+  top: 47px;
+  bottom: 108px;
+  left: 0;
+  right: 0;
 }
 .lightbox__image:before{
   content: "";
@@ -69,6 +74,7 @@
   height: 100%;
   text-align: center;
   white-space: nowrap;
+  min-width: 100%;
 }
 .lightbox__image img {
   max-height: 100%;
@@ -82,37 +88,34 @@
   -moz-user-select: none;
   -webkit-user-drag: none;
 }
-.lightbox__right{
-  right: 0;
-}
-.lightbox__right i.icon-chevron-right{
-  
-}
+
 .lightbox__counter {
-  color: white;
+  color: #424242;
   padding: 12px 50px;
   display: inline-block;
 }
 
-.lightbox__right:hover, .lightbox__left:hover {
-  color: white;
-  background: rgba(0, 0, 0, 0.4);
-}
-
-
 .lightbox__close:hover {
-  color: white;
+  color: red;
 }
 
 .lightbox__footer {
   position: absolute;
-  height: 105px;
+  height: 112px;
   bottom: 0;
   left: 0;
   right: 0;
   text-align: center;
   white-space: nowrap;
-  margin: 0 45px;
+  /* margin: 0 45px; */
+  background: white;
+  border-top: 1px solid rgba(0,0,0,.3);
+}
+.lightbox__footer .previous{
+  left: 0;
+}
+.lightbox__footer .next{
+  right: 0;
 }
 
 .lightbox__footer__image {

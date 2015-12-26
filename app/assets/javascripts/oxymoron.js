@@ -37,11 +37,10 @@
         .state('root_path', {
           url: '/',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['root_path'](params) + "?ng-view";
-            
+            return Routes['root_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'ApplicationCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -53,11 +52,10 @@
         .state('new_user_session_path', {
           url: '/users/sign_in',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['new_user_session_path'](params) + "?ng-view";
-            
+            return Routes['new_user_session_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'UsersSessionsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -69,11 +67,10 @@
         .state('new_user_password_path', {
           url: '/users/password/new',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['new_user_password_path'](params) + "?ng-view";
-            
+            return Routes['new_user_password_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'DevisePasswordsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -85,11 +82,10 @@
         .state('edit_user_password_path', {
           url: '/users/password/edit',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['edit_user_password_path'](params) + "?ng-view";
-            
+            return Routes['edit_user_password_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'DevisePasswordsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -101,11 +97,10 @@
         .state('cancel_user_registration_path', {
           url: '/users/cancel',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['cancel_user_registration_path'](params) + "?ng-view";
-            
+            return Routes['cancel_user_registration_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'UsersRegistrationsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -117,11 +112,10 @@
         .state('new_user_registration_path', {
           url: '/users/sign_up',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['new_user_registration_path'](params) + "?ng-view";
-            
+            return Routes['new_user_registration_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'UsersRegistrationsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -133,11 +127,10 @@
         .state('edit_user_registration_path', {
           url: '/users/edit',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['edit_user_registration_path'](params) + "?ng-view";
-            
+            return Routes['edit_user_registration_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'UsersRegistrationsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -149,11 +142,10 @@
         .state('map_path', {
           url: '/search/map',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['map_path'](params) + "?ng-view";
-            
+            return Routes['map_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'SearchCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -165,11 +157,10 @@
         .state('list_path', {
           url: '/search/list',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['list_path'](params) + "?ng-view";
-            
+            return Routes['list_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'SearchCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -181,11 +172,10 @@
         .state('analytics_path', {
           url: '/analytics',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['analytics_path'](params) + "?ng-view";
-            
+            return Routes['analytics_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'AnalyticsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -197,11 +187,10 @@
         .state('support_path', {
           url: '/support',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['support_path'](params) + "?ng-view";
-            
+            return Routes['support_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'SupportCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -213,11 +202,10 @@
         .state('help_path', {
           url: '/help',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['help_path'](params) + "?ng-view";
-            
+            return Routes['help_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'HelpCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -229,11 +217,10 @@
         .state('settings_path', {
           url: '/settings',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['settings_path'](params) + "?ng-view";
-            
+            return Routes['settings_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'SettingsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -245,11 +232,10 @@
         .state('images_path', {
           url: '/images',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['images_path'](params) + "?ng-view";
-            
+            return Routes['images_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'ImagesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -261,11 +247,10 @@
         .state('new_image_path', {
           url: '/images/new',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['new_image_path'](params) + "?ng-view";
-            
+            return Routes['new_image_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'ImagesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -277,11 +262,10 @@
         .state('edit_image_path', {
           url: '/images/:id/edit',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['edit_image_path'](params) + "?ng-view";
-            
+            return Routes['edit_image_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'ImagesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -293,11 +277,10 @@
         .state('image_path', {
           url: '/images/:id',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['image_path'](params) + "?ng-view";
-            
+            return Routes['image_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'ImagesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -309,11 +292,10 @@
         .state('documents_path', {
           url: '/documents',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['documents_path'](params) + "?ng-view";
-            
+            return Routes['documents_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'DocumentsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -325,11 +307,10 @@
         .state('new_document_path', {
           url: '/documents/new',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['new_document_path'](params) + "?ng-view";
-            
+            return Routes['new_document_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'DocumentsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -341,11 +322,10 @@
         .state('edit_document_path', {
           url: '/documents/:id/edit',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['edit_document_path'](params) + "?ng-view";
-            
+            return Routes['edit_document_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'DocumentsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -357,11 +337,10 @@
         .state('document_path', {
           url: '/documents/:id',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['document_path'](params) + "?ng-view";
-            
+            return Routes['document_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'DocumentsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -373,11 +352,10 @@
         .state('positions_path', {
           url: '/positions',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['positions_path'](params) + "?ng-view";
-            
+            return Routes['positions_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -389,11 +367,10 @@
         .state('new_position_path', {
           url: '/positions/new',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['new_position_path'](params) + "?ng-view";
-            
+            return Routes['new_position_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -405,11 +382,10 @@
         .state('edit_position_path', {
           url: '/positions/:id/edit',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['edit_position_path'](params) + "?ng-view";
-            
+            return Routes['edit_position_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -421,11 +397,10 @@
         .state('position_path', {
           url: '/positions/:id',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['position_path'](params) + "?ng-view";
-            
+            return Routes['position_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'PositionsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -437,11 +412,10 @@
         .state('offers_path', {
           url: '/offers',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['offers_path'](params) + "?ng-view";
-            
+            return Routes['offers_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -453,11 +427,10 @@
         .state('new_offer_path', {
           url: '/offers/new',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['new_offer_path'](params) + "?ng-view";
-            
+            return Routes['new_offer_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -469,11 +442,10 @@
         .state('edit_offer_path', {
           url: '/offers/:id/edit',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['edit_offer_path'](params) + "?ng-view";
-            
+            return Routes['edit_offer_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -485,11 +457,10 @@
         .state('offer_path', {
           url: '/offers/:id',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['offer_path'](params) + "?ng-view";
-            
+            return Routes['offer_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'OffersCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -501,11 +472,10 @@
         .state('favorites_path', {
           url: '/favorites',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['favorites_path'](params) + "?ng-view";
-            
+            return Routes['favorites_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -517,11 +487,10 @@
         .state('new_favorite_path', {
           url: '/favorites/new',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['new_favorite_path'](params) + "?ng-view";
-            
+            return Routes['new_favorite_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -533,11 +502,10 @@
         .state('edit_favorite_path', {
           url: '/favorites/:id/edit',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['edit_favorite_path'](params) + "?ng-view";
-            
+            return Routes['edit_favorite_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -549,11 +517,10 @@
         .state('favorite_path', {
           url: '/favorites/:id',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['favorite_path'](params) + "?ng-view";
-            
+            return Routes['favorite_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'FavoritesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -565,11 +532,10 @@
         .state('templates_path', {
           url: '/templates',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['templates_path'](params) + "?ng-view";
-            
+            return Routes['templates_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -581,11 +547,10 @@
         .state('new_template_path', {
           url: '/templates/new',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['new_template_path'](params) + "?ng-view";
-            
+            return Routes['new_template_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -597,11 +562,10 @@
         .state('edit_template_path', {
           url: '/templates/:id/edit',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['edit_template_path'](params) + "?ng-view";
-            
+            return Routes['edit_template_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -613,11 +577,10 @@
         .state('template_path', {
           url: '/templates/:id',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['template_path'](params) + "?ng-view";
-            
+            return Routes['template_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'TemplatesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -629,11 +592,10 @@
         .state('messages_path', {
           url: '/messages',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['messages_path'](params) + "?ng-view";
-            
+            return Routes['messages_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -645,11 +607,10 @@
         .state('new_message_path', {
           url: '/messages/new',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['new_message_path'](params) + "?ng-view";
-            
+            return Routes['new_message_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -661,11 +622,10 @@
         .state('edit_message_path', {
           url: '/messages/:id/edit',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['edit_message_path'](params) + "?ng-view";
-            
+            return Routes['edit_message_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -677,11 +637,10 @@
         .state('message_path', {
           url: '/messages/:id',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['message_path'](params) + "?ng-view";
-            
+            return Routes['message_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'MessagesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -693,11 +652,10 @@
         .state('correspondences_path', {
           url: '/correspondences',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['correspondences_path'](params) + "?ng-view";
-            
+            return Routes['correspondences_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -709,11 +667,10 @@
         .state('new_correspondence_path', {
           url: '/correspondences/new',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['new_correspondence_path'](params) + "?ng-view";
-            
+            return Routes['new_correspondence_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -725,11 +682,10 @@
         .state('edit_correspondence_path', {
           url: '/correspondences/:id/edit',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['edit_correspondence_path'](params) + "?ng-view";
-            
+            return Routes['edit_correspondence_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -741,11 +697,10 @@
         .state('correspondence_path', {
           url: '/correspondences/:id',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['correspondence_path'](params) + "?ng-view";
-            
+            return Routes['correspondence_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'CorrespondencesCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -757,11 +712,10 @@
         .state('positions_profile_path', {
           url: '/profile/:id/positions',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['positions_profile_path'](params) + "?ng-view";
-            
+            return Routes['positions_profile_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -773,11 +727,10 @@
         .state('feedbacks_profile_path', {
           url: '/profile/:id/feedbacks',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['feedbacks_profile_path'](params) + "?ng-view";
-            
+            return Routes['feedbacks_profile_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -789,11 +742,10 @@
         .state('profile_index_path', {
           url: '/profile',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['profile_index_path'](params) + "?ng-view";
-            
+            return Routes['profile_index_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -805,11 +757,10 @@
         .state('new_profile_path', {
           url: '/profile/new',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['new_profile_path'](params) + "?ng-view";
-            
+            return Routes['new_profile_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -821,11 +772,10 @@
         .state('edit_profile_path', {
           url: '/profile/:id/edit',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['edit_profile_path'](params) + "?ng-view";
-            
+            return Routes['edit_profile_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -837,11 +787,10 @@
         .state('profile_path', {
           url: '/profile/:id',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['profile_path'](params) + "?ng-view";
-            
+            return Routes['profile_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'ProfileCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -853,11 +802,10 @@
         .state('users_path', {
           url: '/users',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['users_path'](params) + "?ng-view";
-            
+            return Routes['users_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'UsersCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -869,11 +817,10 @@
         .state('new_user_path', {
           url: '/users/new',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['new_user_path'](params) + "?ng-view";
-            
+            return Routes['new_user_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'UsersCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -885,11 +832,10 @@
         .state('edit_user_path', {
           url: '/users/:id/edit',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['edit_user_path'](params) + "?ng-view";
-            
+            return Routes['edit_user_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'UsersCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -901,11 +847,10 @@
         .state('user_path', {
           url: '/users/:id',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['user_path'](params) + "?ng-view";
-            
+            return Routes['user_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'UsersCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -917,11 +862,10 @@
         .state('rails_info_properties_path', {
           url: '/rails/info/properties',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['rails_info_properties_path'](params) + "?ng-view";
-            
+            return Routes['rails_info_properties_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'RailsInfoCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -933,11 +877,10 @@
         .state('rails_info_routes_path', {
           url: '/rails/info/routes',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['rails_info_routes_path'](params) + "?ng-view";
-            
+            return Routes['rails_info_routes_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'RailsInfoCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -949,11 +892,10 @@
         .state('rails_info_path', {
           url: '/rails/info',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['rails_info_path'](params) + "?ng-view";
-            
+            return Routes['rails_info_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'RailsInfoCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -965,11 +907,10 @@
         .state('rails_mailers_path', {
           url: '/rails/mailers',
           templateUrl: function(params) {
+            params['ng-view']='';
             
-              return Routes['rails_mailers_path'](params) + "?ng-view";
-            
+            return Routes['rails_mailers_path'](params);
           },
-          reloadOnSearch: false,
           controller: 'RailsMailersCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
@@ -1037,12 +978,8 @@
           $state.go(res.data.redirect_to)
         }
       } else {
-        if (res.status == -1) {
-          ngNotify.set("Сервер не отвечает", 'error');
-        } else {
-          if (res.status != 304) {
-            ngNotify.set(res.statusText, 'error');
-          }
+        if ([-1, 304].indexOf(res.status) == -1) {
+          ngNotify.set(res.statusText, 'error');
         }
       }
     })

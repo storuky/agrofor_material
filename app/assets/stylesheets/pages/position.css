@@ -77,7 +77,7 @@
   background: transparent !important;
   color: #272727 !important;
   border-bottom: 1px solid #E1E1E1;
-  box-shadow: 0px -1px 6px rgba(0,0,0,.2);
+  /* box-shadow: 0px -1px 6px rgba(0,0,0,.2); */
   z-index: 99;
 }
 .position-modal__user {
@@ -167,7 +167,7 @@ md-dialog.position-modal md-dialog-content {
   display: inline-block;
   vertical-align: top;
   font-size: 24px;
-  margin-top: 6px;
+  margin-top: 3px;
   color: #c3c3c3;
   cursor: pointer;
 }
@@ -380,6 +380,7 @@ md-dialog.position-modal md-dialog-content {
   border-width: 1px 0;
   /* text-align: justify; */
   background: rgba(245, 245, 245, 0.63);
+  white-space: nowrap;
 }
 
 
@@ -388,7 +389,7 @@ md-dialog.position-modal md-dialog-content {
   height: 85px;
   vertical-align: top;
   padding: 20px;
-  width: 151px;
+  min-width: 151px;
 }
 
 .position-modal__info__item b {
@@ -396,6 +397,7 @@ md-dialog.position-modal md-dialog-content {
   font-weight: 500;
   font-size: 18px;
   margin-bottom: 5px;
+  white-space: nowrap;
 }
 
 
@@ -432,6 +434,10 @@ md-dialog.position-modal md-dialog-content {
   padding: 0 20px 20px 20px;
 }
 
+.position-modal-shadow {
+   box-shadow: 0px -1px 6px rgba(0,0,0,.2);
+}
+
 
 .position-modal .md-title span {
   border-bottom: 2px solid #FFDB4C;
@@ -451,4 +457,14 @@ md-dialog.position-modal md-dialog-content {
   margin: 2px;
   text-align: center;
   color: #2278cc;
+}
+
+
+.position-modal__info .previous, .position-modal__info .next {
+  display: none;
+}
+
+
+.position-modal__info .flickity-page-dots {
+  display: none;
 }

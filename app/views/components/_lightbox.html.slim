@@ -5,16 +5,12 @@ script type="text/ng-template" id="lightbox.html"
         | {{activeImage+1}} из {{images.length}}
       .lightbox__close ng-click="isShow = false"
         i.icon-close
-    .lightbox__left ng-hide="activeImage==0" ng-click="prev()"
-      i.icon-chevron-left
     .lightbox__images
-      .lightbox__image
-        img ng-src="{{images[activeImage].url.original}}" style="transform: scale({{1-scale/300}});" ng-swipe-left="next(true)" ng-swipe-right="prev(true)"
+      .lightbox__image ng-repeat="image in images"
+        img data-flickity-lazyload="{{image.url.original}}" style="transform: scale({{1-scale/300}});"
     /.lightbox__images__overlay
 
-    .lightbox__right ng-hide="activeImage==images.length-1" ng-click="next()"
-      i.icon-chevron-right
 
     .lightbox__footer.hidden-scroll scroll="" axis="x"
-      .lightbox__footer__image ng-class="{active: $index == activeImage}" ng-click="show($index, $event)" ng-repeat="image in images"
+      .lightbox__footer__image ng-repeat="image in images" ng-class="{active: $parent.activeImage==$index}"
         img ng-src="{{image.url.thumb}}"
