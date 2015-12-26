@@ -1,4 +1,4 @@
-= cache_if Rails.env.production?, "application" do
+= cache_if Rails.env.production?, $layout_cache do
   <!DOCTYPE html>
   html ng-app="app"
     head
@@ -6,6 +6,7 @@
       meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no"
       title Agrofor
       link rel="icon" href="data:;base64,iVBORw0KGgo="
+      = stylesheet_link_tag 'application'
       = csrf_meta_tags
       base href="/"
       css:
@@ -35,5 +36,3 @@
       script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"
 
       = javascript_include_tag 'application'
-
-  = stylesheet_link_tag 'application'

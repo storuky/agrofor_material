@@ -60,6 +60,10 @@ namespace :deploy do
     end
   end
 
+  task :remove_layout_cache, :roles => :app do
+    run "bundle exec sidekiq -d"
+  end
+
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
   after  "deploy", "thinking_sphinx:configure"
