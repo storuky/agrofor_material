@@ -34,7 +34,8 @@
 }
 
 .lightbox__header{
-  height: 42px;
+  height: 55px;
+  border-bottom: 1px solid #E1E1E1;
   background: rgba(102, 102, 102, 0.59);
   /* background: rgba(81,81,81,.75); */
   background: -moz-linear-gradient(top,rgba(81,81,81,.75),rgba(74,74,74,.75));
@@ -45,20 +46,20 @@
   position: relative;
   z-index: 1;
   background: hsla(0, 100%, 100%, 0.71);
-  box-shadow: 0 0px 3px 2px rgba(0,0,0,.2);
+  /* box-shadow: 0 0px 3px 2px rgba(0,0,0,.2); */
 }
 .lightbox__close{
   color: rgba(0, 0, 0, 0.74);
   position: absolute;
   right: 0;
   top: 0;
-  padding: 9px 10px;
+  padding: 15px 15px;
   cursor: pointer;
 }
 .lightbox__images,
 .lightbox__images__overlay {
   position: absolute;
-  top: 47px;
+  top: 60px;
   bottom: 115px;
   left: 0;
   right: 0;
@@ -91,7 +92,7 @@
 
 .lightbox__counter {
   color: #424242;
-  padding: 12px 50px;
+  padding: 16px 50px;
   display: inline-block;
 }
 
