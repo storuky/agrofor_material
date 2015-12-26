@@ -109,13 +109,10 @@
   white-space: nowrap;
   /* margin: 0 45px; */
   background: white;
-  border-top: 1px solid rgba(0,0,0,.3);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
-.lightbox__footer .previous{
-  left: 0;
-}
-.lightbox__footer .next{
-  right: 0;
+.lightbox__footer .previous, .lightbox__footer .next{
+  display: none;
 }
 
 .lightbox__footer__image {
