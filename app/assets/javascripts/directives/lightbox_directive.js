@@ -1,4 +1,4 @@
-app.directive('lightbox', ['$compile', '$timeout', '$rootScope', function($compile, $timeout, $rootScope) {
+app.directive('lightbox', ['$compile', '$timeout', '$rootScope', 'Image', function($compile, $timeout, $rootScope, Image) {
   // Runs during compile
   return {
     // name: '',
