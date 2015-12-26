@@ -70,7 +70,7 @@ app.directive('lightbox', ['$compile', '$timeout', '$rootScope', function($compi
             });
 
             flktyLightboxMin = new Flickity(template[0].querySelector('.lightbox__footer'), {
-              cellAlign: 'left',
+              cellAlign: 'center',
               contain: true,
               freeScroll: true
             });
