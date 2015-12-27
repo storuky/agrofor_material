@@ -1,6 +1,7 @@
 app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Position', function ($scope, action, Search, $location, Position) {
   var ctrl = this,
-      id = $location.search().id;
+      id = $location.search().id
+      ids = $location.search().ids;
 
   $scope.Search = Search;
 
@@ -9,6 +10,8 @@ app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Positi
 
     if (id) {
       Position.openModal(id);
+    } else if (ids) {
+      Position.openClusterModal(ids);
     }
   });
 

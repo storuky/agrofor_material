@@ -6,8 +6,3 @@ script type="text/ng-template" id="documents.html"
       a.link ng-href="{{document.url}}" target="_blank"
         | {{document.filename}}
       i.icon-close ng-click="destroy(document)" ng-show="$parent.allowDestroy"
-
-    label.upload-file.md-button.md-ink-ripple ng-show="upload"
-      i.icon-upload
-      span Прикрепить документы
-      input type="file" fileupload="Routes.documents_path()" ng-model="ngModel" multiple="true"

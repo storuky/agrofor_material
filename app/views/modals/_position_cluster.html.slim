@@ -1,0 +1,59 @@
+script type="text/ng-template" id="position_cluster.tmpl.html"
+  md-dialog.position-modal aria-label="Mango (Fruit)"  ng-cloak=""
+    md-toolbar
+      .position-modal__header[layout="row" layout-align="start center"]
+        .position-cluster__title
+          | В данной области найдено 
+          b
+            | {{ctrl.positions.length}}
+          |  позиции
+        .close ng-click="ctrl.close()"
+          .icon-close
+    md-dialog-content
+      .table-wrapper
+        table.table.positions-table
+          thead
+            tr
+              th
+                div
+              th
+                div Дата
+              th
+                div Тип
+              th
+                div Категория
+              th.numeric
+                div Цена
+              th.numeric
+                div Вес
+              th.numeric
+                div Мин. заказ
+          thead ng-if="!ctrl.positions"
+            tr
+              td colspan="7"
+                md-progress-linear md-mode="indeterminate"
+          tbody ng-repeat="position in ctrl.positions | filter: search"
+            tr ng-click="ctrl.goTo(position)"
+              td
+                i.icon-star
+              td
+                | {{::position.created_at | date:"dd.MM.yyyy"}}
+              td
+                | {{::position.trade_type.title}}
+              td
+                | {{::position.option.title}}
+              td.numeric
+                | {{::position.price | number:2}}
+                .dim
+                  | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
+              td.numeric
+                | {{::position.weight | number}}
+                .dim
+                  | {{::position.weight_dimension.title}}
+              td.numeric
+                | {{::position.weight_min | number}}
+                .dim
+                  | {{::position.weight_min_dimension.title}}
+    md-dialog-actions.position-modal__footer
+      div[layout="row" layout-align="end center"]
+        md-button.md-raised.md-white.md-lg[flex-md=40 flex-sm=100 ng-click="isShowOfferOverlay = true" ng-show="gon.current_user.id != ctrl.position.user_id"] Закрыть

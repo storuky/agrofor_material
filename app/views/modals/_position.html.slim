@@ -1,30 +1,31 @@
 script type="text/ng-template" id="position.tmpl.html"
   md-dialog.position-modal aria-label="Mango (Fruit)"  ng-cloak=""
-    md-toolbar.position-modal__header ng-class="{'position-modal-shadow': scrollPosition > 0}"
-      .position-modal__title
-        .position-modal__avatar
-          img src="/avatar.png" height="35"
-        span.position-modal__user
-          a ui-sref="profile_path({id: ctrl.position.user_id})"
-            | {{ctrl.position.user.fullname}}
-          i
-            | Создано {{ctrl.position.created_at | date:"dd.MM.yyyy"}}
+    md-toolbar
+      .position-modal__header ng-class="{'position-modal-shadow': scrollPosition > 0}"
+        .position-modal__title
+          .position-modal__avatar
+            img src="/avatar.png" height="35"
+          span.position-modal__user
+            a ui-sref="profile_path({id: ctrl.position.user_id})"
+              | {{ctrl.position.user.fullname}}
+            i
+              | Создано {{ctrl.position.created_at | date:"dd.MM.yyyy"}}
 
-        .position-modal__rating
-          .rating
-            .rating__negative
-              | 0
-            .rating__positive
-              | 0
+          .position-modal__rating
+            .rating
+              .rating__negative
+                | 0
+              .rating__positive
+                | 0
 
-        .position-modal__sep
-        .position-modal__favorite
-          i.icon-star
-          md-tooltip md-direction="top" В избранное
+          .position-modal__sep
+          .position-modal__favorite
+            i.icon-star
+            md-tooltip md-direction="top" В избранное
 
-        .position-modal__date
-      .close ng-click="ctrl.close()"
-        .icon-close
+          .position-modal__date
+        .close ng-click="ctrl.close()"
+          .icon-close
     md-dialog-content.disabled-show scroll-position="scrollPosition"
       .position_show ng-class="{active: isShowOfferOverlay}"
         .md-title
@@ -55,58 +56,12 @@ script type="text/ng-template" id="position.tmpl.html"
             span Мин. заказ
 
         lightbox images="ctrl.position.images"
-        .position-modal__info__description
+        .position-modal__info__description ng-show="ctrl.position.description"
           | {{ctrl.position.description}}
+        .position-modal__info__description-no ng-hide="ctrl.position.description"
+          | Нет описания
         documents ng-model="ctrl.position.documents"
 
-      /md-tabs[md-dynamic-height md-selected="ctrl.currentTab" class="noTabPanel"]
-        /md-tab[label="tab"]
-      /= form_for Position.new, html: {class: "position_show", "ng-class" => "{active: isShowOfferOverlay}"} do |f|
-        div[layout="row" layout-wrap layout-padding]
-          div[flex-sm=100]
-            md-input-container.md-block
-              label Статус
-              input[type="text" ng-model="ctrl.position.status.title" disabled]
-          div[flex flex-sm=100]
-            md-input-container.md-block
-              label Тип
-              input[type="text" ng-model="ctrl.position.trade_type.title" disabled]
-          div[flex flex-sm=100]
-            md-input-container.md-block
-              label Категория
-              input[type="text" ng-model="ctrl.position.option.title" disabled]
-
-        div[layout="row" layout-wrap layout-padding]
-          div[flex]
-            md-input-container.md-block
-              = f.text_area :title, disabled: ""
-
-        div[layout="row" layout-padding layout-sm="column" style="padding-bottom: 0"]
-          div[layout="row" flex style="padding-bottom: 0"]
-            md-input-container[flex]
-              = f.text_field :weight, disabled: ""
-            md-input-container[flex="none"]
-              = f.select :weight_dimension, collection: "gon.data.weight_dimensions"
-
-          div[layout="row" flex style="min-width: 150px; padding-bottom: 0"]
-            md-input-container[flex]
-              = f.text_field :weight_min, disabled: ""
-            md-input-container[flex="none"]
-              = f.select :weight_min_dimension, collection: "gon.data.weight_dimensions"
-
-          div[layout="row" flex style="min-width: 180px; padding-bottom: 0"]
-            md-input-container[flex]
-              = f.text_field :price, disabled: ""
-              div ng-messages=""
-                div[ng-message style="color: green; padding: 0;white-space: nowrap"]
-                  | {{ctrl.position.price * gon.data.rates[ctrl.position.currency.id].rate | number:2}} {{gon.settings.currency.title}}/{{gon.data.by_index.weight_dimensions[ctrl.position.price_weight_dimension_id].title}}
-            md-input-container[flex="none" ng-if="ctrl.position.currency"]
-              = f.select :price_weight_dimension, prefix: "{{ctrl.position.currency.title}}/", collection: "gon.data.weight_dimensions"
-
-        div[layout="row" layout-padding]
-          div[flex=100]
-            md-input-container.md-block
-              = f.text_area :description, disabled: ""
       .position-modal__offer ng-class="{active: isShowOfferOverlay}"
         .position-modal__back[layout="row" layout-align="center center" ng-click="isShowOfferOverlay = false"]
           i.icon-chevron-left[flex]
@@ -119,14 +74,14 @@ script type="text/ng-template" id="position.tmpl.html"
               .required
                 | *
               | Выберите подходящую позицию
-            suitable
-            md-button.md-yellow.md-raised.md-lg.add-offer
+            suitable positions="ctrl.suitable_positions" ng-model="ctrl.suitable_position"
+            md-button.md-yellow.md-raised.md-lg.add-offer ng-disabled="ctrl.suitable_positions.length == 0"
               | Добавить предложение
               i.icon-chevron-right
           .position-modal__other-offers[flex flex-sm=100]
             label.label
               | Предложения участников
-            .position-modal__other-offers__list
+            .position-modal__other-offers__list scroll-position="offersScrollPositions" ng-class="{shadow: offersScrollPositions > 0}"
               .position-modal__other-offer ng-repeat="item in [1,2,3,4,5,6,7,8,9,0]"
                 .position-modal__other-offer__date
                   | 13.09.2015
@@ -140,5 +95,8 @@ script type="text/ng-template" id="position.tmpl.html"
 
 
 
-    md-dialog-actions.position-modal__footer[layout="row" layout-align="end center"]
-      md-button.md-raised.md-yellow.md-lg[flex-md=40 flex-sm=100 ng-click="isShowOfferOverlay = true"] Отправить предложение
+    md-dialog-actions.position-modal__footer
+      div[layout="row" layout-align="end center"]
+        md-button.md-raised.md-yellow.md-lg[flex-md=40 flex-sm=100 ng-click="isShowOfferOverlay = true" ng-show="gon.current_user.id != ctrl.position.user_id"] Отправить предложение
+      .position-modal__your-position ng-hide="gon.current_user.id != ctrl.position.user_id"
+        | Это ваша позиция

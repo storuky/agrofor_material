@@ -1,11 +1,11 @@
 script id="suitable.html" type="text/ng-template"
   div
     .suitable click-outside="opened = false"
-      .suitable__selected[layout="row" layout-align="center center" ng-click="opened=!opened"]
-        .suitable__no-result ng-hide="!positions.length"
+      .suitable__selected[layout="row" layout-align="start center" ng-click="opened=!opened" ng-class="{opened: opened}"]
+        a.suitable__no-result ng-hide="positions.length" ng-href="/positions/new?suitable={{$parent.ctrl.position.id}}"
           b У вас нет подходящего предложения
           span Нажмите, чтобы создать
-        div ng-show="!positions.length"
+        div ng-show="positions.length"
           i.icon-chevron-down
           b
             | {{position.created_at | date:"dd.MM.yyyy"}}
@@ -16,12 +16,13 @@ script id="suitable.html" type="text/ng-template"
           span
             | {{position.weight}} {{position.weight_dimension.title}}, мин. {{position.weight_min}} {{position.weight_min_dimension.title}}, {{position.price}} {{position.currency.title}}/{{position.price_weight_dimension.title}}
       ul.suitable__list scroll="" ng-show="opened && positions.length"
-        li.suitable__list__item ng-repeat="position in positions" ng-click="$parent.position = position; $parent.opened = false;" ng-class="{active: $parent.ngModel == position.id}"
-          b
-            | {{position.created_at | date:"dd.MM.yyyy"}}
-          b
-            | {{position.title}}
-          span
-            | {{position.option.title}}
-          span
-            | {{position.weight}} {{position.weight_dimension.title}}, мин. {{position.weight_min}} {{position.weight_min_dimension.title}}, {{position.price}} {{position.currency.title}}/{{position.price_weight_dimension.title}}
+        li.suitable__list__item ng-repeat="position in positions" ng-click="$parent.position = position; $parent.opened = false;" ng-class="{active: $parent.ngModel == position.id}" layout="row" layout-align="start center"
+          div
+            b
+              | {{::position.created_at | date:"dd.MM.yyyy"}}
+            b
+              | {{::position.title}}
+            span
+              | {{::position.option.title}}
+            span
+              | {{::position.weight}} {{::position.weight_dimension.title}}, мин. {{::position.weight_min}} {{::position.weight_min_dimension.title}}, {{::position.price}} {{::position.currency.title}}/{{::position.price_weight_dimension.title}}

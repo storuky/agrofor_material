@@ -8,11 +8,31 @@
   height: 90px;
   border-radius: 4px;
   cursor: pointer;
-  /* padding: 8px 16px; */
   position: relative;
   width: 100%;
   margin-top: 5px;
   line-height: 18px;
+  padding: 20px;
+  font-size: 14px;
+}
+.suitable__selected.opened {
+  border-radius: 4px 4px 0 0;
+}
+.suitable__selected b, .suitable__selected span {
+  display: block;
+}
+
+.suitable__selected b {
+  font-weight: 500;
+}
+
+.suitable__selected .icon-chevron-down {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  font-size: 36px;
+  margin-top: -18px;
+  color: #535353;
 }
 
 .suitable__selected:hover {
@@ -23,6 +43,7 @@
   padding: 15px 0;
   text-align: center;
   font-size: 16px;
+  text-decoration: none;
 }
 
 .suitable__no-result b, .suitable__no-result span {
@@ -30,6 +51,43 @@
 }
 
 .suitable__no-result b {
-  font-weight: 500;
+  /* font-weight: 500; */
   margin-bottom: 5px;
+}
+
+
+.suitable__list {
+  list-style-type: none;
+  padding: 0;
+  font-size: 14px;
+  margin: 0;
+  line-height: 18px;
+  border: 1px solid #E5E5E5;
+  border-top: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background: white;
+}
+
+.suitable__list__item {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.suitable__list__item:hover {
+  background: rgba(231, 231, 231, 0.2);
+}
+.suitable__list__item:not(:last-child) {
+  border-bottom: 1px solid #E5E5E5;
+}
+.suitable__list__item b,
+.suitable__list__item span {
+  display: block;
+}
+.suitable__list__item b {
+  font-weight: 500;
+}
+.suitable__list__item.active {
+  background: rgb(255, 219, 76);
 }

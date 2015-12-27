@@ -21,12 +21,12 @@ class ApplicationController < ActionController::Base
   end
 
   def serialize res, options = {}
-    if res.try(:any?)
-      serializer = options[:serializer] || "#{res.model_name.name}Serializer"
-      ActiveModel::ArraySerializer.new(res, each_serializer: options[:serializer] || serializer.constantize, scope: self, root: false).as_json
+    if res.respond_to?('each')
+      serializer = options[:serializer] || "#{res.model_name.name}Serializer".constantize
+      ActiveModel::ArraySerializer.new(res, each_serializer: serializer, scope: self, root: false).as_json
     else
-      serializer = options[:serializer] || "#{res.model_name.name}Serializer"
-      serializer.constantize.new(res, scope: self, root: false).as_json
+      serializer = options[:serializer] || "#{res.model_name.name}Serializer".constantize
+      serializer.new(res, scope: self, root: false).as_json
     end
   end
 

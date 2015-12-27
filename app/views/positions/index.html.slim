@@ -35,6 +35,8 @@ div content-for="header"
               th
                 div Дата
               th
+                div Тип
+              th
                 div Категория
               th.numeric
                 div Цена
@@ -54,6 +56,8 @@ div content-for="header"
                 i.icon-chevron-down
               td
                 | {{::position.created_at | date:"dd.MM.yyyy"}}
+              td
+                | {{::position.trade_type.title}}
               td
                 | {{::position.option.title}}
               td.numeric

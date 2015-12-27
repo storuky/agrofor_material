@@ -26,7 +26,6 @@ app.service('Map', ['pluralize', '$location', 'Position', function (pluralize, $
             this._events.add('click', function (event) {
               var id = this.getData().properties.get('id');
               if (id) {
-                $location.search({id: id});
                 Position.openModal(id);
               }
             }, this);
@@ -43,10 +42,18 @@ app.service('Map', ['pluralize', '$location', 'Position', function (pluralize, $
         "<div class='marker-label cluster cluster__{{properties.geoObjects.length | marker_color}}'>"
             + "<div class='marker-label__body'>{{properties.geoObjects.length}} {{properties.geoObjects.length | position_pluralize}}</div>"
         + "</div>", {
+        build: function () {
+          Map.clustererLayout.superclass.build.call(this);
+          
+          this._parentElement.querySelector('.cluster').click = function (event) {
+            alert(1);
+            event.stopPropagation();
+          }
+        },
         getShape: function () {
           if (!this.getParentElement()) return null;
-          
           var width = this.getParentElement().querySelector('.marker-label__body').offsetWidth;
+
 
           return new ymaps.shape.Rectangle(new ymaps.geometry.pixel.Rectangle([[0, -14], [width, 11]]));
         }

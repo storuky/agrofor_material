@@ -1,4 +1,4 @@
-app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', function (Map, Search, $timeout, $mdMedia) {
+app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', function (Map, Search, $timeout, $mdMedia, Position) {
   // Runs during compile
   return {
     // name: '',
@@ -22,7 +22,9 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', function (Map, Se
       function buildMap () {
         clusterer = new ymaps.Clusterer({
           clusterIconLayout: Map.clustererLayout,
-          gridSize: 256
+          gridSize: 256,
+          clusterBalloonLayout: ymaps.templateLayoutFactory.createClass(""),
+          clusterBalloonShadow: false
         });
 
         map = new ymaps.Map(iElm[0], {
@@ -32,6 +34,17 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', function (Map, Se
           }, {
             maxZoom: $scope.maxZoom || 15,
             suppressMapOpenBlock: true,
+        });
+        window.map = map;
+
+        clusterer.events.add('click', function (event) {
+          if (map.getZoom()==15) {
+            var ids = _.map(event.get('target').getGeoObjects(), function (object) {
+              return object.properties._data.id
+            });
+
+            Position.openClusterModal(ids);
+          }
         });
 
         $scope.$watch(function () {

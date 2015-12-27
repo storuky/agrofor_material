@@ -37,7 +37,11 @@ module Cacheable
       cache_name = self.cache_name "find(#{id})", options
       Rails.cache.fetch(cache_name) do
         if options[:serializer]
-          options[:serializer].new(self.find_from_cache(id), root: false).as_json
+          if id.respond_to?('each')
+            ActiveModel::ArraySerializer.new(self.find_from_cache(id), each_serializer: options[:serializer], root: false).as_json
+          else
+            options[:serializer].new(self.find_from_cache(id), root: false).as_json
+          end
         else
           self.find(id)
         end

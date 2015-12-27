@@ -1,6 +1,6 @@
 class PositionsController < ApplicationController
   before_action :check_user, except: [:show]
-  before_action :set_position, only: [:destroy, :update]
+  before_action :set_position, only: [:destroy, :update, :suitable]
   before_action :set_serialized_position, only: [:show, :edit]
   before_action :check_owner, only: [:destroy, :update, :edit]
 
@@ -8,7 +8,11 @@ class PositionsController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        @positions = User.positions_from_cache(current_user.id)
+        if params[:ids]
+          @positions = Position.find_from_cache(params[:ids], serializer: PositionSerializer)
+        else
+          @positions = User.positions_from_cache current_user.id
+        end
         render json: Oj.dump(@positions)
       }
     end
@@ -18,7 +22,11 @@ class PositionsController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        @position = serialize(Position.new)
+        if params[:suitable]
+          @position = serialize(Position.find_from_cache(params[:suitable]).contractor)
+        else
+          @position = serialize(Position.new)
+        end
         render json: Oj.dump(@position)
       }
     end
@@ -66,6 +74,16 @@ class PositionsController < ApplicationController
     respond_to do |format|
       format.json {
         render json: Oj.dump(@position)
+      }
+    end
+  end
+
+  def suitable
+    respond_to do |format|
+      format.json {
+        @positions =  Position.find_suitable(@position).where(user_id: current_user.id)
+        @positions = serialize(@positions)
+        render json: Oj.dump(@positions)
       }
     end
   end

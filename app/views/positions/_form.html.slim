@@ -58,14 +58,26 @@
 
       div[layout="row" layout-padding-sm]
         div[flex=100]
+          label.upload-file.md-button.md-ink-ripple
+            i.icon-upload
+            span Прикрепить фото и документы
+            input type="file" fileupload="Routes.files_path()" hash="true" ng-model="ctrl.position" multiple="true"
+
+      div[layout="row" layout-padding-sm ng-show="ctrl.position.images.length"]
+        div[flex=100]
           lightbox images="ctrl.position.images" allow-destroy="true" upload="true"
 
 
-      div[layout="row" layout-padding-sm]
+      div[layout="row" layout-padding-sm ng-show="ctrl.position.documents.length"]
         div[flex=100]
           documents ng-model="ctrl.position.documents" allow-destroy="true" upload="true"
- 
-
-  div[layout="row"]
-    md-button.md-raised.md-yellow.md-lg[flex-md="30" flex-sm="100" type="submit"]
-      | Сохранить
+  
+  .position-form__footer
+    hr
+    .position-form__footer-actions[layout="row" layout-wrap style="" layout-align="start center"]
+      md-button.md-raised.md-yellow.md-lg[flex-sm="100" type="submit"]
+        | Сохранить
+      p[flex-md=70 flex-sm=100]
+        | Нажимая кнопку "Сохранить", Вы подтвеждаете свое согласие с  
+        a.link href="" правилами работы
+        |  ресурса.

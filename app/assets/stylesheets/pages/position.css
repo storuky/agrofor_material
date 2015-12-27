@@ -98,6 +98,8 @@
   transform: scale(1);
   transition: .3s;
   opacity: 1;
+  width: 100%;
+  overflow: hidden;
 }
 .position_show.active {
   transform: scale(.8);
@@ -131,11 +133,12 @@ md-dialog.position-modal md-dialog-content {
 
 .position-modal__footer {
   padding: 6px 10px;
-  background: #f0f0f0;
+  background: #FAFAFA;
   overflow: hidden;
-  text-align: right;
+  text-align: center;
   height: 65px;
   min-height: 65px;
+  box-shadow: 0px 1px 6px rgba(0,0,0,.2);
 }
 
 .position_show md-input-container {
@@ -163,14 +166,7 @@ md-dialog.position-modal md-dialog-content {
   vertical-align: top;
   font-size: 24px;
   margin-top: 3px;
-  color: #c3c3c3;
-  cursor: pointer;
 }
-
-.position-modal__favorite:hover,  .position-modal__favorite.active{
-  color: #ffc107;
-}
-
 
 .position-info {
   margin-top: 5px;
@@ -249,6 +245,9 @@ md-dialog.position-modal md-dialog-content {
   min-width: 266px;
   position: relative;
 }
+.position-modal__other-offers__list.shadow {
+  box-shadow: 0px 3px 6px -2px rgba(0,0,0,.2) inset;
+}
 
 .add-offer {
   width: 100%;
@@ -307,7 +306,7 @@ md-dialog.position-modal md-dialog-content {
   bottom: 0;
   overflow-y: auto;
   border-bottom: 1px solid #E1E1E1;
-  box-shadow: 0px 3px 6px -2px rgba(0,0,0,.2) inset;
+  /* box-shadow: 0px 3px 6px -2px rgba(0,0,0,.2) inset; */
   -webkit-overflow-scrolling: touch;
 }
 
@@ -411,6 +410,7 @@ md-dialog.position-modal md-dialog-content {
   font-size: 16px;
   line-height: 25px;
   text-align: justify;
+  /* background: #F9F9F9; */
 }
 
 .position-status {
@@ -461,5 +461,69 @@ md-dialog.position-modal md-dialog-content {
 
 
 .position-modal__info .flickity-page-dots {
+  display: none;
+}
+
+.position-form__footer {
+  margin: -15px;
+}
+.position-form__footer hr {
+  margin: 40px 0 15px 0
+}
+
+.position-form__footer-actions {
+  padding: 15px 15px 30px 15px
+}
+.position-form__footer-actions p {
+  padding: 0 15px; max-width: 465px; font-size: 14px; color: #555
+}
+.position-form__footer-actions .md-button {
+  min-width: 150px;
+}
+
+.position-modal__your-position {
+  width: 100%;
+  font-size: 20px;
+  color: #5B5B5B;
+}
+.position-modal__info__description-no {
+  font-size: 20px;
+  color: #666;
+  padding: 20px;
+}
+
+.position-modal md-toolbar {
+  background-color: white;
+}
+
+.posiiton-modal__tabs {
+  /* position: absolute; */
+  top: 0px;
+  background-color: red;
+}
+
+
+.cluster-modal__position {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 200px;
+  height: 120px;
+  border: 1px solid #e7e7e7;
+  margin: 10px !important;
+  background: rgba(245, 245, 245, 0.63);
+  padding: 15px;
+}
+
+.position-cluster__title {
+  font-size: 18px;
+  /* padding: 7px; */
+}
+
+.cluster-modal__positions {
+  white-space: nowrap;
+  padding: 20px 10px;
+}
+
+.cluster-modal__positions .flickity-page-dots {
   display: none;
 }

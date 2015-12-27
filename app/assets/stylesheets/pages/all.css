@@ -123,6 +123,7 @@ input.solid-input:focus {
   border: 3px solid #FFDB4C;
   border-width: 3px 0px;
   height: 162px;
+  overflow: hidden;
 }
 
 .uploaded-images img {
@@ -163,6 +164,7 @@ input.solid-input:focus {
   padding: 3px;
   border-radius: 100px;
   padding: 6px;
+  cursor: pointer !important;
 }
 
 

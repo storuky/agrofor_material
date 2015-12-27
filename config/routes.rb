@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   resources :images
   resources :documents
+  resources :files
   resources :positions
   resources :offers
   resources :favorites
@@ -35,7 +36,11 @@ Rails.application.routes.draw do
   end
   resources :users
   
-  resources :positions
+  resources :positions do
+    collection do
+      get 'suitable'
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

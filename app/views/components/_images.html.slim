@@ -3,8 +3,4 @@ script type="text/ng-template" id="images.html"
     .uploaded-images__container ng-class="images.length ? 'border' : ''"
       a ng-repeat="image in images" index="{{$index}}"
         img ng-src="{{image.url.thumb}}"
-        i.icon-close ng-click="destroy(image, $event)" ng-show="$parent.allowDestroy"
-    label.md-button.md-ink-ripple.upload-image ng-show="upload"
-      i.icon-camera
-      .upload-image__label Прикрепить фото
-      input type="file" fileupload="$root.Routes.images_path()" ng-model="images" multiple="true"
+        i.icon-close ng-show="$parent.allowDestroy"

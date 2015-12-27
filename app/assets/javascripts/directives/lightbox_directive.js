@@ -34,8 +34,17 @@ app.directive('lightbox', ['$compile', '$timeout', '$rootScope', 'Image', functi
             });
 
             flkty.on('staticClick', function (event, pointer, cellElement, cellIndex) {
-              $scope.show(cellIndex, event);
-              $scope.$apply();
+              if (event.target.tagName == 'I') {
+                var id = $scope.images[cellIndex].id;
+                Image.destroy({id: id}, function () {
+                  $scope.images = _.select($scope.images, function (image) {
+                    return image.id != id;
+                  })
+                })
+              } else {
+                $scope.show(cellIndex, event);
+                $scope.$apply();
+              }
             })
           }, 100);
         }
@@ -113,18 +122,6 @@ app.directive('lightbox', ['$compile', '$timeout', '$rootScope', 'Image', functi
         }
         $event.preventDefault();
       }
-
-      $scope.destroy = function (document, $event) {
-        Image.destroy({id: document.id}, function () {
-          $scope.ngModel = _.select($scope.ngModel, function (model) {
-            return model.id!=document.id;
-          })
-        })
-        $event.stopPropagation();
-        $event.preventDefault();
-      }
-
-    
     }
   };
 }]);

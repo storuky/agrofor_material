@@ -349,6 +349,66 @@
           }
         })
       
+        .state('files_path', {
+          url: '/files',
+          templateUrl: function(params) {
+            params['ng-view']='';
+            
+            return Routes['files_path'](params);
+          },
+          controller: 'FilesCtrl as ctrl',
+          resolve: {
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('index', $stateParams)
+            }]
+          }
+        })
+      
+        .state('new_file_path', {
+          url: '/files/new',
+          templateUrl: function(params) {
+            params['ng-view']='';
+            
+            return Routes['new_file_path'](params);
+          },
+          controller: 'FilesCtrl as ctrl',
+          resolve: {
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('new', $stateParams)
+            }]
+          }
+        })
+      
+        .state('edit_file_path', {
+          url: '/files/:id/edit',
+          templateUrl: function(params) {
+            params['ng-view']='';
+            
+            return Routes['edit_file_path'](params);
+          },
+          controller: 'FilesCtrl as ctrl',
+          resolve: {
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('edit', $stateParams)
+            }]
+          }
+        })
+      
+        .state('file_path', {
+          url: '/files/:id',
+          templateUrl: function(params) {
+            params['ng-view']='';
+            
+            return Routes['file_path'](params);
+          },
+          controller: 'FilesCtrl as ctrl',
+          resolve: {
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('show', $stateParams)
+            }]
+          }
+        })
+      
         .state('positions_path', {
           url: '/positions',
           templateUrl: function(params) {
@@ -859,6 +919,21 @@
           }
         })
       
+        .state('suitable_positions_path', {
+          url: '/positions/suitable',
+          templateUrl: function(params) {
+            params['ng-view']='';
+            
+            return Routes['suitable_positions_path'](params);
+          },
+          controller: 'PositionsCtrl as ctrl',
+          resolve: {
+            action: ['$stateParams', function ($stateParams) {
+              return resolve('suitable', $stateParams)
+            }]
+          }
+        })
+      
         .state('rails_info_properties_path', {
           url: '/rails/info/properties',
           templateUrl: function(params) {
@@ -1007,9 +1082,14 @@
       return resourceDecorator($resource('/documents/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/documents/:id/new.json"},"edit":{"method":"GET","url":"/documents/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
     }])
   
-    Resources['Position'] = {"new":{"method":"GET","url":"/positions/:id/new.json"},"edit":{"method":"GET","url":"/positions/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}};
+    Resources['File'] = {"new":{"method":"GET","url":"/files/:id/new.json"},"edit":{"method":"GET","url":"/files/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}};
+    angular.module('oxymoron').factory('File', ['$resource', 'resourceDecorator', function ($resource, resourceDecorator) {
+      return resourceDecorator($resource('/files/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/files/:id/new.json"},"edit":{"method":"GET","url":"/files/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
+    }])
+  
+    Resources['Position'] = {"new":{"method":"GET","url":"/positions/:id/new.json"},"edit":{"method":"GET","url":"/positions/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"},"suitable":{"url":"/positions/suitable.json","isArray":null,"method":"GET"}};
     angular.module('oxymoron').factory('Position', ['$resource', 'resourceDecorator', function ($resource, resourceDecorator) {
-      return resourceDecorator($resource('/positions/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/positions/:id/new.json"},"edit":{"method":"GET","url":"/positions/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
+      return resourceDecorator($resource('/positions/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/positions/:id/new.json"},"edit":{"method":"GET","url":"/positions/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"},"suitable":{"url":"/positions/suitable.json","isArray":null,"method":"GET"}}));
     }])
   
     Resources['Offer'] = {"new":{"method":"GET","url":"/offers/:id/new.json"},"edit":{"method":"GET","url":"/offers/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}};
@@ -1183,7 +1263,8 @@
     return {
       scope: {
         fileupload: "=",
-        ngModel: "=ngModel"
+        ngModel: "=",
+        hash: "="
       },
       restrict: 'A',
       link: function($scope, element, attrs) {  
@@ -1195,17 +1276,25 @@
             fd.append("attachments[]", file);
           })
 
-          console.log($scope.fileupload)
-
           $http.post($scope.fileupload, fd, {headers: {'Content-Type': undefined}})
             .success(function (res) {
-              if (attrs.multiple) {
-                $scope.ngModel = $scope.ngModel || [];
-                angular.forEach(res, function (attachment) {
-                  $scope.ngModel.push(attachment);
-                });
+              if (!$scope.hash) {
+                if (attrs.multiple) {
+                  $scope.ngModel = $scope.ngModel || [];
+                  angular.forEach(res, function (attachment) {
+                    $scope.ngModel.push(attachment);
+                  });
+                } else {
+                  $scope.ngModel = res[0];
+                }
               } else {
-                $scope.ngModel = res[0];
+                $scope.ngModel = $scope.ngModel || {};
+                angular.forEach(res, function(value, key) {
+                  $scope.ngModel[key] = $scope.ngModel[key] || [];
+                  angular.forEach(value, function (attachment) {
+                    $scope.ngModel[key].push(attachment);
+                  });
+                });
               }
             })
 
@@ -1360,7 +1449,7 @@
 (function () {
   var Routes = function () {
     var self = this,
-        routes = {"root":{"defaults":{},"path":"/"},"new_user_session":{"defaults":{},"path":"/users/sign_in"},"user_session":{"defaults":{},"path":"/users/sign_in"},"destroy_user_session":{"defaults":{},"path":"/users/sign_out"},"user_password":{"defaults":{},"path":"/users/password"},"new_user_password":{"defaults":{},"path":"/users/password/new"},"edit_user_password":{"defaults":{},"path":"/users/password/edit"},"cancel_user_registration":{"defaults":{},"path":"/users/cancel"},"user_registration":{"defaults":{},"path":"/users"},"new_user_registration":{"defaults":{},"path":"/users/sign_up"},"edit_user_registration":{"defaults":{},"path":"/users/edit"},"map":{"defaults":{},"path":"/search/map"},"list":{"defaults":{},"path":"/search/list"},"analytics":{"defaults":{},"path":"/analytics"},"support":{"defaults":{},"path":"/support"},"help":{"defaults":{},"path":"/help"},"settings":{"defaults":{},"path":"/settings"},"images":{"defaults":{},"path":"/images"},"new_image":{"defaults":{},"path":"/images/new"},"edit_image":{"defaults":{},"path":"/images/:id/edit"},"image":{"defaults":{},"path":"/images/:id"},"documents":{"defaults":{},"path":"/documents"},"new_document":{"defaults":{},"path":"/documents/new"},"edit_document":{"defaults":{},"path":"/documents/:id/edit"},"document":{"defaults":{},"path":"/documents/:id"},"positions":{"defaults":{},"path":"/positions"},"new_position":{"defaults":{},"path":"/positions/new"},"edit_position":{"defaults":{},"path":"/positions/:id/edit"},"position":{"defaults":{},"path":"/positions/:id"},"offers":{"defaults":{},"path":"/offers"},"new_offer":{"defaults":{},"path":"/offers/new"},"edit_offer":{"defaults":{},"path":"/offers/:id/edit"},"offer":{"defaults":{},"path":"/offers/:id"},"favorites":{"defaults":{},"path":"/favorites"},"new_favorite":{"defaults":{},"path":"/favorites/new"},"edit_favorite":{"defaults":{},"path":"/favorites/:id/edit"},"favorite":{"defaults":{},"path":"/favorites/:id"},"templates":{"defaults":{},"path":"/templates"},"new_template":{"defaults":{},"path":"/templates/new"},"edit_template":{"defaults":{},"path":"/templates/:id/edit"},"template":{"defaults":{},"path":"/templates/:id"},"messages":{"defaults":{},"path":"/messages"},"new_message":{"defaults":{},"path":"/messages/new"},"edit_message":{"defaults":{},"path":"/messages/:id/edit"},"message":{"defaults":{},"path":"/messages/:id"},"correspondences":{"defaults":{},"path":"/correspondences"},"new_correspondence":{"defaults":{},"path":"/correspondences/new"},"edit_correspondence":{"defaults":{},"path":"/correspondences/:id/edit"},"correspondence":{"defaults":{},"path":"/correspondences/:id"},"positions_profile":{"defaults":{},"path":"/profile/:id/positions"},"feedbacks_profile":{"defaults":{},"path":"/profile/:id/feedbacks"},"profile_index":{"defaults":{},"path":"/profile"},"new_profile":{"defaults":{},"path":"/profile/new"},"edit_profile":{"defaults":{},"path":"/profile/:id/edit"},"profile":{"defaults":{},"path":"/profile/:id"},"users":{"defaults":{},"path":"/users"},"new_user":{"defaults":{},"path":"/users/new"},"edit_user":{"defaults":{},"path":"/users/:id/edit"},"user":{"defaults":{},"path":"/users/:id"},"rails_info_properties":{"defaults":{},"path":"/rails/info/properties"},"rails_info_routes":{"defaults":{},"path":"/rails/info/routes"},"rails_info":{"defaults":{},"path":"/rails/info"},"rails_mailers":{"defaults":{},"path":"/rails/mailers"}};
+        routes = {"root":{"defaults":{},"path":"/"},"new_user_session":{"defaults":{},"path":"/users/sign_in"},"user_session":{"defaults":{},"path":"/users/sign_in"},"destroy_user_session":{"defaults":{},"path":"/users/sign_out"},"user_password":{"defaults":{},"path":"/users/password"},"new_user_password":{"defaults":{},"path":"/users/password/new"},"edit_user_password":{"defaults":{},"path":"/users/password/edit"},"cancel_user_registration":{"defaults":{},"path":"/users/cancel"},"user_registration":{"defaults":{},"path":"/users"},"new_user_registration":{"defaults":{},"path":"/users/sign_up"},"edit_user_registration":{"defaults":{},"path":"/users/edit"},"map":{"defaults":{},"path":"/search/map"},"list":{"defaults":{},"path":"/search/list"},"analytics":{"defaults":{},"path":"/analytics"},"support":{"defaults":{},"path":"/support"},"help":{"defaults":{},"path":"/help"},"settings":{"defaults":{},"path":"/settings"},"images":{"defaults":{},"path":"/images"},"new_image":{"defaults":{},"path":"/images/new"},"edit_image":{"defaults":{},"path":"/images/:id/edit"},"image":{"defaults":{},"path":"/images/:id"},"documents":{"defaults":{},"path":"/documents"},"new_document":{"defaults":{},"path":"/documents/new"},"edit_document":{"defaults":{},"path":"/documents/:id/edit"},"document":{"defaults":{},"path":"/documents/:id"},"files":{"defaults":{},"path":"/files"},"new_file":{"defaults":{},"path":"/files/new"},"edit_file":{"defaults":{},"path":"/files/:id/edit"},"file":{"defaults":{},"path":"/files/:id"},"positions":{"defaults":{},"path":"/positions"},"new_position":{"defaults":{},"path":"/positions/new"},"edit_position":{"defaults":{},"path":"/positions/:id/edit"},"position":{"defaults":{},"path":"/positions/:id"},"offers":{"defaults":{},"path":"/offers"},"new_offer":{"defaults":{},"path":"/offers/new"},"edit_offer":{"defaults":{},"path":"/offers/:id/edit"},"offer":{"defaults":{},"path":"/offers/:id"},"favorites":{"defaults":{},"path":"/favorites"},"new_favorite":{"defaults":{},"path":"/favorites/new"},"edit_favorite":{"defaults":{},"path":"/favorites/:id/edit"},"favorite":{"defaults":{},"path":"/favorites/:id"},"templates":{"defaults":{},"path":"/templates"},"new_template":{"defaults":{},"path":"/templates/new"},"edit_template":{"defaults":{},"path":"/templates/:id/edit"},"template":{"defaults":{},"path":"/templates/:id"},"messages":{"defaults":{},"path":"/messages"},"new_message":{"defaults":{},"path":"/messages/new"},"edit_message":{"defaults":{},"path":"/messages/:id/edit"},"message":{"defaults":{},"path":"/messages/:id"},"correspondences":{"defaults":{},"path":"/correspondences"},"new_correspondence":{"defaults":{},"path":"/correspondences/new"},"edit_correspondence":{"defaults":{},"path":"/correspondences/:id/edit"},"correspondence":{"defaults":{},"path":"/correspondences/:id"},"positions_profile":{"defaults":{},"path":"/profile/:id/positions"},"feedbacks_profile":{"defaults":{},"path":"/profile/:id/feedbacks"},"profile_index":{"defaults":{},"path":"/profile"},"new_profile":{"defaults":{},"path":"/profile/new"},"edit_profile":{"defaults":{},"path":"/profile/:id/edit"},"profile":{"defaults":{},"path":"/profile/:id"},"users":{"defaults":{},"path":"/users"},"new_user":{"defaults":{},"path":"/users/new"},"edit_user":{"defaults":{},"path":"/users/:id/edit"},"user":{"defaults":{},"path":"/users/:id"},"suitable_positions":{"defaults":{},"path":"/positions/suitable"},"rails_info_properties":{"defaults":{},"path":"/rails/info/properties"},"rails_info_routes":{"defaults":{},"path":"/rails/info/routes"},"rails_info":{"defaults":{},"path":"/rails/info"},"rails_mailers":{"defaults":{},"path":"/rails/mailers"}};
 
     self.defaultParams = {}
 

@@ -76,6 +76,24 @@ class Position < ActiveRecord::Base
     end
   end
 
+  def contractor
+    trade_type_contractor = {
+      1 => 2,
+      2 => 1
+    }
+
+    Position.new({
+      trade_type_id: trade_type_contractor[trade_type_id],
+      weight: weight,
+      price: price,
+      weight_dimension: weight_dimension,
+      price_weight_dimension: price_weight_dimension,
+      option_id: option_id,
+      weight_min: weight_min,
+      weight_min_dimension: weight_min_dimension,
+    })
+  end
+
   def self.statuses
     Position.aasm.states.each_with_index.map do |state, index|
       {id: index, name: state.name, title: I18n.t('position.status.'+state.name.to_s)}
@@ -145,7 +163,7 @@ class Position < ActiveRecord::Base
   # end
 
   def self.find_suitable positions
-    filters = positions.map do |position|
+    filters = [positions].flatten.map do |position|
       res = {
         option_id: position.option_id,
         weight_from: position.weight_min,
