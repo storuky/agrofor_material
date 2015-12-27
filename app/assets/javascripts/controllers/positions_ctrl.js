@@ -62,15 +62,35 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Cache', '$time
 
     ctrl.position = position;
 
+    ctrl.goTo = function (position) {
+      Position.openModal(position.id)
+    }
+
 
     if (gon.current_user && gon.current_user.id!=ctrl.position.user_id) {
       Position.offers({id: ctrl.position.id}, function (res) {
         ctrl.offers = res;
+        if (ctrl.suitable_positions) updateSuitablePositions();
       })
 
       Position.suitable({id: ctrl.position.id}, function (res) {
         ctrl.suitable_positions = res;
+        if (ctrl.offers) updateSuitablePositions();
       })
+
+      ctrl.send_offer = function (offer) {
+        Position.send_offer({offer_id: offer.id, id: ctrl.position.id}, function () {
+          ctrl.offers.unshift(offer);
+          updateSuitablePositions();
+        })
+      }
+
+      function updateSuitablePositions () {
+        var offer_ids = _.pluck(ctrl.offers, "id");
+        ctrl.suitable_positions = _.select(ctrl.suitable_positions, function (position) {
+          return !_.contains(offer_ids, position.id)
+        })
+      }
     }
 
     // $scope.$watch('ctrl.position.price_weight_dimension_id', function (wd) {

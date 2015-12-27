@@ -25,7 +25,7 @@ app.directive('suitable', [function () {
 
       $scope.$watch('position', function (position) {
         if (position) {
-          $scope.ngModel = position.id;
+          $scope.ngModel = position;
         }
       })
     }

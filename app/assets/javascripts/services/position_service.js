@@ -41,8 +41,9 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', function (Pos
     }).then(function () {
       // body...
     }, function () {
-      Search.blur = false;
       $location.search('id', undefined)
+      if (!$location.search().ids)
+        Search.blur = false;
     })
   }
 
@@ -71,8 +72,9 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', function (Pos
     }).then(function () {
       // body...
     }, function () {
-      Search.blur = false;
       $location.search('ids', undefined)
+      if (!$location.search().id)
+        Search.blur = false;
     })
   }
 

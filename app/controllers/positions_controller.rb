@@ -1,6 +1,6 @@
 class PositionsController < ApplicationController
   before_action :check_user, except: [:show, :index]
-  before_action :set_position, only: [:destroy, :update, :suitable, :offers]
+  before_action :set_position, only: [:destroy, :update, :suitable, :offers, :send_offer]
   before_action :set_serialized_position, only: [:show, :edit]
   before_action :check_owner, only: [:destroy, :update, :edit]
 
@@ -95,6 +95,17 @@ class PositionsController < ApplicationController
       format.json {
         @positions =  serialize(@position.offers, serializer: PositionSerializer)
         render json: Oj.dump(@positions)
+      }
+    end
+  end
+
+  def send_offer
+    respond_to do |format|
+      format.json {
+        @offer = Position.find_from_cache(params[:offer_id])
+
+        @position.offers << @offer
+        render json: {msg: "Предложение успешно отправлено!"}
       }
     end
   end

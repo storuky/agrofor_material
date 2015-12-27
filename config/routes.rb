@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     member do
       get 'suitable', is_array: true
       get 'offers', is_array: true
+      put 'send_offer'
     end
   end
 

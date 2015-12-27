@@ -55,4 +55,4 @@ script type="text/ng-template" id="position_cluster.tmpl.html"
                   | {{::position.weight_min_dimension.title}}
     md-dialog-actions.position-modal__footer
       div[layout="row" layout-align="end center"]
-        md-button.md-raised.md-white.md-lg[flex-md=40 flex-sm=100 ng-click="isShowOfferOverlay = true" ng-show="gon.current_user.id != ctrl.position.user_id"] Закрыть
+        md-button.md-raised.md-white.md-lg[flex-md=40 flex-sm=100  ng-click="ctrl.close()" ng-show="gon.current_user.id != ctrl.position.user_id"] Закрыть

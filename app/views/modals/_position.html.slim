@@ -74,14 +74,14 @@ script type="text/ng-template" id="position.tmpl.html"
                 | *
               | Выберите подходящую позицию
             suitable positions="ctrl.suitable_positions" ng-model="ctrl.suitable_position"
-            md-button.md-yellow.md-raised.md-lg.add-offer ng-disabled="ctrl.suitable_positions.length == 0"
+            md-button.md-yellow.md-raised.md-lg.add-offer ng-disabled="ctrl.suitable_positions.length == 0" ng-click="ctrl.send_offer(ctrl.suitable_position)"
               | Добавить предложение
               i.icon-chevron-right
           .position-modal__other-offers[flex flex-sm=100]
             label.label
               | Предложения участников
             .position-modal__other-offers__list scroll-position="offersScrollPositions" ng-class="{shadow: offersScrollPositions > 0}"
-              .position-modal__other-offer ng-repeat="offer in ctrl.offers"
+              .position-modal__other-offer ng-repeat="offer in ctrl.offers" ng-click="ctrl.goTo(offer)"
                 .position-modal__other-offer__date
                   | {{offer.created_at | date:"dd.MM.yyyy"}}
                 .position-modal__other-offer__title

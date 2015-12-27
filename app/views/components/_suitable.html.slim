@@ -16,7 +16,7 @@ script id="suitable.html" type="text/ng-template"
           span
             | {{position.weight}} {{position.weight_dimension.title}}, мин. {{position.weight_min}} {{position.weight_min_dimension.title}}, {{position.price}} {{position.currency.title}}/{{position.price_weight_dimension.title}}
       ul.suitable__list scroll="" ng-show="opened && positions.length"
-        li.suitable__list__item ng-repeat="position in positions" ng-click="$parent.position = position; $parent.opened = false;" ng-class="{active: $parent.ngModel == position.id}" layout="row" layout-align="start center"
+        li.suitable__list__item ng-repeat="position in positions" ng-click="$parent.position = position; $parent.opened = false;" ng-class="{active: $parent.ngModel.id == position.id}" layout="row" layout-align="start center"
           div
             b
               | {{::position.created_at | date:"dd.MM.yyyy"}}
