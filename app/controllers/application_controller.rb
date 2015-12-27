@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
 
       gon.settings = {
         locale: I18n.locale,
-        currency: (gon.current_user.currency rescue Currency.all_by_index_from_cache(serializer: CurrencySerializer)[1])
+        currency: (current_user.currency rescue Currency.all_by_index_from_cache(serializer: CurrencySerializer)[1])
       }
 
       gon.data = {

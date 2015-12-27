@@ -1,6 +1,6 @@
 class PositionsController < ApplicationController
   before_action :check_user, except: [:show, :index]
-  before_action :set_position, only: [:destroy, :update, :suitable]
+  before_action :set_position, only: [:destroy, :update, :suitable, :offers]
   before_action :set_serialized_position, only: [:show, :edit]
   before_action :check_owner, only: [:destroy, :update, :edit]
 
@@ -24,7 +24,8 @@ class PositionsController < ApplicationController
       format.html
       format.json {
         if params[:suitable]
-          @position = serialize(Position.find_from_cache(params[:suitable]).contractor)
+          position = Position.find_from_cache(params[:suitable]).contractor(currency: current_user.currency)
+          @position = serialize(position)
         else
           @position = serialize(Position.new)
         end

@@ -37,9 +37,9 @@ Rails.application.routes.draw do
   resources :users
   
   resources :positions do
-    collection do
-      get 'suitable'
-      get 'offers'
+    member do
+      get 'suitable', is_array: true
+      get 'offers', is_array: true
     end
   end
 

@@ -76,7 +76,7 @@ class Position < ActiveRecord::Base
     end
   end
 
-  def contractor
+  def contractor options = {}
     trade_type_contractor = {
       1 => 2,
       2 => 1
@@ -85,7 +85,7 @@ class Position < ActiveRecord::Base
     Position.new({
       trade_type_id: trade_type_contractor[trade_type_id],
       weight: weight,
-      price: price,
+      price: price * self.currency.get_rate(options[:currency].name),
       weight_dimension: weight_dimension,
       price_weight_dimension: price_weight_dimension,
       option_id: option_id,
