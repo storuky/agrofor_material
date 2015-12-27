@@ -28,12 +28,12 @@
                 .page-background.page-layout ng-class="{'page-search': Search.type == 'list'}"
                 ui-view
 
-      = Gon::Base.render_data({})
       = render template: 'modals/index'
       = render template: 'components/index'
       = render 'layouts/cache'
 
       div ng-include="'sign.html'"
       script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"
-
       = javascript_include_tag 'application'
+
+= Gon::Base.render_data({})
