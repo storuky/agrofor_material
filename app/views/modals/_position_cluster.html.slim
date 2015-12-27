@@ -1,14 +1,13 @@
 script type="text/ng-template" id="position_cluster.tmpl.html"
   md-dialog.position-modal aria-label="Mango (Fruit)"  ng-cloak=""
-    md-toolbar
-      .position-modal__header[layout="row" layout-align="start center"]
-        .position-cluster__title
-          | В данной области найдено 
-          b
-            | {{ctrl.positions.length}}
-          |  позиции
-        .close ng-click="ctrl.close()"
-          .icon-close
+    md-toolbar.position-modal__header[layout="row" layout-align="start center"]
+      .position-cluster__title
+        | В данной области найдено 
+        b
+          | {{ctrl.positions.length}}
+        |  позиции
+      .close ng-click="ctrl.close()"
+        .icon-close
     md-dialog-content
       .table-wrapper
         table.table.positions-table

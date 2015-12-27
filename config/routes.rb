@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   resources :positions do
     collection do
       get 'suitable'
+      get 'offers'
     end
   end
 

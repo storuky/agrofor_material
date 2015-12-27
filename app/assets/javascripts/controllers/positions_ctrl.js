@@ -62,13 +62,13 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Cache', '$time
 
     ctrl.position = position;
 
-    var positions = _.select(ctrl.positions, function (position) {
-      return gon.current_user.id != position.user_id
-    })
 
-    if (positions.length) {
-      var id = _.pluck(positions, 'id')
-      Position.suitable({id: id}, function (res) {
+    if (gon.current_user && gon.current_user.id!=ctrl.position.user_id) {
+      Position.offers({id: ctrl.position.id}, function (res) {
+        ctrl.offers = res;
+      })
+
+      Position.suitable({id: ctrl.position.id}, function (res) {
         ctrl.suitable_positions = res;
       })
     }
