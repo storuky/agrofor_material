@@ -21,3 +21,5 @@ config/database.yml
 
 /public/uploads
 /public/assets
+
+/db/sphinx
