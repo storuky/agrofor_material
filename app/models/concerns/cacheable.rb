@@ -59,7 +59,7 @@ module Cacheable
           ActiveModel::ArraySerializer.new(self.all_from_cache, each_serializer: options[:serializer], root: false).as_json.index_by {|el| el[:id]}
         else
           self.all.index_by(&:id)
-        end
+        end.with_indifferent_access
       end
     end
 

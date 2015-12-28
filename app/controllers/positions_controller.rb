@@ -110,6 +110,21 @@ class PositionsController < ApplicationController
     end
   end
 
+  def toggle_favorite
+    respond_to do |format|
+      format.json {
+        id = params[:id].to_i
+        query = {user_id: current_user.id, position_id: id}
+        if current_user.favorite_ids.include?(id)
+          FavoritePosition.where(query).destroy_all
+        else
+          FavoritePosition.create(query)
+        end
+        render json: current_user.favorite_ids
+      }
+    end
+  end
+
   private
     def set_serialized_position
       @position = Position.find_from_cache params[:id], serializer: PositionSerializer

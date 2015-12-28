@@ -6,6 +6,6 @@ class FavoritePosition < ActiveRecord::Base
 
   private
     def regenerate_cache
-      Rails.cache.delete("favorites_for_#{self.user_id}_#{I18n.locale}")
+      Rails.cache.delete("User.favorite_ids(#{user_id})")
     end
 end

@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       get 'suitable', is_array: true
       get 'offers', is_array: true
       put 'send_offer'
+      put 'toggle_favorite', is_array: true
     end
   end
 

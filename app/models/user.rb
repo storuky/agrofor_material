@@ -36,11 +36,17 @@ class User < ActiveRecord::Base
   end
 
   def info
-    self.as_json(only: [:id, :fullname, :avatar, :phones, :city, :address, :lat, :lng, :company, :additional], include: [:currency])
+    self.as_json(only: [:id, :fullname, :avatar, :phones, :city, :address, :lat, :lng, :company, :additional], include: [:currency], methods: [:favorite_ids])
   end
 
   def fullname
     "#{first_name} #{last_name}"
+  end
+
+  def favorite_ids
+    Rails.cache.fetch("User.favorite_ids(#{id})") do
+      super
+    end
   end
 
   def self.positions_from_cache id

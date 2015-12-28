@@ -72,10 +72,10 @@ div content-for="header"
                 | {{::position.weight_min | number}}
                 .dim
                   | {{::position.weight_min_dimension.title}}
-              td.btns ng-click="$event.stopPropagation()"
+              td.btns
                 a.icon-btn ui-sref="edit_position_path(position)"
                   i.icon-pencil
-                a.icon-btn
+                a.icon-btn ng-click="Position.goTo(position, $event)"
                   i.icon-eye
             /tr ng-repeat="offer in [1,2,3]"
               td

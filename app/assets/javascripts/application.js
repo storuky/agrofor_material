@@ -22,6 +22,17 @@ app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', function ($rootScope, Sign,
   $rootScope.gon = gon;
   $rootScope.Sign = Sign;
   $rootScope.Routes = Routes;
+
+  $rootScope.safeApply = function(fn) {
+      var phase = this.$root.$$phase;
+      if(phase == '$apply' || phase == '$digest') {
+          if(fn && (typeof(fn) === 'function')) {
+              fn();
+          }
+      } else {
+          this.$apply(fn);
+      }
+  };
 }])
 
 app.run([function(){

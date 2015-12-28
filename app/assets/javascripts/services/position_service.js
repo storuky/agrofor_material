@@ -7,6 +7,8 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', function (Pos
     })
   }
 
+  
+
   Position.openClusterModal = function (ids) {
     $location.search({ids: ids});
     Position.query({ids: ids}, clusterCallback)
@@ -82,7 +84,8 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', function (Pos
     $mdDialog.cancel();
   }
 
-  Position.goTo = function (id, $event) {
-    $location.url('/search/map?id='+id)
+  Position.goTo = function (position, $event) {
+    $location.url('/search/map?id='+position.id);
+    if ($event) $event.stopPropagation();
   }
 }])

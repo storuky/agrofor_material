@@ -1,4 +1,4 @@
-app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', function (Map, Search, $timeout, $mdMedia, Position) {
+app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$rootScope', function (Map, Search, $timeout, $mdMedia, Position, $rootScope) {
   // Runs during compile
   return {
     // name: '',
@@ -35,7 +35,14 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', funct
             maxZoom: $scope.maxZoom || 15,
             suppressMapOpenBlock: true,
         });
-        window.map = map;
+
+        window.map = map
+
+        map.events.add('boundschange', function (e) {
+          $rootScope.safeApply(function () {
+            Search.visible_count = ymaps.geoQuery(geoObjects).searchIntersect(map).getLength();
+          })
+        });
 
         clusterer.events.add('click', function (event) {
           if (map.getZoom()==15) {
@@ -48,7 +55,7 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', funct
         });
 
         $scope.$watch(function () {
-          return Search.markers
+          return Search.positions
         }, function (markers) {
           drawMarkers(markers)
         })

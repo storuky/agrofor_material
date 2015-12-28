@@ -292,9 +292,10 @@
 
 .search__extended__footer {
   padding: 6px 10px;
-  background: #f0f0f0;
+  background: #FAFAFA;
   overflow: hidden;
   text-align: right;
+  border-top: 1px solid #E4E4E4;
 }
 
 .search__full   .search__extended {

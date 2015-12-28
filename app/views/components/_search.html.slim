@@ -20,18 +20,18 @@ script type="text/ng-template" id="search.html"
             .tags__wrapper
               .tag ng-repeat="tag in Search.tags" ng-click="Search.setActiveTag(tag)" ng-class="{active: Search.form.id == tag.id}"
                 .tag__title
-                  | {{gon.data.by_index.trade_types[tag.trade_type_id]}} &nbsp;
+                  | {{gon.data.by_index.trade_types[tag.trade_type_id].title}} &nbsp;
                   span ng-show="tag.option" «{{tag.option.title}}» &nbsp;
                 .tag__delete ng-click="Search.tags.splice($index, 1);"
                   | &times;
       .search__count
-        | {{10 | plur:['Найдена', 'Найдено', 'Найдены']}}
+        | {{Search.positions.length | plur:['Найдена', 'Найдено', 'Найдены']}}
         b
-          |  {{10}}
-        |  {{10 | plur:['позиция', 'позиции', 'позиций']}}
+          |  {{Search.positions.length}}
+        |  {{Search.positions.length | plur:['позиция', 'позиции', 'позиций']}}
         | . В области карты – 
         b
-          | {{5}}
+          | {{Search.visible_count}}
 
     .search__extended.md-whiteframe-2dp ng-class="{visible: Search.showExtended}"
       .title Расширенный поиск
@@ -52,7 +52,7 @@ script type="text/ng-template" id="search.html"
             div[flex]
               md-input-container.md-block
                 label Местоположение
-                input.md-block[type="text" suggest ng-model="Search.form.address" coords="Search.form.coords" rebuild="Search.form.id"]
+                input.md-block[type="text" suggest ng-model="Search.form.address" coords="Search.form.coords" rebuild="Search.form.id" bounded-by="Search.form.bounded_by"]
             div[flex="none" style="padding: 25px 10px 0 10px;"]
               | ±
             div[flex style="max-width: 110px"]

@@ -21,10 +21,10 @@ app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Positi
 
   action(['list', 'map'], function () {
     $scope.$watch(function () {
-      return Search.tags
-    }, function (tags) {
-      if (tags !== undefined) {
-        Search.byParams(tags);
+      return [Search.tags, Search.query]
+    }, function () {
+      if (Search.query !== undefined || Search.tags !== undefined) {
+        Search.byParams();
       }
     }, true)
   })

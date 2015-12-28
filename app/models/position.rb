@@ -1,12 +1,13 @@
 class Position < ActiveRecord::Base
   include AASM
   include Cacheable
+  include FixSphinx
 
   default_scope {
     includes(:trade_type, :images, :documents, :user, :currency, :weight_dimension, :weight_min_dimension, :price_weight_dimension, :option, :category, :trade_type, option: [:category])
   }
 
-  after_commit :user_positions_cache
+  after_commit :regenerate_cache
 
   geocoded_by :address, :latitude  => :lat, :longitude => :lng
 
@@ -94,6 +95,25 @@ class Position < ActiveRecord::Base
     })
   end
 
+  def self.pluck_fields
+    self.distinct.pluck(:id, :lat, :lng, :trade_type_id, :option_id, :weight, :weight_dimension_id, :price, :currency_id, :price_weight_dimension_id)
+  end
+
+  def self.pluck_all_fields
+    Rails.cache.fetch('Position.pluck_all_fields') do
+      self.pluck_fields
+    end
+  end
+
+  def self.look_for query = nil
+    if query.try(:present?)
+      ids = Position.search_for_ids query
+      Position.where(id: ids)
+    else
+      Position
+    end
+  end
+
   def self.statuses
     Position.aasm.states.each_with_index.map do |state, index|
       {id: index, name: state.name, title: I18n.t('position.status.'+state.name.to_s)}
@@ -113,14 +133,14 @@ class Position < ActiveRecord::Base
       wd_cache = WeightDimension.all_by_index_from_cache(serializer: WeightDimensionSerializer)
       
       if filter["weight_from"] or filter["weight_to"]
-        weight_from = (filter["weight_from"] || 0).to_f * wd_cache[filter["weight_from_dimension_id"]][:convert] rescue 0
-        weight_to = (filter["weight_to"] || Float::INFINITY).to_f * wd_cache[filter["weight_to_dimension_id"]][:convert] rescue Float::INFINITY
+        weight_from = (filter["weight_from"] || 0).to_f * wd_cache[filter["weight_from_dimension_id"].to_i][:convert] rescue 0
+        weight_to = (filter["weight_to"] || Float::INFINITY).to_f * wd_cache[filter["weight_to_dimension_id"].to_i][:convert] rescue Float::INFINITY
         query[:weight_etalon] = (weight_from..weight_to)
       end
 
       if filter["price_from"] or filter["price_to"]
-        price_from = (filter["price_from"] || 0).to_f / wd_cache[filter["price_from_weight_dimension_id"]][:convert] rescue 0
-        price_to = (filter["price_to"] || Float::INFINITY).to_f / wd_cache[filter["price_to_weight_dimension_id"]][:convert] rescue Float::INFINITY
+        price_from = (filter["price_from"] || 0).to_f / wd_cache[filter["price_from_weight_dimension_id"].to_i][:convert] rescue 0
+        price_to = (filter["price_to"] || Float::INFINITY).to_f / wd_cache[filter["price_to_weight_dimension_id"].to_i][:convert] rescue Float::INFINITY
 
         price_sql = []
         currencies.each do |currency|
@@ -138,10 +158,15 @@ class Position < ActiveRecord::Base
       if filter["coords"]
         lat = filter["coords"][0]
         lng = filter["coords"][1]
-        radius = filter["radius"] || 10
-        a = "SIN((lat-#{lat})*PI()/360)  *  SIN((lat-#{lat})*PI()/360)  +  COS(#{lat}*PI()/180) * COS(lat*PI()/180) * SIN((lng-#{lng})*PI()/360) * SIN((lng-#{lng})*PI()/360)"
+        bounded_by = filter["bounded_by"].values
+        
+        radius_of_earth = 6378.137
+        
+        radius = filter["radius"].present? ? filter["radius"].to_i : 10
+
+        a = "SIN((positions.lat-#{lat})*PI()/360)  *  SIN((positions.lat-#{lat})*PI()/360)  +  COS(#{lat}*PI()/180) * COS(positions.lat*PI()/180) * SIN((positions.lng-#{lng})*PI()/360) * SIN((positions.lng-#{lng})*PI()/360)"
         in_radius_sql = %{
-          #{radius} >= 2 * ATAN2(SQRT(#{a}), SQRT(1-#{a})) * 6378.137
+          #{radius} >= 2 * ATAN2(SQRT(#{a}), SQRT(1-#{a})) * #{radius_of_earth}
         }
       end
 
@@ -186,11 +211,6 @@ class Position < ActiveRecord::Base
     self.filter filters
   end
 
-  def self.pluck_fields
-    self.distinct.pluck(:id, :lat, :lng, :trade_type_id, :option_id, :weight, :weight_dimension_id, :price, :currency_id, :price_weight_dimension_id)
-  end
-
-
   private
 
     #
@@ -229,7 +249,8 @@ class Position < ActiveRecord::Base
       self.price_etalon = self.price / WeightDimension.all_by_index_from_cache(serializer: WeightDimensionSerializer)[self.price_weight_dimension_id][:convert]
     end
 
-    def user_positions_cache
+    def regenerate_cache
       Rails.cache.delete("User.positions_from_cache(#{self.user_id})")
+      Rails.cache.delete("Position.pluck_all_fields")
     end
 end

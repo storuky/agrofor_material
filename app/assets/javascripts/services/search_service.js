@@ -5,13 +5,15 @@ app.service('Search', ['$rootScope', '$http', 'ngNotify', function ($rootScope, 
 
   var searchCallback = function (res) {
     if (Search.type == 'map') {
-      Search.markers = res.data;
-    } else {
-      Search.data = res.data;
+      Search.positions = res.data;
     }
   }
 
-  Search.byParams = function (params) {
+  Search.byParams = function () {
+    var params = {
+      tags: Search.tags,
+      query: Search.query
+    }
     $http.get(Routes[Search.type + "_path"]({format: "json"}), {params: params})
       .then(searchCallback)
   }
@@ -30,7 +32,7 @@ app.service('Search', ['$rootScope', '$http', 'ngNotify', function ($rootScope, 
     }
 
     var tag = angular.copy(params);
-
+    tag.option_id = tag.option.id;
     if (tag.id !== undefined) {
       Search.tags[tag.id] = tag;
     } else {
@@ -43,7 +45,7 @@ app.service('Search', ['$rootScope', '$http', 'ngNotify', function ($rootScope, 
   }
 
   Search.setActiveTag = function (tag) {
-    Search.form = tag;
+    Search.form = _.clone(tag);
     Search.showExtended = true;
   }
 

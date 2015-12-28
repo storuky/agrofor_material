@@ -7,7 +7,7 @@ script type="text/ng-template" id="position_cluster.tmpl.html"
           | {{ctrl.positions.length}}
         |  позиции
       .close ng-click="ctrl.close()"
-        .icon-close
+        i.icon-close
     md-dialog-content
       .table-wrapper
         table.table.positions-table
@@ -34,7 +34,7 @@ script type="text/ng-template" id="position_cluster.tmpl.html"
           tbody ng-repeat="position in ctrl.positions | filter: search"
             tr ng-click="ctrl.goTo(position)"
               td
-                i.icon-star
+                favorite position="position"
               td
                 | {{::position.created_at | date:"dd.MM.yyyy"}}
               td

@@ -5,11 +5,13 @@ app.directive('suggest', ['$timeout', function ($timeout) {
     // priority: 1,
     // terminal: true,
     scope: {
-      ngModel: "=ngModel",
-      lat: "=lat",
-      lng: "=lng",
-      country: "=country",
-      rebuild: "=rebuild",
+      ngModel: "=",
+      coords: "=",
+      lat: "=",
+      lng: "=",
+      country: "=",
+      rebuild: "=",
+      boundedBy: "="
     }, // {} = isolate, true = child, false/undefined = no change
     // controller: function($scope, $element, $attrs, $transclude) {},
     // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
@@ -30,8 +32,10 @@ app.directive('suggest', ['$timeout', function ($timeout) {
             ymaps.geocode($scope.ngModel).then(function (res) {
               var coords = res.geoObjects.get(0).geometry.getCoordinates();
               $scope.country = res.geoObjects.get(0).properties.get('description');
+              $scope.boundedBy = res.geoObjects.get(0).properties.get('boundedBy');
               $scope.lat = coords[0];
               $scope.lng = coords[1];
+              $scope.coords = coords;
               $scope.$apply();
             });
           } else {
@@ -50,10 +54,8 @@ app.directive('suggest', ['$timeout', function ($timeout) {
         })
 
         $scope.$watch('rebuild', function (val) {
-          if (val) {
-            suggestView.destroy();
-            build();
-          }
+          suggestView.destroy();
+          build();
         })
 
       });
