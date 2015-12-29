@@ -4,18 +4,19 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
     // name: '',
     // priority: 1,
     // terminal: true,
-    // scope: {}, // {} = isolate, true = child, false/undefined = no change
+    scope: {
+      map: "="
+    }, // {} = isolate, true = child, false/undefined = no change
     // controller: function($scope, $element, $attrs, $transclude) {},
     // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
-    restrict: 'C', // E = Element, A = Attribute, C = Class, M = Comment
+    restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
     // template: '',
     // templateUrl: '',
     // replace: true,
     // transclude: true,
     // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
     link: function($scope, iElm, iAttrs, controller) {
-      var map,
-          center = [55.7, 37.6],
+      var center = [55.7, 37.6],
           geoObjects = [],
           clusterer;
 
@@ -27,25 +28,27 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
           clusterBalloonShadow: false
         });
 
-        map = new ymaps.Map(iElm[0], {
+        $scope.map = new ymaps.Map(iElm[0], {
             center: center,
             zoom: $scope.zoom || 10,
             controls: [],
           }, {
-            maxZoom: $scope.maxZoom || 15,
+            maxZoom: $scope.maxZoom || 17,
             suppressMapOpenBlock: true,
         });
 
-        window.map = map
+        $scope.map.events.add('click', function (e) {
+          console.log(e.get('coords'))
+        })
 
-        map.events.add('boundschange', function (e) {
+        $scope.map.events.add('boundschange', function (e) {
           $rootScope.safeApply(function () {
-            Search.visible_count = ymaps.geoQuery(geoObjects).searchIntersect(map).getLength();
+            Search.visible_count = ymaps.geoQuery(geoObjects).searchIntersect($scope.map).getLength();
           })
         });
 
         clusterer.events.add('click', function (event) {
-          if (map.getZoom()==15) {
+          if ($scope.map.getZoom()==15) {
             var ids = _.map(event.get('target').getGeoObjects(), function (object) {
               return object.properties._data.id
             });
@@ -56,16 +59,18 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
 
         $scope.$watch(function () {
           return Search.positions
-        }, function (markers) {
-          drawMarkers(markers)
-        })
+        }, drawMarkers, false)
+
+        $scope.$watch(function () {
+          return Search.tags
+        }, drawCircles, true)
 
         resizeMap();
       }
 
 
       function drawMarkers (markers) {
-        map.geoObjects.removeAll();
+        $scope.map.geoObjects.removeAll();
         clusterer.removeAll();
         geoObjects = [];
 
@@ -79,14 +84,35 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
               iconPane: 'overlaps'
             })
           );
-
         })
 
         clusterer.add(geoObjects);
-        map.geoObjects.add(clusterer);
+        $scope.map.geoObjects.add(clusterer);
 
         if (markers.length)
-          map.setBounds(map.geoObjects.getBounds());
+          $scope.map.setBounds($scope.map.geoObjects.getBounds());
+      }
+
+      function drawCircles (tags) {
+        setTimeout(function () {
+          _.each(tags, function (tag) {
+            if (tag.bounded_by) {
+              var circle = new ymaps.Circle([
+                   // Координаты центра круга
+                   tag.coords,
+                   // Радиус круга в метрах
+                   tag.default_radius + (tag.radius * 1000 || 0)
+              ], {}, {
+                fill: false,
+               // fillColor: 'rgba(255, 219, 76, 0.5)',
+               strokeColor: 'rgba(215, 185, 64, 0.6)',
+               strokeWidth: 3
+              });
+
+              $scope.map.geoObjects.add(circle)
+            }
+          })
+        }, 300)
       }
 
       function shortMarkerProperties (marker) {
@@ -114,7 +140,7 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
           return $mdMedia('gt-md')
         }, function (v) {
           $timeout(function () {
-            map.container.fitToViewport()
+            $scope.map.container.fitToViewport()
           }, 600)
         })
       }

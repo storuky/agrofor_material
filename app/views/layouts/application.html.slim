@@ -24,7 +24,7 @@
             tr
               td.h0 ng-yield="header"
             tr
-              td style="vertical-align: top"
+              td style="vertical-align: top" ng-click="Search.showExtended=false; Search.showFooter=false;"
                 .page-background.page-layout ng-class="{'page-search': Search.type == 'list'}"
                 ui-view
 

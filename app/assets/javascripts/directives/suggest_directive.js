@@ -1,4 +1,4 @@
-app.directive('suggest', ['$timeout', function ($timeout) {
+app.directive('suggest', ['$timeout', 'Map', function ($timeout, Map) {
   // Runs during compile
   return {
     // name: '',
@@ -11,6 +11,7 @@ app.directive('suggest', ['$timeout', function ($timeout) {
       lng: "=",
       country: "=",
       rebuild: "=",
+      radius: "=",
       boundedBy: "="
     }, // {} = isolate, true = child, false/undefined = no change
     // controller: function($scope, $element, $attrs, $transclude) {},
@@ -30,13 +31,18 @@ app.directive('suggest', ['$timeout', function ($timeout) {
 
           if ($scope.ngModel) {
             ymaps.geocode($scope.ngModel).then(function (res) {
-              var coords = res.geoObjects.get(0).geometry.getCoordinates();
-              $scope.country = res.geoObjects.get(0).properties.get('description');
-              $scope.boundedBy = res.geoObjects.get(0).properties.get('boundedBy');
-              $scope.lat = coords[0];
-              $scope.lng = coords[1];
-              $scope.coords = coords;
-              $scope.$apply();
+              try {
+                var coords = res.geoObjects.get(0).geometry.getCoordinates();
+                $scope.country = res.geoObjects.get(0).properties.get('description');
+                $scope.boundedBy = res.geoObjects.get(0).properties.get('boundedBy');
+                $scope.radius = Map.measure($scope.boundedBy[0][0], $scope.boundedBy[0][1], $scope.boundedBy[1][0], $scope.boundedBy[0][1]) / 2;
+                $scope.lat = coords[0];
+                $scope.lng = coords[1];
+                $scope.coords = coords;
+                $scope.$apply();
+              } catch (e) {
+                console.error(e)
+              }
             });
           } else {
             $scope.coords = undefined;
@@ -50,6 +56,11 @@ app.directive('suggest', ['$timeout', function ($timeout) {
         $scope.$watch('ngModel', function (model) {
           if (!model) {
             $scope.coords = undefined;
+            $scope.lat = undefined;
+            $scope.lng = undefined;
+            $scope.radius = undefined;
+            $scope.country = undefined;
+            $scope.boundedBy = undefined;
           }
         })
 

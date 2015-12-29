@@ -19,7 +19,7 @@ class SearchController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        @positions = serialize(@positions)
+        @positions = serialize(@positions.limit(10))
         render json: Oj.dump(@positions)
       }
     end

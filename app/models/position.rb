@@ -9,8 +9,6 @@ class Position < ActiveRecord::Base
 
   after_commit :regenerate_cache
 
-  geocoded_by :address, :latitude  => :lat, :longitude => :lng
-
   before_save :set_category_id
   before_save :set_etalon
   before_save :set_index_field
@@ -158,11 +156,13 @@ class Position < ActiveRecord::Base
       if filter["coords"]
         lat = filter["coords"][0]
         lng = filter["coords"][1]
-        bounded_by = filter["bounded_by"].values
+        # bounded_by = filter["bounded_by"].values
         
-        radius_of_earth = 6378.137
+        # default_radius = Position.measure(bounded_by[0][0].to_f, bounded_by[0][1].to_f, bounded_by[1][0].to_f, bounded_by[0][1].to_f)/2
         
-        radius = filter["radius"].present? ? filter["radius"].to_i : 10
+        radius_of_earth = 6378137
+        
+        radius = filter["radius"].present? ? filter["default_radius"].to_f + (filter["radius"].to_f * 1000) : filter["default_radius"].to_f
 
         a = "SIN((positions.lat-#{lat})*PI()/360)  *  SIN((positions.lat-#{lat})*PI()/360)  +  COS(#{lat}*PI()/180) * COS(positions.lat*PI()/180) * SIN((positions.lng-#{lng})*PI()/360) * SIN((positions.lng-#{lng})*PI()/360)"
         in_radius_sql = %{
@@ -176,16 +176,16 @@ class Position < ActiveRecord::Base
 
   end
 
-  # def self.measure lat1, lon1, lat2=37.620393, lon2=55.75396
-  #   r = 6378.137;
-  #   dLat = (lat2 - lat1) * Math::PI / 180;
-  #   dLon = (lon2 - lon1) * Math::PI / 180;
-  #   a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-  #   Math.cos(lat1 * Math::PI / 180) * Math.cos(lat2 * Math::PI / 180) *
-  #   Math.sin(dLon/2) * Math.sin(dLon/2)
-  #   c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
-  #   r * c
-  # end
+  def self.measure lat1, lon1, lat2, lon2
+    r = 6378.137;
+    dLat = (lat2 - lat1) * Math::PI / 180;
+    dLon = (lon2 - lon1) * Math::PI / 180;
+    a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math::PI / 180) * Math.cos(lat2 * Math::PI / 180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+    r * c
+  end
 
   def self.find_suitable positions
     filters = [positions].flatten.map do |position|
@@ -236,6 +236,7 @@ class Position < ActiveRecord::Base
     def set_index_field
       temp = [self.title, self.description]
       [:en, :ru].each do |locale|
+        temp << (self.address || "")
         temp << I18n.t('position.dictionary.trade_types', :locale => locale)[self.trade_type_id]
         temp << I18n.t('category.items.'+self.option.category.title, :locale => locale)
         temp << I18n.t('option.'+Option.all_by_index_from_cache[option_id].title, :locale => locale)

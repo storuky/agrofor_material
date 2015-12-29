@@ -53,10 +53,10 @@
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 530px) {
   .search__extended {
     left: 0;
-    margin-left: 0;
+    margin-left: 15px;
     margin-top: 23px;
   }
 }
@@ -158,6 +158,12 @@
 
 @media screen and (min-width: 1450px) {
   .search__extended {
-    margin-left: -273px;
+    margin: 18px 55px;
+    left: auto;
+    right: 0;
+  }
+  .search__extended__wrapper {
+    margin-left: 225px;
+    max-width: 980px;
   }
 }

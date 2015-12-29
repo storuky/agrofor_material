@@ -396,7 +396,7 @@ md-dialog.position-modal md-dialog-content {
 
 
 .position-modal .md-title {
-  padding: 20px;
+  padding: 20px 0 20px 20px;
 }
 
 .position-modal__info__item span {

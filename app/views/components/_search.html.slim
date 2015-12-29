@@ -1,5 +1,5 @@
 script type="text/ng-template" id="search.html"
-  .search ng-class="{transparent: Page.transparent, search__full: Search.type=='list'}"
+  .search ng-class="{transparent: Page.transparent, search__full: Search.type=='list', blur: Search.blur}"
     .search__form
       toggle-sidebar.hide-gt-md id="left"
       .search__input
@@ -32,7 +32,7 @@ script type="text/ng-template" id="search.html"
         | . В области карты – 
         b
           | {{Search.visible_count}}
-
+  .search__extended__wrapper.hidden-scroll scroll=""
     .search__extended.md-whiteframe-2dp ng-class="{visible: Search.showExtended}"
       .title Расширенный поиск
       .close ng-click="Search.showExtended = false; Search.resetForm();"
@@ -52,7 +52,7 @@ script type="text/ng-template" id="search.html"
             div[flex]
               md-input-container.md-block
                 label Местоположение
-                input.md-block[type="text" suggest ng-model="Search.form.address" coords="Search.form.coords" rebuild="Search.form.id" bounded-by="Search.form.bounded_by"]
+                input.md-block[type="text" suggest ng-model="Search.form.address" coords="Search.form.coords" rebuild="Search.form.id" radius="Search.form.default_radius" bounded-by="Search.form.bounded_by"]
             div[flex="none" style="padding: 25px 10px 0 10px;"]
               | ±
             div[flex style="max-width: 110px"]

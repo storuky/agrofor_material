@@ -1,4 +1,4 @@
-app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Position', function ($scope, action, Search, $location, Position) {
+app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Position', '$timeout', function ($scope, action, Search, $location, Position, $timeout) {
   var ctrl = this,
       id = $location.search().id
       ids = $location.search().ids;
@@ -27,6 +27,10 @@ app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Positi
         Search.byParams();
       }
     }, true)
+  })
+
+  action('map', function () {
+    
   })
 
   $scope.$on('$destroy', function () {
