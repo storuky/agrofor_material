@@ -1,7 +1,7 @@
 ru:
   activerecord:
     attributes:
-      position:
+      position_base:
         trade_type: "Тип позиции"
         title: "Название"
         weight: "Вес"

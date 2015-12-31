@@ -1,9 +1,15 @@
-app.run(['Position', 'Search', '$mdDialog', '$location', '$state', function (Position, Search, $mdDialog, $location, $state) {
-  Position.openModal = function (id, ids) {
-    $location.search({id: id});
+app.run(['Position', 'Search', '$mdDialog', '$location', '$state', 'Offer', function (Position, Search, $mdDialog, $location, $state, Offer) {
+  Position.openModal = function (params) {
+    var type = $location.search().type,
+        Resource;
 
-    Position.get({id: id}, function (res) {
-      positionCallback(res, ids)
+    if (type == 'Offer')
+      Resource = Offer;
+    else
+      Resource = Position;
+
+    Resource.get({id: params['id']}, function (res) {
+      positionCallback(res, {ids: params['ids'], suitable: params['suitable']})
     })
   }
 
@@ -14,9 +20,9 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', function (Pos
     Position.query({ids: ids}, clusterCallback)
   }
 
-  function positionCallback (res, ids) {
+  function positionCallback (res, params) {
     Search.blur = true;
-    $mdDialog.show({
+    Position.modal = $mdDialog.show({
       controller: 'PositionsCtrl as ctrl',
       templateUrl: 'position.tmpl.html',
       parent: angular.element(document.querySelector('.page')),
@@ -29,10 +35,10 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', function (Pos
               
               if (actionNames.indexOf('modal')!=-1) {
                 callback(res, function () {
-                  if (ids) {
-                    Position.openClusterModal(ids)
+                  if (params['ids']) {
+                    Position.openClusterModal(params['ids'])
                   }
-                });
+                }, params);
               }
             } catch (e) {
               console.error(e);
@@ -85,7 +91,14 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', function (Pos
   }
 
   Position.goTo = function (position, $event) {
-    $location.url('/search/map?id='+position.id);
+    var search = {
+      id: position.id, 
+      type: position.type,
+      suitable: position.suitable
+    }
+
+    $location.url('/search/map');
+    $location.search(search)
     if ($event) $event.stopPropagation();
   }
 }])

@@ -95,7 +95,14 @@ script type="text/ng-template" id="position.tmpl.html"
 
 
     md-dialog-actions.position-modal__footer
-      div[layout="row" layout-align="end center"]
-        md-button.md-raised.md-yellow.md-lg[flex-md=40 flex-sm=100 ng-click="isShowOfferOverlay = true" ng-show="gon.current_user.id != ctrl.position.user_id" ng-disabled="!gon.current_user"] Отправить предложение
-      .position-modal__your-position ng-hide="gon.current_user.id != ctrl.position.user_id"
-        | Это ваша позиция
+      div style="width: 100%" ng-show="ctrl.position.type=='Position'"
+        div[layout="row" layout-align="end center"]
+          md-button.md-raised.md-yellow.md-lg[flex-md=40 flex-sm=100 ng-click="isShowOfferOverlay = true" ng-show="gon.current_user.id != ctrl.position.user_id" ng-disabled="!gon.current_user"] Отправить предложение
+        .position-modal__your-position ng-hide="gon.current_user.id != ctrl.position.user_id"
+          | Это ваша позиция
+      div style="width: 100%" ng-show="ctrl.position.type=='Offer'"
+        .position-modal__your-position ng-hide="gon.current_user.id != ctrl.position.user_id"
+          | Ваше предложение для  
+          a href="" ng-click="ctrl.goTo({id: ctrl.position.position_id})" позиции № {{ctrl.position.position_id}}
+        .position-modal__your-position ng-show="gon.current_user.id != ctrl.position.user_id"
+          | Предложение для позиции

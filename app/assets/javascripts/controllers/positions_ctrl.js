@@ -1,7 +1,11 @@
-app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Cache', '$timeout', '$mdDialog', '$location', 'Sign', '$state', '$location',
-                        function ($scope, action, Position, Cache, $timeout, $mdDialog, $location, Sign, $state, $location) {
+app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache', '$timeout', '$mdDialog', '$location', 'Sign', '$state', '$location',
+                        function ($scope, action, Position, Offer, Cache, $timeout, $mdDialog, $location, Sign, $state, $location) {
   
   var ctrl = this;
+
+  ctrl.goTo = function (position) {
+    Position.goTo(position)
+  }
   
   $scope.gon = gon;
   $scope.Position = Position;
@@ -26,8 +30,18 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Cache', '$time
 
 
   action('new', function () {
-    ctrl.save = Position.create;
-    ctrl.position = Position.new({suitable: $location.search().suitable});
+    $scope.suitable = $location.search().suitable;
+    ctrl.save = function (form) {
+      if ($scope.suitable)
+        Offer.create({form_name: 'position', offer: ctrl.position, suitable: $scope.suitable}, function (res) {
+          ctrl.goTo({id: $scope.suitable, suitable: $scope.suitable})
+        })
+      else
+        Position.create(form, function (res) {
+          $state.go('positions_path')
+        })
+    }
+    ctrl.position = Position.new({suitable: $scope.suitable});
     ctrl.templates = [{title: "lol", id: 1},{title: "lal", id: 2},]
   })
 
@@ -46,25 +60,23 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Cache', '$time
     ctrl.goTo = function (position) {
       var ids = $location.search().ids;
       ctrl.close();
-      Position.openModal(position.id, ids)
+      Position.openModal({id: position.id, ids: ids})
     }
     
     ctrl.positions = positions;
   })
 
 
-  action('modal', function (position, callback) {
+  action('modal', function (position, callback, params) {
+    if ($location.search().suitable)
+      $scope.isShowOfferOverlay = true;
     ctrl.close = function () {
       $mdDialog.cancel();
-      $location.search('id', undefined);
+      $location.search({id: undefined, type: undefined});
       callback();
     }
 
     ctrl.position = position;
-
-    ctrl.goTo = function (position) {
-      Position.openModal(position.id)
-    }
 
 
     if (gon.current_user && gon.current_user.id!=ctrl.position.user_id) {

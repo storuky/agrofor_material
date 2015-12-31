@@ -2,7 +2,7 @@ class Option < ActiveRecord::Base
   include Cacheable
 
   belongs_to :category
-  has_many :position
+  has_many :position_base
 
   OPTIONS = {
     "berries" => ["watermelon", "barberry", "cowberry", "elder", "grapes", "goji berries", "blueberry", "cherry", "melon", "blackberries", "strawberry", "shadberry", "viburnum", "dogwood", "strawberry", "cranberry", "redcurrant", "gooseberry", "lemongrass", "raspberry", "cloudberry", "sea buckthorn", "green olives", "rowan", "blackthorn", "feijoa ", "physalis", "cherry", "blackberry", "blueberry", "bird-cherry tree", "chokeberry", "mulberry", "briar"], 

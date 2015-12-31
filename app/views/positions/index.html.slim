@@ -77,24 +77,26 @@ div content-for="header"
                   i.icon-pencil
                 a.icon-btn ng-click="Position.goTo(position, $event)"
                   i.icon-eye
-            /tr ng-repeat="offer in [1,2,3]"
+            tr ng-repeat="offer in position.offers"
               td
               td
-                | {{::position.created_at | date:"dd.MM.yyyy"}}
+                | {{::offer.created_at | date:"dd.MM.yyyy"}}
               td
-                | {{::position.option.title}}
+                | {{::offer.trade_type.title}}
+              td
+                | {{::offer.option.title}}
               td.numeric
-                | {{::position.price | number:2}}
+                | {{::offer.price | number:2}}
                 .dim
-                  | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
+                  | {{::offer.currency.title}}/{{::offer.price_weight_dimension.title}}
               td.numeric
-                | {{::position.weight | number}}
+                | {{::offer.weight | number}}
                 .dim
-                  | {{::position.weight_dimension.title}}
+                  | {{::offer.weight_dimension.title}}
               td.numeric
-                | {{::position.weight_min | number}}
+                | {{::offer.weight_min | number}}
                 .dim
-                  | {{::position.weight_min_dimension.title}}
+                  | {{::offer.weight_min_dimension.title}}
               td.btns
                 a.icon-btn
                   i.icon-message-text

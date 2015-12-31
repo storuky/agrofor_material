@@ -38,7 +38,7 @@ app.service('Map', ['pluralize', '$location', 'Position', function (pluralize, $
             this._events.add('click', function (event) {
               var id = this.getData().properties.get('id');
               if (id) {
-                Position.openModal(id);
+                Position.goTo({id: id});
               }
             }, this);
           },

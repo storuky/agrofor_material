@@ -3,7 +3,7 @@ class CreateFeedbacks < ActiveRecord::Migration
     create_table :feedbacks do |t|
       t.integer :author_id
       t.integer :user_id
-      t.integer :position_id
+      t.integer :position_base_id
       t.text :description
       t.boolean :positive, default: true
 

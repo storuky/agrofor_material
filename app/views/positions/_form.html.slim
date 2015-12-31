@@ -1,13 +1,13 @@
 = form_for Position.new, html: {class: "position_form", flex: "100"} do |f|
-  div[layout="row" layout-wrap layout-padding-sm]
+  .disabled-show[layout="row" layout-wrap layout-padding-sm]
     div[layout="column" flex=100 flex-gt-md=50]
       div[layout-gt-md="row" layout-padding-sm]
         div[flex="" flex-sm=100 style="min-width: 150px"]
           md-input-container.md-block
-            = f.select :trade_type, required: "", name: "position[trade_type_id]"
+            = f.select :trade_type, required: "", name: "position[trade_type_id]", "ng-disabled" => "suitable"
 
         div[flex="" flex-sm=100]
-          option-picker ng-model="ctrl.position.option" name="position[option_id]"
+          option-picker ng-model="ctrl.position.option" name="position[option_id]" ng-disabled="suitable"
 
       div[layout-gt-sm="row" layout-padding-sm]
         div[flex flex-sm=100]

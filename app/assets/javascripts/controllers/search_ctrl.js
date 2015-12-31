@@ -1,18 +1,23 @@
-app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Position', '$timeout', function ($scope, action, Search, $location, Position, $timeout) {
-  var ctrl = this,
-      id = $location.search().id
-      ids = $location.search().ids;
+app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Position', '$timeout', '$state', function ($scope, action, Search, $location, Position, $timeout, $state) {
+  var ctrl = this;
 
   $scope.Search = Search;
 
   action('map', function () {
     Search.type = 'map';
 
-    if (id) {
-      Position.openModal(id);
-    } else if (ids) {
-      Position.openClusterModal(ids);
-    }
+    $scope.$watch(function () {
+      return $location.search()
+    }, function () {
+      var id = $location.search().id,
+          ids = $location.search().ids;
+
+      if (id) {
+        Position.openModal({id: id});
+      } else if (ids) {
+        Position.openClusterModal(ids);
+      }
+    }, true)
   });
 
   action('list', function () {

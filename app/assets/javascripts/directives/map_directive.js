@@ -18,7 +18,8 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
     link: function($scope, iElm, iAttrs, controller) {
       var center = [55.7, 37.6],
           geoObjects = [],
-          clusterer;
+          clusterer,
+          maxZoom = 17;
 
       function buildMap () {
         clusterer = new ymaps.Clusterer({
@@ -33,7 +34,7 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
             zoom: $scope.zoom || 10,
             controls: [],
           }, {
-            maxZoom: $scope.maxZoom || 17,
+            maxZoom: maxZoom,
             suppressMapOpenBlock: true,
         });
 
@@ -48,7 +49,7 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
         });
 
         clusterer.events.add('click', function (event) {
-          if ($scope.map.getZoom()==15) {
+          if ($scope.map.getZoom()==maxZoom) {
             var ids = _.map(event.get('target').getGeoObjects(), function (object) {
               return object.properties._data.id
             });

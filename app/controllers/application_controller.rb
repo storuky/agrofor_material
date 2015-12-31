@@ -50,6 +50,7 @@ class ApplicationController < ActionController::Base
         categories: Category.all_from_cache(serializer: CategorySerializer),
         currencies: Currency.all_from_cache(serializer: CurrencySerializer),
         statuses: Position.statuses,
+        offers_statuses: Offer.statuses,
         rates: Currency.get_rates(gon.settings[:currency][:name]),
         roles: Role.all_from_cache,
         languages: [{id: "ru", title: "Русский"}, {id: "en", title: "English"}]

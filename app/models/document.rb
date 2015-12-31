@@ -2,7 +2,7 @@ class Document < ActiveRecord::Base
   before_destroy :remove_file
   
   mount_uploader :file, DocumentUploader
-  belongs_to :position, touch: true
+  belongs_to :position_base, touch: true
   belongs_to :user
 
   private

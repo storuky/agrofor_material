@@ -1,6 +1,6 @@
-class CreatePositionsOffers < ActiveRecord::Migration
+class CreateDeals < ActiveRecord::Migration
   def change
-    create_table :positions_offers do |t|
+    create_table :deals do |t|
       t.integer :position_id
       t.index :position_id
 

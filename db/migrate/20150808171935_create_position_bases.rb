@@ -1,12 +1,17 @@
-class CreatePositions < ActiveRecord::Migration
+class CreatePositionBases < ActiveRecord::Migration
   def change
-    create_table :positions do |t|
+    create_table :position_bases do |t|
+      t.string :type
+
       t.boolean :delta, :default => true, :null => false
       t.string :status, default: "opened"
 
-      t.integer :position_id 
+      t.integer :position_id
       t.index :position_id
 
+      t.integer :offer_id
+      t.index :offer_id
+      
       t.string :title
       t.text :description
 

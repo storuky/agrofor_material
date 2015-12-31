@@ -3,6 +3,7 @@ config =  {
             :delta => true
           }
 
-ThinkingSphinx::Index.define :position, config do
+ThinkingSphinx::Index.define :position_base, config do
   indexes index_field
+  where "type = 'Position'"
 end

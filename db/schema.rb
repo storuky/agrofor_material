@@ -23,14 +23,14 @@ ActiveRecord::Schema.define(version: 20151218103235) do
   end
 
   create_table "correspondence_positions", force: :cascade do |t|
-    t.integer  "position_id"
+    t.integer  "position_base_id"
     t.integer  "correspondence_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
 
   add_index "correspondence_positions", ["correspondence_id"], name: "index_correspondence_positions_on_correspondence_id", using: :btree
-  add_index "correspondence_positions", ["position_id"], name: "index_correspondence_positions_on_position_id", using: :btree
+  add_index "correspondence_positions", ["position_base_id"], name: "index_correspondence_positions_on_position_base_id", using: :btree
 
   create_table "correspondence_users", force: :cascade do |t|
     t.integer  "user_id"
@@ -62,13 +62,25 @@ ActiveRecord::Schema.define(version: 20151218103235) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "deals", force: :cascade do |t|
+    t.integer  "position_id"
+    t.integer  "offer_id"
+    t.string   "status",      default: "new"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "deals", ["offer_id", "position_id"], name: "index_deals_on_offer_id_and_position_id", using: :btree
+  add_index "deals", ["offer_id"], name: "index_deals_on_offer_id", using: :btree
+  add_index "deals", ["position_id"], name: "index_deals_on_position_id", using: :btree
+
   create_table "documents", force: :cascade do |t|
     t.string   "file"
     t.integer  "user_id"
-    t.integer  "position_id"
+    t.integer  "position_base_id"
     t.string   "filename"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "favorite_positions", force: :cascade do |t|
@@ -81,20 +93,20 @@ ActiveRecord::Schema.define(version: 20151218103235) do
   create_table "feedbacks", force: :cascade do |t|
     t.integer  "author_id"
     t.integer  "user_id"
-    t.integer  "position_id"
+    t.integer  "position_base_id"
     t.text     "description"
-    t.boolean  "positive",    default: true
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.boolean  "positive",         default: true
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "images", force: :cascade do |t|
     t.string   "file"
     t.integer  "user_id"
-    t.integer  "position_id"
+    t.integer  "position_base_id"
     t.string   "filename"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "messages", force: :cascade do |t|
@@ -116,10 +128,12 @@ ActiveRecord::Schema.define(version: 20151218103235) do
 
   add_index "options", ["category_id"], name: "index_options_on_category_id", using: :btree
 
-  create_table "positions", force: :cascade do |t|
+  create_table "position_bases", force: :cascade do |t|
+    t.string   "type"
     t.boolean  "delta",                     default: true,     null: false
     t.string   "status",                    default: "opened"
     t.integer  "position_id"
+    t.integer  "offer_id"
     t.string   "title"
     t.text     "description"
     t.integer  "user_id"
@@ -147,33 +161,22 @@ ActiveRecord::Schema.define(version: 20151218103235) do
     t.datetime "updated_at",                                   null: false
   end
 
-  add_index "positions", ["category_id"], name: "index_positions_on_category_id", using: :btree
-  add_index "positions", ["city"], name: "index_positions_on_city", using: :btree
-  add_index "positions", ["deal_with_id"], name: "index_positions_on_deal_with_id", using: :btree
-  add_index "positions", ["lat"], name: "index_positions_on_lat", using: :btree
-  add_index "positions", ["lng"], name: "index_positions_on_lng", using: :btree
-  add_index "positions", ["option_id"], name: "index_positions_on_option_id", using: :btree
-  add_index "positions", ["position_id"], name: "index_positions_on_position_id", using: :btree
-  add_index "positions", ["price"], name: "index_positions_on_price", using: :btree
-  add_index "positions", ["price_etalon"], name: "index_positions_on_price_etalon", using: :btree
-  add_index "positions", ["trade_type_id"], name: "index_positions_on_trade_type_id", using: :btree
-  add_index "positions", ["user_id"], name: "index_positions_on_user_id", using: :btree
-  add_index "positions", ["weight_dimension_id"], name: "index_positions_on_weight_dimension_id", using: :btree
-  add_index "positions", ["weight_etalon"], name: "index_positions_on_weight_etalon", using: :btree
-  add_index "positions", ["weight_min_dimension_id"], name: "index_positions_on_weight_min_dimension_id", using: :btree
-  add_index "positions", ["weight_min_etalon"], name: "index_positions_on_weight_min_etalon", using: :btree
-
-  create_table "positions_offers", force: :cascade do |t|
-    t.integer  "position_id"
-    t.integer  "offer_id"
-    t.string   "status",      default: "new"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-  end
-
-  add_index "positions_offers", ["offer_id", "position_id"], name: "index_positions_offers_on_offer_id_and_position_id", using: :btree
-  add_index "positions_offers", ["offer_id"], name: "index_positions_offers_on_offer_id", using: :btree
-  add_index "positions_offers", ["position_id"], name: "index_positions_offers_on_position_id", using: :btree
+  add_index "position_bases", ["category_id"], name: "index_position_bases_on_category_id", using: :btree
+  add_index "position_bases", ["city"], name: "index_position_bases_on_city", using: :btree
+  add_index "position_bases", ["deal_with_id"], name: "index_position_bases_on_deal_with_id", using: :btree
+  add_index "position_bases", ["lat"], name: "index_position_bases_on_lat", using: :btree
+  add_index "position_bases", ["lng"], name: "index_position_bases_on_lng", using: :btree
+  add_index "position_bases", ["offer_id"], name: "index_position_bases_on_offer_id", using: :btree
+  add_index "position_bases", ["option_id"], name: "index_position_bases_on_option_id", using: :btree
+  add_index "position_bases", ["position_id"], name: "index_position_bases_on_position_id", using: :btree
+  add_index "position_bases", ["price"], name: "index_position_bases_on_price", using: :btree
+  add_index "position_bases", ["price_etalon"], name: "index_position_bases_on_price_etalon", using: :btree
+  add_index "position_bases", ["trade_type_id"], name: "index_position_bases_on_trade_type_id", using: :btree
+  add_index "position_bases", ["user_id"], name: "index_position_bases_on_user_id", using: :btree
+  add_index "position_bases", ["weight_dimension_id"], name: "index_position_bases_on_weight_dimension_id", using: :btree
+  add_index "position_bases", ["weight_etalon"], name: "index_position_bases_on_weight_etalon", using: :btree
+  add_index "position_bases", ["weight_min_dimension_id"], name: "index_position_bases_on_weight_min_dimension_id", using: :btree
+  add_index "position_bases", ["weight_min_etalon"], name: "index_position_bases_on_weight_min_etalon", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "title"

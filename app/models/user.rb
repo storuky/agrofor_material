@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   # mount_uploader :avatar, AvatarUploader
 
   has_many :positions
+  has_many :offers
   has_many :images
   has_many :documents
   has_many :templates
@@ -31,9 +32,9 @@ class User < ActiveRecord::Base
 
   validates_presence_of :first_name, :last_name, :phones
 
-  def offers
-    self.positions.joins("INNER JOIN positions_offers ON positions_offers.offer_id = positions.id")
-  end
+  # def offers
+  #   self.positions.joins("INNER JOIN positions_offers ON positions_offers.offer_id = positions.id").distinct
+  # end
 
   def info
     self.as_json(only: [:id, :fullname, :avatar, :phones, :city, :address, :lat, :lng, :company, :additional], include: [:currency], methods: [:favorite_ids])
@@ -50,13 +51,19 @@ class User < ActiveRecord::Base
   end
 
   def self.positions_from_cache id
-    Rails.cache.fetch("User.positions_from_cache(#{id})") do
-      ActiveModel::ArraySerializer.new(User.find(id).positions, each_serializer: PositionSerializer, root: false).as_json
+    Rails.cache.fetch("User.positions_from_cache(#{id})_#{I18n.locale}") do
+      ActiveModel::ArraySerializer.new(User.find(id).positions, each_serializer: PositionWithOffersSerializer, root: false).as_json
+    end
+  end
+
+  def self.offers_from_cache id
+    Rails.cache.fetch("User.offers_from_cache(#{id})_#{I18n.locale}") do
+      ActiveModel::ArraySerializer.new(User.find(id).offers, each_serializer: OfferWithPositionsSerializer, root: false).as_json
     end
   end
 
   def self.feedbacks_from_cache id
-    Rails.cache.fetch("User.feedbacks_from_cache(#{id})") do
+    Rails.cache.fetch("User.feedbacks_from_cache(#{id})_#{I18n.locale}") do
       ActiveModel::ArraySerializer.new(User.find(id).feedbacks, each_serializer: FeedbackSerializer, root: false).as_json
     end
   end
