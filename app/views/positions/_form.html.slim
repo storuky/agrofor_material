@@ -71,7 +71,13 @@
       div[layout="row" layout-padding-sm ng-show="ctrl.position.documents.length"]
         div[flex=100]
           documents ng-model="ctrl.position.documents" allow-destroy="true" upload="true"
-  
+
+      div[layout="row"]
+        div[flex="none"]
+          md-checkbox.position_form__template-checkbox ng-model="ctrl.position.save_as_template" aria-label="Template"
+        div[flex]
+          md-input-container.md-block
+            input ng-disabled="!ctrl.position.save_as_template" type="text" placeholder="Сохранить как шаблон" ng-model="ctrl.position.template_name"
   .position-form__footer
     hr
     .position-form__footer-actions[layout="row" layout-wrap style="" layout-align="start center"]

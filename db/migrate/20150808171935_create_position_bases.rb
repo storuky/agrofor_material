@@ -3,6 +3,8 @@ class CreatePositionBases < ActiveRecord::Migration
     create_table :position_bases do |t|
       t.string :type
 
+      t.string :template_name
+
       t.boolean :delta, :default => true, :null => false
       t.string :status, default: "opened"
 

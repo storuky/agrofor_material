@@ -4,104 +4,112 @@ div content-for="header"
       div[layout="row" layout-wrap layout-align="space-between center"]
         h1.md-title[flex="" flex-sm="100"]
           toggle-sidebar.hide-gt-md id="left"
-          span Мои позиции
+          span ng-show="ctrl.filter.type == 0"
+            | Мои позиции
+          span ng-show="ctrl.filter.type == 1"
+            | Мои шаблоны
 
         .hide-gt-sm style="height: 20px; width: 100%;"
 
-        div[flex="none" flex-sm=100 ng-init="ctrl.currentTab = 0"]
+        div[flex="none" flex-sm=100 style="margin-top: 9px"]
           .tabs.hide-sm
-            md-button.tab ng-repeat="status in gon.data.statuses" ng-class="{active: ctrl.currentTab == $index}" ng-click="ctrl.currentTab = $index"
+            md-button.tab ng-repeat="status in gon.data.position_tabs" ng-class="{active: ctrl.filter.type == $index}" ng-click="ctrl.filter.type = $index"
               | {{status.title}}
           md-input-container.md-block.margin-0.hide-gt-sm
-            md-select[ng-model="ctrl.currentTab" placeholder="Статус"]
-              md-option ng-repeat="status in gon.data.statuses" value="{{status.id}}"
+            md-select[ng-model="ctrl.filter.type" placeholder="Тип"]
+              md-option ng-repeat="status in gon.data.position_tabs" value="{{status.id}}"
                 | {{status.title}}
 
 
         
 .page-content.page-layout
-  .positions-filter
-    .positions-filter__search
+  .positions-filter[layout="row" layout-wrap layout-padding]
+    .positions-filter__search[flex flex-sm=100]
       i.icon-magnify
       input type="text" placeholder="Поиск" ng-model="search"
-  md-tabs[md-dynamic-height md-selected="ctrl.currentTab" class="noTabPanel"]
-    md-tab [ng-repeat="item in [1, 2, 3, 4]" label="tab"]
-      .table-wrapper ng-init="limitTo = 10"
-        table.table.positions-table
-          thead
-            tr
-              th
-                div
-              th
-                div Дата
-              th
-                div Тип
-              th
-                div Категория
-              th.numeric
-                div Цена
-              th.numeric
-                div Вес
-              th.numeric
-                div Мин. вес
-              th
-          thead ng-if="!Cache.positions"
-            tr
-              td colspan="7"
-                md-progress-linear md-mode="indeterminate"
-          tbody ng-repeat="position in Cache.positions | filter: search | limitTo:limitTo" ng-class="{active: opened}"
-            tr ng-click="opened = !opened"
-              td
-                i.icon-chevron-right
-                i.icon-chevron-down
-              td
-                | {{::position.created_at | date:"dd.MM.yyyy"}}
-              td
-                | {{::position.trade_type.title}}
-              td
-                | {{::position.option.title}}
-              td.numeric
-                | {{::position.price | number:2}}
-                .dim
-                  | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
-              td.numeric
-                | {{::position.weight | number}}
-                .dim
-                  | {{::position.weight_dimension.title}}
-              td.numeric
-                | {{::position.weight_min | number}}
-                .dim
-                  | {{::position.weight_min_dimension.title}}
-              td.btns
-                a.icon-btn ui-sref="edit_position_path(position)"
-                  i.icon-pencil
-                a.icon-btn ng-click="Position.goTo(position, $event)"
-                  i.icon-eye
-            tr ng-repeat="offer in position.offers"
-              td
-              td
-                | {{::offer.created_at | date:"dd.MM.yyyy"}}
-              td
-                | {{::offer.trade_type.title}}
-              td
-                | {{::offer.option.title}}
-              td.numeric
-                | {{::offer.price | number:2}}
-                .dim
-                  | {{::offer.currency.title}}/{{::offer.price_weight_dimension.title}}
-              td.numeric
-                | {{::offer.weight | number}}
-                .dim
-                  | {{::offer.weight_dimension.title}}
-              td.numeric
-                | {{::offer.weight_min | number}}
-                .dim
-                  | {{::offer.weight_min_dimension.title}}
-              td.btns
-                a.icon-btn
-                  i.icon-message-text
-                a.icon-btn
-                  i.icon-eye
-      .show-more
-        md-button.md-raised.md-lg ng-click="limitTo = limitTo + 10" ng-show="Cache.positions.length > limitTo" Показать еще
+
+    div[flex="none" flex-sm=100 style="margin-top: 9px"]
+      .tabs.yellow
+        md-button.tab ng-repeat="status in gon.data.statuses" ng-class="{active: ctrl.filter.status == status.name}" ng-click="ctrl.filter.status = status.name"
+          | {{status.title}}
+
+
+  .table-wrapper
+    table.table.positions-table
+      thead
+        tr
+          th
+            div
+          th
+            div Дата
+          th
+            div Тип
+          th
+            div Категория
+          th.numeric
+            div Цена
+          th.numeric
+            div Вес
+          th.numeric
+            div Мин. вес
+          th
+      thead ng-if="!ctrl.positions"
+        tr
+          td colspan="7"
+            md-progress-linear md-mode="indeterminate"
+      tbody ng-repeat="position in ctrl.positions | filter: search" ng-class="{active: opened}"
+        tr ng-click="opened = !opened"
+          td
+            i.icon-chevron-right
+            i.icon-chevron-down
+          td
+            | {{::position.created_at | date:"dd.MM.yyyy"}}
+          td
+            | {{::position.trade_type.title}}
+          td
+            | {{::position.option.title}}
+          td.numeric
+            | {{::position.price | number:2}}
+            .dim
+              | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
+          td.numeric
+            | {{::position.weight | number}}
+            .dim
+              | {{::position.weight_dimension.title}}
+          td.numeric
+            | {{::position.weight_min | number}}
+            .dim
+              | {{::position.weight_min_dimension.title}}
+          td.btns
+            a.icon-btn ui-sref="edit_position_path(position)"
+              i.icon-pencil
+            a.icon-btn ng-click="Position.goTo(position, $event)"
+              i.icon-eye
+        tr ng-repeat="offer in position.offers"
+          td
+          td
+            | {{::offer.created_at | date:"dd.MM.yyyy"}}
+          td
+            | {{::offer.trade_type.title}}
+          td
+            | {{::offer.option.title}}
+          td.numeric
+            | {{::offer.price | number:2}}
+            .dim
+              | {{::offer.currency.title}}/{{::offer.price_weight_dimension.title}}
+          td.numeric
+            | {{::offer.weight | number}}
+            .dim
+              | {{::offer.weight_dimension.title}}
+          td.numeric
+            | {{::offer.weight_min | number}}
+            .dim
+              | {{::offer.weight_min_dimension.title}}
+          td.btns
+            a.icon-btn
+              i.icon-message-text
+            a.icon-btn
+              i.icon-eye
+  .show-more
+    md-button.md-raised.md-lg ng-click="limitTo = limitTo + 10" ng-show="Cache.positions.length > limitTo" Показать еще
           

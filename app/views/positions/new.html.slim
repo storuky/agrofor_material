@@ -9,8 +9,8 @@ div content-for="header"
             | Создать предложение для  
             a.link ng-click="ctrl.goTo({id: suitable})" href="" позиции № {{suitable}}
 
-        .hide-gt-sm style="height: 20px; width: 100%;"
-        md-input-container.margin-0[flex="none" flex-sm="100"]
+        .hide-gt-sm style="height: 20px; width: 100%;" ng-hide="suitable"
+        md-input-container.margin-0[flex="none" flex-sm="100" ng-hide="suitable"]
           md-select[ng-model="ctrl.template" placeholder="Шаблон"]
             md-option ng-repeat="template in ctrl.templates" value="{{template.id}}"
               | {{template.title}}

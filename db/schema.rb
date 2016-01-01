@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 20151218103235) do
 
   create_table "position_bases", force: :cascade do |t|
     t.string   "type"
+    t.string   "template_name"
     t.boolean  "delta",                     default: true,     null: false
     t.string   "status",                    default: "opened"
     t.integer  "position_id"
@@ -183,16 +184,6 @@ ActiveRecord::Schema.define(version: 20151218103235) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "templates", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "user_id"
-    t.json     "position",   default: {}
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-  end
-
-  add_index "templates", ["user_id"], name: "index_templates_on_user_id", using: :btree
 
   create_table "trade_types", force: :cascade do |t|
     t.string   "title"

@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
 
       gon.settings = {
         locale: I18n.locale,
-        currency: (current_user.currency rescue Currency.all_by_index_from_cache(serializer: CurrencySerializer)[1])
+        currency: (serialize(current_user.currency) rescue Currency.all_by_index_from_cache(serializer: CurrencySerializer)[1])
       }
 
       gon.data = {
@@ -53,7 +53,8 @@ class ApplicationController < ActionController::Base
         offers_statuses: Offer.statuses,
         rates: Currency.get_rates(gon.settings[:currency][:name]),
         roles: Role.all_from_cache,
-        languages: [{id: "ru", title: "Русский"}, {id: "en", title: "English"}]
+        languages: [{id: "ru", title: "Русский"}, {id: "en", title: "English"}],
+        position_tabs: [{id: 0, title: 'Позиции'},{id: 1, title: 'Шаблоны'}]
       }
 
 
@@ -64,13 +65,13 @@ class ApplicationController < ActionController::Base
     end
 
     def check_user
-      respond_to do |format|
-        format.html
-        format.json {
-          unless current_user
-            render json: {msg: "Вы не авторизованы"}, status: 401
-          end
-        }
+      unless current_user
+        respond_to do |format|
+          format.html
+          format.json {
+              render json: {msg: "Вы не авторизованы"}, status: 401
+          }
+        end
       end
     end
 end

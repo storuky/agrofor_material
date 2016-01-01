@@ -185,3 +185,7 @@ input.solid-input:focus {
 .flickity-prev-next-button:disabled {
   display: none;
 }
+
+.switch-type {
+  margin: -5px 0 0 5px;
+}

@@ -1,7 +1,7 @@
 class PositionsController < ApplicationController
-  before_action :check_user, except: [:show, :index]
   before_action :set_position, only: [:destroy, :update, :suitable, :offers, :send_offer]
   before_action :set_serialized_position, only: [:show, :edit]
+  before_action :check_user, except: [:show, :index]
   before_action :check_owner, only: [:destroy, :update, :edit]
 
   def index
@@ -12,7 +12,7 @@ class PositionsController < ApplicationController
           @positions = Position.find_from_cache(params[:ids], serializer: PositionSerializer)
         else
           check_user
-          @positions = User.positions_from_cache current_user.id
+          @positions = User.positions_from_cache(current_user.id, status: params[:status])
         end
         render json: Oj.dump(@positions)
       }
@@ -23,12 +23,7 @@ class PositionsController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        if params[:suitable]
-          position = Position.find_from_cache(params[:suitable]).contractor(currency: current_user.currency)
-          @position = serialize(position)
-        else
-          @position = serialize(Position.new)
-        end
+        @position = serialize(Position.new)
         render json: Oj.dump(@position)
       }
     end
@@ -52,6 +47,9 @@ class PositionsController < ApplicationController
       format.json {
         @position = current_user.positions.new position_params
         if @position.save
+          if params[:position][:save_as_template]
+            current_user.templates.create position_params.update(template_name: params[:position][:template_name])
+          end
           render json: {msg: "Позиция успешно создана", redirect_to: "positions_path"}
         else
           render json: {errors: @position.errors}, status: 422
@@ -135,7 +133,7 @@ class PositionsController < ApplicationController
     end
 
     def check_owner
-      if @position[:user_id] != current_user.id
+      if @position["user_id"] != current_user.id
         render json: {msg: "Позиция не найдена", redirect_to: "positions_path"}, status: 404
       end
     end

@@ -3,9 +3,9 @@ class PositionBase < ActiveRecord::Base
   include Cacheable
   include FixSphinx
 
-  # default_scope {
-  #   includes(:trade_type, :images, :documents, :user, :currency, :weight_dimension, :weight_min_dimension, :price_weight_dimension, :option, :category, :trade_type, option: [:category])
-  # }
+  default_scope {
+    includes(:trade_type, :images, :documents, :user, :currency, :weight_dimension, :weight_min_dimension, :price_weight_dimension, :option, :category, :trade_type, option: [:category])
+  }
   
   has_many :images
   has_many :documents

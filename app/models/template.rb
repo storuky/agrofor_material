@@ -1,5 +1,9 @@
-class Template < ActiveRecord::Base
-  validates :title, presence: true, length: { maximum: 50 }
+class Template < PositionBase
+  before_save :set_template_name
 
-  belongs_to :user
+  private
+    def set_template_name
+      self.template_name ||= "#{I18n.l DateTime.now, :format => :long} – #{title}"
+    end
+
 end

@@ -50,15 +50,15 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.positions_from_cache id
-    Rails.cache.fetch("User.positions_from_cache(#{id})_#{I18n.locale}") do
-      ActiveModel::ArraySerializer.new(User.find(id).positions, each_serializer: PositionWithOffersSerializer, root: false).as_json
+  def self.positions_from_cache id, params = {}
+    Rails.cache.fetch("User.positions_from_cache(#{id}, #{params})_#{I18n.locale}") do
+      ActiveModel::ArraySerializer.new(User.find(id).positions.where(params), each_serializer: PositionWithOffersSerializer, root: false).as_json
     end
   end
 
   def self.offers_from_cache id
     Rails.cache.fetch("User.offers_from_cache(#{id})_#{I18n.locale}") do
-      ActiveModel::ArraySerializer.new(User.find(id).offers, each_serializer: OfferWithPositionsSerializer, root: false).as_json
+      ActiveModel::ArraySerializer.new(User.find(id).offers, each_serializer: OfferWithPositionSerializer, root: false).as_json
     end
   end
 

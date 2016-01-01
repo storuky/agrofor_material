@@ -21,7 +21,7 @@ staging:
 
 production:
   <<: *generic
-  mysql41: 9417
+  mysql41: 9450
 
 test:
   <<: *generic

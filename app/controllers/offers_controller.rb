@@ -1,7 +1,8 @@
 class OffersController < ApplicationController
+  before_action :set_offer, only: :update
+  before_action :set_serialized_offer, only: [:show, :edit]
   before_action :check_user
-  # before_action :set_offer, only: :show
-  before_action :set_serialized_offer, only: :show
+
 
   def index
     respond_to do |format|
@@ -27,6 +28,43 @@ class OffersController < ApplicationController
     end
   end
 
+  def update
+    respond_to do |format|
+      format.html
+      format.json {
+        return render json: {msg: "Предложение не найдено", redirect_to: "offers_path"}, status: 404 if @offer.user_id != current_user.id
+        if @offer.update(offer_params)
+          render json: {msg: "Предложение успешно отправлено"}
+        else
+          render json: {errors: @offer.errors, msg: @offer.errors.full_messages.join(', ')}, status: 422
+        end
+      }
+    end
+  end
+
+  def edit
+    respond_to do |format|
+      format.html {
+        render template: "positions/edit"
+      }
+      format.json {
+        render json: Oj.dump(@offer)
+      }
+    end
+  end
+
+  def new
+    respond_to do |format|
+      format.html {
+        render template: "positions/new"
+      }
+      format.json {
+        @offer = serialize(Position.find_from_cache(params[:suitable]).contractor(currency: current_user.currency))
+        render json: Oj.dump(@offer)
+      }
+    end
+  end
+
   def show
     respond_to do |format|
       format.html
@@ -35,6 +73,8 @@ class OffersController < ApplicationController
       }
     end
   end
+
+
 
   private
     def set_offer

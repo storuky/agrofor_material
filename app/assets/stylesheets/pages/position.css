@@ -329,12 +329,12 @@ md-dialog.position-modal md-dialog-content {
 
 .positions-filter {
   padding: 20px 20px 10px 13px;
-  /* border-bottom: 1px solid #C7C7C7; */
 }
 
 
 .positions-filter__search {
   /* max-width: 400px; */
+  /* padding-right: 40px; */
 }
 
 .positions-filter__search input[type="text"] {
@@ -526,4 +526,9 @@ md-dialog.position-modal md-dialog-content {
 
 .cluster-modal__positions .flickity-page-dots {
   display: none;
+}
+
+.position_form__template-checkbox {
+  margin-top: 22px;
+  margin-right: 0;
 }

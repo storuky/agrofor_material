@@ -2,7 +2,7 @@ script id="suitable.html" type="text/ng-template"
   div
     .suitable click-outside="opened = false"
       .suitable__selected[layout="row" layout-align="start center" ng-click="opened=!opened" ng-class="{opened: opened}"]
-        a.suitable__no-result ng-hide="positions.length" ng-href="/positions/new?suitable={{$parent.ctrl.position.id}}"
+        a.suitable__no-result ng-hide="positions.length" ng-href="/offers/new?suitable={{$parent.ctrl.position.id}}"
           b У вас нет подходящего предложения
           span Нажмите, чтобы создать
         div ng-show="positions.length"

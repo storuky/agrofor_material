@@ -21,27 +21,31 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
   action('index', function () {
     $scope.Cache = Cache;
 
-    ctrl.limitTo = 5;
 
-    Position.query(function (res) {
-      Cache.set('positions', res)
-    });
+    ctrl.filter = {
+      type: 0,
+      status: "opened"
+    }
+
+    $scope.$watch('ctrl.filter', function () {
+      if (ctrl.filter) {
+        if (ctrl.filter.type==0) {
+          Position.query(ctrl.filter, function (res) {
+            ctrl.positions = res;
+          });
+        } else if (ctrl.filter.type==1) {
+          ctrl.positions = Template.query(function (res) {
+            ctrl.positions = res;
+          });
+        }
+      }
+    }, true)
   })
 
 
   action('new', function () {
-    $scope.suitable = $location.search().suitable;
-    ctrl.save = function (form) {
-      if ($scope.suitable)
-        Offer.create({form_name: 'position', offer: ctrl.position, suitable: $scope.suitable}, function (res) {
-          ctrl.goTo({id: $scope.suitable, suitable: $scope.suitable})
-        })
-      else
-        Position.create(form, function (res) {
-          $state.go('positions_path')
-        })
-    }
-    ctrl.position = Position.new({suitable: $scope.suitable});
+    ctrl.position = Position.new();
+    ctrl.save = Position.create;
     ctrl.templates = [{title: "lol", id: 1},{title: "lal", id: 2},]
   })
 

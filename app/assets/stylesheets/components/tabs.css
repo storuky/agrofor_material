@@ -10,6 +10,7 @@
 
 text-align: center;}
 
+
 .tab {
   display: inline-block;
   font-size: 15px !important;
@@ -31,6 +32,9 @@ text-align: center;}
   border-bottom: 2px solid rgb(255, 74, 60);
 }
 
+.tabs.yellow .tab.active {
+  border-bottom-color: #FFDB4C;
+}
 .tab .md-ripple-container {
   border-radius: 0 !important;
 }
