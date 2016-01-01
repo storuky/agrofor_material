@@ -1,10 +1,7 @@
 class Offer < PositionBase
-  belongs_to :position
-
   after_commit :regenerate_cache
 
   belongs_to :position, touch: true
-  belongs_to :offer, touch: true
 
   validate :trade_type_validate
   validate :user_validate
@@ -17,10 +14,10 @@ class Offer < PositionBase
     def statuses
       [
         {
-          id: 1, title: "Новые",
+          id: 1, title: "Новые", name: "new"
         },
         {
-          id: 2, title: "Отклоненные",
+          id: 2, title: "Отклоненные", name: "rejected"
         }
       ]
     end
@@ -61,6 +58,6 @@ class Offer < PositionBase
     end
 
     def regenerate_cache
-      Rails.cache.delete("User.offers_from_cache(#{id})_#{I18n.locale}")
+      Rails.cache.delete_matched(/User\.offers_from_cache\(#{user_id}\,/)
     end
 end

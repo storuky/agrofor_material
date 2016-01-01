@@ -1,0 +1,3 @@
+class TemplateSerializer < PositionSerializer
+
+end

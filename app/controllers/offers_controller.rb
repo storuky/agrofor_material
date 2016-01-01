@@ -32,7 +32,7 @@ class OffersController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        return render json: {msg: "Предложение не найдено", redirect_to: "offers_path"}, status: 404 if @offer.user_id != current_user.id
+        return render json: {msg: "Предложение не найдено", redirect_to: "positions_path"}, status: 404 if @offer.user_id != current_user.id
         if @offer.update(offer_params)
           render json: {msg: "Предложение успешно отправлено"}
         else

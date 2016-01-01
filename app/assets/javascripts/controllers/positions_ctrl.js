@@ -1,5 +1,5 @@
-app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache', '$timeout', '$mdDialog', '$location', 'Sign', '$state', '$location',
-                        function ($scope, action, Position, Offer, Cache, $timeout, $mdDialog, $location, Sign, $state, $location) {
+app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache', '$timeout', '$mdDialog', '$location', 'Sign', '$state', '$location', 'Template',
+                        function ($scope, action, Position, Offer, Cache, $timeout, $mdDialog, $location, Sign, $state, $location, Template) {
   
   var ctrl = this;
 
@@ -21,22 +21,31 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
   action('index', function () {
     $scope.Cache = Cache;
 
+    $scope.edit_path = function (position) {
+      var hash = "{id: "+position.id+"}"
+      return "edit_"+position.type.toLowerCase()+"_path("+hash+")"
+    }
+
 
     ctrl.filter = {
       type: 0,
-      status: "opened"
+      positions: {
+        status: "opened"
+      },
+      offers: {
+        status: "new"
+      }
     }
 
     $scope.$watch('ctrl.filter', function () {
       if (ctrl.filter) {
         if (ctrl.filter.type==0) {
-          Position.query(ctrl.filter, function (res) {
-            ctrl.positions = res;
-          });
+          ctrl.positions = Position.query(ctrl.filter.positions);
         } else if (ctrl.filter.type==1) {
-          ctrl.positions = Template.query(function (res) {
-            ctrl.positions = res;
-          });
+          ctrl.positions = Offer.query(ctrl.filter.offers);
+        } else if (ctrl.filter.type==2) {
+          ctrl.positions = Template.query();
+          console.log(ctrl.positions)
         }
       }
     }, true)
@@ -46,7 +55,18 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
   action('new', function () {
     ctrl.position = Position.new();
     ctrl.save = Position.create;
-    ctrl.templates = [{title: "lol", id: 1},{title: "lal", id: 2},]
+    ctrl.templates = Template.query();
+
+    $scope.$watch('ctrl.template_id', function (template_id) {
+      if (template_id) {
+        var position = _.find(ctrl.templates, function (template) {
+          return template.id == template_id
+        })
+        position.id = undefined;
+        position.template_name = undefined;
+        ctrl.position = position;
+      }
+    })
   })
 
   action('edit', function (params) {

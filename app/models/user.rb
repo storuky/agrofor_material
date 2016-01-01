@@ -50,20 +50,26 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.templates_from_cache id, params = {}
+    Rails.cache.fetch("User.templates_from_cache(#{id}, #{params})_#{I18n.locale}") do
+      ActiveModel::ArraySerializer.new(User.find(id).templates, each_serializer: PositionSerializer, root: false).as_json
+    end
+  end
+
   def self.positions_from_cache id, params = {}
     Rails.cache.fetch("User.positions_from_cache(#{id}, #{params})_#{I18n.locale}") do
       ActiveModel::ArraySerializer.new(User.find(id).positions.where(params), each_serializer: PositionWithOffersSerializer, root: false).as_json
     end
   end
 
-  def self.offers_from_cache id
-    Rails.cache.fetch("User.offers_from_cache(#{id})_#{I18n.locale}") do
+  def self.offers_from_cache id, params = {}
+    Rails.cache.fetch("User.offers_from_cache(#{id}, #{params})_#{I18n.locale}") do
       ActiveModel::ArraySerializer.new(User.find(id).offers, each_serializer: OfferWithPositionSerializer, root: false).as_json
     end
   end
 
-  def self.feedbacks_from_cache id
-    Rails.cache.fetch("User.feedbacks_from_cache(#{id})_#{I18n.locale}") do
+  def self.feedbacks_from_cache id, params = {}
+    Rails.cache.fetch("User.feedbacks_from_cache(#{id}, #{params})_#{I18n.locale}") do
       ActiveModel::ArraySerializer.new(User.find(id).feedbacks, each_serializer: FeedbackSerializer, root: false).as_json
     end
   end

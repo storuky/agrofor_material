@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
         rates: Currency.get_rates(gon.settings[:currency][:name]),
         roles: Role.all_from_cache,
         languages: [{id: "ru", title: "Русский"}, {id: "en", title: "English"}],
-        position_tabs: [{id: 0, title: 'Позиции'},{id: 1, title: 'Шаблоны'}]
+        position_tabs: [{id: 0, title: 'Позиции'}, {id: 1, title: "Предложения"}, {id: 2, title: 'Шаблоны'}]
       }
 
 

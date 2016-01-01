@@ -5,8 +5,9 @@ div content-for="header"
         h1.md-title[flex="" flex-sm="100"]
           toggle-sidebar.hide-gt-md id="left"
           span ng-hide="suitable" Редактировать позицию
-          span ng-show="suitable" Редактировать предложение для  
-          a.link ng-href="/search/map?id={{suitable}}&suitable={{suitable}}" позиции № {{suitable}}
+          span ng-show="suitable"
+            | Редактировать предложение для  
+            a.link ng-href="/search/map?id={{suitable}}&suitable={{suitable}}" позиции № {{suitable}}
 
 .page-content.page-layout.md-whiteframe-1dp[layout="row" layout-wrap layout-padding-sm]
   = render "positions/form"

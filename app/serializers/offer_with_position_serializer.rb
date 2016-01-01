@@ -1,3 +1,7 @@
 class OfferWithPositionSerializer < PositionSerializer
-  has_one :position
+  attributes :offers
+
+  def offers
+    [PositionSerializer.new(object.position)]
+  end
 end

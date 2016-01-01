@@ -138,7 +138,7 @@ class Position < PositionBase
 
   private
     def regenerate_cache
-      Rails.cache.delete("User.positions_from_cache(#{self.user_id})_#{I18n.locale}")
+      Rails.cache.delete_matched(/User\.positions_from_cache\(#{self.user_id}\,/)
       Rails.cache.delete("Position.pluck_all_fields")
     end
     

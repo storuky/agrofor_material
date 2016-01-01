@@ -4,10 +4,13 @@ div content-for="header"
       div[layout="row" layout-wrap layout-align="space-between center"]
         h1.md-title[flex="" flex-sm="100"]
           toggle-sidebar.hide-gt-md id="left"
-          span ng-show="ctrl.filter.type == 0"
-            | Мои позиции
-          span ng-show="ctrl.filter.type == 1"
-            | Мои шаблоны
+          span ng-switch="ctrl.filter.type"
+            span ng-switch-when="0"
+              | Мои позиции
+            span ng-switch-when="1"
+              | Мои предложения
+            span ng-switch-when="2"
+              | Мои шаблоны
 
         .hide-gt-sm style="height: 20px; width: 100%;"
 
@@ -29,8 +32,11 @@ div content-for="header"
       input type="text" placeholder="Поиск" ng-model="search"
 
     div[flex="none" flex-sm=100 style="margin-top: 9px"]
-      .tabs.yellow
-        md-button.tab ng-repeat="status in gon.data.statuses" ng-class="{active: ctrl.filter.status == status.name}" ng-click="ctrl.filter.status = status.name"
+      .tabs.yellow ng-if="ctrl.filter.type == 0"
+        md-button.tab ng-repeat="status in gon.data.statuses" ng-class="{active: ctrl.filter.positions.status == status.name}" ng-click="ctrl.filter.positions.status = status.name"
+          | {{status.title}}
+      .tabs.yellow ng-if="ctrl.filter.type == 1"
+        md-button.tab ng-repeat="status in gon.data.offers_statuses" ng-class="{active: ctrl.filter.offers.status == status.name}" ng-click="ctrl.filter.offers.status = status.name"
           | {{status.title}}
 
 
@@ -38,50 +44,56 @@ div content-for="header"
     table.table.positions-table
       thead
         tr
-          th
+          th ng-if="ctrl.filter.type!=2"
             div
           th
-            div Дата
-          th
+            div ng-if="ctrl.filter.type!=2"
+              | Дата
+            div ng-if="ctrl.filter.type==2"
+              | Название
+          th ng-if="ctrl.filter.type!=2"
             div Тип
-          th
+          th ng-if="ctrl.filter.type!=2"
             div Категория
-          th.numeric
+          th.numeric ng-if="ctrl.filter.type!=2"
             div Цена
-          th.numeric
+          th.numeric ng-if="ctrl.filter.type!=2"
             div Вес
-          th.numeric
+          th.numeric ng-if="ctrl.filter.type!=2"
             div Мин. вес
           th
-      thead ng-if="!ctrl.positions"
+      thead ng-if="!ctrl.positions.$resolved"
         tr
           td colspan="7"
             md-progress-linear md-mode="indeterminate"
       tbody ng-repeat="position in ctrl.positions | filter: search" ng-class="{active: opened}"
         tr ng-click="opened = !opened"
-          td
+          td ng-if="ctrl.filter.type!=2"
             i.icon-chevron-right
             i.icon-chevron-down
-          td
-            | {{::position.created_at | date:"dd.MM.yyyy"}}
-          td
+          td style="width: 100%"
+            div ng-if="ctrl.filter.type!=2"
+              | {{::position.created_at | date:"dd.MM.yyyy"}}
+            div  ng-if="ctrl.filter.type==2"
+              | {{position.template_name}}
+          td ng-if="ctrl.filter.type!=2"
             | {{::position.trade_type.title}}
-          td
+          td ng-if="ctrl.filter.type!=2"
             | {{::position.option.title}}
-          td.numeric
+          td.numeric ng-if="ctrl.filter.type!=2"
             | {{::position.price | number:2}}
             .dim
               | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
-          td.numeric
+          td.numeric ng-if="ctrl.filter.type!=2"
             | {{::position.weight | number}}
             .dim
               | {{::position.weight_dimension.title}}
-          td.numeric
+          td.numeric ng-if="ctrl.filter.type!=2"
             | {{::position.weight_min | number}}
             .dim
               | {{::position.weight_min_dimension.title}}
-          td.btns
-            a.icon-btn ui-sref="edit_position_path(position)"
+          td.btns.w0
+            a.icon-btn ui-sref="{{edit_path(position)}}"
               i.icon-pencil
             a.icon-btn ng-click="Position.goTo(position, $event)"
               i.icon-eye
