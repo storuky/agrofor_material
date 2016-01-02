@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20151218103235) do
     t.boolean  "delta",                     default: true,     null: false
     t.string   "status",                    default: "opened"
     t.integer  "position_id"
+    t.integer  "from_position_id"
     t.integer  "offer_id"
     t.string   "title"
     t.text     "description"
@@ -165,6 +166,7 @@ ActiveRecord::Schema.define(version: 20151218103235) do
   add_index "position_bases", ["category_id"], name: "index_position_bases_on_category_id", using: :btree
   add_index "position_bases", ["city"], name: "index_position_bases_on_city", using: :btree
   add_index "position_bases", ["deal_with_id"], name: "index_position_bases_on_deal_with_id", using: :btree
+  add_index "position_bases", ["from_position_id"], name: "index_position_bases_on_from_position_id", using: :btree
   add_index "position_bases", ["lat"], name: "index_position_bases_on_lat", using: :btree
   add_index "position_bases", ["lng"], name: "index_position_bases_on_lng", using: :btree
   add_index "position_bases", ["offer_id"], name: "index_position_bases_on_offer_id", using: :btree

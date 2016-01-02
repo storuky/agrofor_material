@@ -3,7 +3,7 @@ script type="text/ng-template" id="search.html"
     .search__form
       toggle-sidebar.hide-gt-md id="left"
       .search__input
-        input hint="Полнотекстовый поиск" place="right-bottom" ng-model="Search.query" ng-model-options="{debounce: 300}" type="text" placeholder="Купить пщеницу" ng-focus="Search.showFooter = true"
+        input ng-model="Search.query" ng-model-options="{debounce: 300}" type="text" placeholder="Поиск" ng-focus="Search.showFooter = true"
         .search__addons hint="Вид отображения результатов поиска" place="left-bottom"
           a.icon-earth ui-sref="map_path" ng-class="{active: Search.type == 'map'}"
           a.icon-list ui-sref="list_path" ng-class="{active: Search.type == 'list'}"
@@ -20,8 +20,11 @@ script type="text/ng-template" id="search.html"
             .tags__wrapper
               .tag ng-repeat="tag in Search.tags" ng-click="Search.setActiveTag(tag)" ng-class="{active: Search.form.id == tag.id}"
                 .tag__title
-                  | {{gon.data.by_index.trade_types[tag.trade_type_id].title}} &nbsp;
-                  span ng-show="tag.option" «{{tag.option.title}}» &nbsp;
+                  div ng-hide="tag.checkedPositions"
+                    | {{gon.data.by_index.trade_types[tag.trade_type_id].title}} &nbsp;
+                    span ng-show="tag.option" «{{tag.option.title}}» &nbsp;
+                  div ng-show="tag.checkedPositions"
+                    | Подходящие для {{tag.checked_positions_ids.join(', ')}}
                 .tag__delete ng-click="Search.tags.splice($index, 1);"
                   | &times;
       .search__count
@@ -34,73 +37,96 @@ script type="text/ng-template" id="search.html"
           | {{Search.visible_count}}
   .search__extended__wrapper.hidden-scroll scroll=""
     .search__extended.md-whiteframe-2dp ng-class="{visible: Search.showExtended}"
-      .title Расширенный поиск
-      .close ng-click="Search.showExtended = false; Search.resetForm();"
+      .search__extended__tabs
+        .search__extended__tab ng-click="Search.tab = 'params'" ng-class="{active: Search.tab == 'params'}" Поиск по параметрам
+        .search__extended__tab ng-click="Search.tab = 'suitable'" ng-class="{active: Search.tab == 'suitable'}" Подходящие позиции
+      /.title Расширенный поиск
+      /.close ng-click="Search.showExtended = false; Search.resetForm();"
         .icon-close
-      form
-        div[layout="row" layout-padding layout-wrap]
-          div[flex]
-            md-input-container.md-block
-              label Тип позиции
-              md-select ng-model="Search.form.trade_type_id"
-                md-option ng-repeat="trade_type in gon.data.trade_types" value="{{trade_type.id}}"
-                  | {{trade_type.title}}
-          div[flex]
-            option-picker ng-model="Search.form.option" autocomplete-text="Search.form.autocomplete_text"
-
-          div[flex=100 layout="row"]
+      div style="height: 466px"
+        form ng-show="Search.tab == 'params'"
+          div[layout="row" layout-padding layout-wrap]
             div[flex]
               md-input-container.md-block
-                label Местоположение
-                input.md-block[type="text" suggest ng-model="Search.form.address" coords="Search.form.coords" rebuild="Search.form.id" radius="Search.form.default_radius" bounded-by="Search.form.bounded_by"]
-            div[flex="none" style="padding: 25px 10px 0 10px;"]
-              | ±
-            div[flex style="max-width: 110px"]
-              md-input-container.md-block
-                label Радиус
-                input[type="text" ng-model="Search.form.radius" aria-label="radius"]
-                .addon км
-
-          div[layout="row" flex=50 style="min-width: 180px"]
-            md-input-container[flex]
-              label Вес, от
-              input type="text" ng-model="Search.form.weight_from"
-            md-input-container[flex="none"]
-              md-select aria-label="weight from" ng-model="Search.form.weight_from_dimension_id"
-                md-option ng-repeat="wd in gon.data.weight_dimensions" value="{{wd.id}}"
-                  | {{wd.title}}
-
-          div[layout="row" flex=50 style="min-width: 180px"]
+                label Тип позиции
+                md-select ng-model="Search.form.trade_type_id"
+                  md-option ng-repeat="trade_type in gon.data.trade_types" value="{{trade_type.id}}"
+                    | {{trade_type.title}}
             div[flex]
-              md-input-container
-                label Вес, до
-                input type="text" ng-model="Search.form.weight_to"
-            div[flex="none"]
-              md-input-container
-                md-select aria-label="weight to" ng-model="Search.form.weight_to_dimension_id"
+              option-picker ng-model="Search.form.option" autocomplete-text="Search.form.autocomplete_text"
+
+            div[flex=100 layout="row"]
+              div[flex]
+                md-input-container.md-block
+                  label Местоположение
+                  input.md-block[type="text" suggest ng-model="Search.form.address" coords="Search.form.coords" rebuild="Search.form.id" radius="Search.form.default_radius" bounded-by="Search.form.bounded_by"]
+              div[flex="none" style="padding: 25px 10px 0 10px;"]
+                | ±
+              div[flex style="max-width: 110px"]
+                md-input-container.md-block
+                  label Радиус
+                  input[type="text" ng-model="Search.form.radius" aria-label="radius"]
+                  .addon км
+
+            div[layout="row" flex=50 style="min-width: 180px"]
+              md-input-container[flex]
+                label Вес, от
+                input type="text" ng-model="Search.form.weight_from"
+              md-input-container[flex="none"]
+                md-select aria-label="weight from" ng-model="Search.form.weight_from_dimension_id"
                   md-option ng-repeat="wd in gon.data.weight_dimensions" value="{{wd.id}}"
                     | {{wd.title}}
 
-          div[layout="row" flex=50 style="min-width: 180px"]
-            div[flex]
-              md-input-container
-                label Цена, от
-                input type="text" ng-model="Search.form.price_from"
-            div[flex="none"]
-              md-input-container
-                md-select aria-label="price from" ng-model="Search.form.price_from_weight_dimension_id"
-                  md-option ng-repeat="wd in gon.data.weight_dimensions" value="{{wd.id}}"
-                    | {{gon.settings.currency.title}}/{{wd.title}}
+            div[layout="row" flex=50 style="min-width: 180px"]
+              div[flex]
+                md-input-container
+                  label Вес, до
+                  input type="text" ng-model="Search.form.weight_to"
+              div[flex="none"]
+                md-input-container
+                  md-select aria-label="weight to" ng-model="Search.form.weight_to_dimension_id"
+                    md-option ng-repeat="wd in gon.data.weight_dimensions" value="{{wd.id}}"
+                      | {{wd.title}}
 
-          div[layout="row" flex=50 style="min-width: 180px"]
-            div[flex]
-              md-input-container
-                label Цена, до
-                input type="text" ng-model="Search.form.price_to"
-            div[flex="none"]
-              md-input-container
-                md-select aria-label="price to" ng-model="Search.form.price_to_weight_dimension_id"
-                  md-option ng-repeat="wd in gon.data.weight_dimensions" value="{{wd.id}}"
-                    | {{gon.settings.currency.title}}/{{wd.title}}
+            div[layout="row" flex=50 style="min-width: 180px"]
+              div[flex]
+                md-input-container
+                  label Цена, от
+                  input type="text" ng-model="Search.form.price_from"
+              div[flex="none"]
+                md-input-container
+                  md-select aria-label="price from" ng-model="Search.form.price_from_weight_dimension_id"
+                    md-option ng-repeat="wd in gon.data.weight_dimensions" value="{{wd.id}}"
+                      | {{gon.settings.currency.title}}/{{wd.title}}
+
+            div[layout="row" flex=50 style="min-width: 180px"]
+              div[flex]
+                md-input-container
+                  label Цена, до
+                  input type="text" ng-model="Search.form.price_to"
+              div[flex="none"]
+                md-input-container
+                  md-select aria-label="price to" ng-model="Search.form.price_to_weight_dimension_id"
+                    md-option ng-repeat="wd in gon.data.weight_dimensions" value="{{wd.id}}"
+                      | {{gon.settings.currency.title}}/{{wd.title}}
+
+        .search__extended__suitable__positions__wrapper ng-show="Search.tab == 'suitable'"
+          .search__extended__suitable__positions
+            label.search__extended__suitable__position ng-class="{active: Search.form.checkedPositions[position.id]}" ng-repeat="position in ctrl.positions"
+              .search__extended__suitable__position__overflow
+              .search__extended__suitable__position__left
+                input.hidden type="checkbox" ng-model="Search.form.checkedPositions[position.id]" checklist-model="Search.form.checked_positions_ids" checklist-value="position.id"
+                md-checkbox.position_form__template-checkbox ng-model="Search.form.checkedPositions[position.id]" aria-label="Template"
+              .search__extended__suitable__position__right
+                div
+                  | {{position.created_at | date:"dd.MM.yyyy"}}
+                div
+                  b
+                    | {{position.title}}
+                div
+                  | {{position.option.title}}
+                div
+                  | {{position.weight}} {{position.weight_dimension.title}}, мин. {{position.weight_min}} {{position.weight_min_dimension.title}}, {{position.price}} {{position.currency.title}}/{{position.price_weight_dimension.title}}
         .search__extended__footer
+          md-button.md-raised.md-white.md-lg ng-click="Search.resetForm()" Отчистить
           md-button.md-raised.md-yellow.md-lg ng-click="Search.addTag(Search.form)" Применить

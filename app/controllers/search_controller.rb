@@ -27,7 +27,7 @@ class SearchController < ApplicationController
 
   private
     def set_search_result
-      @positions = Position.look_for(params[:query])
+      @positions = PositionBase.look_for(params[:query])
       
       tags = params[:tags].try(:values)
       if tags.try(:any?)

@@ -279,6 +279,8 @@ md-dialog.position-modal md-dialog-content {
   width: 100%;
   line-height: 18px;
   font-size: 14px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .position-modal__other-offer:hover {

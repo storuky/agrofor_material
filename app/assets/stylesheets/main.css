@@ -248,6 +248,7 @@ hr {
 
 .md-white, .md-white.md-button {
   background: white !important;
+  text-transform: none;
 }
 
 i.icon-star {
@@ -258,4 +259,8 @@ i.icon-star {
 
 .icon-star:hover,  .icon-star.active{
   color: #ffc107;
+}
+
+.hidden {
+  display: none !important;
 }

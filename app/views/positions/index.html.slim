@@ -64,7 +64,7 @@ div content-for="header"
           th
       thead ng-if="!ctrl.positions.$resolved"
         tr
-          td colspan="7"
+          td colspan="8"
             md-progress-linear md-mode="indeterminate"
       tbody ng-repeat="position in ctrl.positions | filter: search" ng-class="{active: opened}"
         tr ng-click="opened = !opened"

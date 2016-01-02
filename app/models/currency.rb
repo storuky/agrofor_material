@@ -34,14 +34,14 @@ class Currency < ActiveRecord::Base
     },
   ]
 
-  @@redis = Redis.new(:host => "127.0.0.1", :port => "6379", :driver => :hiredis, :db => 2)
-
   class << self
     def get_rates name
-      rates = Currency.all_from_cache.map do |currency|
-        {id: currency.id, rate: currency.get_rate(name)}
+      Rails.cache.fetch("Currency.get_rates(#{name})", expires_in: 1.hours) do
+        rates = Currency.all_from_cache.map do |currency|
+          {id: currency.id, rate: currency.get_rate(name)}
+        end
+        rates.index_by{|rate| rate[:id]}
       end
-      rates.index_by{|rate| rate[:id]}
     end
 
     def normalize weight, weight_dimension_id
@@ -49,24 +49,14 @@ class Currency < ActiveRecord::Base
     end
   end
 
-  def redis
-    @@redis
-  end
-
-
   def get_rate name
-    if self.name == name
-      1
-    else
-      symbol = self.name + name
-      if @@redis.exists(symbol)
-        @@redis.get(symbol).to_f
+    Rails.cache.fetch("Currency.get_rate(#{self.name}/#{name})", expires_in: 1.hours) do
+      if self.name == name
+        1
       else
+        symbol = self.name + name
         bank = Money::Bank::GoogleCurrency.new
-        rate = bank.get_rate(self.name, name).to_f
-        @@redis.set(symbol, rate, ex: 60*60)
-        @@redis.set(name+self.name, 1.0/rate, ex: 60*60)
-        rate
+        bank.get_rate(self.name, name).to_f
       end
     end
   end

@@ -3,6 +3,8 @@ app.service('Search', ['$rootScope', '$http', 'ngNotify', function ($rootScope, 
 
   Search.tags = [];
 
+  Search.tab = 'params';
+
   var searchCallback = function (res) {
     if (Search.type == 'map') {
       Search.positions = res.data;
@@ -26,13 +28,23 @@ app.service('Search', ['$rootScope', '$http', 'ngNotify', function ($rootScope, 
   }
 
   Search.addTag = function (params) {
-    if (!params.option || !params.option.id) {
-      ngNotify.set('Укажите категорию', 'error');
-      return false;
+    var tag = angular.copy(params);
+
+    if (Search.tab == 'params') {
+      if (tag.option)
+        tag.option_id = tag.option.id;
+
+      if (!params.option || !params.option.id) {
+        ngNotify.set('Укажите категорию', 'error');
+        return false;
+      }
+    } else if (Search.tab == 'suitable') {
+      if (!params.checked_positions_ids || !params.checked_positions_ids.length) {
+        ngNotify.set('Выберите хотя бы одну позицию', 'error');
+        return false;
+      }
     }
 
-    var tag = angular.copy(params);
-    tag.option_id = tag.option.id;
     if (tag.id !== undefined) {
       Search.tags[tag.id] = tag;
     } else {
@@ -46,6 +58,11 @@ app.service('Search', ['$rootScope', '$http', 'ngNotify', function ($rootScope, 
 
   Search.setActiveTag = function (tag) {
     Search.form = _.clone(tag);
+    if (Search.form.checked_positions_ids) {
+      Search.tab = "suitable";
+    } else {
+      Search.tab = "params";
+    }
     Search.showExtended = true;
   }
 

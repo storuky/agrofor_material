@@ -11,6 +11,9 @@ class CreatePositionBases < ActiveRecord::Migration
       t.integer :position_id
       t.index :position_id
 
+      t.integer :from_position_id
+      t.index :from_position_id
+
       t.integer :offer_id
       t.index :offer_id
       
