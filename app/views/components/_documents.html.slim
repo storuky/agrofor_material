@@ -1,5 +1,5 @@
 script type="text/ng-template" id="documents.html"
-  .uploaded-documents
+  .uploaded-documents ng-show="ngModel.length"
     .uploaded-documents__item ng-repeat="document in ngModel"
       .uploaded-documents__extension
         | {{document.extension}}

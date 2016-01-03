@@ -1,5 +1,8 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes *(User.attribute_names - []), :avatar, :language, :currency
+  attributes :id, :email, :phones, :fullname, :avatar, :language, :currency,
+             :website, :skype, :city, :address, :lat, :lng, :company, :currency_id, 
+             :additional, :banned, :timezone, :country, :locale, :currency,
+             :first_name, :last_name
 
   has_many :interests
 

@@ -3,7 +3,7 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', 'Offer', func
     var type = $location.search().type,
         Resource;
 
-    if (type == 'Offer')
+    if (type == 'offer')
       Resource = Offer;
     else
       Resource = Position;
@@ -50,6 +50,7 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', 'Offer', func
       // body...
     }, function () {
       $location.search('id', undefined)
+      $location.search('type', undefined)
       if (!$location.search().ids)
         Search.blur = false;
     })

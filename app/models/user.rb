@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   belongs_to :role
 
   has_many :correspondence_users
-  has_many :correspondences, through: :correspondence_users
+  has_many :correspondences, through: :correspondence_users, source: :correspondence 
 
   has_many :favorite_positions
   has_many :favorites, through: :favorite_positions, source: :position
@@ -71,6 +71,12 @@ class User < ActiveRecord::Base
   def self.feedbacks_from_cache id, params = {}
     Rails.cache.fetch("User.feedbacks_from_cache(#{id}, #{params})_#{I18n.locale}") do
       ActiveModel::ArraySerializer.new(User.find(id).feedbacks.order("updated_at DESC"), each_serializer: FeedbackSerializer, root: false).as_json
+    end
+  end
+
+  def self.correspondences_from_cache id, params = {}
+    Rails.cache.fetch("User.correspondences_from_cache(#{id}, #{params})_#{I18n.locale}") do
+      ActiveModel::ArraySerializer.new(User.find(id).correspondences.order("updated_at DESC"), each_serializer: CorrespondencesSerializer, root: false).as_json
     end
   end
 end

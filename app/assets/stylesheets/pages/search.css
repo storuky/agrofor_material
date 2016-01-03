@@ -415,3 +415,8 @@
   top: 0;
   bottom: 0;
 }
+
+
+.search__extended__suitable__position b {
+  font-weight: 500;
+}

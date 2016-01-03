@@ -24,7 +24,7 @@ script type="text/ng-template" id="search.html"
                     | {{gon.data.by_index.trade_types[tag.trade_type_id].title}} &nbsp;
                     span ng-show="tag.option" «{{tag.option.title}}» &nbsp;
                   div ng-show="tag.checkedPositions"
-                    | Подходящие для {{tag.checked_positions_ids.join(', ')}}
+                    | Подходящие для №{{tag.checked_positions_ids.join(', ')}}
                 .tag__delete ng-click="Search.tags.splice($index, 1);"
                   | &times;
       .search__count

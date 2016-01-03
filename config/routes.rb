@@ -25,8 +25,11 @@ Rails.application.routes.draw do
   resources :offers
   resources :favorites
   resources :templates
-  resources :messages
-  resources :correspondences
+  resources :correspondences do
+    member do
+      post :send_message
+    end
+  end
   resources :offers
   resources :profile do
     member do

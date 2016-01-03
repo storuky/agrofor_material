@@ -1,4 +1,4 @@
-app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', function ($scope, action, Profile, Position) {
+app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Correspondence', function ($scope, action, Profile, Position, Correspondence) {
   var ctrl = this;
 
   ctrl.profileInfoTabs = [{id: 0, title: 'Личные данные'}, {id: 1, title: "Местоположение"}, {id: 2, title: "Контактные данные"}]
@@ -8,6 +8,7 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', functi
   ctrl.profilePositionsTab = 0;
 
   $scope.Position = Position;
+  $scope.Correspondence = Correspondence;
 
   ctrl.querySearch = function (query) {
     var  interest_ids = _.pluck(ctrl.user.interests, 'id')

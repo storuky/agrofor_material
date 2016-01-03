@@ -649,66 +649,6 @@
           }
         })
       
-        .state('messages_path', {
-          url: '/messages',
-          templateUrl: function(params) {
-            params['ng-view']='';
-            
-            return Routes['messages_path'](params);
-          },
-          controller: 'MessagesCtrl as ctrl',
-          resolve: {
-            action: ['$stateParams', function ($stateParams) {
-              return resolve('index', $stateParams)
-            }]
-          }
-        })
-      
-        .state('new_message_path', {
-          url: '/messages/new',
-          templateUrl: function(params) {
-            params['ng-view']='';
-            
-            return Routes['new_message_path'](params);
-          },
-          controller: 'MessagesCtrl as ctrl',
-          resolve: {
-            action: ['$stateParams', function ($stateParams) {
-              return resolve('new', $stateParams)
-            }]
-          }
-        })
-      
-        .state('edit_message_path', {
-          url: '/messages/:id/edit',
-          templateUrl: function(params) {
-            params['ng-view']='';
-            
-            return Routes['edit_message_path'](params);
-          },
-          controller: 'MessagesCtrl as ctrl',
-          resolve: {
-            action: ['$stateParams', function ($stateParams) {
-              return resolve('edit', $stateParams)
-            }]
-          }
-        })
-      
-        .state('message_path', {
-          url: '/messages/:id',
-          templateUrl: function(params) {
-            params['ng-view']='';
-            
-            return Routes['message_path'](params);
-          },
-          controller: 'MessagesCtrl as ctrl',
-          resolve: {
-            action: ['$stateParams', function ($stateParams) {
-              return resolve('show', $stateParams)
-            }]
-          }
-        })
-      
         .state('correspondences_path', {
           url: '/correspondences',
           templateUrl: function(params) {
@@ -1122,14 +1062,9 @@
       return resourceDecorator($resource('/templates/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/templates/:id/new.json"},"edit":{"method":"GET","url":"/templates/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
     }])
   
-    Resources['Message'] = {"new":{"method":"GET","url":"/messages/:id/new.json"},"edit":{"method":"GET","url":"/messages/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}};
-    angular.module('oxymoron').factory('Message', ['$resource', 'resourceDecorator', function ($resource, resourceDecorator) {
-      return resourceDecorator($resource('/messages/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/messages/:id/new.json"},"edit":{"method":"GET","url":"/messages/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
-    }])
-  
-    Resources['Correspondence'] = {"new":{"method":"GET","url":"/correspondences/:id/new.json"},"edit":{"method":"GET","url":"/correspondences/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}};
+    Resources['Correspondence'] = {"new":{"method":"GET","url":"/correspondences/:id/new.json"},"edit":{"method":"GET","url":"/correspondences/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"},"send_message":{"url":"/correspondences/:id/send_message.json","isArray":null,"method":"POST"}};
     angular.module('oxymoron').factory('Correspondence', ['$resource', 'resourceDecorator', function ($resource, resourceDecorator) {
-      return resourceDecorator($resource('/correspondences/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/correspondences/:id/new.json"},"edit":{"method":"GET","url":"/correspondences/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"}}));
+      return resourceDecorator($resource('/correspondences/:id.json', {"id":"@id"}, {"new":{"method":"GET","url":"/correspondences/:id/new.json"},"edit":{"method":"GET","url":"/correspondences/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"},"send_message":{"url":"/correspondences/:id/send_message.json","isArray":null,"method":"POST"}}));
     }])
   
     Resources['Profile'] = {"new":{"method":"GET","url":"/profile/:id/new.json"},"edit":{"method":"GET","url":"/profile/:id/edit.json"},"update":{"method":"PUT"},"create":{"method":"POST"},"destroy":{"method":"DELETE"},"positions":{"url":"/profile/:id/positions.json","isArray":true,"method":"GET"},"feedbacks":{"url":"/profile/:id/feedbacks.json","isArray":true,"method":"GET"}};
@@ -1464,7 +1399,7 @@
 (function () {
   var Routes = function () {
     var self = this,
-        routes = {"root":{"defaults":{},"path":"/"},"new_user_session":{"defaults":{},"path":"/users/sign_in"},"user_session":{"defaults":{},"path":"/users/sign_in"},"destroy_user_session":{"defaults":{},"path":"/users/sign_out"},"user_password":{"defaults":{},"path":"/users/password"},"new_user_password":{"defaults":{},"path":"/users/password/new"},"edit_user_password":{"defaults":{},"path":"/users/password/edit"},"cancel_user_registration":{"defaults":{},"path":"/users/cancel"},"user_registration":{"defaults":{},"path":"/users"},"new_user_registration":{"defaults":{},"path":"/users/sign_up"},"edit_user_registration":{"defaults":{},"path":"/users/edit"},"map":{"defaults":{},"path":"/search/map"},"list":{"defaults":{},"path":"/search/list"},"analytics":{"defaults":{},"path":"/analytics"},"support":{"defaults":{},"path":"/support"},"help":{"defaults":{},"path":"/help"},"settings":{"defaults":{},"path":"/settings"},"images":{"defaults":{},"path":"/images"},"new_image":{"defaults":{},"path":"/images/new"},"edit_image":{"defaults":{},"path":"/images/:id/edit"},"image":{"defaults":{},"path":"/images/:id"},"documents":{"defaults":{},"path":"/documents"},"new_document":{"defaults":{},"path":"/documents/new"},"edit_document":{"defaults":{},"path":"/documents/:id/edit"},"document":{"defaults":{},"path":"/documents/:id"},"files":{"defaults":{},"path":"/files"},"new_file":{"defaults":{},"path":"/files/new"},"edit_file":{"defaults":{},"path":"/files/:id/edit"},"file":{"defaults":{},"path":"/files/:id"},"positions":{"defaults":{},"path":"/positions"},"new_position":{"defaults":{},"path":"/positions/new"},"edit_position":{"defaults":{},"path":"/positions/:id/edit"},"position":{"defaults":{},"path":"/positions/:id"},"offers":{"defaults":{},"path":"/offers"},"new_offer":{"defaults":{},"path":"/offers/new"},"edit_offer":{"defaults":{},"path":"/offers/:id/edit"},"offer":{"defaults":{},"path":"/offers/:id"},"favorites":{"defaults":{},"path":"/favorites"},"new_favorite":{"defaults":{},"path":"/favorites/new"},"edit_favorite":{"defaults":{},"path":"/favorites/:id/edit"},"favorite":{"defaults":{},"path":"/favorites/:id"},"templates":{"defaults":{},"path":"/templates"},"new_template":{"defaults":{},"path":"/templates/new"},"edit_template":{"defaults":{},"path":"/templates/:id/edit"},"template":{"defaults":{},"path":"/templates/:id"},"messages":{"defaults":{},"path":"/messages"},"new_message":{"defaults":{},"path":"/messages/new"},"edit_message":{"defaults":{},"path":"/messages/:id/edit"},"message":{"defaults":{},"path":"/messages/:id"},"correspondences":{"defaults":{},"path":"/correspondences"},"new_correspondence":{"defaults":{},"path":"/correspondences/new"},"edit_correspondence":{"defaults":{},"path":"/correspondences/:id/edit"},"correspondence":{"defaults":{},"path":"/correspondences/:id"},"positions_profile":{"defaults":{},"path":"/profile/:id/positions"},"feedbacks_profile":{"defaults":{},"path":"/profile/:id/feedbacks"},"profile_index":{"defaults":{},"path":"/profile"},"new_profile":{"defaults":{},"path":"/profile/new"},"edit_profile":{"defaults":{},"path":"/profile/:id/edit"},"profile":{"defaults":{},"path":"/profile/:id"},"users":{"defaults":{},"path":"/users"},"new_user":{"defaults":{},"path":"/users/new"},"edit_user":{"defaults":{},"path":"/users/:id/edit"},"user":{"defaults":{},"path":"/users/:id"},"suitable_position":{"defaults":{},"path":"/positions/:id/suitable"},"offers_position":{"defaults":{},"path":"/positions/:id/offers"},"send_offer_position":{"defaults":{},"path":"/positions/:id/send_offer"},"toggle_favorite_position":{"defaults":{},"path":"/positions/:id/toggle_favorite"},"rails_info_properties":{"defaults":{},"path":"/rails/info/properties"},"rails_info_routes":{"defaults":{},"path":"/rails/info/routes"},"rails_info":{"defaults":{},"path":"/rails/info"},"rails_mailers":{"defaults":{},"path":"/rails/mailers"}};
+        routes = {"root":{"defaults":{},"path":"/"},"new_user_session":{"defaults":{},"path":"/users/sign_in"},"user_session":{"defaults":{},"path":"/users/sign_in"},"destroy_user_session":{"defaults":{},"path":"/users/sign_out"},"user_password":{"defaults":{},"path":"/users/password"},"new_user_password":{"defaults":{},"path":"/users/password/new"},"edit_user_password":{"defaults":{},"path":"/users/password/edit"},"cancel_user_registration":{"defaults":{},"path":"/users/cancel"},"user_registration":{"defaults":{},"path":"/users"},"new_user_registration":{"defaults":{},"path":"/users/sign_up"},"edit_user_registration":{"defaults":{},"path":"/users/edit"},"map":{"defaults":{},"path":"/search/map"},"list":{"defaults":{},"path":"/search/list"},"analytics":{"defaults":{},"path":"/analytics"},"support":{"defaults":{},"path":"/support"},"help":{"defaults":{},"path":"/help"},"settings":{"defaults":{},"path":"/settings"},"images":{"defaults":{},"path":"/images"},"new_image":{"defaults":{},"path":"/images/new"},"edit_image":{"defaults":{},"path":"/images/:id/edit"},"image":{"defaults":{},"path":"/images/:id"},"documents":{"defaults":{},"path":"/documents"},"new_document":{"defaults":{},"path":"/documents/new"},"edit_document":{"defaults":{},"path":"/documents/:id/edit"},"document":{"defaults":{},"path":"/documents/:id"},"files":{"defaults":{},"path":"/files"},"new_file":{"defaults":{},"path":"/files/new"},"edit_file":{"defaults":{},"path":"/files/:id/edit"},"file":{"defaults":{},"path":"/files/:id"},"positions":{"defaults":{},"path":"/positions"},"new_position":{"defaults":{},"path":"/positions/new"},"edit_position":{"defaults":{},"path":"/positions/:id/edit"},"position":{"defaults":{},"path":"/positions/:id"},"offers":{"defaults":{},"path":"/offers"},"new_offer":{"defaults":{},"path":"/offers/new"},"edit_offer":{"defaults":{},"path":"/offers/:id/edit"},"offer":{"defaults":{},"path":"/offers/:id"},"favorites":{"defaults":{},"path":"/favorites"},"new_favorite":{"defaults":{},"path":"/favorites/new"},"edit_favorite":{"defaults":{},"path":"/favorites/:id/edit"},"favorite":{"defaults":{},"path":"/favorites/:id"},"templates":{"defaults":{},"path":"/templates"},"new_template":{"defaults":{},"path":"/templates/new"},"edit_template":{"defaults":{},"path":"/templates/:id/edit"},"template":{"defaults":{},"path":"/templates/:id"},"send_message_correspondence":{"defaults":{},"path":"/correspondences/:id/send_message"},"correspondences":{"defaults":{},"path":"/correspondences"},"new_correspondence":{"defaults":{},"path":"/correspondences/new"},"edit_correspondence":{"defaults":{},"path":"/correspondences/:id/edit"},"correspondence":{"defaults":{},"path":"/correspondences/:id"},"positions_profile":{"defaults":{},"path":"/profile/:id/positions"},"feedbacks_profile":{"defaults":{},"path":"/profile/:id/feedbacks"},"profile_index":{"defaults":{},"path":"/profile"},"new_profile":{"defaults":{},"path":"/profile/new"},"edit_profile":{"defaults":{},"path":"/profile/:id/edit"},"profile":{"defaults":{},"path":"/profile/:id"},"users":{"defaults":{},"path":"/users"},"new_user":{"defaults":{},"path":"/users/new"},"edit_user":{"defaults":{},"path":"/users/:id/edit"},"user":{"defaults":{},"path":"/users/:id"},"suitable_position":{"defaults":{},"path":"/positions/:id/suitable"},"offers_position":{"defaults":{},"path":"/positions/:id/offers"},"send_offer_position":{"defaults":{},"path":"/positions/:id/send_offer"},"toggle_favorite_position":{"defaults":{},"path":"/positions/:id/toggle_favorite"},"rails_info_properties":{"defaults":{},"path":"/rails/info/properties"},"rails_info_routes":{"defaults":{},"path":"/rails/info/routes"},"rails_info":{"defaults":{},"path":"/rails/info"},"rails_mailers":{"defaults":{},"path":"/rails/mailers"}};
 
     self.defaultParams = {}
 

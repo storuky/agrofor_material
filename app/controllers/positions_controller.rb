@@ -81,7 +81,7 @@ class PositionsController < ApplicationController
   def suitable
     respond_to do |format|
       format.json {
-        @positions = Position.find_suitable(@position).where(user_id: current_user.id).where.not(id: @position.offers.pluck(:from_position_id))
+        @positions = Position.find_suitable(@position.id).where(user_id: current_user.id).where.not(id: @position.offers.pluck(:from_position_id))
         @positions = serialize(@positions)
         render json: Oj.dump(@positions)
       }

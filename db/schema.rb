@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151218103235) do
+ActiveRecord::Schema.define(version: 20160103195946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,9 +45,9 @@ ActiveRecord::Schema.define(version: 20151218103235) do
   create_table "correspondences", force: :cascade do |t|
     t.integer  "users_ids",           default: [],                   array: true
     t.integer  "positions_ids",       default: [],                   array: true
-    t.json     "json_users",          default: []
-    t.json     "json_positions",      default: []
     t.string   "correspondence_type", default: "users"
+    t.string   "last_message"
+    t.integer  "messages_count",      default: 0
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
   end
@@ -74,6 +74,14 @@ ActiveRecord::Schema.define(version: 20151218103235) do
   add_index "deals", ["offer_id"], name: "index_deals_on_offer_id", using: :btree
   add_index "deals", ["position_id"], name: "index_deals_on_position_id", using: :btree
 
+  create_table "documentables", force: :cascade do |t|
+    t.integer  "document_id"
+    t.integer  "documentable_id"
+    t.string   "documentable_type"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
   create_table "documents", force: :cascade do |t|
     t.string   "file"
     t.integer  "user_id"
@@ -98,6 +106,14 @@ ActiveRecord::Schema.define(version: 20151218103235) do
     t.boolean  "positive",         default: true
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+  end
+
+  create_table "imageables", force: :cascade do |t|
+    t.integer  "image_id"
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "images", force: :cascade do |t|

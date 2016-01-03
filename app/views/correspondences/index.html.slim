@@ -1,0 +1,67 @@
+div content-for="header"
+  .page-header
+    .page-layout[style="margin: 0"]
+      div[layout="row" layout-wrap layout-align="space-between center"]
+        h1.md-title[flex="" flex-sm="100"]
+          toggle-sidebar.hide-gt-md id="left"
+          span Мои сообщения
+
+.message-page
+  .message-page__contacts
+    .message-page__contacts__search
+      i.icon-magnify
+      input type="text" placeholder="Поиск" ng-model="ctrl.contactSearch"
+    .message-page__contacts__content
+        a href="/correspondences?id={{correspondence.id}}" ng-repeat="correspondence in ctrl.correspondences | filter:ctrl.contactSearch"
+          md-list-item class="md-3-line" ng-class="{active: correspondence==ctrl.contact}" ng-click="test=1"
+            img.md-avatar ng-src="/avatar.png" alt="{{correspondence.who}}"
+            .md-list-item-text layout="column"
+              .message-page__contacts__time
+                | {{correspondence.updated_at | dateFormat}}
+              .md-list-item-author
+                h3
+                  | {{::opponent_user(correspondence.users).fullname}}
+              p ng-init="position = opponent_position(correspondence.json_users)"
+                span ng-show="correspondence.correspondence_type == 'users'"
+                  | {{correspondence.last_message}}
+                span ng-show="correspondence.correspondence_type == 'positions'"
+                  | {{::position.trade_type.title}} «{{::position.option.title}}» {{::position.weight}} {{::position.weight_dimension.title}}, {{::position.price}} {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
+
+
+
+  .message-page__body
+    .message-page__messages ng-show="ctrl.contact"
+      .message-page__body__wrapper[layout="row" layout-wrap layout-align="start end"]
+        div[flex=100 ]
+          .message[layout="row" ng-repeat="message in ctrl.correspondence.messages"]
+            .message__avatar[flex="none"]
+              img ng-src="/avatar.png" width="40"
+            div[flex]
+              .message__body
+                pre.message__text
+                  | {{message.body}}
+                documents ng-model="message.documents"
+                .message__created_at
+                  | {{message.created_at | dateFormat}}
+
+
+    .message-page__send ng-show="ctrl.contact"
+      form.message-page__body__wrapper ng-submit="send()"
+        .message-page__send__textarea
+          md-input-container.md-block md-no-float=""
+            textarea placeholder="Текст сообщения" ng-model="ctrl.form.body"
+        .message-page__send__actions[layout="row" layout-align="space-between center"]
+          .message-page__send__attach
+            div ng-repeat="document in ctrl.form.documents"
+              a ng-href="{{document.url}}" target="_blank"
+                | {{document.filename}}
+            div
+              label
+                input.hidden type="file" fileupload="Routes.documents_path()" ng-model="ctrl.form.documents" multiple="true"
+                i.icon-attachment
+                span
+                  | Прикрепить документы
+          
+          .message-page__send__button
+            md-button.md-raised.md-yellow.md-sm type="submit" Отправить
+      

@@ -6,6 +6,15 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
   ctrl.goTo = function (position) {
     Position.goTo(position)
   }
+
+  $scope.edit_path = function (position) {
+    var hash = "{id: "+position.id+"}"
+    return "edit_"+position.type.toLowerCase()+"_path("+hash+")"
+  }
+
+  $scope.show_path = function (position) {
+    return "/search/map?type=" + position.type.toLowerCase() + "&id=" + position.id
+  }
   
   $scope.gon = gon;
   $scope.Position = Position;
@@ -20,12 +29,6 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
 
   action('index', function () {
     $scope.Cache = Cache;
-
-    $scope.edit_path = function (position) {
-      var hash = "{id: "+position.id+"}"
-      return "edit_"+position.type.toLowerCase()+"_path("+hash+")"
-    }
-
 
     ctrl.filter = {
       type: 0,
@@ -59,9 +62,9 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
 
     $scope.$watch('ctrl.template_id', function (template_id) {
       if (template_id) {
-        var position = _.find(ctrl.templates, function (template) {
+        var position = angular.copy(_.find(ctrl.templates, function (template) {
           return template.id == template_id
-        })
+        }))
         position.id = undefined;
         position.template_name = undefined;
         ctrl.position = position;

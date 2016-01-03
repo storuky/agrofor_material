@@ -9,11 +9,14 @@ class PositionBase < ActiveRecord::Base
     includes(:trade_type, :images, :documents, :user, :currency, :weight_dimension, :weight_min_dimension, :price_weight_dimension, :option, :category, :trade_type, option: [:category])
   }
   
-  has_many :images
-  has_many :documents
+  has_many :imageable, as: :imageable
+  has_many :images, through: :imageable
   
-  has_many :correspondence_positions, :inverse_of => :position
-  has_many :correspondences, through: :correspondence_positions
+  has_many :documentable, as: :documentable
+  has_many :documents, through: :documentable
+  
+  has_many :correspondence_positions
+  has_many :correspondences, through: :correspondence_positions, source: :correspondence
   
   belongs_to :user
   belongs_to :currency
@@ -63,19 +66,18 @@ class PositionBase < ActiveRecord::Base
       filters.first(10).each do |filter|
         unless filter["checked_positions_ids"].try(:any?)
           user_currency = Currency.all_by_index_from_cache(serializer: CurrencySerializer)[filter[:currency_id].to_i]
-
-          query = {}
-          query[:trade_type_id] = filter["trade_type_id"] if filter["trade_type_id"]
-          query[:option_id] = filter["option_id"] if filter["option_id"]
-
           wd_cache = WeightDimension.all_by_index_from_cache(serializer: WeightDimensionSerializer)
-          
-          if filter["weight_from"] or filter["weight_to"]
-            weight_from = (filter["weight_from"] || 0).to_f * wd_cache[filter["weight_from_dimension_id"].to_i][:convert] rescue 0
-            weight_to = (filter["weight_to"] || 9999999999.0).to_f * wd_cache[filter["weight_to_dimension_id"].to_i][:convert] rescue 9999999999.0
-            query[:weight_etalon] = (weight_from..weight_to)
+
+          trade_type_id = filter["trade_type_id"] if filter["trade_type_id"]
+          if trade_type_id
+            trade_type_query = "AND \"position_bases\".\"trade_type_id\" = #{trade_type_id}"
           end
 
+          option_id = filter["option_id"] if filter["option_id"]
+          weight_from = (filter["weight_from"] || 0).to_f * wd_cache[filter["weight_from_dimension_id"].to_i][:convert] rescue 0
+          weight_to = (filter["weight_to"] || 9999999999.0).to_f * wd_cache[filter["weight_to_dimension_id"].to_i][:convert] rescue 9999999999.0
+
+          price_sql = "1=1"
           if filter["price_from"] or filter["price_to"]
             price_from = (filter["price_from"] || 0).to_f / wd_cache[filter["price_from_weight_dimension_id"].to_i][:convert] rescue 0
             price_to = (filter["price_to"] || 9999999999.0).to_f / wd_cache[filter["price_to_weight_dimension_id"].to_i][:convert] rescue 9999999999.0
@@ -84,12 +86,12 @@ class PositionBase < ActiveRecord::Base
             currencies.each do |currency|
               converted_price_from = price_from / currency.get_rate(user_currency[:name])
               converted_price_to = price_to / currency.get_rate(user_currency[:name])
-              price_sql << "(\"position_bases\".\"currency_id\" = #{currency.id} AND \"position_bases\".\"status\" = 'opened' AND (\"position_bases\".\"price_etalon\" BETWEEN #{converted_price_from} AND #{converted_price_to}))"
+              price_sql << "(\"position_bases\".\"currency_id\" = #{currency.id} AND (\"position_bases\".\"price_etalon\" BETWEEN #{converted_price_from} AND #{converted_price_to}))"
             end
             price_sql = price_sql.join(" OR ")
           end
 
-          in_radius_sql = ""
+          in_radius_sql = "1=1"
           if filter["coords"]
             lat = filter["coords"][0]
             lng = filter["coords"][1]
@@ -104,13 +106,12 @@ class PositionBase < ActiveRecord::Base
             }
           end
 
+          sql << "(\"position_bases\".\"status\" = 'opened') AND (#{in_radius_sql}) AND (#{price_sql}) AND (\"position_bases\".\"option_id\" = #{option_id} #{trade_type_query} AND (\"position_bases\".\"weight_etalon\" BETWEEN #{weight_from} AND #{weight_to}))"
 
-          sql << self.where(query).where(price_sql).where(in_radius_sql).to_sql.split("WHERE")[1]
         end
 
         if filter["checked_positions_ids"].try(:any?)
-          suitable_for_positions = Position.where(id: filter["checked_positions_ids"])
-          suitable_positions = Position.find_suitable(suitable_for_positions)
+          suitable_positions = Position.find_suitable filter["checked_positions_ids"]
           sql << suitable_positions.to_sql.split("WHERE")[1]
         end
       end
@@ -118,8 +119,10 @@ class PositionBase < ActiveRecord::Base
       self.where sql.join(" OR ")
     end
 
-    def find_suitable positions
-      filters = [positions].flatten.map do |position|
+    def find_suitable position_ids
+      filters = [position_ids].flatten.map do |position_id|
+        position = Position.find_from_cache(position_id)
+
         res = {
           option_id: position.option_id,
           weight_from: position.weight_min,

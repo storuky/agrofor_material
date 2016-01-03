@@ -81,7 +81,7 @@ script type="text/ng-template" id="position.tmpl.html"
             label.label
               | Предложения участников
             .position-modal__other-offers__list scroll-position="offersScrollPositions" ng-class="{shadow: offersScrollPositions > 0}"
-              .position-modal__other-offer ng-repeat="offer in ctrl.offers" ng-click="ctrl.goTo(offer)"
+              a.position-modal__other-offer ng-repeat="offer in ctrl.offers" ng-href="{{show_path(offer)}}"
                 .position-modal__other-offer__date
                   | {{offer.created_at | date:"dd.MM.yyyy"}}
                 .position-modal__other-offer__title
@@ -103,6 +103,6 @@ script type="text/ng-template" id="position.tmpl.html"
       div style="width: 100%" ng-show="ctrl.position.type=='Offer'"
         .position-modal__your-position ng-hide="gon.current_user.id != ctrl.position.user_id"
           | Ваше предложение для  
-          a href="" ng-click="ctrl.goTo({id: ctrl.position.position_id})" позиции № {{ctrl.position.position_id}}
+          a href="" ng-href="{{show_path({id: ctrl.position.position_id, type: 'Position'})}}" позиции № {{ctrl.position.position_id}}
         .position-modal__your-position ng-show="gon.current_user.id != ctrl.position.user_id"
           | Предложение для позиции

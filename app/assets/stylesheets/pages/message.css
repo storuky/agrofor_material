@@ -53,6 +53,7 @@
   /* max-width: 600px; */
   padding: 0 15px;
   background: white;
+  min-height: 100%;
 }
 
 .message-page__send__textarea {
@@ -85,6 +86,9 @@
 .message-page__contacts__content md-list-item {
   min-height: 75px;
   cursor: pointer;
+  border-bottom: 1px solid #EFEFEF;
+  display: block;
+  width: 275px;
 }
 .message-page__contacts__content md-list-item.active {
   background: rgb(250, 250, 250);
@@ -100,12 +104,16 @@
 
 .message-page__contacts__content md-list-item h3 {
   max-width: 150px;
+  text-transform: uppercase;
+  font-size: 13px !important;
+  color: #575757;
+  font-weight: 500 !important;
 }
 
 .message-page__contacts__content md-list-item .md-avatar{
-  margin-top: 12px;
-  width: 50px;
-  height: 50px;
+  margin-top: 8px;
+  width: 45px;
+  height: 45px;
 }
 
 .message-page__contacts__content md-list-item:hover {
@@ -175,7 +183,7 @@
 
 .message-page__send__attach {
   font-size: 14px;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .message-page__send__attach .icon-attachment {
@@ -188,7 +196,7 @@
 .message-page__send__attach span {
   vertical-align: middle;
   padding-left: 8px;
-  border-left: 1px solid #636363;
+  border-left: 1px solid;
   /* cursor: pointer; */
 }
 
@@ -204,11 +212,12 @@
 .message-page__contacts__search input {
   height: 35px;
   width: 100%;
-  border-radius: 10px;
-  background: #FAFAFA;
-  padding-left: 40px;
+  /* border-radius: 10px; */
+  /* background: #FAFAFA; */
+  padding-left: 30px;
   transition: .3s;
-  border: 1px solid #EAEAEA;
+  border: none;
+  /* border-bottom: 1px solid #EAEAEA; */
 }
 
 .message-page__contacts__search input:focus {
@@ -219,7 +228,7 @@
 .message-page__contacts__search i.icon-magnify {
   position: absolute;
   top: 15px;
-  left: 28px;
+  left: 19px;
   font-size: 21px;
   color: #9A9A9A;
 }
@@ -227,15 +236,13 @@
 
 .message {
 
-padding: 11px 0;}
+padding: 11px 0;position: relative;}
 
 .message__avatar {
 
 }
 
-.message__body {
-
-padding: 0 20px;}
+.message__body {padding: 16px 20px;margin-left: 10px;min-height: 55px;background: #F4F7FA;position: relative;border-radius: 5px;}
 
 .message__fullname {
 
@@ -243,11 +250,11 @@ font-weight: 500;display: inline-block;text-decoration: none;color: black;}
 
 .message__text {
 
-margin-top: 2px;}
+margin-top: 2px;margin-bottom: 6px;font-family: Roboto;font-size: 16px;white-space: pre-wrap;}
 
 .message__created_at {
 
-color: #999;font-size: 13px;}
+color: #999;font-size: 13px;position: absolute;right: 13px;bottom: 10px;}
 
 
 .message__avatar img {
@@ -257,21 +264,59 @@ color: #999;font-size: 13px;}
 
 
 .message-page__contacts__time {
-  /* position: absolute; */
-  /* top: 13px; */
-  /* right: 5px; */
+  position: absolute;
+  bottom: 4px;
+  right: 8px;
   font-size: 13px;
-  color: #999;
-  position: relative;
-  left: 8px;
   line-height: 21px;
+  font-weight: 500;
+  color: #585858;
 }
 
 
 .message__head {
   padding: 0 20px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 
 .md-list-item-author {
-  height: 20px;
+  /* height: 20px; */
+}
+
+
+.message-page__contacts__content md-list-item .md-list-item-text {
+  margin: 14px 0 !important;
+}
+
+
+.message__body:before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: -8px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 8px 8px 0;
+  border-color: transparent #F4F7FA transparent transparent;
+}
+
+
+.message-page__send__attach label {
+  cursor: pointer;
+}
+
+.message-page__send__attach a {
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.message-page__send__attach label:hover {
+  color: #005EA9;
+}
+.message__attachments {
+  padding: 0;
+  list-style: none;
 }

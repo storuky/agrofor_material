@@ -95,7 +95,7 @@ div content-for="header"
           td.btns.w0
             a.icon-btn ui-sref="{{edit_path(position)}}"
               i.icon-pencil
-            a.icon-btn ng-click="Position.goTo(position, $event)"
+            a.icon-btn ng-href="{{show_path(position)}}"
               i.icon-eye
         tr ng-repeat="offer in position.offers"
           td
