@@ -24,14 +24,14 @@ class Correspondence < ActiveRecord::Base
   end
 
   def mark_as_read user_id
-    self.new_messages[user_id] = []
+    self.new_messages[user_id.to_s] = []
     self.save
   end
 
   private
     def set_new_messages
       self.user_ids.each do |user_id|
-        self.new_messages[user_id] = []
+        self.new_messages[user_id.to_s] = []
       end
     end
 end
