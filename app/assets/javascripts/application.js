@@ -1,4 +1,4 @@
-
+//= require private_pub
 //= require oxymoron/angular
 //= require oxymoron/angular-resource
 //= require oxymoron/angular-animate

@@ -71,7 +71,7 @@
 
 .message-page__contacts__content {
   position: absolute;
-  top: 50px;
+  top: 92px;
   bottom: 0;
   width: 300px;
   padding-right: 25px;
@@ -204,7 +204,7 @@
 .message-page__contacts__search {
   height: 50px;
   padding: 8px 16px;
-  box-shadow: 0px 0px 4px rgba(0,0,0,.15);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
   position: relative;
   z-index: 2;
 }
@@ -238,11 +238,9 @@
 
 padding: 11px 0;position: relative;}
 
-.message__avatar {
+.message__avatar {display: none;}
 
-}
-
-.message__body {padding: 16px 20px;margin-left: 10px;min-height: 55px;background: #F4F7FA;position: relative;border-radius: 5px;}
+.message__body {padding: 16px 20px;margin-left: 10px;min-height: 55px;background: rgba(255, 243, 194, 0.66);position: relative;border-radius: 5px;}
 
 .message__fullname {
 
@@ -300,7 +298,7 @@ color: #999;font-size: 13px;position: absolute;right: 13px;bottom: 10px;}
   height: 0;
   border-style: solid;
   border-width: 8px 8px 8px 0;
-  border-color: transparent #F4F7FA transparent transparent;
+  border-color: transparent #FFF7D7 transparent transparent;
 }
 
 
@@ -319,4 +317,45 @@ color: #999;font-size: 13px;position: absolute;right: 13px;bottom: 10px;}
 .message__attachments {
   padding: 0;
   list-style: none;
+}
+
+
+.message-page__contacts__count {
+  position: absolute;
+  top: 14px;
+  right: 13px;
+  background: #F44336;
+  line-height: 16px;
+  color: white;
+  font-size: 13px;
+  padding: 1px 8px;
+  border-radius: 4px;
+}
+
+
+.message.my .message__avatar {
+  display: none;
+}
+
+.message.my .message__body {
+  background: #F4F7FA;
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+.message.my .message__body:before {left: auto;right: -8px;border-width: 8px 0 8px 8px;border-color: transparent transparent transparent #F4F7FA;}
+
+
+.message-page__contacts__tabs {
+  position: relative;
+  z-index: 3;
+  background: white;
+  /* border-bottom: 1px solid #E1E1E1; */
+}
+
+
+.message.new_offer .message__body {background: rgba(0, 128, 0, 0.13);}
+
+.message.new_offer .message__body:before {
+  border-color: transparent transparent transparent #DEEFDE;
 }

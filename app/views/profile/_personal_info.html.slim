@@ -3,7 +3,7 @@ div[layout="row" layout-wrap layout-align="center start"]
     div
       img height="143" src="/avatar2.png"
     md-button.md-lg.md-yellow ng-show="gon.current_user.id == ctrl.user.id" Загрузить
-    md-button.md-lg.md-yellow ng-hide="gon.current_user.id == ctrl.user.id" ng-click="Correspondence.create({user_id: ctrl.user.id})" Написать
+    md-button.md-lg.md-yellow ng-hide="gon.current_user.id == ctrl.user.id" ng-click="ctrl.send_message()" Написать
 
   div[flex flex-sm=100 layout="row" layout-wrap layout-padding]
     div[flex=100]

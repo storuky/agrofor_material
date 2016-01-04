@@ -10,6 +10,8 @@ class Offer < PositionBase
   validate :price_validate
   validate :weight_validate
 
+  after_create :create_correspondence
+
   class << self
     def statuses
       [
@@ -59,5 +61,15 @@ class Offer < PositionBase
 
     def regenerate_cache
       Rails.cache.delete_matched(/User\.offers_from_cache\(#{user_id}\,/)
+    end
+
+    def create_correspondence
+      position_ids = [id, position_id]
+      user_ids = [user_id, position.user_id]
+      unless @correspondence = CorrespondencePosition.between_positions(position_ids)
+        @correspondence = CorrespondencePosition.create(user_ids: user_ids, position_ids: position_ids)
+      end
+
+      @correspondence.messages.create(message_type: "new_offer", body: "New offer", user_id: user_id)
     end
 end

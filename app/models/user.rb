@@ -20,9 +20,6 @@ class User < ActiveRecord::Base
   belongs_to :currency
   belongs_to :role
 
-  has_many :correspondence_users
-  has_many :correspondences, through: :correspondence_users, source: :correspondence 
-
   has_many :favorite_positions
   has_many :favorites, through: :favorite_positions, source: :position
 
@@ -50,33 +47,40 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.templates_from_cache id, params = {}
-    Rails.cache.fetch("User.templates_from_cache(#{id}, #{params})_#{I18n.locale}") do
-      ActiveModel::ArraySerializer.new(User.find(id).templates.order("updated_at DESC"), each_serializer: PositionSerializer, root: false).as_json
+  def correspondences
+    Correspondence.where("messages_count > 0 AND user_ids @> ARRAY[?]::integer[]", [id])
+  end
+
+  def new_messages_count
+    correspondences.pluck(:new_messages).map {|el| el[id.to_s]}.flatten.length
+  end
+
+  class << self
+
+    def templates_from_cache id, params = {}
+      Rails.cache.fetch("User.templates_from_cache(#{id}, #{params})_#{I18n.locale}") do
+        ActiveModel::ArraySerializer.new(User.find(id).templates.order("updated_at DESC"), each_serializer: PositionSerializer, root: false).as_json
+      end
+    end
+
+    def positions_from_cache id, params = {}
+      Rails.cache.fetch("User.positions_from_cache(#{id}, #{params})_#{I18n.locale}") do
+        ActiveModel::ArraySerializer.new(User.find(id).positions.where(params).order("updated_at DESC"), each_serializer: PositionWithOffersSerializer, root: false).as_json
+      end
+    end
+
+    def offers_from_cache id, params = {}
+      Rails.cache.fetch("User.offers_from_cache(#{id}, #{params})_#{I18n.locale}") do
+        ActiveModel::ArraySerializer.new(User.find(id).offers.order("updated_at DESC"), each_serializer: OfferWithPositionSerializer, root: false).as_json
+      end
+    end
+
+    def feedbacks_from_cache id, params = {}
+      Rails.cache.fetch("User.feedbacks_from_cache(#{id}, #{params})_#{I18n.locale}") do
+        ActiveModel::ArraySerializer.new(User.find(id).feedbacks.order("updated_at DESC"), each_serializer: FeedbackSerializer, root: false).as_json
+      end
     end
   end
 
-  def self.positions_from_cache id, params = {}
-    Rails.cache.fetch("User.positions_from_cache(#{id}, #{params})_#{I18n.locale}") do
-      ActiveModel::ArraySerializer.new(User.find(id).positions.where(params).order("updated_at DESC"), each_serializer: PositionWithOffersSerializer, root: false).as_json
-    end
-  end
 
-  def self.offers_from_cache id, params = {}
-    Rails.cache.fetch("User.offers_from_cache(#{id}, #{params})_#{I18n.locale}") do
-      ActiveModel::ArraySerializer.new(User.find(id).offers.order("updated_at DESC"), each_serializer: OfferWithPositionSerializer, root: false).as_json
-    end
-  end
-
-  def self.feedbacks_from_cache id, params = {}
-    Rails.cache.fetch("User.feedbacks_from_cache(#{id}, #{params})_#{I18n.locale}") do
-      ActiveModel::ArraySerializer.new(User.find(id).feedbacks.order("updated_at DESC"), each_serializer: FeedbackSerializer, root: false).as_json
-    end
-  end
-
-  def self.correspondences_from_cache id, params = {}
-    Rails.cache.fetch("User.correspondences_from_cache(#{id}, #{params})_#{I18n.locale}") do
-      ActiveModel::ArraySerializer.new(User.find(id).correspondences.order("updated_at DESC"), each_serializer: CorrespondencesSerializer, root: false).as_json
-    end
-  end
 end

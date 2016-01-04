@@ -1,4 +1,4 @@
-app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Correspondence', function ($scope, action, Profile, Position, Correspondence) {
+app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Correspondence', '$location', function ($scope, action, Profile, Position, Correspondence, $location) {
   var ctrl = this;
 
   ctrl.profileInfoTabs = [{id: 0, title: 'Личные данные'}, {id: 1, title: "Местоположение"}, {id: 2, title: "Контактные данные"}]
@@ -8,7 +8,6 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
   ctrl.profilePositionsTab = 0;
 
   $scope.Position = Position;
-  $scope.Correspondence = Correspondence;
 
   ctrl.querySearch = function (query) {
     var  interest_ids = _.pluck(ctrl.user.interests, 'id')
@@ -19,6 +18,12 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
   
   action('show', function (params) {
     ctrl.disabled = true;
+
+    ctrl.send_message = function () {
+      Correspondence.create({user_id: ctrl.user.id}, function (res) {
+        $location.url('/correspondences?id='+res.id)
+      })
+    }
 
     ctrl.user = Profile.get({id: params.id})
 

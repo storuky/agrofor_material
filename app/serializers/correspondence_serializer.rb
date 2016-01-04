@@ -1,5 +1,8 @@
 class CorrespondenceSerializer < CorrespondencesSerializer
-  attributes :correspondence_type, :updated_at, :users_ids, :positions_ids
+  attributes :type, :updated_at, :messages
 
-  has_many :messages
+  def messages
+    scope.serialize(object.messages.includes(:documents).limit(20), root: false)
+  end
+
 end

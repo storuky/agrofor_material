@@ -126,3 +126,12 @@ footer .nav__link:hover {
   background: #e7e7e7;
 }
 
+
+
+.nav-link__count {
+  top: 0;
+  position: absolute;
+  right: 0;
+  padding: 12px;
+  background: #FFDB4C;
+}

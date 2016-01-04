@@ -22,39 +22,20 @@ ActiveRecord::Schema.define(version: 20160103195946) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "correspondence_positions", force: :cascade do |t|
-    t.integer  "position_base_id"
-    t.integer  "correspondence_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-  end
-
-  add_index "correspondence_positions", ["correspondence_id"], name: "index_correspondence_positions_on_correspondence_id", using: :btree
-  add_index "correspondence_positions", ["position_base_id"], name: "index_correspondence_positions_on_position_base_id", using: :btree
-
-  create_table "correspondence_users", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "correspondence_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-  end
-
-  add_index "correspondence_users", ["correspondence_id"], name: "index_correspondence_users_on_correspondence_id", using: :btree
-  add_index "correspondence_users", ["user_id"], name: "index_correspondence_users_on_user_id", using: :btree
-
   create_table "correspondences", force: :cascade do |t|
-    t.integer  "users_ids",           default: [],                   array: true
-    t.integer  "positions_ids",       default: [],                   array: true
-    t.string   "correspondence_type", default: "users"
+    t.string   "type"
+    t.integer  "messages_count", default: 0
+    t.integer  "user_ids",       default: [],              array: true
+    t.integer  "position_ids",   default: [],              array: true
+    t.json     "new_messages",   default: {}
     t.string   "last_message"
-    t.integer  "messages_count",      default: 0
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
-  add_index "correspondences", ["correspondence_type"], name: "index_correspondences_on_correspondence_type", using: :btree
-  add_index "correspondences", ["positions_ids"], name: "index_correspondences_on_positions_ids", using: :gin
-  add_index "correspondences", ["users_ids"], name: "index_correspondences_on_users_ids", using: :gin
+  add_index "correspondences", ["position_ids"], name: "index_correspondences_on_position_ids", using: :gin
+  add_index "correspondences", ["type"], name: "index_correspondences_on_type", using: :btree
+  add_index "correspondences", ["user_ids"], name: "index_correspondences_on_user_ids", using: :gin
 
   create_table "currencies", force: :cascade do |t|
     t.string   "name"
@@ -130,8 +111,9 @@ ActiveRecord::Schema.define(version: 20160103195946) do
     t.text     "body"
     t.integer  "user_id"
     t.string   "message_type"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.boolean  "readed",            default: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   add_index "messages", ["correspondence_id"], name: "index_messages_on_correspondence_id", using: :btree

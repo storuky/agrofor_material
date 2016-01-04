@@ -1,29 +1,37 @@
 class Correspondence < ActiveRecord::Base
   include Cacheable
-  
-  has_many :correspondence_positions
-  has_many :positions, through: :correspondence_positions, foreign_key: :position_base_id, source: :position
-
-  has_many :correspondence_users
-  has_many :users, through: :correspondence_users, source: :user
 
   has_many :messages
 
-  after_commit :regenerate_cache
+  before_create :set_new_messages
 
-  def self.between_users user_ids
-    Correspondence.where("users_ids @> ARRAY[?]::integer[]", user_ids).first
+  class << self
+    def between_users user_ids
+      Correspondence.where("user_ids @> ARRAY[?]::integer[]", user_ids).first
+    end
+
+    def between_positions position_ids
+      Correspondence.where("position_ids @> ARRAY[?]::integer[]", position_ids).first
+    end
   end
 
-  def self.between_positions position_ids
-    Correspondence.where("positions_ids @> ARRAY[?]::integer[]", position_ids).first
+  def users
+    User.find_from_cache(user_ids)
+  end
+
+  def positions
+    PositionBase.find_from_cache(position_ids)
+  end
+
+  def mark_as_read user_id
+    self.new_messages[user_id] = []
+    self.save
   end
 
   private
-    def regenerate_cache
-      self.users_ids.each do |user_id|
-        Rails.cache.delete_matched(/User\.correspondences_from_cache\(#{user_id}\,/)
+    def set_new_messages
+      self.user_ids.each do |user_id|
+        self.new_messages[user_id] = []
       end
     end
-
 end

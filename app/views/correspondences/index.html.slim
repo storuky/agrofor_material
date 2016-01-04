@@ -8,41 +8,46 @@ div content-for="header"
 
 .message-page
   .message-page__contacts
+    .message-page__contacts__tabs
+      .tabs
+        md-button.tab ng-click="ctrl.filter.type = 'CorrespondencePosition'" ng-class="{active: ctrl.filter.type == 'CorrespondencePosition'}" Позиции
+        md-button.tab ng-click="ctrl.filter.type = 'CorrespondenceUser'" ng-class="{active: ctrl.filter.type == 'CorrespondenceUser'}" Пользователи
     .message-page__contacts__search
       i.icon-magnify
-      input type="text" placeholder="Поиск" ng-model="ctrl.contactSearch"
+      input type="text" placeholder="Поиск" ng-model="ctrl.textSearch"
     .message-page__contacts__content
-        a href="/correspondences?id={{correspondence.id}}" ng-repeat="correspondence in ctrl.correspondences | filter:ctrl.contactSearch"
-          md-list-item class="md-3-line" ng-class="{active: correspondence==ctrl.contact}" ng-click="test=1"
-            img.md-avatar ng-src="/avatar.png" alt="{{correspondence.who}}"
-            .md-list-item-text layout="column"
-              .message-page__contacts__time
-                | {{correspondence.updated_at | dateFormat}}
-              .md-list-item-author
-                h3
-                  | {{::opponent_user(correspondence.users).fullname}}
-              p ng-init="position = opponent_position(correspondence.json_users)"
-                span ng-show="correspondence.correspondence_type == 'users'"
-                  | {{correspondence.last_message}}
-                span ng-show="correspondence.correspondence_type == 'positions'"
-                  | {{::position.trade_type.title}} «{{::position.option.title}}» {{::position.weight}} {{::position.weight_dimension.title}}, {{::position.price}} {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
+      a href="/correspondences?id={{correspondence.id}}" ng-repeat="correspondence in Correspondence.correspondences | filter:ctrl.filter | filter:ctrl.textSearch | orderBy:'timestamp':true"
+        md-list-item class="md-3-line" ng-class="{active: correspondence==ctrl.contact}" ng-click="test=1"
+          img.md-avatar ng-src="/avatar.png" alt="{{correspondence.who}}"
+          .md-list-item-text layout="column"
+            .message-page__contacts__count ng-show="correspondence.new_messages[gon.current_user.id].length"
+              | {{correspondence.new_messages[gon.current_user.id].length}}
+            .message-page__contacts__time
+              | {{correspondence.updated_at | dateFormat}}
+            .md-list-item-author
+              h3
+                | {{::opponent_user(correspondence.users).fullname}}
+            p ng-init="position = opponent_position(correspondence.positions)"
+              span ng-show="correspondence.type == 'CorrespondenceUser'"
+                | {{correspondence.last_message}}
+              span ng-show="correspondence.type == 'CorrespondencePosition'"
+                | {{::position.trade_type.title}} «{{::position.option.title}}» {{::position.weight}} {{::position.weight_dimension.title}}, {{::position.price}} {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
 
 
 
   .message-page__body
     .message-page__messages ng-show="ctrl.contact"
       .message-page__body__wrapper[layout="row" layout-wrap layout-align="start end"]
-        div[flex=100 ]
-          .message[layout="row" ng-repeat="message in ctrl.correspondence.messages"]
-            .message__avatar[flex="none"]
-              img ng-src="/avatar.png" width="40"
-            div[flex]
-              .message__body
-                pre.message__text
-                  | {{message.body}}
-                documents ng-model="message.documents"
-                .message__created_at
-                  | {{message.created_at | dateFormat}}
+        div[flex=100]
+          .message[ng-class="::[{my: message.user_id == gon.current_user.id}, message.message_type]" ng-repeat="message in Correspondence.active.messages"]
+            .message__body
+              pre.message__text ng-hide="::message.message_type"
+                | {{::message.body}}
+              pre.message__text ng-show="::message.message_type"
+                | Здравствуйте, я бы хотел заключить с вами сделку!
+              documents ng-model="::message.documents"
+              .message__created_at
+                | {{::message.created_at | dateFormat}}
 
 
     .message-page__send ng-show="ctrl.contact"

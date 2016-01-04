@@ -79,6 +79,8 @@ input.solid-input:focus {
 }
 .uploaded-documents {
   padding: 15px 0;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .uploaded-documents__item:not(:last-child) {
   margin-bottom: 10px;

@@ -103,6 +103,9 @@ class PositionsController < ApplicationController
         @offer = Position.find_from_cache(params[:offer_id]).to_offer
 
         @position.offers << @offer
+
+        position_ids = [@position.id, @offer.id]
+
         render json: {msg: "Предложение успешно отправлено!"}
       }
     end

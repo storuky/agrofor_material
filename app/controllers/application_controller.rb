@@ -60,6 +60,10 @@ class ApplicationController < ActionController::Base
 
       if current_user
         gon.current_user = current_user.info
+        gon.current_user[:channel] = PrivatePub.subscription(:channel => "/stream/#{current_user.id}").as_json
+        gon.current_user[:counters] = {
+          new_messages_count: current_user.new_messages_count
+        }
       end
 
     end

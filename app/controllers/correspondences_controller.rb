@@ -1,13 +1,12 @@
 class CorrespondencesController < ApplicationController
-  before_action :set_serialized_correspondence, only: [:show]
-  before_action :set_correspondence, only: [:send_message]
+  before_action :set_correspondence, only: [:send_message, :show]
   before_action :check_owner, only: [:send_message, :show]
 
   def index
     respond_to do |format|
       format.html
       format.json {
-        render json: User.correspondences_from_cache(current_user.id)
+        render json: serialize(current_user.correspondences, serializer: CorrespondencesSerializer)
       }
     end
   end
@@ -16,7 +15,8 @@ class CorrespondencesController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        render json: @correspondence
+        render json: serialize(@correspondence, {serializer: CorrespondenceSerializer})
+        @correspondence.mark_as_read(current_user.id)
       }
     end
   end
@@ -25,8 +25,10 @@ class CorrespondencesController < ApplicationController
     respond_to do |format|
       format.json {
         user_ids = [current_user.id, params[:user_id].to_i]
-        @correspondence = Correspondence.create(user_ids: user_ids, users_ids: user_ids)
-        render json: @correspondence
+        unless @correspondence = CorrespondenceUser.between_users(user_ids)
+          @correspondence = CorrespondenceUser.create(user_ids: user_ids)
+        end
+        render json: serialize(@correspondence, {serializer: CorrespondenceSerializer})
       }
     end
   end
@@ -38,21 +40,16 @@ class CorrespondencesController < ApplicationController
       user_id: current_user.id,
       document_ids: (params[:document_ids] || [])
     )
-    @correspondence.update(last_message: @message.body)
-    render json: @message
+    render json: {}
   end
 
   private
-    def set_serialized_correspondence
-      @correspondence = Correspondence.find_from_cache(params[:id], serializer: CorrespondenceSerializer)
-    end
-
     def set_correspondence
-      @correspondence = Correspondence.find_from_cache(params[:id])
+      @correspondence = Correspondence.find(params[:id])
     end
 
     def check_owner
-      if @correspondence[:users_ids].exclude?(current_user.id)
+      if @correspondence[:user_ids].exclude?(current_user.id)
         render json: {msg: "Переписка не найдена"}, status: 404
       end
     end

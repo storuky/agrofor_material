@@ -7,12 +7,16 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
       Sign.isShow = true;
     }
 
+    ctrl.filter = {
+      type: 'CorrespondencePosition'
+    }
+
+    $scope.Correspondence = Correspondence;
+
 
     Correspondence.query(function (res) {
-      ctrl.correspondences = res;
-      ctrl.contact = _.find(ctrl.correspondences, function (corr) {
-        return corr.id == $location.search().id
-      });
+      Correspondence.correspondences = res;
+      setContact();
     });
 
     $scope.$watch(function () {
@@ -20,14 +24,12 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
     }, function (id) {
       if (id) {
         ctrl.form = {}
-        ctrl.correspondence = Correspondence.get({id: id});
-        ctrl.contact = _.find(ctrl.correspondences, function (corr) {
-          return corr.id == id
-        });
+        Correspondence.active = Correspondence.get({id: id});
+        setContact();
       }
     })
 
-    $scope.$watch('ctrl.correspondence.messages', function (messages) {
+    $scope.$watch('Correspondence.active.messages', function (messages) {
       if (messages)
         scrollBottom()
     }, true)
@@ -35,11 +37,14 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
     $scope.send = function () {
       if (ctrl.form.body.length) {
         ctrl.contact.last_message = ctrl.form.body;
+        ctrl.contact.updated_at = new Date();
+        ctrl.contact.timestamp = (new Date()).getTime();
+
         Correspondence.send_message({id: ctrl.contact.id, body: ctrl.form.body, document_ids: _.pluck(ctrl.form.documents, "id")})
-        ctrl.correspondence.messages.push({
+        Correspondence.active.messages.push({
           correspondence_id: ctrl.contact.id,
           body: ctrl.form.body,
-          user: $scope.opponent_user(ctrl.contact.users),
+          user_id: gon.current_user.id,
           created_at: new Date(),
           documents: ctrl.form.documents
         })
@@ -48,11 +53,17 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
     }
 
     $scope.opponent_user = function (users) {
-      return _.findWhere(users, {id: gon.current_user.id})
+      var user = _.find(users, function (user) {
+        return user.id != gon.current_user.id
+      })
+
+      return user
     }
 
     $scope.opponent_position = function (positions) {
-      return _.findWhere(positions, {user_id: gon.current_user.id});
+      return _.find(positions, function (position) {
+        return position.user_id != gon.current_user.id
+      });
     }
 
 
@@ -66,6 +77,30 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
         $scope.$apply();
       }
     });
+
+    function setContact () {
+      if ($location.search().id) {
+        ctrl.contact = _.find(Correspondence.correspondences, function (corr) {
+          return corr.id == $location.search().id
+        });
+
+        if (!ctrl.contact) {
+          ctrl.contact = Correspondence.active;
+          if (Correspondence.correspondences && ctrl.contact) {
+            Correspondence.correspondences.push(ctrl.contact)
+          }
+
+        }
+        ctrl.filter = {
+          type: ctrl.contact.type
+        }
+
+        $timeout(function () {
+          gon.current_user.counters.new_messages_count -= ctrl.contact.new_messages[gon.current_user.id].length;
+          ctrl.contact.new_messages[gon.current_user.id] = []
+        }, 500)
+      }
+    }
   })
 
   function scrollBottom () {
