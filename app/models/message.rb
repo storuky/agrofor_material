@@ -15,8 +15,8 @@ class Message < ActiveRecord::Base
   private
     def update_correspondence_and_send_ws
       new_messages = correspondence.new_messages
-      opponent_id = new_messages.keys.find{|key| key != user_id.to_s}
-      new_messages[opponent_id] << self.id
+      opponent_id = new_messages.keys.find{|key| key.to_s != user_id.to_s}
+      new_messages[opponent_id.to_s] << self.id
       correspondence.update(last_message: self.body, new_messages: new_messages)
 
       PrivatePub.publish_to "/stream/#{opponent_id}", MessageSerializer.new(self, root: false).as_json

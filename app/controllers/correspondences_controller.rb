@@ -21,6 +21,11 @@ class CorrespondencesController < ApplicationController
     end
   end
 
+  def reset_counter
+    @correspondence.mark_as_read(current_user.id)
+    render json: {}
+  end
+
   def create
     respond_to do |format|
       format.json {

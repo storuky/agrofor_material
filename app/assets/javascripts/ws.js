@@ -1,10 +1,13 @@
 app.run(['$rootScope', '$location', 'Correspondence', function ($rootScope, $location, Correspondence) {
   if (gon.current_user) {
+    var resetMessageCount = _.debounce(Correspondence.reset_counter, 1000)
+    
     PrivatePub.sign(gon.current_user.channel);
     
     PrivatePub.subscribe("/stream/" + gon.current_user.id, function(data, channel) {
       if ($location.search().id == data.correspondence_id && $location.path()=='/correspondences') {
-        Correspondence.active.messages.push(data)
+        Correspondence.active.messages.push(data);
+        resetMessageCount();
       } else {
         gon.current_user.counters.new_messages_count+=1;
 

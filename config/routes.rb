@@ -26,6 +26,9 @@ Rails.application.routes.draw do
   resources :favorites
   resources :templates
   resources :correspondences do
+    collection do
+      delete :reset_counter
+    end
     member do
       post :send_message
     end

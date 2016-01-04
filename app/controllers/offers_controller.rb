@@ -18,11 +18,17 @@ class OffersController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        @offer = current_user.offers.create offer_params.update(position_id: params[:suitable])
-        if @offer.valid?
-          render json: {msg: "Предложение успешно отправлено"}
+        @position = Position.find_from_cache(params[:suitable])
+        have_offer = @position.offers.where(user_id: current_user.id).first
+        if have_offer
+          render json: {msg: "Вы уже отправляли предожение по данной позиции. Вы можете отредактировать его."}, status: 422
         else
-          render json: {errors: @offer.errors, msg: @offer.errors.full_messages.join(', ')}, status: 422
+          @offer = current_user.offers.create offer_params.update(position_id: params[:suitable])
+          if @offer.valid?
+            render json: {msg: "Предложение успешно отправлено"}
+          else
+            render json: {errors: @offer.errors, msg: @offer.errors.full_messages.join(', ')}, status: 422
+          end
         end
       }
     end

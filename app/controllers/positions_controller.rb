@@ -100,13 +100,16 @@ class PositionsController < ApplicationController
   def send_offer
     respond_to do |format|
       format.json {
-        @offer = Position.find_from_cache(params[:offer_id]).to_offer
+        have_offer = @position.offers.where(user_id: current_user.id).first
+        if have_offer
+          render json: {msg: "Вы уже отправляли предожение по данной позиции. Вы можете отредактировать его."}, status: 422
+        else
+          @offer = Position.find_from_cache(params[:offer_id]).to_offer
+          @position.offers << @offer
+          position_ids = [@position.id, @offer.id]
 
-        @position.offers << @offer
-
-        position_ids = [@position.id, @offer.id]
-
-        render json: {msg: "Предложение успешно отправлено!"}
+          render json: {msg: "Предложение успешно отправлено!"}
+        end
       }
     end
   end
