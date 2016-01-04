@@ -36,7 +36,7 @@ div content-for="header"
 
 
   .message-page__body
-    .message-page__progress ng-show="!Correspondence.active.$resolved"
+    .message-page__progress ng-show="Correspondence.active.$resolved==false"
       md-progress-linear md-mode="query"
     .message-page__messages ng-show="ctrl.contact"
       .message-page__body__wrapper[layout="row" layout-wrap layout-align="start end"]
