@@ -36,6 +36,8 @@ div content-for="header"
 
 
   .message-page__body
+    .message-page__progress ng-show="!Correspondence.active.$resolved"
+      md-progress-linear md-mode="query"
     .message-page__messages ng-show="ctrl.contact"
       .message-page__body__wrapper[layout="row" layout-wrap layout-align="start end"]
         div[flex=100]
@@ -48,6 +50,7 @@ div content-for="header"
               documents ng-model="::message.documents"
               .message__created_at
                 | {{::message.created_at | dateFormat}}
+
 
 
     .message-page__send ng-show="ctrl.contact"
