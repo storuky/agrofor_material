@@ -1,6 +1,6 @@
 development: &generic
   #min_prefix_len: 2
-  mem_limit: 256M
+  mem_limit: 128M
   enable_star: 1
   expand_keywords: 1
   index_exact_words: 1
