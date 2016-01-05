@@ -1,5 +1,5 @@
 class Correspondence < ActiveRecord::Base
-  include Cacheable
+  # include Cacheable
 
   has_many :messages
 
@@ -24,8 +24,8 @@ class Correspondence < ActiveRecord::Base
   end
 
   def mark_as_read user_id
-    self.new_messages[user_id.to_s] = []
-    self.save
+    # self.new_messages[user_id.to_s] = []
+    # self.save
   end
 
   private

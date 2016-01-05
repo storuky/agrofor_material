@@ -5,25 +5,18 @@
 
 .suitable__selected {
   border: 1px solid #e5e5e5;
-  height: 90px;
+  /* height: 90px; */
   border-radius: 4px;
   cursor: pointer;
   position: relative;
   width: 100%;
   margin-top: 5px;
   line-height: 18px;
-  padding: 20px;
+  padding: 10px 15px;
   font-size: 14px;
 }
 .suitable__selected.opened {
   border-radius: 4px 4px 0 0;
-}
-.suitable__selected b, .suitable__selected span {
-  display: block;
-}
-
-.suitable__selected b {
-  font-weight: 500;
 }
 
 .suitable__selected .icon-chevron-down {

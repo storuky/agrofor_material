@@ -276,10 +276,12 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 0;
+  right: -15px;
+  padding-right: 15px;
   left: 0;
   /* margin-right: -15px; */
   max-width: 1040px;
+  overflow-y: scroll !important;
 }
 
 .search__extended md-autocomplete[md-floating-label] md-input-container {

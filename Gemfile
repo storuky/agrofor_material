@@ -44,7 +44,7 @@ end
 
 gem "awesome_print"
 gem 'thin'
-gem 'active_model_serializers'
+gem 'active_model_serializers', '>= 0.9.2'
 
 gem 'factory_girl_rails'
 gem 'faker'

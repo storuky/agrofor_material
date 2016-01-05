@@ -35,7 +35,7 @@ script type="text/ng-template" id="search.html"
         | . В области карты – 
         b
           | {{Search.visible_count}}
-  .search__extended__wrapper.hidden-scroll scroll=""
+  .search__extended__wrapper
     .search__extended.md-whiteframe-2dp ng-class="{visible: Search.showExtended}"
       .search__extended__tabs
         .search__extended__tab ng-click="Search.tab = 'params'" ng-class="{active: Search.tab == 'params'}" Поиск по параметрам

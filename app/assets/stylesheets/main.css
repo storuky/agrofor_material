@@ -234,8 +234,12 @@ hr {
   padding: 0 15px;
 }
 
-.md-yellow, .md-yellow.md-button {
-  background: rgb(255, 219, 76);
+.md-button {
+  font-weight: normal !important;
+  font-size: 15px;
+}
+
+.md-yellow, .md-yellow.md-button, a.md-yellow {
   color: #2b2b2b;
   text-decoration: none;
   overflow: hidden;
@@ -243,12 +247,27 @@ hr {
   text-align: center;
   text-transform: none;
   font-weight: normal;
-  font-size: 15px;
 }
 
-.md-white, .md-white.md-button {
+.md-yellow:not(:disabled) {
+  background: rgb(255, 219, 76) !important;
+}
+
+.md-white, .md-white.md-button, a.md-white {
   background: white !important;
   text-transform: none;
+}
+
+.md-red, .md-red.md-button, a.md-red {
+  background: #FF6805 !important;
+  text-transform: none;
+  color: white;
+}
+
+.md-green, .md-green.md-button, a.md-green {
+  background: #8BC34A !important;
+  text-transform: none;
+  color: white;
 }
 
 i.icon-star {

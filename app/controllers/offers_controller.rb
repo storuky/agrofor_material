@@ -1,6 +1,7 @@
 class OffersController < ApplicationController
-  before_action :set_offer, only: :update
+  before_action :set_offer, only: [:update, :destroy]
   before_action :set_serialized_offer, only: [:show, :edit]
+  before_action :check_owner, only: [:update, :destroy]
   before_action :check_user
 
 
@@ -16,7 +17,6 @@ class OffersController < ApplicationController
 
   def create
     respond_to do |format|
-      format.html
       format.json {
         @position = Position.find_from_cache(params[:suitable])
         have_offer = @position.offers.where(user_id: current_user.id).first
@@ -36,11 +36,9 @@ class OffersController < ApplicationController
 
   def update
     respond_to do |format|
-      format.html
       format.json {
-        return render json: {msg: "Предложение не найдено", redirect_to: "positions_path"}, status: 404 if @offer.user_id != current_user.id
         if @offer.update(offer_params)
-          render json: {msg: "Предложение успешно отправлено"}
+          render json: {msg: "Предложение успешно изменено"}
         else
           render json: {errors: @offer.errors, msg: @offer.errors.full_messages.join(', ')}, status: 422
         end
@@ -54,6 +52,7 @@ class OffersController < ApplicationController
         render template: "positions/edit"
       }
       format.json {
+        check_owner
         render json: Oj.dump(@offer)
       }
     end
@@ -80,7 +79,14 @@ class OffersController < ApplicationController
     end
   end
 
-
+  def destroy
+    respond_to do |format|
+      format.json {
+        @offer.destroy
+        render json: {msg: "Предложение успешно отклонено"}
+      }
+    end
+  end
 
   private
     def set_offer
@@ -89,6 +95,12 @@ class OffersController < ApplicationController
 
     def set_serialized_offer
       @offer = Offer.find_from_cache params[:id], serializer: OfferSerializer
+    end
+
+    def check_owner
+      if @offer[:user_id] != current_user.id
+        render json: {msg: "Предложение не найдено"}, status: 404
+      end
     end
 
     def offer_params

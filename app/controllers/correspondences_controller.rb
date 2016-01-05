@@ -15,8 +15,8 @@ class CorrespondencesController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        render json: serialize(@correspondence, {serializer: CorrespondenceSerializer})
         @correspondence.mark_as_read(current_user.id)
+        render json: serialize(@correspondence, {serializer: CorrespondenceSerializer})
       }
     end
   end

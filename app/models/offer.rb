@@ -61,6 +61,7 @@ class Offer < PositionBase
 
     def regenerate_cache
       Rails.cache.delete_matched(/User\.offers_from_cache\(#{user_id}\,/)
+      Rails.cache.delete("Position.offers_from_cache(#{position_id})")
     end
 
     def create_correspondence

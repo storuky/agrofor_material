@@ -81,8 +81,15 @@ class PositionsController < ApplicationController
   def suitable
     respond_to do |format|
       format.json {
-        @positions = Position.find_suitable(@position.id).where(user_id: current_user.id).where.not(id: @position.offers.pluck(:from_position_id))
-        @positions = serialize(@positions)
+        @positions = Rails.cache.fetch([@position, User.positions_from_cache(current_user.id)]) do
+          have_offer = @position.offers.where(user_id: current_user.id).first
+          positions = if have_offer
+            [have_offer]
+          else
+            Position.find_suitable(@position.id).where(user_id: current_user.id).where.not(id: @position.offers.pluck(:from_position_id))
+          end
+          serialize(positions, serializer: PositionSerializer)
+        end
         render json: Oj.dump(@positions)
       }
     end
@@ -91,8 +98,7 @@ class PositionsController < ApplicationController
   def offers
     respond_to do |format|
       format.json {
-        @positions = serialize(@position.offers, serializer: PositionSerializer)
-        render json: Oj.dump(@positions)
+        render json: Oj.dump(@position.offers_from_cache)
       }
     end
   end
@@ -104,11 +110,10 @@ class PositionsController < ApplicationController
         if have_offer
           render json: {msg: "Вы уже отправляли предожение по данной позиции. Вы можете отредактировать его."}, status: 422
         else
-          @offer = Position.find_from_cache(params[:offer_id]).to_offer
+          @offer = Position.find(params[:offer_id]).to_offer
           @position.offers << @offer
-          position_ids = [@position.id, @offer.id]
 
-          render json: {msg: "Предложение успешно отправлено!"}
+          render json: {msg: "Предложение успешно отправлено!", offer: serialize(@offer)}
         end
       }
     end

@@ -49,6 +49,12 @@ class Position < PositionBase
     })
   end
 
+  def offers_from_cache
+    Rails.cache.fetch("Position.offers_from_cache(#{self.id})") do
+      ActiveModel::ArraySerializer.new(self.offers, each_serializer: OfferSerializer).as_json
+    end
+  end
+
 
   class << self
     def pluck_fields
@@ -56,14 +62,14 @@ class Position < PositionBase
     end
 
     def pluck_all_fields
-      Rails.cache.fetch('Position.pluck_all_fields') do
+      Rails.cache.fetch("Position.pluck_all_fields") do
         self.pluck_fields
       end
     end
 
     def statuses
       Position.aasm.states.each_with_index.map do |state, index|
-        {id: index, name: state.name, title: I18n.t('position.status.'+state.name.to_s)}
+        {id: index, name: state.name, title: I18n.t("position.status.#{state.name.to_s}")}
       end
     end
   end

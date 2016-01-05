@@ -63,13 +63,14 @@
   top: 88px;
   left: 0;
   right: 0;
+  transform: none !important;
 }
 
 .position-modal__header {
   min-height: 70px;
   max-height: 70px;
   padding: 18px 18px;
-  background: transparent !important;
+  /* background: transparent !important; */
   color: #272727 !important;
   border-bottom: 1px solid #E1E1E1;
   /* box-shadow: 0px -1px 6px rgba(0,0,0,.2); */
@@ -168,10 +169,6 @@ md-dialog.position-modal md-dialog-content {
   margin-top: 5px;
 }
 
-.position-info {
-  margin-top: 5px;
-}
-
 
 .position-modal__offer {
   position: absolute;
@@ -200,7 +197,7 @@ md-dialog.position-modal md-dialog-content {
   left: 0;
   bottom: 0;
   width: 70px;
-  background: rgba(231, 231, 231, 0.2);
+  background: rgb(250, 250, 250);
   font-size: 34px;
   text-align: center;
   color: #6B6B6B;
@@ -274,7 +271,6 @@ md-dialog.position-modal md-dialog-content {
   border-bottom: 1px solid #e5e5e5;
   display: block;
   text-decoration: none;
-  height: 90px;
   cursor: pointer;
   padding: 8px 16px;
   position: relative;
@@ -293,14 +289,6 @@ md-dialog.position-modal md-dialog-content {
   border-top: 1px solid #e5e5e5;
 }
 
-
-.position-modal__other-offer__date {
-  font-weight: 500;
-}
-
-.position-modal__other-offer__title {
-  font-weight: 500;
-}
 .position-modal__other-offers__list {
   margin-top: 10px;
   position: absolute;
@@ -469,7 +457,9 @@ md-dialog.position-modal md-dialog-content {
 }
 
 .position-form__footer {
-  margin: -15px;
+  margin: 40px -15px 0 -15px;
+  border-top: 1px solid #E1E1E1;
+  padding-top: 15px;
 }
 .position-form__footer hr {
   margin: 40px 0 15px 0
@@ -535,4 +525,50 @@ md-dialog.position-modal md-dialog-content {
 .position_form__template-checkbox {
   margin-top: 20px;
   margin-right: 0;
+}
+
+.position-info {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.position-info span, .position-info b {
+  display: block;
+}
+
+.my-offer-actions {
+  max-width: 375px;
+  margin: 10px -8px 10px -8px;
+  /* margin-top: 10px; */
+}
+.my-offer-actions > div {
+  padding: 0 8px;
+  min-width: 160px;
+  margin-bottom: 8px;
+}
+
+.my-offer-actions .md-button {
+  width: 100%;
+  margin: 0;
+  text-transform: none;
+  /* min-width: 145px; */
+}
+
+.position-modal__other-offers__no {
+  font-size: 18px;
+  text-align: center;
+  padding: 20px 0;
+  background-color: whitesmoke;
+  margin-top: 13px;
+}
+
+
+.position-form__footer md-progress-linear {
+  position: absolute;
+  margin-top: -15px;
+}
+
+
+.position-modal__offer md-progress-linear {
+  position: absolute;
 }

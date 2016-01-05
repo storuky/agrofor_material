@@ -103,30 +103,50 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
       callback();
     }
 
+    ctrl.deleteOffer = function () {
+      ctrl.query = Offer.destroy({id: ctrl.yourOffer.id}, function () {
+        get_offers();
+        get_suitable();
+        ctrl.yourOffer = undefined;
+      });
+    }
+
     ctrl.position = position;
 
 
     if (gon.current_user && gon.current_user.id!=ctrl.position.user_id) {
-      Position.offers({id: ctrl.position.id}, function (res) {
-        ctrl.offers = res;
-        if (ctrl.suitable_positions) updateSuitablePositions();
-      })
+      get_offers();
+      get_suitable();
 
-      Position.suitable({id: ctrl.position.id}, function (res) {
-        ctrl.suitable_positions = res;
-        if (ctrl.offers) updateSuitablePositions();
-      })
 
       ctrl.send_offer = function (offer) {
-        Position.send_offer({offer_id: offer.id, id: ctrl.position.id}, function () {
-          ctrl.offers.unshift(offer);
+        ctrl.query = Position.send_offer({offer_id: offer.id, id: ctrl.position.id}, function (res) {
+          ctrl.yourOffer = res.offer;
+          ctrl.offers.unshift(res.offer);
           updateSuitablePositions();
+        })
+      }
+
+      function get_offers () {
+        ctrl.query = Position.offers({id: ctrl.position.id}, function (res) {
+          ctrl.offers = res;
+          if (ctrl.suitable_positions_full) updateSuitablePositions();
+          if (gon.current_user) {
+            ctrl.yourOffer = _.findWhere(ctrl.offers, {user_id: gon.current_user.id});
+          }
+        })
+      }
+
+      function get_suitable () {
+        ctrl.query = Position.suitable({id: ctrl.position.id}, function (res) {
+          ctrl.suitable_positions_full = res;
+          if (ctrl.offers) updateSuitablePositions();
         })
       }
 
       function updateSuitablePositions () {
         var offer_ids = _.pluck(ctrl.offers, "id");
-        ctrl.suitable_positions = _.select(ctrl.suitable_positions, function (position) {
+        ctrl.suitable_positions = _.select(ctrl.suitable_positions_full, function (position) {
           return !_.contains(offer_ids, position.id)
         })
       }
