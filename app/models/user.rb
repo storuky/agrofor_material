@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
 
     def offers_from_cache id, params = {}
       Rails.cache.fetch("User.offers_from_cache(#{id}, #{params})_#{I18n.locale}") do
-        ActiveModel::ArraySerializer.new(User.find(id).offers.order("updated_at DESC"), each_serializer: OfferWithPositionSerializer, root: false).as_json
+        ActiveModel::ArraySerializer.new(User.find(id).offers.where(params).order("updated_at DESC"), each_serializer: OfferWithPositionSerializer, root: false).as_json
       end
     end
 

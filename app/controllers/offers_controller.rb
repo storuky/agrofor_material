@@ -9,7 +9,7 @@ class OffersController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        @positions = User.offers_from_cache current_user.id
+        @positions = User.offers_from_cache current_user.id, status: "active"
         render json: Oj.dump(@positions)
       }
     end
@@ -82,7 +82,7 @@ class OffersController < ApplicationController
   def destroy
     respond_to do |format|
       format.json {
-        @offer.destroy
+        @offer.update(status: "deleted", position_id: nil)
         render json: {msg: "Предложение успешно отклонено"}
       }
     end

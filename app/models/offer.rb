@@ -12,6 +12,15 @@ class Offer < PositionBase
 
   after_create :create_correspondence
 
+  aasm :column => :status do
+    state :active, :initial => true
+    state :deleted
+
+    event :delete do
+      transitions :to => :deleted, :from => [:active]
+    end
+  end
+
   class << self
     def statuses
       [
