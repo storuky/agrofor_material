@@ -1,5 +1,5 @@
 script type="text/ng-template" id="images.html"
-  .uploaded-images.hidden-scroll
+  .uploaded-images ng-show="images.length"
     .uploaded-images__container ng-class="images.length ? 'border' : ''"
       a ng-repeat="image in images" index="{{$index}}"
         img ng-src="{{image.url.thumb}}"

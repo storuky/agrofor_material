@@ -10,13 +10,22 @@ class PositionsController < ApplicationController
       format.json {
         if params[:ids]
           @positions = Position.find_from_cache(params[:ids], serializer: PositionSerializer)
+          render json: Oj.dump(@positions)
         else
           check_user
+          current_user.update(new_offers_count: 0) if current_user.new_offers_count != 0
           @positions = User.positions_from_cache(current_user.id, status: params[:status])
+
+          counters = current_user.positions.group(:status).count
+          render json: Oj.dump({collection: @positions, counters: counters})
         end
-        render json: Oj.dump(@positions)
       }
     end
+  end
+
+  def counters
+    counters = current_user.positions.group(:status).count
+    render json: Oj.dump(counters)
   end
 
   def new
@@ -82,11 +91,12 @@ class PositionsController < ApplicationController
     respond_to do |format|
       format.json {
         @positions = Rails.cache.fetch([@position, User.positions_from_cache(current_user.id)]) do
-          have_offer = @position.offers.where(user_id: current_user.id).first
+          offers = @position.offers.where(user_id: current_user.id, status: "active")
+          have_offer = offers.first
           positions = if have_offer
             [have_offer]
           else
-            Position.find_suitable(@position.id).where(user_id: current_user.id).where.not(id: @position.offers.pluck(:from_position_id))
+            Position.find_suitable(@position.id).where(user_id: current_user.id).where.not(id: offers.pluck(:from_position_id))
           end
           serialize(positions, serializer: PositionSerializer)
         end
@@ -98,7 +108,8 @@ class PositionsController < ApplicationController
   def offers
     respond_to do |format|
       format.json {
-        render json: Oj.dump(@position.offers_from_cache)
+        @offers = @position.offers_from_cache(status: "active")
+        render json: Oj.dump(@offers)
       }
     end
   end
@@ -106,14 +117,17 @@ class PositionsController < ApplicationController
   def send_offer
     respond_to do |format|
       format.json {
-        have_offer = @position.offers.where(user_id: current_user.id).first
+        have_offer = @position.offers.where(user_id: current_user.id, status: "active").first
         if have_offer
           render json: {msg: "Вы уже отправляли предожение по данной позиции. Вы можете отредактировать его."}, status: 422
         else
-          @offer = Position.find(params[:offer_id]).to_offer
+          @offer = Position.find_from_cache(params[:offer_id]).to_offer
           @position.offers << @offer
-
-          render json: {msg: "Предложение успешно отправлено!", offer: serialize(@offer)}
+          if @offer.valid?
+            render json: {msg: "Предложение успешно отправлено!", offer: serialize(@offer)}
+          else
+            render json: {msg: @offer.errors.full_messages.joins(', ')}, status: 422
+          end
         end
       }
     end

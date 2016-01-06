@@ -35,9 +35,13 @@ div content-for="header"
       .tabs.yellow ng-if="ctrl.filter.type == 0"
         md-button.tab ng-repeat="status in gon.data.statuses" ng-class="{active: ctrl.filter.positions.status == status.name}" ng-click="ctrl.filter.positions.status = status.name"
           | {{status.title}}
+          span ng-show="ctrl.counters"
+            |  ({{ctrl.counters[status.name] || 0}})
       .tabs.yellow ng-if="ctrl.filter.type == 1"
         md-button.tab ng-repeat="status in gon.data.offers_statuses" ng-class="{active: ctrl.filter.offers.status == status.name}" ng-click="ctrl.filter.offers.status = status.name"
           | {{status.title}}
+          span
+            |  ({{ctrl.counters[status.name] || 0}})
 
 
   .table-wrapper
@@ -66,7 +70,7 @@ div content-for="header"
         tr
           td colspan="8"
             md-progress-linear md-mode="indeterminate"
-      tbody ng-repeat="position in ctrl.positions | filter: search" ng-class="{active: opened}"
+      tbody ng-repeat="position in ctrl.positions.collection | filter: search" ng-class="{active: opened}"
         tr ng-click="opened = !opened"
           td ng-if="ctrl.filter.type!=2"
             i.icon-chevron-right
@@ -93,7 +97,7 @@ div content-for="header"
             .dim
               | {{::position.weight_min_dimension.title}}
           td.btns.w0
-            a.icon-btn ui-sref="{{edit_path(position)}}"
+            a.icon-btn ui-sref="{{edit_path(position)}}" ng-hide="ctrl.filter.offers.status=='deleted'"
               i.icon-pencil
             a.icon-btn ng-href="{{show_path(position)}}"
               i.icon-eye
@@ -118,9 +122,9 @@ div content-for="header"
             .dim
               | {{::offer.weight_min_dimension.title}}
           td.btns
-            a.icon-btn
+            a.icon-btn ng-click="ctrl.goToCorrespondence(offer,position)"
               i.icon-message-text
-            a.icon-btn
+            a.icon-btn ng-href="{{::show_path(offer)}}"
               i.icon-eye
   .show-more
     md-button.md-raised.md-lg ng-click="limitTo = limitTo + 10" ng-show="Cache.positions.length > limitTo" Показать еще

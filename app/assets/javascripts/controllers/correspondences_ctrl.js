@@ -1,4 +1,4 @@
-app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout', 'Correspondence', '$location', function ($scope, action, $state, $timeout, Correspondence, $location) {
+app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout', 'Correspondence', '$location', 'Counter', function ($scope, action, $state, $timeout, Correspondence, $location, Counter) {
   var ctrl = this;
 
   action('index', function () {
@@ -22,10 +22,18 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
     $scope.$watch(function () {
       return $location.search().id
     }, function (id) {
-      if (id) {
+      if (id && $location.path()=='/correspondences') {
         ctrl.form = {}
-        Correspondence.active = Correspondence.get({id: id});
+        Correspondence.active = Correspondence.get({id: id}, function (res) {
+          $scope.positions = {
+            my: _.findWhere(res.positions, {user_id: gon.current_user.id}),
+            user: _.find(res.positions, function (position) {
+              return position.user_id != gon.current_user.id
+            })
+          }
+        });
         setContact();
+
       }
     })
 
@@ -89,23 +97,23 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
           if (Correspondence.correspondences && ctrl.contact) {
             Correspondence.correspondences.push(ctrl.contact)
           }
-
         }
         ctrl.filter = {
           type: ctrl.contact.type
         }
 
-        $timeout(function () {
-          gon.current_user.counters.new_messages_count -= ctrl.contact.new_messages[gon.current_user.id].length;
-          ctrl.contact.new_messages[gon.current_user.id] = []
-        }, 500)
+        var count = Counter.new_messages - ctrl.contact.new_messages[gon.current_user.id].length;
+        if (count < 0)
+          count = 0;
+        Counter.new_messages_count = 0;
+        ctrl.contact.new_messages[gon.current_user.id] = []
       }
     }
   })
 
   function scrollBottom () {
     $timeout(function () {
-      var obj = document.querySelector('.message-page__messages');
+      var obj = document.querySelector('.message-page__messages__wrapper');
       obj.scrollTop = obj.scrollHeight;
     })
   }

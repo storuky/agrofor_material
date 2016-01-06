@@ -1,5 +1,5 @@
-app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache', '$timeout', '$mdDialog', '$location', 'Sign', '$state', '$location', 'Template',
-                        function ($scope, action, Position, Offer, Cache, $timeout, $mdDialog, $location, Sign, $state, $location, Template) {
+app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache', '$timeout', '$mdDialog', '$location', 'Sign', '$state', '$location', 'Template','Correspondence',
+                        function ($scope, action, Position, Offer, Cache, $timeout, $mdDialog, $location, Sign, $state, $location, Template, Correspondence) {
   
   var ctrl = this;
 
@@ -7,13 +7,10 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
     Position.goTo(position)
   }
 
-  $scope.edit_path = function (position) {
-    var hash = "{id: "+position.id+"}"
-    return "edit_"+position.type.toLowerCase()+"_path("+hash+")"
-  }
-
-  $scope.show_path = function (position) {
-    return "/search/map?type=" + position.type.toLowerCase() + "&id=" + position.id
+  ctrl.goToCorrespondence = function (position, offer) {
+    Correspondence.between_positions({position_ids: [position.id, offer.id]}, function (res) {
+      $location.url('/correspondences?id='+res.id)
+    })
   }
   
   $scope.gon = gon;
@@ -36,19 +33,24 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
         status: "opened"
       },
       offers: {
-        status: "new"
+        status: "active"
       }
     }
 
     $scope.$watch('ctrl.filter', function () {
       if (ctrl.filter) {
         if (ctrl.filter.type==0) {
-          ctrl.positions = Position.query(ctrl.filter.positions);
+          ctrl.positions = Position.get(ctrl.filter.positions, function (res) {
+            ctrl.counters = res.counters;
+            ctrl.global_counters = res.global_counters;
+          });
         } else if (ctrl.filter.type==1) {
-          ctrl.positions = Offer.query(ctrl.filter.offers);
+          ctrl.positions = Offer.get(ctrl.filter.offers, function (res) {
+            ctrl.counters = res.counters;
+            ctrl.global_counters = res.global_counters;
+          });
         } else if (ctrl.filter.type==2) {
-          ctrl.positions = Template.query();
-          console.log(ctrl.positions)
+          ctrl.positions = Template.get();
         }
       }
     }, true)
@@ -58,7 +60,7 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
   action('new', function () {
     ctrl.position = Position.new();
     ctrl.save = Position.create;
-    ctrl.templates = Template.query();
+    ctrl.templates = Template.get();
 
     $scope.$watch('ctrl.template_id', function (template_id) {
       if (template_id) {
@@ -113,8 +115,7 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
 
     ctrl.position = position;
 
-
-    if (gon.current_user && gon.current_user.id!=ctrl.position.user_id) {
+    if (gon.current_user && gon.current_user.id!=ctrl.position.user_id && ctrl.position.type=='Position' && ctrl.position.status.id=='opened') {
       get_offers();
       get_suitable();
 

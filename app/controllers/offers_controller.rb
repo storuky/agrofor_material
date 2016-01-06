@@ -9,8 +9,9 @@ class OffersController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        @positions = User.offers_from_cache current_user.id, status: "active"
-        render json: Oj.dump(@positions)
+        counters = current_user.offers.group(:status).count
+        @positions = User.offers_from_cache current_user.id, status: params[:status]
+        render json: Oj.dump({collection: @positions, counters: counters})
       }
     end
   end
@@ -19,7 +20,7 @@ class OffersController < ApplicationController
     respond_to do |format|
       format.json {
         @position = Position.find_from_cache(params[:suitable])
-        have_offer = @position.offers.where(user_id: current_user.id).first
+        have_offer = @position.offers.where(user_id: current_user.id, status: "active").first
         if have_offer
           render json: {msg: "Вы уже отправляли предожение по данной позиции. Вы можете отредактировать его."}, status: 422
         else
@@ -82,10 +83,15 @@ class OffersController < ApplicationController
   def destroy
     respond_to do |format|
       format.json {
-        @offer.update(status: "deleted", position_id: nil)
+        @offer.update(status: "deleted")
         render json: {msg: "Предложение успешно отклонено"}
       }
     end
+  end
+
+  def reset_counter
+    current_user.update(new_offers_count: 0)
+    render json: {}
   end
 
   private

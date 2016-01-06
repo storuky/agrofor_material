@@ -49,6 +49,7 @@
   padding: 15px;
   display: block;
   cursor: pointer;
+  box-shadow: none !important;
 }
 
 .create-position:hover {

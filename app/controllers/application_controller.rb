@@ -20,6 +20,13 @@ class ApplicationController < ActionController::Base
     redirect_to map_path
   end
 
+  def counters
+    render json: {
+      new_messages_count: current_user.new_messages_count,
+      new_offers_count: current_user.new_offers_count,
+    }
+  end
+
   def serialize res, options = {}
     if res.respond_to?('each')
       serializer = options[:serializer] || "#{res.model_name.name}Serializer".constantize
@@ -54,16 +61,13 @@ class ApplicationController < ActionController::Base
         rates: Currency.get_rates(gon.settings[:currency][:name]),
         roles: Role.all_from_cache,
         languages: [{id: "ru", title: "Русский"}, {id: "en", title: "English"}],
-        position_tabs: [{id: 0, title: 'Позиции'}, {id: 1, title: "Предложения"}, {id: 2, title: 'Шаблоны'}]
+        position_tabs: [{id: 0, title: 'Позиции', type: "Position"}, {id: 1, title: "Предложения", type: "Offer"}, {id: 2, title: 'Шаблоны', type: "Template"}]
       }
 
 
       if current_user
         gon.current_user = current_user.info
         gon.current_user[:channel] = PrivatePub.subscription(:channel => "/stream/#{current_user.id}").as_json
-        gon.current_user[:counters] = {
-          new_messages_count: current_user.new_messages_count
-        }
       end
 
     end

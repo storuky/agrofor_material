@@ -129,8 +129,8 @@ ActiveRecord::Schema.define(version: 20160103195946) do
   create_table "position_bases", force: :cascade do |t|
     t.string   "type"
     t.string   "template_name"
-    t.boolean  "delta",                     default: true,     null: false
-    t.string   "status",                    default: "opened"
+    t.boolean  "delta",                     default: true, null: false
+    t.string   "status"
     t.integer  "position_id"
     t.integer  "from_position_id"
     t.integer  "offer_id"
@@ -143,12 +143,12 @@ ActiveRecord::Schema.define(version: 20160103195946) do
     t.integer  "currency_id",               default: 1
     t.float    "price"
     t.float    "price_etalon"
-    t.float    "price_discount",            default: 5.0,      null: false
+    t.float    "price_discount",            default: 5.0,  null: false
     t.integer  "price_weight_dimension_id", default: 1
     t.float    "weight"
-    t.float    "weight_min",                default: 0.0,      null: false
+    t.float    "weight_min",                default: 0.0,  null: false
     t.float    "weight_etalon"
-    t.float    "weight_min_etalon",         default: 0.0,      null: false
+    t.float    "weight_min_etalon",         default: 0.0,  null: false
     t.integer  "weight_dimension_id",       default: 1
     t.integer  "weight_min_dimension_id",   default: 1
     t.text     "index_field"
@@ -157,8 +157,8 @@ ActiveRecord::Schema.define(version: 20160103195946) do
     t.float    "lat"
     t.float    "lng"
     t.integer  "deal_with_id"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   add_index "position_bases", ["category_id"], name: "index_position_bases_on_category_id", using: :btree
@@ -231,6 +231,7 @@ ActiveRecord::Schema.define(version: 20160103195946) do
     t.integer  "role_id"
     t.string   "timezone"
     t.string   "country"
+    t.integer  "new_offers_count",       default: 0
     t.string   "locale",                 default: "ru", null: false
   end
 

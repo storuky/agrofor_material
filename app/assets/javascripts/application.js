@@ -17,11 +17,30 @@
 
 var app = angular.module('app', ['ui.router', 'oxymoron', 'ngMaterial', 'ngTouch'])
 
-app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', function ($rootScope, Sign, $mdDialog, Cache) {
+app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', 'Counter', function ($rootScope, Sign, $mdDialog, Cache, Counter) {
   $rootScope._ = _;
   $rootScope.gon = gon;
   $rootScope.Sign = Sign;
   $rootScope.Routes = Routes;
+  $rootScope.Counter = Counter;
+
+  if (gon.current_user)
+    Counter.update();
+
+  $rootScope.edit_path = function (position) {
+    if (position) {
+      var hash = "{id: "+position.id+"}"
+      return "edit_"+position.type.toLowerCase()+"_path("+hash+")"
+    }
+
+    return "";
+  }
+
+  $rootScope.show_path = function (position) {
+    if (position)
+      return "/search/map?type=" + position.type.toLowerCase() + "&id=" + position.id
+    return ""
+  }
 
   $rootScope.safeApply = function(fn) {
       var phase = this.$root.$$phase;

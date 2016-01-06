@@ -401,8 +401,11 @@ md-dialog.position-modal md-dialog-content {
   padding: 20px;
   font-size: 16px;
   line-height: 25px;
+  white-space: pre-wrap;
   text-align: justify;
   /* background: #F9F9F9; */
+  font-family: Roboto;
+  margin: 0;
 }
 
 .position-status {
@@ -571,4 +574,9 @@ md-dialog.position-modal md-dialog-content {
 
 .position-modal__offer md-progress-linear {
   position: absolute;
+}
+
+
+.positions-filter__search {
+  min-width: 200px;
 }

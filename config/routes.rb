@@ -13,6 +13,12 @@ Rails.application.routes.draw do
     get "list"
   end
 
+  scope :correspondences, controller: "correspondences" do
+    get 'between_positions'
+  end
+
+  get "counters" => "application#counters"
+
   get 'analytics' => 'analytics#index'
   get 'support' => 'support#index'
   get 'help' => 'help#index'
@@ -33,13 +39,20 @@ Rails.application.routes.draw do
       post :send_message
     end
   end
-  resources :offers
+
+  resources :offers do
+    collection do
+      delete :reset_counter
+    end
+  end
+  
   resources :profile do
     member do
       get 'positions', is_array: true
       get 'feedbacks', is_array: true
     end
   end
+
   resources :users
   
   resources :positions do

@@ -1,5 +1,5 @@
 class Position < PositionBase
-  has_many :offers
+  has_many :offers, -> () {where("status = 'active'")}
 
   after_commit :regenerate_cache
 
@@ -27,7 +27,7 @@ class Position < PositionBase
   end
 
   def to_offer
-    Offer.new self.attributes.except("type", "id", "created_at", "updated_at", "delta").update(from_position_id: id)
+    Offer.new self.attributes.except("type", "id", "created_at", "updated_at", "delta").update(from_position_id: id, status: 'active')
   end
 
 
@@ -49,9 +49,9 @@ class Position < PositionBase
     })
   end
 
-  def offers_from_cache
-    Rails.cache.fetch("Position.offers_from_cache(#{self.id})") do
-      ActiveModel::ArraySerializer.new(self.offers, each_serializer: OfferSerializer).as_json
+  def offers_from_cache options={}
+    Rails.cache.fetch("Position.offers_from_cache(#{self.id}, #{options})") do
+      ActiveModel::ArraySerializer.new(self.offers.where(options), each_serializer: OfferSerializer).as_json
     end
   end
 

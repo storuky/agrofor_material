@@ -6,7 +6,7 @@ class CreatePositionBases < ActiveRecord::Migration
       t.string :template_name
 
       t.boolean :delta, :default => true, :null => false
-      t.string :status, default: "opened"
+      t.string :status
 
       t.integer :position_id
       t.index :position_id

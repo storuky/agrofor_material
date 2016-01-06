@@ -19,7 +19,7 @@ class Message < ActiveRecord::Base
       new_messages[opponent_id.to_s] << self.id
       correspondence.update(last_message: self.body, new_messages: new_messages)
 
-      PrivatePub.publish_to "/stream/#{opponent_id}", MessageSerializer.new(self, root: false).as_json
+      PrivatePub.publish_to "/stream/#{opponent_id}", {message: MessageSerializer.new(self, root: false).as_json}
     end
 
 end

@@ -1,4 +1,4 @@
-app.service('Sign', ['$http', '$state', function ($http, $state) {
+app.service('Sign', ['$http', '$state', 'Counter', function ($http, $state, Counter) {
   var Sign = this;
 
   Sign.out = function () {
@@ -14,6 +14,8 @@ app.service('Sign', ['$http', '$state', function ($http, $state) {
       .success(function (res) {
         gon.current_user = res.current_user;
         gon.settings = res.settings;
+        Counter.update();
+
         Sign.isShow = false;
         if (Sign.redirectTo) {
           $state.go(Sign.redirectTo);

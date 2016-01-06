@@ -32,12 +32,9 @@
 .message-page__messages {
   position: absolute;
   top: 0;
-  margin-bottom: 90px;
   bottom: 0;
   left: 0;
   right: 0;
-  /* background-color: white; */
-  overflow-y: auto;
 }
 
 .message-page__send {
@@ -356,6 +353,115 @@ color: #999;font-size: 13px;position: absolute;right: 13px;bottom: 10px;}
 
 .message.new_offer .message__body {background: rgba(0, 128, 0, 0.13);}
 
-.message.new_offer .message__body:before {
+.message.new_offer.my .message__body:before {
   border-color: transparent transparent transparent #DEEFDE;
+}
+
+.message.new_offer .message__body:before {
+  border-color: transparent #DEEFDE transparent transparent;
+}
+
+
+.message.delete_offer .message__body {background: rgba(255, 42, 0, 0.31);}
+
+.message.delete_offer.my .message__body:before {
+  border-color: transparent transparent transparent #FFBDB0;
+}
+.message.delete_offer .message__body:before {
+  border-color: transparent #FFBDB0 transparent transparent;
+}
+
+
+.message-page__positions {
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0px 1px 5px rgba(0,0,0,.1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.message-page__positions__link:not(:last-child) {
+  margin-right: 30px;
+}
+
+.message-page__messages__wrapper {
+  margin-bottom: 90px;
+  padding-top: 40px;
+  overflow-y: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.message-page__positions__link {
+  cursor: pointer;
+  color: #656565;
+  white-space: nowrap;
+  /* margin-right: 20px; */
+  padding: 11px 10px 10px 35px;
+  display: inline-block;
+  margin-left: -1px;
+  border-right: 1px solid #FFFFFF;
+  border-left: 1px solid #FFFFFF;
+}
+.message-page__positions__link:hover {
+  color: #333;
+}
+
+.message-page__positions__link i {
+  vertical-align: middle;
+  font-size: 21px;
+  margin-left: 5px;
+  text-align: center;
+  color: inherit;
+}
+
+
+.message-page__position {
+  background: white;
+  padding: 10px 0 0 0;
+  border-top: 1px solid #E2E2E2;
+  margin-top: -1px;
+  position: relative;
+  z-index: 2;
+}
+
+
+.message-page__positions__link.active {
+  background: white;
+  position: relative;
+  z-index: 3;
+  border-color: #E2E2E2;
+}
+
+
+.message-page__position__goto {
+  padding: 14px 35px;
+  background: #FAFAFA;
+  margin-top: 10px;
+  border-top: 1px solid #E4E4E4;
+}
+
+.message-page__position .dt {
+  padding-left: 35px;
+}
+
+
+.message-page__position__goto i {
+  vertical-align: middle;
+  margin-left: 7px;
+  font-size: 18px;
+}
+
+
+.message-page__position__goto a {
+  text-decoration: none;
+  /* border-bottom: 1px solid; */
+  margin: 0;
+  padding: 0 10px;
 }

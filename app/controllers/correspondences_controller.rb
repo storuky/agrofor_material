@@ -1,5 +1,5 @@
 class CorrespondencesController < ApplicationController
-  before_action :set_correspondence, only: [:send_message, :show]
+  before_action :set_correspondence, only: [:send_message, :show, :reset_counter]
   before_action :check_owner, only: [:send_message, :show]
 
   def index
@@ -46,6 +46,10 @@ class CorrespondencesController < ApplicationController
       document_ids: (params[:document_ids] || [])
     )
     render json: {}
+  end
+
+  def between_positions
+    render json: CorrespondencePosition.between_positions(params[:position_ids])
   end
 
   private

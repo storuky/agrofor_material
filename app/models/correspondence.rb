@@ -7,11 +7,11 @@ class Correspondence < ActiveRecord::Base
 
   class << self
     def between_users user_ids
-      Correspondence.where("user_ids @> ARRAY[?]::integer[]", user_ids).first
+      CorrespondenceUser.where("user_ids @> ARRAY[?]::integer[]", user_ids).first
     end
 
     def between_positions position_ids
-      Correspondence.where("position_ids @> ARRAY[?]::integer[]", position_ids).first
+      CorrespondencePosition.where("position_ids @> ARRAY[?]::integer[]", position_ids).first
     end
   end
 
@@ -24,8 +24,8 @@ class Correspondence < ActiveRecord::Base
   end
 
   def mark_as_read user_id
-    # self.new_messages[user_id.to_s] = []
-    # self.save
+    self.new_messages[user_id.to_s] = []
+    self.save
   end
 
   private

@@ -1,0 +1,6 @@
+ru:
+  offer:
+    status:
+      active: "Активно"
+      rejected: "Отклонено"
+      deleted: "Отозвано"

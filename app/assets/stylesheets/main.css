@@ -177,9 +177,9 @@ a.link:active {
 
 .dt {
   color: rgba(0,0,0,0.54);
-  padding: 5px 10px 5px 18px;
+  padding: 5px 11px 5px 0px;
   vertical-align: top;
-  font-weight: lighter;
+  font-weight: normal;
 }
 
 .dd {
@@ -247,6 +247,7 @@ hr {
   text-align: center;
   text-transform: none;
   font-weight: normal;
+  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.11);
 }
 
 .md-yellow:not(:disabled) {
@@ -256,6 +257,10 @@ hr {
 .md-white, .md-white.md-button, a.md-white {
   background: white !important;
   text-transform: none;
+  border: 1px solid #E5E5E5;
+}
+.md-white:hover, .md-white.md-button:hover, a.md-white:hover {
+  background-color: #f7f7f7 !important;
 }
 
 .md-red, .md-red.md-button, a.md-red {

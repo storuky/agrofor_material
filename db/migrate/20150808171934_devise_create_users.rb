@@ -61,6 +61,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :timezone
       t.string :country
 
+      t.integer :new_offers_count, default: 0
+
       t.string :locale, default: "ru", null: false
     end
 

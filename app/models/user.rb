@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   # mount_uploader :avatar, AvatarUploader
 
+  has_many :position_bases, class_name: PositionBase
   has_many :positions
   has_many :offers
   has_many :images

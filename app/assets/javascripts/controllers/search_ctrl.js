@@ -4,7 +4,7 @@ app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Positi
   $scope.Search = Search;
 
   if (gon.current_user)
-    ctrl.positions = Position.query({status: "opened"})
+    ctrl.positions = Position.get({status: "opened"})
 
   action('map', function () {
     Search.type = 'map';

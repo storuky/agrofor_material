@@ -5,32 +5,32 @@ class Offer < PositionBase
 
   validate :trade_type_validate
   validate :user_validate
-  validate :status_validate
   validate :option_validate
   validate :price_validate
   validate :weight_validate
 
-  after_create :create_correspondence
+  after_create :create_correspondence_and_ws
+  after_update :send_message
 
   aasm :column => :status do
     state :active, :initial => true
+    state :rejected
     state :deleted
 
     event :delete do
       transitions :to => :deleted, :from => [:active]
     end
+
+    event :reject do
+      transitions :to => :rejected, :from => [:active]
+    end
   end
 
   class << self
     def statuses
-      [
-        {
-          id: 1, title: "Новые", name: "new"
-        },
-        {
-          id: 2, title: "Отклоненные", name: "rejected"
-        }
-      ]
+      Offer.aasm.states.each_with_index.map do |state, index|
+        {id: index, name: state.name, title: I18n.t("offer.status.#{state.name.to_s}")}
+      end
     end
   end
 
@@ -41,10 +41,6 @@ class Offer < PositionBase
 
     def user_validate
       errors.add(:user_id, "Нельзя заключить сделку с собой") if position.user_id == user_id
-    end
-
-    def status_validate
-      errors.add(:status, "Статус обеих позиции должен быть «Открыто»") if (position.status != 'opened') or (position.status != 'opened')
     end
 
     def option_validate
@@ -70,16 +66,33 @@ class Offer < PositionBase
 
     def regenerate_cache
       Rails.cache.delete_matched(/User\.offers_from_cache\(#{user_id}\,/)
-      Rails.cache.delete("Position.offers_from_cache(#{position_id})")
+      Rails.cache.delete_matched(/Position\.offers_from_cache\(#{position_id}\,/)
     end
 
-    def create_correspondence
+    def create_correspondence_and_ws
       position_ids = [id, position_id]
       user_ids = [user_id, position.user_id]
       unless @correspondence = CorrespondencePosition.between_positions(position_ids)
         @correspondence = CorrespondencePosition.create(user_ids: user_ids, position_ids: position_ids)
       end
 
-      @correspondence.messages.create(message_type: "new_offer", body: "New offer", user_id: user_id)
+      position.user.increment(:new_offers_count)
+
+      @correspondence.messages.create(message_type: "new_offer", body: "Service message", user_id: user_id)
+      PrivatePub.publish_to "/stream/#{position.user_id}", {offer: OfferSerializer.new(self, root: false).as_json}
+    end
+
+    def send_message
+      position_ids = [id, position_id]
+      @correspondence = CorrespondencePosition.between_positions(position_ids)
+
+      case status
+        when 'deleted'
+          message_type = 'delete_offer'
+        else
+          message_type = 'change_offer'
+      end
+
+      @correspondence.messages.create(message_type: message_type, body: "Service message", user_id: user_id)
     end
 end

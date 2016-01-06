@@ -5,7 +5,10 @@ class TemplatesController < ApplicationController
   def index
     respond_to do |format|
       format.json {
-        render json: User.templates_from_cache(current_user.id)
+        counters = current_user.offers.group(:status).count
+        @positions = User.templates_from_cache(current_user.id)
+        global_counters = current_user.position_bases.group(:type).count
+        render json: Oj.dump({collection: @positions, counters: counters, global_counters: global_counters})
       }
     end
   end
