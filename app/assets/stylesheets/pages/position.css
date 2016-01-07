@@ -101,6 +101,7 @@
   opacity: 1;
   width: 100%;
   overflow: hidden;
+  max-width: 902px;
 }
 .position_show.active {
   transform: scale(.8);
@@ -377,6 +378,7 @@ md-dialog.position-modal md-dialog-content {
   vertical-align: top;
   padding: 20px;
   min-width: 151px;
+  position: absolute;
 }
 
 .position-modal__info__item b {
@@ -388,7 +390,7 @@ md-dialog.position-modal md-dialog-content {
 }
 
 
-.position-modal .md-title {
+.position_show .md-title {
   padding: 20px 0 20px 20px;
 }
 
@@ -581,4 +583,28 @@ md-dialog.position-modal md-dialog-content {
 
 .positions-filter__search {
   min-width: 200px;
+}
+.position__full-info {
+  min-height: 100px;
+  vertical-align: top;
+  background: white;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.position__full-info .uploaded-documents {
+  padding: 15px 0 15px 20px;
+}
+
+.position__full-info__footer {
+  background-color: #FAFAFA;
+  border-top: 1px solid #E4E4E4;
+  padding: 10px;
+  text-align: right;
+}
+
+.position__full-info__your {
+  font-size: 18px;
+  color: #666;
+  text-align: center;
 }

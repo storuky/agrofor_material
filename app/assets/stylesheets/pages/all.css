@@ -139,6 +139,9 @@ input.solid-input:focus {
   margin: 3px;
   position: relative;
   vertical-align: middle;
+  width: 150px;
+  height: 150px;
+  position: absolute;
 }
 
 .uploaded-images a:hover:before {

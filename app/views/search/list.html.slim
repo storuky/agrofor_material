@@ -21,7 +21,7 @@ h1.search-title.md-title
                 | Тип
             th ng-if="ctrl.gt1120px"
               | Категория
-              order ng-model="Search.order" value="'option_id'"
+              div
                 | Категория
             th.numeric ng-if="ctrl.gt1120px"
               | Цена
@@ -43,8 +43,8 @@ h1.search-title.md-title
           tr
             td colspan="8"
               md-progress-linear md-mode="indeterminate"
-        tbody ng-repeat="position_fields in Search.positions.collection"
-          tr ng-init="position = Position.serialize(position_fields)"
+        tbody ng-class="{active: opened}" ng-repeat="position_fields in Search.positions.collection"
+          tr ng-click="opened=!opened; full_position = Position.get({id: position.id})" ng-init="position = Position.serialize(position_fields)"
             td
               favorite position="position"
             td
@@ -96,8 +96,16 @@ h1.search-title.md-title
             td.btns.w0
               a.icon-btn ng-href="{{::show_path(position)}}"
                 i.icon-eye
-        tbody ng-show="Search.positions.collection.length > offset"
-          tr
+          tr ng-if="opened && full_position.$resolved"
+            td.position__full-info colspan="10"
+              position-show position="full_position"
+              .position__full-info__footer
+                md-button.md-yellow.md-lg ng-show="gon.current_user.id != full_position.user_id" ng-href="/offers/new?suitable={{full_position.id}}"
+                  | Отправить предложение
+
+                .position__full-info__your ng-show="gon.current_user.id == full_position.user_id"
+                  | Это ваша позиция
+        tbody ng-show="Search.positions.collection.length > Search.offset"
+          tr.show-more ng-init="offset=0"
             td colspan="10"
-              .show-more ng-init="offset=0"
-                md-button.md-white.md-lg ng-click="Search.offset = Search.offset + 10; Search.byParams(Search.offset)" Показать еще
+              md-button.md-white.md-lg ng-click="Search.offset = Search.offset + 10; Search.byParams(Search.offset)" Показать еще

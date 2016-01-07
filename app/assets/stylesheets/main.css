@@ -139,9 +139,14 @@ a {
   text-align: left;
 }
 
+.show-more td{
+  text-align: center !important;
+  padding: 10px !important;
+}
 .show-more {
-  text-align: center;
+  cursor: default !important;
   margin-top: 10px;
+  background: white !important;
 }
 
 .title {

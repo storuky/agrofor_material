@@ -41,7 +41,7 @@ class SearchController < ApplicationController
         
         result = {
           offset: offset,
-          collection: collection.pluck_fields([:updated_at, :type]),
+          collection: collection.pluck_fields([:updated_at, :type]).uniq,
         }
         render json: Oj.dump(result)
       }

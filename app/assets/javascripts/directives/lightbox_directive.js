@@ -46,6 +46,8 @@ app.directive('lightbox', ['$compile', '$timeout', '$rootScope', 'Image', functi
                 $scope.$apply();
               }
             })
+
+            // flkty.resize()
           }, 100);
         }
       }, true)
