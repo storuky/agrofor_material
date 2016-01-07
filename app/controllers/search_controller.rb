@@ -21,18 +21,27 @@ class SearchController < ApplicationController
       format.json {
         offset = params[:offset].to_i
 
-        if params[:order] == 'price'
+        if params[:order] == 'price' 
           order = 'position_bases.price_etalon * currencies.to_usd'
+        elsif params[:order] == 'price DESC'
+          order = 'position_bases.price_etalon * currencies.to_usd DESC'
         else
           if Position.accept_for_order.include?(params[:order])
             order = "position_bases.#{params[:order]}"
           end
         end
 
-        collection = @positions.joins("LEFT JOIN favorite_positions ON (position_bases.id=favorite_positions.position_id AND favorite_positions.user_id=#{current_user.id})").order("favorite_positions.position_id").order(order)
+        if current_user
+          collection = @positions.joins("LEFT JOIN favorite_positions ON (position_bases.id=favorite_positions.position_id AND favorite_positions.user_id=#{current_user.id})").order("favorite_positions.position_id")
+        else
+          collection = @positions
+        end
+
+        collection = collection.order(order).offset(offset).limit(10)
+        
         result = {
           offset: offset,
-          collection: collection.offset(offset).limit(10).pluck_fields([:updated_at, :type]),
+          collection: collection.pluck_fields([:updated_at, :type]),
         }
         render json: Oj.dump(result)
       }

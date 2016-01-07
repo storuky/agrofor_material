@@ -4,6 +4,7 @@
   background-color: rgba(255, 255, 255, 0);
   /* overflow: hidden; */
   /* position: relative; */
+  /*table-layout: fixed;*/
 }
 
 .table > thead > tr > th {
@@ -167,4 +168,12 @@
 
 .order:hover, .order.active {
   color: #000;
+}
+
+.table-option {
+  width: 160px;
+}
+
+.table md-progress-linear {
+  position: absolute;
 }

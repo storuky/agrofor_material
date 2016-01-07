@@ -39,7 +39,7 @@ h1.search-title.md-title
               | Описание
               div Описание
             th
-        thead ng-if="!ctrl.positions.$resolved"
+        thead ng-if="Search.promise.$$state.status == 0"
           tr
             td colspan="8"
               md-progress-linear md-mode="indeterminate"
@@ -53,12 +53,17 @@ h1.search-title.md-title
             / Greater then 1120px
             td ng-if="ctrl.gt1120px"
               | {{::position.trade_type.title}}
-            td ng-if="ctrl.gt1120px"
+            td.table-option ng-if="ctrl.gt1120px"
               | {{::position.option.title}}
-            td.numeric.green.fw-500 ng-if="ctrl.gt1120px"
+            td.numeric.fw-500 ng-if="ctrl.gt1120px"
               | {{::position.price | number:2}}
-              .dim.green.fw-500
+              .dim.fw-500
                 | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
+              .green ng-if="position.currency.id != gon.settings.currency.id"
+                | {{::position.price * gon.data.rates[position.currency.id].rate | number:2}}
+                |   {{::gon.settings.currency.title}}/{{::position.price_weight_dimension.title}}
+
+
             td.numeric ng-if="ctrl.gt1120px"
               | {{::position.weight | number}}
               .dim
@@ -73,10 +78,14 @@ h1.search-title.md-title
               b
                 |  «{{::position.option.title}}»  
               | по цене  
-              span.green.fw-500
+              span.fw-500
                 | {{::position.price | number:2}}
-                .dim.green.fw-500
-                  | {{::position.currency.title}}/{{::position.price_weight_dimension.title}},  
+                .dim.fw-500
+                  | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
+                |  или 
+                span.green ng-if="position.currency.id != gon.settings.currency.id"
+                  |   {{::position.price * gon.data.rates[position.currency.id].rate | number:2}}
+                  |   {{::gon.settings.currency.title}}/{{::position.price_weight_dimension.title}}
               br
               | {{::position.weight | number}} 
               .dim 

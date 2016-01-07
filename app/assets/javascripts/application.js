@@ -17,7 +17,7 @@
 
 var app = angular.module('app', ['ui.router', 'oxymoron', 'ngMaterial', 'ngTouch'])
 
-app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', 'Counter', '$state', 'Position', 'Offer', 'Template', function ($rootScope, Sign, $mdDialog, Cache, Counter, $state, Position, Offer, Template) {
+app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', 'Counter', '$state', 'Position', 'Offer', 'Template', 'Ws', function ($rootScope, Sign, $mdDialog, Cache, Counter, $state, Position, Offer, Template, Ws) {
   $rootScope._ = _;
   $rootScope.gon = gon;
   $rootScope.Sign = Sign;
@@ -27,6 +27,8 @@ app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', 'Counter', '$state', 'Posit
   $rootScope.Position = Position;
   $rootScope.Offer = Offer;
   $rootScope.Template = Template;
+
+  Ws.connect();
   
   $rootScope.edit_path = function (position) {
     if (position) {

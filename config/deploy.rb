@@ -1,4 +1,3 @@
-set :application, 'agrofor'
 set :repo_url, 'git@github.com:storuky/agrofor_material.git'
 # set :rvm_type, :user
 
@@ -9,7 +8,6 @@ set :repo_url, 'git@github.com:storuky/agrofor_material.git'
 # set :rvm_type, :system
 set :rvm_ruby_version, '2.2.3@agrofor'
 
-set :deploy_to, '/home/deploy/wheat'
 
 set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
@@ -43,7 +41,7 @@ set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 # Default value for keep_releases is 5
-set :keep_releases, 2
+set :keep_releases, 4
 
 namespace :deploy do
   # desc 'Start application'

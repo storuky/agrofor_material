@@ -7,11 +7,13 @@
 # role :app, %w{deploy@example.com}
 # role :web, %w{deploy@example.com}
 # role :db,  %w{deploy@example.com}
+set :application, 'agrofor'
 
 set :stage, :production
 
 # Replace 127.0.0.1 with your server's IP address!
 server '45.55.238.107', user: 'deploy', roles: %w{web app db}
+set :deploy_to, '/home/deploy/agrofor'
 
 # Extended Server Syntax
 # ======================
