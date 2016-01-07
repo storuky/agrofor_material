@@ -8,5 +8,7 @@ app.service('Counter', ['$http', function ($http) {
       })
   }
 
-  
+  Counter.sum = function () {
+    return Counter.new_messages_count + Counter.new_offers_count
+  }  
 }])

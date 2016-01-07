@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     get 'between_positions'
   end
 
+  scope :images, controller: "images" do
+    post 'avatar'
+  end
+
   get "counters" => "application#counters"
 
   get 'analytics' => 'analytics#index'

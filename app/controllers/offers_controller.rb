@@ -84,7 +84,7 @@ class OffersController < ApplicationController
     respond_to do |format|
       format.json {
         @offer.update(status: "deleted")
-        render json: {msg: "Предложение успешно отклонено"}
+        render json: {msg: "Предложение успешно отозвано"}
       }
     end
   end

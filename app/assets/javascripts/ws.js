@@ -1,7 +1,7 @@
 app.run(['$rootScope', '$location', 'Correspondence', 'Offer', 'Position', 'Counter', function ($rootScope, $location, Correspondence, Offer, Position, Counter) {
   if (gon.current_user) {
     
-    PrivatePub.sign(gon.current_user.channel);
+    PrivatePub.sign(gon.channel);
     
     PrivatePub.subscribe("/stream/" + gon.current_user.id, function(data, channel) {
       if (data.message)

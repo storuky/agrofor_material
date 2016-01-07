@@ -1,9 +1,9 @@
 .table {
   width: 100%;
   border-spacing: 0;
-  background-color: #fff;
-  overflow: hidden;
-  position: relative;
+  background-color: rgba(255, 255, 255, 0);
+  /* overflow: hidden; */
+  /* position: relative; */
 }
 
 .table > thead > tr > th {
@@ -20,12 +20,12 @@
 .table > thead > tr > th:first-child,
 .table > tbody > tr > td:first-child {
   width: 18px;
-  padding: 0 24px;
+  padding: 0 34px;
   width: 1px;
 }
 
 .table > thead > tr > th {
-  padding: 0 34px;
+  padding: 0 20px;
 }
 
 .table > thead > tr > th > div {
@@ -35,14 +35,8 @@
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  height: 56px;
+  height: 45px;
   line-height: 18px;
-}
-
-.table > thead > tr > th.numeric > div {
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
 }
 
 .table > tbody > tr {
@@ -60,7 +54,7 @@
 .table > tbody > tr > td {
   font-size: 13px;
   color: rgba(0, 0, 0, 0.87);
-  border-top: 1px rgba(0, 0, 0, 0.12) solid;
+  border-top: 1px #C3C3C3 solid;
 }
 
 .table > tbody > tr > th {
@@ -68,7 +62,7 @@
 }
 
 .table > tbody > tr > td {
-  padding: 0 34px;
+  padding: 0 20px;
 }
 
 .table > tbody > tr > td.btns {
@@ -82,8 +76,8 @@
 }
 
 .table > tbody > tr > td.numeric {
-  text-align: right;
   white-space: nowrap;
+  position: relative;
 }
 
 .table > tbody > tr {
@@ -116,7 +110,40 @@
 }
 
 .table-wrapper {
-  overflow-x: auto;
-  border-bottom: 1px solid #C7C7C7;
-  width: 100%;
+  position: relative;
+  padding-top: 45px;
+  height: 100%;
+}
+
+.table-wrapper-scroll {
+  overflow-y: auto;
+  height: 100%;
+}
+.fixed-header td, .fixed-header th {
+  padding: 10px 25px;
+}
+
+.fixed-header th {
+  height: 0;
+  line-height: 0;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  color: transparent !important;
+  border: none;
+  white-space: nowrap !important;
+}
+.fixed-header th div{
+  position: absolute;
+  background: transparent;
+  color: #000;
+  top: 0px;
+  line-height: normal;
+}
+
+.fixed-header-shadow th:first-child div {
+  /* width: 100%; */
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.36);
+  position: absolute;
+  left: 0;
+  right: 0;
 }

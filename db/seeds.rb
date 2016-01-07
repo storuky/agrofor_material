@@ -34,7 +34,11 @@ def create_position u
   }
 
   position = Position.create params
-  puts "Позиция №#{position.id} создана"
+  if position.valid?
+    puts "Позиция №#{position.id} создана"
+  else
+    ap position.errors
+  end
 end
 
 puts "Создание категории"

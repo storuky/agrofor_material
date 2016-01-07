@@ -25,14 +25,18 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
       if (id && $location.path()=='/correspondences') {
         ctrl.form = {}
         Correspondence.active = Correspondence.get({id: id}, function (res) {
-          $scope.positions = {
-            my: _.findWhere(res.positions, {user_id: gon.current_user.id}),
-            user: _.find(res.positions, function (position) {
-              return position.user_id != gon.current_user.id
-            })
+          if (res.positions.length) {
+            $scope.positions = {
+              my: _.findWhere(res.positions, {user_id: gon.current_user.id}),
+              user: _.find(res.positions, function (position) {
+                return position.user_id != gon.current_user.id
+              })
+            }
+          } else {
+            $scope.positions = undefined;
           }
+          setContact();
         });
-        setContact();
 
       }
     })
@@ -98,15 +102,18 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
             Correspondence.correspondences.push(ctrl.contact)
           }
         }
+
         ctrl.filter = {
           type: ctrl.contact.type
         }
 
-        var count = Counter.new_messages - ctrl.contact.new_messages[gon.current_user.id].length;
-        if (count < 0)
-          count = 0;
-        Counter.new_messages_count = 0;
-        ctrl.contact.new_messages[gon.current_user.id] = []
+        if (ctrl.contact.new_messages) {
+          var count = Counter.new_messages - ctrl.contact.new_messages[gon.current_user.id].length;
+          if (count < 0)
+            count = 0;
+          Counter.new_messages_count = 0;
+          ctrl.contact.new_messages[gon.current_user.id] = []
+        }
       }
     }
   })

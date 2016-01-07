@@ -1,4 +1,4 @@
-app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Position', '$timeout', '$state', function ($scope, action, Search, $location, Position, $timeout, $state) {
+app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Position', '$timeout', '$state', '$mdMedia', function ($scope, action, Search, $location, Position, $timeout, $state, $mdMedia) {
   var ctrl = this;
 
   $scope.Search = Search;
@@ -25,6 +25,18 @@ app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Positi
 
   action('list', function () {
     Search.type = 'list';
+
+    $scope.$watch(function () {
+      return $mdMedia('max-width: 1165px')
+    }, function (media) {
+      ctrl.lt1120px = media;
+    })
+
+    $scope.$watch(function () {
+      return $mdMedia('min-width: 1166px')
+    }, function (media) {
+      ctrl.gt1120px = media;
+    })
   });
 
   action(['list', 'map'], function () {

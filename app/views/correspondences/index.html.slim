@@ -18,7 +18,7 @@ div content-for="header"
     .message-page__contacts__content
       a href="/correspondences?id={{correspondence.id}}" ng-repeat="correspondence in Correspondence.correspondences | filter:ctrl.filter | filter:ctrl.textSearch | orderBy:'timestamp':true"
         md-list-item class="md-3-line" ng-class="{active: correspondence==ctrl.contact}" ng-click="test=1"
-          img.md-avatar ng-src="/avatar.png" alt="{{correspondence.who}}"
+          img.md-avatar ng-src="{{opponent_user(correspondence.users).avatar.url.thumb || '/avatar.png'}}"
           .md-list-item-text layout="column"
             .message-page__contacts__count ng-show="correspondence.new_messages[gon.current_user.id].length"
               | {{correspondence.new_messages[gon.current_user.id].length}}
@@ -39,7 +39,7 @@ div content-for="header"
     .message-page__progress ng-show="Correspondence.active.$resolved==false"
       md-progress-linear md-mode="query"
     .message-page__messages ng-show="ctrl.contact"
-      .message-page__positions click-outside="showPosition = ''"
+      .message-page__positions ng-show="positions" click-outside="showPosition = ''"
         table
           tr
             td
@@ -50,32 +50,16 @@ div content-for="header"
             td
               a.message-page__positions__link ng-click="showPosition = 'user'" ng-class="{active: showPosition == 'user'}"
 
-                span ng-show="positions['my'].type=='Position'" Позиция пользователя
-                span ng-show="positions['my'].type=='Offer'" Предложение пользователя
+                span ng-show="positions['user'].type=='Position'" Позиция пользователя
+                span ng-show="positions['user'].type=='Offer'" Предложение пользователя
                 i.icon-chevron-down
 
         .message-page__position ng-show="showPosition"
-          table
-            tr
-              td.dt Тип:
-              td.dd
-                | {{positions[showPosition].trade_type.title}}
-            tr
-              td.dt Категория:
-              td.dd
-                | {{positions[showPosition].option.title}}
-            tr
-              td.dt Цена:
-              td.dd
-                | {{positions[showPosition].price}} {{positions[showPosition].currency.title}}/{{positions[showPosition].price_weight_dimension.title}}
-            tr
-              td.dt Объем:
-              td.dd
-                | {{positions[showPosition].weight}} {{positions[showPosition].weight_dimension.title}}
-            tr
-              td.dt Мин. заказ:
-              td.dd
-                | 10 т
+          .md-title
+            | {{positions[showPosition].title}}
+            .position-status ng-class="positions[showPosition].status.id"
+              | {{positions[showPosition].status.title}}
+          trading-conditions position="positions[showPosition]"
           .message-page__position__goto
 
             md-button.md-yellow ng-href="{{show_path(positions[showPosition])}}"
@@ -87,10 +71,14 @@ div content-for="header"
           div[flex=100]
             .message[ng-class="::[{my: message.user_id == gon.current_user.id}, message.message_type]" ng-repeat="message in Correspondence.active.messages"]
               .message__body
-                pre.message__text ng-hide="::message.message_type"
+                pre.message__text ng-if="::!message.message_type"
                   | {{::message.body}}
-                pre.message__text ng-show="::message.message_type"
-                  | Здравствуйте, я бы хотел заключить с вами сделку!
+                div ng-if="::message.message_type"
+                  pre.message__text
+                    | {{::gon.translate.message[message.message_type]}}
+                  
+                  .trading-conditions ng-if="message.offer"
+                    trading-conditions position="message.offer"
                 documents ng-model="::message.documents"
                 .message__created_at
                   | {{::message.created_at | dateFormat}}
@@ -115,5 +103,5 @@ div content-for="header"
                   | Прикрепить документы
           
           .message-page__send__button
-            md-button.md-raised.md-yellow.md-sm type="submit" Отправить
+            md-button.md-yellow.md-sm type="submit" Отправить
       

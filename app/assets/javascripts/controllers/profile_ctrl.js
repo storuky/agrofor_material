@@ -18,13 +18,18 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
   
   action('show', function (params) {
     ctrl.disabled = true;
+    
+    if (gon.current_user && params.id == gon.current_user.id) {
+      $scope.$watch('ctrl.user.avatar', function (avatar) {
+        gon.current_user.avatar = avatar;
+      })
+    }
 
     ctrl.send_message = function () {
       Correspondence.create({user_id: ctrl.user.id}, function (res) {
         $location.url('/correspondences?id='+res.id)
       })
     }
-
     ctrl.user = Profile.get({id: params.id})
 
     ctrl.positions = Profile.positions({id: params.id})
@@ -40,6 +45,7 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
       Profile.update({form_name: 'user', id: ctrl.user.id, user: ctrl.user}, function (res) {
         ctrl.disabled = true;
         ctrl.user = res.user;
+        gon.current_user = res.user;
       })
     }
   })

@@ -3,8 +3,6 @@ class PositionBase < ActiveRecord::Base
   include Cacheable
   include FixSphinx
 
-  require 'benchmark'
-
   default_scope {
     includes(:trade_type, :images, :documents, :user, :currency, :weight_dimension, :weight_min_dimension, :price_weight_dimension, :option, :category, :trade_type, option: [:category])
   }
@@ -17,6 +15,9 @@ class PositionBase < ActiveRecord::Base
   
   has_many :correspondence_positions
   has_many :correspondences, through: :correspondence_positions, source: :correspondence
+
+  has_many :favorite_positions, foreign_key: :position_id
+  has_many :users, through: :favorite_positions, source: :user
   
   belongs_to :user
   belongs_to :currency
@@ -27,9 +28,9 @@ class PositionBase < ActiveRecord::Base
   belongs_to :category
   belongs_to :trade_type
 
-  @@trade_types_ids = TradeType.pluck(:id)
-  @@dimensions_ids =  WeightDimension.pluck(:id)
-  @@options_ids =  Option.pluck(:id)
+  @@trade_types_ids = TradeType.pluck(:id) rescue []
+  @@dimensions_ids =  WeightDimension.pluck(:id) rescue []
+  @@options_ids =  Option.pluck(:id) rescue []
 
   validates_presence_of :trade_type_id, :title, :address, :option_id, :weight, :price
 
@@ -188,6 +189,7 @@ class PositionBase < ActiveRecord::Base
     end
 
     def set_etalon
+      self.price = self.price.round(2)
       self.weight_etalon = self.weight * WeightDimension.all_by_index_from_cache(serializer: WeightDimensionSerializer)[self.weight_dimension_id][:convert]
       self.weight_min_etalon = self.weight_min * WeightDimension.all_by_index_from_cache(serializer: WeightDimensionSerializer)[self.weight_min_dimension_id][:convert]
       self.price_etalon = self.price / WeightDimension.all_by_index_from_cache(serializer: WeightDimensionSerializer)[self.price_weight_dimension_id][:convert]

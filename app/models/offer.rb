@@ -10,7 +10,8 @@ class Offer < PositionBase
   validate :weight_validate
 
   after_create :create_correspondence_and_ws
-  after_update :send_message
+  
+  before_update :send_message
 
   aasm :column => :status do
     state :active, :initial => true
@@ -76,23 +77,25 @@ class Offer < PositionBase
         @correspondence = CorrespondencePosition.create(user_ids: user_ids, position_ids: position_ids)
       end
 
-      position.user.increment(:new_offers_count)
-
-      @correspondence.messages.create(message_type: "new_offer", body: "Service message", user_id: user_id)
-      PrivatePub.publish_to "/stream/#{position.user_id}", {offer: OfferSerializer.new(self, root: false).as_json}
+      position.user.increment!(:new_offers_count)
+      offer = OfferSerializer.new(self, root: false).as_json
+      @correspondence.messages.create(message_type: "new_offer", body: "Service message", user_id: user_id, offer: offer)
+      PrivatePub.publish_to "/stream/#{position.user_id}", {offer: offer}
     end
 
     def send_message
       position_ids = [id, position_id]
       @correspondence = CorrespondencePosition.between_positions(position_ids)
 
-      case status
-        when 'deleted'
-          message_type = 'delete_offer'
-        else
-          message_type = 'change_offer'
+      if status == 'deleted'
+        message_type = 'delete_offer'
+        @correspondence.messages.create(message_type: "delete_offer", body: "Service message", user_id: user_id)
+      else
+        if price_etalon_changed? or weight_etalon_changed? or weight_min_etalon_changed?
+          offer = OfferSerializer.new(self, root: false).as_json
+          @correspondence.messages.create(message_type: 'change_offer', body: "Service message", user_id: user_id, offer: offer)
+        end
       end
 
-      @correspondence.messages.create(message_type: message_type, body: "Service message", user_id: user_id)
     end
 end

@@ -6,9 +6,7 @@ app.service('Search', ['$rootScope', '$http', 'ngNotify', function ($rootScope, 
   Search.tab = 'params';
 
   var searchCallback = function (res) {
-    if (Search.type == 'map') {
-      Search.positions = res.data;
-    }
+    Search.positions = res.data;
   }
 
   Search.byParams = function () {

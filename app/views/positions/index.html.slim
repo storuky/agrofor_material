@@ -14,7 +14,7 @@ div content-for="header"
 
         .hide-gt-sm style="height: 20px; width: 100%;"
 
-        div[flex="none" flex-sm=100 style="margin-top: 9px"]
+        div[flex="none" flex-sm=100 style="margin: 9px auto;"]
           .tabs.hide-sm
             md-button.tab ng-repeat="status in gon.data.position_tabs" ng-class="{active: ctrl.filter.type == $index}" ng-click="ctrl.filter.type = $index"
               | {{status.title}}
@@ -31,7 +31,7 @@ div content-for="header"
       i.icon-magnify
       input type="text" placeholder="Поиск" ng-model="search"
 
-    div[flex="none" flex-sm=100 style="margin-top: 9px"]
+    div[flex="none" flex-sm=100 style="margin: 9px auto"]
       .tabs.yellow ng-if="ctrl.filter.type == 0"
         md-button.tab ng-repeat="status in gon.data.statuses" ng-class="{active: ctrl.filter.positions.status == status.name}" ng-click="ctrl.filter.positions.status = status.name"
           | {{status.title}}
@@ -44,88 +44,133 @@ div content-for="header"
             |  ({{ctrl.counters[status.name] || 0}})
 
 
-  .table-wrapper
-    table.table.positions-table
-      thead
-        tr
-          th ng-if="ctrl.filter.type!=2"
-            div
-          th
-            div ng-if="ctrl.filter.type!=2"
-              | Дата
-            div ng-if="ctrl.filter.type==2"
-              | Название
-          th ng-if="ctrl.filter.type!=2"
-            div Тип
-          th ng-if="ctrl.filter.type!=2"
-            div Категория
-          th.numeric ng-if="ctrl.filter.type!=2"
-            div Цена
-          th.numeric ng-if="ctrl.filter.type!=2"
-            div Вес
-          th.numeric ng-if="ctrl.filter.type!=2"
-            div Мин. вес
-          th
-      thead ng-if="!ctrl.positions.$resolved"
-        tr
-          td colspan="8"
-            md-progress-linear md-mode="indeterminate"
-      tbody ng-repeat="position in ctrl.positions.collection | filter: search" ng-class="{active: opened}"
-        tr ng-click="opened = !opened"
-          td ng-if="ctrl.filter.type!=2"
-            i.icon-chevron-right
-            i.icon-chevron-down
-          td style="width: 100%"
-            div ng-if="ctrl.filter.type!=2"
-              | {{::position.created_at | date:"dd.MM.yyyy"}}
-            div  ng-if="ctrl.filter.type==2"
-              | {{position.template_name}}
-          td ng-if="ctrl.filter.type!=2"
-            | {{::position.trade_type.title}}
-          td ng-if="ctrl.filter.type!=2"
-            | {{::position.option.title}}
-          td.numeric ng-if="ctrl.filter.type!=2"
-            | {{::position.price | number:2}}
-            .dim
-              | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
-          td.numeric ng-if="ctrl.filter.type!=2"
-            | {{::position.weight | number}}
-            .dim
-              | {{::position.weight_dimension.title}}
-          td.numeric ng-if="ctrl.filter.type!=2"
-            | {{::position.weight_min | number}}
-            .dim
-              | {{::position.weight_min_dimension.title}}
-          td.btns.w0
-            a.icon-btn ui-sref="{{edit_path(position)}}" ng-hide="ctrl.filter.offers.status=='deleted'"
-              i.icon-pencil
-            a.icon-btn ng-href="{{show_path(position)}}"
-              i.icon-eye
-        tr ng-repeat="offer in position.offers"
-          td
-          td
-            | {{::offer.created_at | date:"dd.MM.yyyy"}}
-          td
-            | {{::offer.trade_type.title}}
-          td
-            | {{::offer.option.title}}
-          td.numeric
-            | {{::offer.price | number:2}}
-            .dim
-              | {{::offer.currency.title}}/{{::offer.price_weight_dimension.title}}
-          td.numeric
-            | {{::offer.weight | number}}
-            .dim
-              | {{::offer.weight_dimension.title}}
-          td.numeric
-            | {{::offer.weight_min | number}}
-            .dim
-              | {{::offer.weight_min_dimension.title}}
-          td.btns
-            a.icon-btn ng-click="ctrl.goToCorrespondence(offer,position)"
-              i.icon-message-text
-            a.icon-btn ng-href="{{::show_path(offer)}}"
-              i.icon-eye
+  .table-wrapper ng-if="ctrl.positions.collection.length"
+    .table-wrapper-scroll scroll-position="scrollPosition"
+      table.table.positions-table
+        thead.fixed-header ng-class="{'fixed-header-shadow': scrollPosition > 0}"
+          tr
+            th ng-if="ctrl.filter.type!=2"
+              div
+            th
+              span ng-if="ctrl.filter.type!=2"
+                | Дата
+              span ng-if="ctrl.filter.type==2"
+                | Название
+              div ng-if="ctrl.filter.type!=2"
+                | Дата
+              div ng-if="ctrl.filter.type==2"
+                | Название
+            th ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+              | Тип
+              div Тип
+            th ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+              | Категория
+              div Категория
+            th.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+              | Цена
+              div Цена
+            th.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+              | Вес
+              div Вес
+            th.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+              | Мин. заказ
+              div Мин. заказ
+            th ng-if="ctrl.lt1120px && ctrl.filter.type!=2"
+              div Описание
+            th
+        thead ng-if="!ctrl.positions.$resolved"
+          tr
+            td colspan="8"
+              md-progress-linear md-mode="indeterminate"
+        tbody ng-repeat="position in ctrl.positions.collection | filter: search | limitTo: 10" ng-class="{active: opened}" ng-init="opened=!!position.offers.length"
+          tr ng-click="opened = !opened"
+            td ng-if="ctrl.filter.type!=2"
+              i.icon-chevron-right
+              i.icon-chevron-down
+            td style="ctrl.filter.type==2 ? 'width: 100%' : ''"
+              div ng-if="ctrl.filter.type!=2"
+                | {{::position.created_at | date:"dd.MM.yyyy"}}
+              div ng-if="ctrl.filter.type==2"
+                | {{position.template_name}}
+            / Greater then 1120px
+            td ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+              | {{::position.trade_type.title}}
+            td ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+              | {{::position.option.title}}
+            td.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+              | {{::position.price | number:2}}
+              .dim
+                | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
+            td.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+              | {{::position.weight | number}}
+              .dim
+                | {{::position.weight_dimension.title}}
+            td.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+              | {{::position.weight_min | number}}
+              .dim
+                | {{::position.weight_min_dimension.title}}
+            / Lower then 1120px
+            td ng-if="ctrl.lt1120px && ctrl.filter.type!=2"
+              | {{::position.trade_type.title}}
+              b
+                |  «{{::position.option.title}}»
+              | , {{::position.weight | number}} 
+              .dim 
+                | {{::position.weight_dimension.title}},
+              | {{::position.price | number:2}}
+              .dim
+                | {{::position.currency.title}}/{{::position.price_weight_dimension.title}},  
+              br
+              | мин. заказ {{::position.weight_min | number}}
+              .dim
+                | {{::position.weight_min_dimension.title}}
+            td.btns.w0
+              a.icon-btn ui-sref="{{edit_path(position)}}" ng-hide="ctrl.filter.offers.status=='deleted'"
+                i.icon-pencil
+              a.icon-btn ng-href="{{show_path(position)}}"
+                i.icon-eye
+          tr ng-repeat="offer in position.offers"
+            td
+            td.w0
+              | {{::offer.created_at | date:"dd.MM.yyyy"}}
+            / Greater then 1120px
+            td ng-if="ctrl.gt1120px"
+              | {{::offer.trade_type.title}}
+            td ng-if="ctrl.gt1120px"
+              | {{::offer.option.title}}
+            td.numeric ng-if="ctrl.gt1120px"
+              | {{::offer.price | number:2}}
+              .dim
+                | {{::offer.currency.title}}/{{::offer.price_weight_dimension.title}}
+            td.numeric ng-if="ctrl.gt1120px"
+              | {{::offer.weight | number}}
+              .dim
+                | {{::offer.weight_dimension.title}}
+            td.numeric ng-if="ctrl.gt1120px"
+              | {{::offer.weight_min | number}}
+              .dim
+                | {{::offer.weight_min_dimension.title}}
+            / Lower then 1120px
+            td ng-if="ctrl.lt1120px"
+              | {{::offer.trade_type.title}}
+              b
+                |  «{{::offer.option.title}}»
+              | , {{::offer.weight | number}} 
+              .dim 
+                | {{::offer.weight_dimension.title}},
+              | {{::offer.price | number:2}}
+              .dim
+                | {{::offer.currency.title}}/{{::offer.price_weight_dimension.title}},  
+              br
+              | мин. заказ {{::offer.weight_min | number}}
+              .dim
+                | {{::offer.weight_min_dimension.title}}
+
+            td.btns
+              a.icon-btn ng-click="ctrl.goToCorrespondence(offer,position)"
+                i.icon-message-text
+              a.icon-btn ng-href="{{::show_path(offer)}}"
+                i.icon-eye
   .show-more
     md-button.md-raised.md-lg ng-click="limitTo = limitTo + 10" ng-show="Cache.positions.length > limitTo" Показать еще
           

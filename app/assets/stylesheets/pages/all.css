@@ -11,7 +11,7 @@ ui-view {
   position: absolute;
   overflow-y: auto;
   transition: .5s;
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   max-width: 100%;
 }
@@ -190,4 +190,9 @@ input.solid-input:focus {
 
 .switch-type {
   margin: -5px 0 0 5px;
+}
+
+
+.page-background.gray {
+  background: #FAFAFA;
 }

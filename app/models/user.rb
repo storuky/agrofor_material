@@ -7,9 +7,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # mount_uploader :avatar, AvatarUploader
+  belongs_to :avatar, class_name: Image
 
-  has_many :position_bases, class_name: PositionBase
+  has_many :position_bases, class_name: ::PositionBase
   has_many :positions
   has_many :offers
   has_many :images
@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   # end
 
   def info
-    self.as_json(only: [:id, :fullname, :avatar, :phones, :city, :address, :lat, :lng, :company, :additional], include: [:currency], methods: [:favorite_ids])
+    UserSerializer.new(self).as_json
   end
 
   def fullname

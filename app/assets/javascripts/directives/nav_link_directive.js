@@ -1,4 +1,4 @@
-app.directive('navLink', ['Sign', function (Sign) {
+app.directive('navLink', ['Sign', 'Sidebar', function (Sign, Sidebar) {
   // Runs during compile
   return {
     // name: '',
@@ -21,6 +21,8 @@ app.directive('navLink', ['Sign', function (Sign) {
       $scope.gon = gon;
 
       iElm.bind('click', function (event) {
+        Sidebar.isOpen = false;
+
         if (iAttrs.signOnly && !gon.current_user) {
           Sign.redirectTo = iAttrs.sref;
           Sign.isShow = true;

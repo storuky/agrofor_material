@@ -7,7 +7,9 @@ class CorrespondencesSerializer < ActiveModel::Serializer
   end
 
   def users
-    User.find_from_cache(object.user_ids, serializer: UserSerializer)
+    object.user_ids.map do |user_id|
+      User.find_from_cache(user_id, serializer: UserSerializer)
+    end
   end
 
   def timestamp

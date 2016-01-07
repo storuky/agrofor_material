@@ -50,6 +50,7 @@
   display: block;
   cursor: pointer;
   box-shadow: none !important;
+  border: none !important;
 }
 
 .create-position:hover {
@@ -98,6 +99,7 @@
 .nav__profile {
   border-top: 1px solid #E4E4E4;
   /* border-bottom: 1px solid #E4E4E4; */
+  padding-right: 0;
 }
 
 .nav__profile img {
@@ -109,6 +111,9 @@
 
 .nav__profile__fio {
   padding: 10px 0 0 0;
+  width: 155px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nav__profile__status {

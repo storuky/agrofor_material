@@ -39,7 +39,7 @@ app.directive('sidebar', ['Sidebar', '$mdMedia', '$compile', function (Sidebar, 
   };
 }]);
 
-app.directive('toggleSidebar', ['Sidebar', function (Sidebar) {
+app.directive('toggleSidebar', ['Sidebar', 'Counter', function (Sidebar, Counter) {
   // Runs during compile
   return {
     // name: '',
@@ -49,7 +49,7 @@ app.directive('toggleSidebar', ['Sidebar', function (Sidebar) {
     // controller: function($scope, $element, $attrs, $transclude) {},
     // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
     // restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
-    template: '<i class="icon-menu toggle-nav"></i>',
+    template: '<i class="icon-menu toggle-nav" ng-class="{active: Counter.sum() > 0}"></i>',
     // templateUrl: '',
     replace: true,
     // transclude: true,

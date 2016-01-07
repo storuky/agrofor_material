@@ -1,7 +1,7 @@
 class Correspondence < ActiveRecord::Base
   # include Cacheable
 
-  has_many :messages
+  has_many :messages, dependent: :destroy
 
   before_create :set_new_messages
 

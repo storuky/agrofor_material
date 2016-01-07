@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 20160103195946) do
   create_table "messages", force: :cascade do |t|
     t.integer  "correspondence_id"
     t.text     "body"
+    t.json     "offer"
     t.integer  "user_id"
     t.string   "message_type"
     t.boolean  "readed",            default: false
@@ -210,11 +211,12 @@ ActiveRecord::Schema.define(version: 20160103195946) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.string   "function"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "avatar"
+    t.string   "avatar_id"
     t.string   "language"
     t.string   "phones",                 default: [],                array: true
     t.string   "website"

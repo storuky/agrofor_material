@@ -65,6 +65,7 @@ class ProfileController < ApplicationController
         :skype,
         :lat,
         :lng,
+        :function
       ).merge({
         phones: (params[:user][:phones].select{|i| i.present?} rescue nil),
         interest_ids: (params[:user][:interests].map{|i| i[:id]} rescue nil),

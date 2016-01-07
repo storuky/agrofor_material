@@ -16,9 +16,9 @@ script type="text/ng-template" id="search.html"
           md-button.md-yellow.tags__add ng-click="Search.showExtended = true"
             | Добавить условие
 
-          .tags__area
+          .tags__area ng-click="Search.showExtended = false;"
             .tags__wrapper
-              .tag ng-repeat="tag in Search.tags" ng-click="Search.setActiveTag(tag)" ng-class="{active: Search.form.id == tag.id}"
+              .tag ng-repeat="tag in Search.tags" ng-click="Search.setActiveTag(tag); $event.stopPropagation()" ng-class="{active: Search.form.id == tag.id}"
                 .tag__title
                   div ng-hide="tag.checkedPositions"
                     | {{gon.data.by_index.trade_types[tag.trade_type_id].title}} &nbsp;
@@ -27,16 +27,17 @@ script type="text/ng-template" id="search.html"
                     | Подходящие для №{{tag.checked_positions_ids.join(', ')}}
                 .tag__delete ng-click="Search.tags.splice($index, 1);"
                   | &times;
-      .search__count
-        | {{Search.positions.length | plur:['Найдена', 'Найдено', 'Найдены']}}
+      .search__count ng-click="Search.showExtended = false;"
+        | {{Search.positions.collection.length | plur:['Найдена', 'Найдено', 'Найдены']}}
         b
-          |  {{Search.positions.length}}
-        |  {{Search.positions.length | plur:['позиция', 'позиции', 'позиций']}}
-        | . В области карты – 
-        b
-          | {{Search.visible_count}}
-  .search__extended__wrapper
-    .search__extended.md-whiteframe-2dp ng-class="{visible: Search.showExtended}"
+          |  {{Search.positions.collection.length}}
+        |  {{Search.positions.collection.length | plur:['позиция', 'позиции', 'позиций']}}
+        span ng-show="Search.type=='map'"
+          | . В области карты – 
+          b
+            | {{Search.visible_count}}
+  .search__extended__wrapper ng-click="Search.showExtended = false; Search.showFooter = false;"
+    .search__extended.md-whiteframe-2dp ng-click="$event.stopPropagation();" ng-class="{visible: Search.showExtended}"
       .search__extended__tabs
         .search__extended__tab ng-click="Search.tab = 'params'" ng-class="{active: Search.tab == 'params'}" Поиск по параметрам
         .search__extended__tab ng-click="Search.tab = 'suitable'" ng-class="{active: Search.tab == 'suitable'}" Подходящие позиции

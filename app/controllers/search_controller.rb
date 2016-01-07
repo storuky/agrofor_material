@@ -19,8 +19,11 @@ class SearchController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        @positions = serialize(@positions.limit(10))
-        render json: Oj.dump(@positions)
+        collection = @positions.joins("LEFT JOIN favorite_positions ON (position_bases.id=favorite_positions.position_id AND favorite_positions.user_id=#{current_user.id})").order("favorite_positions.position_id").order("updated_at DESC")
+        result = {
+          collection: serialize(collection.limit(10)),
+        }
+        render json: Oj.dump(result)
       }
     end
   end

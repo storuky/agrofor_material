@@ -212,7 +212,6 @@
 
 .search__footer.active {
   margin-top: 0;
-  min-width: 387px;
 }
 
 .search__footer.active .search__tags {
@@ -332,11 +331,14 @@
 
 .search-list__result {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 85px;
+  left: 15px;
   bottom: 0;
-  right: 0;
-  width: 100px;
+  right: 102px;
+  /* padding-top: 41px; */
+  /* height: 388px; */
+  max-width: 917px;
+  overflow: hidden;
 }
 
 
@@ -421,4 +423,15 @@
 
 .search__extended__suitable__position b {
   font-weight: 500;
+}
+
+
+.search-list__result__wrapper {
+  position: absolute;
+  left: 0;
+  top: 40px;
+  /* max-width: 917px; */
+  bottom: 0;
+  /* overflow: auto; */
+  right: 0;
 }

@@ -135,7 +135,7 @@ a {
   color: rgba(0,0,0,.5);
   font-size: 12px;
   margin-left: 3px;
-  position: absolute;
+  /* position: absolute; */
   text-align: left;
 }
 
@@ -247,11 +247,15 @@ hr {
   text-align: center;
   text-transform: none;
   font-weight: normal;
-  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.11);
+  /* box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.11); */
 }
 
 .md-yellow:not(:disabled) {
+  border: 1px solid rgb(243, 201, 30);
   background: rgb(255, 219, 76) !important;
+}
+.md-yellow:disabled {
+  border: 1px solid #e5e5e5;
 }
 
 .md-white, .md-white.md-button, a.md-white {
@@ -287,4 +291,22 @@ i.icon-star {
 
 .hidden {
   display: none !important;
+}
+
+.wip {
+  padding: 20px;
+  font-size: 20px;
+}
+
+
+.toggle-nav.active:after {
+  content: "";
+  display: block;
+  height: 7px;
+  width: 7px;
+  border-radius: 6px;
+  position: absolute;
+  background: #FF7A00;
+  top: 5px;
+  right: 4px;
 }

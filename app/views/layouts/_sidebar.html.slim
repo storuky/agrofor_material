@@ -25,11 +25,11 @@
       td
         footer
           a.nav__link.ng-cloak.nav__profile md-ink-ripple="" ui-sref="profile_path(gon.current_user)" sign-only="true"  ng-show="gon.current_user"
-            img src="/avatar.png"
+            img ng-src="{{gon.current_user.avatar.url.thumb || '/avatar.png'}}"
             .nav__profile__fio
-              | Кононенко П. В.
+              | {{gon.current_user.fullname}}
             .nav__profile__status
-              | Фермер
+              | {{gon.current_user.function || "Должность не указана"}}
 
           a.nav__link ui-sref="settings_path" style="border-top: 1px solid #E4E4E4;"
             i.icon-settings

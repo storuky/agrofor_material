@@ -4,6 +4,7 @@ class CreateMessages < ActiveRecord::Migration
       t.integer :correspondence_id
       t.index :correspondence_id
       t.text :body
+      t.json :offer
       t.integer :user_id
       t.index :user_id
       t.string :message_type

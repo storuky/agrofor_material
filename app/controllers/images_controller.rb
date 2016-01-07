@@ -16,4 +16,15 @@ class ImagesController < ApplicationController
     current_user.images.find(params[:id]).destroy
     render json: {}
   end
+
+  def avatar
+    image = Image.create(file: params[:attachments][0])
+
+    if image.valid?
+      current_user.update(avatar_id: image.id)
+      render json: [ImageSerializer.new(image)]
+    else
+      render json: {msg: "Нельзя загрузить изображение с таким расширением"}, status: 422
+    end
+  end
 end

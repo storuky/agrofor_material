@@ -1,0 +1,22 @@
+script type="text/ng-template" id="trading_conditions.html"
+  table
+    tr
+      td.dt Тип:
+      td.dd
+        | {{position.trade_type.title}}
+    tr
+      td.dt Категория:
+      td.dd
+        | {{position.option.title}}
+    tr
+      td.dt Цена:
+      td.dd
+        | {{position.price}} {{position.currency.title}}/{{position.price_weight_dimension.title}}
+    tr
+      td.dt Объем:
+      td.dd
+        | {{position.weight}} {{position.weight_dimension.title}}
+    tr
+      td.dt Мин. заказ:
+      td.dd
+        | 10 т

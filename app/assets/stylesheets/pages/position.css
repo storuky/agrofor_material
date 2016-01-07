@@ -304,7 +304,8 @@ md-dialog.position-modal md-dialog-content {
 
 
 .position_form {
-  padding: 15px !important;
+  padding: 15px 15px 0 15px !important;
+  background: white;
 }
 
 
@@ -462,7 +463,8 @@ md-dialog.position-modal md-dialog-content {
 .position-form__footer {
   margin: 40px -15px 0 -15px;
   border-top: 1px solid #E1E1E1;
-  padding-top: 15px;
+  padding-top: 10px;
+  background: #FAFAFA;
 }
 .position-form__footer hr {
   margin: 40px 0 15px 0

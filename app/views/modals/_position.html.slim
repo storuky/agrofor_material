@@ -26,40 +26,7 @@ script type="text/ng-template" id="position.tmpl.html"
       .close ng-click="ctrl.close()"
         .icon-close
     md-dialog-content.disabled-show scroll-position="scrollPosition"
-      .position_show ng-class="{active: isShowOfferOverlay}"
-        .md-title
-          span
-            | {{ctrl.position.title}}
-          .position-status ng-class="ctrl.position.status.id"
-            | {{ctrl.position.status.title}}
-        .position-modal__info slick="" reload="ctrl.position"
-          .position-modal__info__item
-            b
-              | {{ctrl.position.trade_type.title}}
-            span Тип
-          .position-modal__info__item
-            b
-              | {{ctrl.position.option.title}}
-            span Категория
-          .position-modal__info__item
-            b
-              | {{ctrl.position.price | number}} {{ctrl.position.currency.title}}/{{ctrl.position.weight_dimension.title}}
-            span Цена
-          .position-modal__info__item
-            b
-              | {{ctrl.position.weight | number}} {{ctrl.position.weight_dimension.title}}
-            span Вес (объем)
-          .position-modal__info__item
-            b
-              | {{ctrl.position.weight_min | number}} {{ctrl.position.weight_min_dimension.title}}
-            span Мин. заказ
-
-        lightbox images="ctrl.position.images"
-        pre.position-modal__info__description ng-show="ctrl.position.description"
-          | {{ctrl.position.description}}
-        .position-modal__info__description-no ng-hide="ctrl.position.description"
-          | Нет описания
-        documents ng-model="ctrl.position.documents"
+      position-show position="ctrl.position" ng-class="{active: isShowOfferOverlay}"
 
       .position-modal__offer ng-class="{active: isShowOfferOverlay}"
         md-progress-linear md-mode="query" ng-show="ctrl.query.$resolved === false"

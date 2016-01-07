@@ -1,14 +1,19 @@
 div[layout="row" layout-wrap layout-align="center start"]
   .profile-avatar[flex="none"]
     div
-      img height="143" src="/avatar2.png"
-    md-button.md-lg.md-yellow ng-show="gon.current_user.id == ctrl.user.id" Загрузить
+      img height="143" ng-src="{{ctrl.user.avatar.url.thumb || '/avatar.png'}}"
+    label.md-button.md-lg.md-yellow ng-show="gon.current_user.id == ctrl.user.id"
+      input.hidden type="file" fileupload="Routes.avatar_path()" ng-model="ctrl.user.avatar"
+      | Загрузить
     md-button.md-lg.md-yellow ng-hide="gon.current_user.id == ctrl.user.id" ng-click="ctrl.send_message()" Написать
 
   div[flex flex-sm=100 layout="row" layout-wrap layout-padding]
-    div[flex=100]
+    div[flex=50 flex-sm=100]
       md-input-container.md-block
         = f.text_field :company, "ng-disabled" => "ctrl.disabled"
+    div[flex=50 flex-sm=100]
+      md-input-container.md-block
+        = f.text_field :function, "ng-disabled" => "ctrl.disabled"
     div[flex=50 flex-sm=100]
       md-input-container.md-block
         = f.text_field :first_name, "ng-disabled" => "ctrl.disabled"

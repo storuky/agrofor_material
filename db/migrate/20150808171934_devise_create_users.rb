@@ -31,12 +31,13 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.datetime :locked_at
 
 
-
+      t.string :function
+      
       t.timestamps null: false
 
       t.string :first_name
       t.string :last_name
-      t.string :avatar
+      t.string :avatar_id
 
       t.string :language
       

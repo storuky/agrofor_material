@@ -14,7 +14,6 @@ app.service('Sign', ['$http', '$state', 'Counter', function ($http, $state, Coun
       .success(function (res) {
         gon.current_user = res.current_user;
         gon.settings = res.settings;
-        Counter.update();
 
         Sign.isShow = false;
         if (Sign.redirectTo) {

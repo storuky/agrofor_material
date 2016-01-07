@@ -17,16 +17,13 @@
 
 var app = angular.module('app', ['ui.router', 'oxymoron', 'ngMaterial', 'ngTouch'])
 
-app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', 'Counter', function ($rootScope, Sign, $mdDialog, Cache, Counter) {
+app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', 'Counter', '$state', function ($rootScope, Sign, $mdDialog, Cache, Counter, $state) {
   $rootScope._ = _;
   $rootScope.gon = gon;
   $rootScope.Sign = Sign;
   $rootScope.Routes = Routes;
   $rootScope.Counter = Counter;
-
-  if (gon.current_user)
-    Counter.update();
-
+  
   $rootScope.edit_path = function (position) {
     if (position) {
       var hash = "{id: "+position.id+"}"
@@ -40,6 +37,10 @@ app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', 'Counter', function ($rootS
     if (position)
       return "/search/map?type=" + position.type.toLowerCase() + "&id=" + position.id
     return ""
+  }
+
+  $rootScope.is_position_form_path = function () {
+    return ['new_position_path', 'edit_position_path', 'new_offer_path', 'edit_offer_path', 'edit_template_path'].indexOf($state.current.name)!=-1
   }
 
   $rootScope.safeApply = function(fn) {

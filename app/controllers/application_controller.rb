@@ -22,8 +22,8 @@ class ApplicationController < ActionController::Base
 
   def counters
     render json: {
-      new_messages_count: current_user.new_messages_count,
-      new_offers_count: current_user.new_offers_count,
+      new_messages_count: (current_user.new_messages_count rescue 0),
+      new_offers_count: (current_user.new_offers_count rescue 0),
     }
   end
 
@@ -64,10 +64,15 @@ class ApplicationController < ActionController::Base
         position_tabs: [{id: 0, title: 'Позиции', type: "Position"}, {id: 1, title: "Предложения", type: "Offer"}, {id: 2, title: 'Шаблоны', type: "Template"}]
       }
 
+      gon.translate = {
+        message: I18n.t("message")
+      }
+
 
       if current_user
         gon.current_user = current_user.info
-        gon.current_user[:channel] = PrivatePub.subscription(:channel => "/stream/#{current_user.id}").as_json
+        gon.favorite_ids = current_user.favorite_ids
+        gon.channel = PrivatePub.subscription(:channel => "/stream/#{current_user.id}").as_json
       end
 
     end
