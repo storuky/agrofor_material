@@ -17,12 +17,16 @@
 
 var app = angular.module('app', ['ui.router', 'oxymoron', 'ngMaterial', 'ngTouch'])
 
-app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', 'Counter', '$state', function ($rootScope, Sign, $mdDialog, Cache, Counter, $state) {
+app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', 'Counter', '$state', 'Position', 'Offer', 'Template', function ($rootScope, Sign, $mdDialog, Cache, Counter, $state, Position, Offer, Template) {
   $rootScope._ = _;
   $rootScope.gon = gon;
   $rootScope.Sign = Sign;
   $rootScope.Routes = Routes;
   $rootScope.Counter = Counter;
+
+  $rootScope.Position = Position;
+  $rootScope.Offer = Offer;
+  $rootScope.Template = Template;
   
   $rootScope.edit_path = function (position) {
     if (position) {

@@ -57,8 +57,8 @@ class Position < PositionBase
 
 
   class << self
-    def pluck_fields
-      self.distinct.pluck(:id, :lat, :lng, :trade_type_id, :option_id, :weight, :weight_dimension_id, :price, :currency_id, :price_weight_dimension_id)
+    def pluck_fields with=[]
+      self.pluck(:id, :lat, :lng, :trade_type_id, :option_id, :weight, :weight_dimension_id, :price, :currency_id, :price_weight_dimension_id, :weight_min, :weight_min_dimension_id, *with)
     end
 
     def pluck_all_fields
@@ -71,6 +71,11 @@ class Position < PositionBase
       Position.aasm.states.each_with_index.map do |state, index|
         {id: index, name: state.name, title: I18n.t("position.status.#{state.name.to_s}")}
       end
+    end
+
+    def accept_for_order 
+      ["created_at", "trade_type_id", "option_id", "weight_etalon", "weight_min_etalon",
+       "created_at DESC", "trade_type_id DESC", "option_id DESC", "weight_etalon DESC", "weight_min_etalon DESC"]
     end
   end
 

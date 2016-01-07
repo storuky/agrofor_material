@@ -2,17 +2,28 @@ app.service('Search', ['$rootScope', '$http', 'ngNotify', function ($rootScope, 
   var Search = this;
 
   Search.tags = [];
-
+  Search.positions = {};
   Search.tab = 'params';
+  Search.order = 'created_at DESC';
+
+
 
   var searchCallback = function (res) {
-    Search.positions = res.data;
+    if (res.data.offset) {
+      _.each(res.data.collection, function (position) {
+        Search.positions.collection.push(position);
+      })
+    } else {
+      Search.positions = res.data;
+    }
   }
 
-  Search.byParams = function () {
+  Search.byParams = function (offset) {
     var params = {
       tags: Search.tags,
-      query: Search.query
+      query: Search.query,
+      offset: offset,
+      order: Search.order
     }
     $http.get(Routes[Search.type + "_path"]({format: "json"}), {params: params})
       .then(searchCallback)

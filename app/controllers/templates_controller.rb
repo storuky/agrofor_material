@@ -6,7 +6,7 @@ class TemplatesController < ApplicationController
     respond_to do |format|
       format.json {
         counters = current_user.offers.group(:status).count
-        @positions = User.templates_from_cache(current_user.id)
+        @positions = current_user.templates_from_cache
         global_counters = current_user.position_bases.group(:type).count
         render json: Oj.dump({collection: @positions, counters: counters, global_counters: global_counters})
       }

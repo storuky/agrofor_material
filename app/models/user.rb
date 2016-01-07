@@ -56,25 +56,31 @@ class User < ActiveRecord::Base
     correspondences.pluck(:new_messages).map {|el| el[id.to_s]}.flatten.length
   end
 
-  class << self
-
-    def templates_from_cache id, params = {}
-      Rails.cache.fetch("User.templates_from_cache(#{id}, #{params})_#{I18n.locale}") do
-        ActiveModel::ArraySerializer.new(User.find(id).templates.order("updated_at DESC"), each_serializer: PositionSerializer, root: false).as_json
-      end
+  def templates_from_cache params = {}
+    Rails.cache.fetch("User.templates_from_cache(#{id}, #{params})_#{I18n.locale}") do
+      ActiveModel::ArraySerializer.new(self.templates.order("updated_at DESC"), each_serializer: TemplateSerializer)
     end
+  end
 
+  def offers_from_cache params = {}
+    Rails.cache.fetch("User.offers_from_cache(#{id}, #{params})_#{I18n.locale}") do
+      ActiveModel::ArraySerializer.new(User.find(id).offers.where(params).order("updated_at DESC"), each_serializer: OfferWithPositionSerializer).as_json
+    end
+  end
+
+  def positions_from_cache params = {}
+    Rails.cache.fetch("User.positions_from_cache(#{id}, #{params})_#{I18n.locale}") do
+      ActiveModel::ArraySerializer.new(User.find(id).positions.where(params).order("updated_at DESC"), each_serializer: PositionWithOffersSerializer).as_json
+    end
+  end
+
+  class << self
     def positions_from_cache id, params = {}
       Rails.cache.fetch("User.positions_from_cache(#{id}, #{params})_#{I18n.locale}") do
-        ActiveModel::ArraySerializer.new(User.find(id).positions.where(params).order("updated_at DESC"), each_serializer: PositionWithOffersSerializer, root: false).as_json
+        User.find(id).positions_from_cache
       end
     end
 
-    def offers_from_cache id, params = {}
-      Rails.cache.fetch("User.offers_from_cache(#{id}, #{params})_#{I18n.locale}") do
-        ActiveModel::ArraySerializer.new(User.find(id).offers.where(params).order("updated_at DESC"), each_serializer: OfferWithPositionSerializer, root: false).as_json
-      end
-    end
 
     def feedbacks_from_cache id, params = {}
       Rails.cache.fetch("User.feedbacks_from_cache(#{id}, #{params})_#{I18n.locale}") do

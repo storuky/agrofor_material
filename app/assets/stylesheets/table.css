@@ -118,6 +118,7 @@
 .table-wrapper-scroll {
   overflow-y: auto;
   height: 100%;
+  background: white;
 }
 .fixed-header td, .fixed-header th {
   padding: 10px 25px;
@@ -135,7 +136,7 @@
 .fixed-header th div{
   position: absolute;
   background: transparent;
-  color: #000;
+  color: #575757;
   top: 0px;
   line-height: normal;
 }
@@ -146,4 +147,24 @@
   position: absolute;
   left: 0;
   right: 0;
+}
+
+
+.table .icon-sort-descending, .table .icon-sort-ascending {
+  font-size: 20px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+.order {
+  cursor: pointer;
+  color: #575757;
+}
+
+.order * {
+  vertical-align: middle;
+}
+
+.order:hover, .order.active {
+  color: #000;
 }

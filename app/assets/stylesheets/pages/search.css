@@ -322,7 +322,7 @@
   left: 15px;
   margin: 0;
   right: 102px;
-  top: 86px;
+  top: 132px;
   width: auto;
   min-height: 0;
   bottom: 0;
@@ -339,6 +339,7 @@
   /* height: 388px; */
   max-width: 917px;
   overflow: hidden;
+  margin-top: 50px;
 }
 
 
@@ -434,4 +435,11 @@
   bottom: 0;
   /* overflow: auto; */
   right: 0;
+}
+
+
+.search-title.md-title {
+  position: absolute;
+  top: 90px;
+  left: 15px;
 }

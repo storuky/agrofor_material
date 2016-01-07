@@ -10,7 +10,7 @@ class OffersController < ApplicationController
       format.html
       format.json {
         counters = current_user.offers.group(:status).count
-        @positions = User.offers_from_cache current_user.id, status: params[:status]
+        @positions = current_user.offers_from_cache status: params[:status]
         render json: Oj.dump({collection: @positions, counters: counters})
       }
     end

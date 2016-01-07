@@ -8,7 +8,7 @@ class SearchController < ApplicationController
         result = if @positions.class == Class
           @positions.pluck_all_fields
         else
-          @positions.pluck_fields
+          @positions.distinct.pluck_fields
         end
         render json: Oj.dump(result)
       }
@@ -19,9 +19,20 @@ class SearchController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        collection = @positions.joins("LEFT JOIN favorite_positions ON (position_bases.id=favorite_positions.position_id AND favorite_positions.user_id=#{current_user.id})").order("favorite_positions.position_id").order("updated_at DESC")
+        offset = params[:offset].to_i
+
+        if params[:order] == 'price'
+          order = 'position_bases.price_etalon * currencies.to_usd'
+        else
+          if Position.accept_for_order.include?(params[:order])
+            order = "position_bases.#{params[:order]}"
+          end
+        end
+
+        collection = @positions.joins("LEFT JOIN favorite_positions ON (position_bases.id=favorite_positions.position_id AND favorite_positions.user_id=#{current_user.id})").order("favorite_positions.position_id").order(order)
         result = {
-          collection: serialize(collection.limit(10)),
+          offset: offset,
+          collection: collection.offset(offset).limit(10).pluck_fields([:updated_at, :type]),
         }
         render json: Oj.dump(result)
       }

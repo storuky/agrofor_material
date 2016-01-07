@@ -14,7 +14,7 @@ class PositionsController < ApplicationController
         else
           check_user
           current_user.update(new_offers_count: 0) if current_user.new_offers_count != 0
-          @positions = User.positions_from_cache(current_user.id, status: params[:status])
+          @positions = current_user.positions_from_cache(status: params[:status])
 
           counters = current_user.positions.group(:status).count
           render json: Oj.dump({collection: @positions, counters: counters})
@@ -90,7 +90,7 @@ class PositionsController < ApplicationController
   def suitable
     respond_to do |format|
       format.json {
-        @positions = Rails.cache.fetch([@position, User.positions_from_cache(current_user.id)]) do
+        @positions = Rails.cache.fetch([@position, current_user.positions_from_cache]) do
           offers = @position.offers.where(user_id: current_user.id, status: "active")
           have_offer = offers.first
           positions = if have_offer

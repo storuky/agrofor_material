@@ -310,3 +310,12 @@ i.icon-star {
   top: 5px;
   right: 4px;
 }
+
+.green {
+  color: green !important;
+  font-weight: 500;
+}
+
+.fw-500 {
+  font-weight: 500;
+}

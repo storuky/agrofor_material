@@ -172,5 +172,5 @@ div content-for="header"
               a.icon-btn ng-href="{{::show_path(offer)}}"
                 i.icon-eye
   .show-more
-    md-button.md-raised.md-lg ng-click="limitTo = limitTo + 10" ng-show="Cache.positions.length > limitTo" Показать еще
+    md-button.md-raised.md-lg ng-click="limitTo = limitTo + 10" ng-show="ctrl.positions.collection.length > limitTo" Показать еще
           

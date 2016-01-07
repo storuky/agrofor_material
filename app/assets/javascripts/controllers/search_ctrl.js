@@ -41,12 +41,20 @@ app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Positi
 
   action(['list', 'map'], function () {
     $scope.$watch(function () {
-      return [Search.tags, Search.query]
+      return [Search.tags, Search.query, Search.order]
     }, function () {
-      if (Search.query !== undefined || Search.tags !== undefined) {
+      if (Search.query !== undefined || Search.tags !== undefined || Search.order !== undefined) {
         Search.byParams();
       }
     }, true)
+
+    $scope.$watch(function () {
+      return Search.order
+    }, function (order) {
+      if (order !== undefined) {
+        Search.offset = 0;
+      }
+    })
   })
 
   action('map', function () {

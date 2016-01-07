@@ -35,6 +35,12 @@ class Currency < ActiveRecord::Base
   ]
 
   class << self
+    def update_usd_rate
+      Currency.all_from_cache.map do |currency|
+        currency.update(to_usd: currency.get_rate("USD"))
+      end
+    end
+
     def get_rates name
       Rails.cache.fetch("Currency.get_rates(#{name})", expires_in: 1.hours) do
         rates = Currency.all_from_cache.map do |currency|

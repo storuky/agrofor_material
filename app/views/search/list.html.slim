@@ -1,6 +1,8 @@
 div content-for="header"
   div ng-include="'search.html'"
 
+h1.search-title.md-title
+  | Результаты поиска
 .search-list__result ng-click="Search.showExtended=false; Search.showFooter=false;"
   .table-wrapper
     .table-wrapper-scroll scroll-position="scrollPosition"
@@ -11,23 +13,28 @@ div content-for="header"
               div
             th
               | Дата
-              div
+              order ng-model="Search.order" value="'created_at'"
                 | Дата
             th ng-if="ctrl.gt1120px"
               | Тип
-              div Тип
+              order ng-model="Search.order" value="'trade_type_id'"
+                | Тип
             th ng-if="ctrl.gt1120px"
               | Категория
-              div Категория
+              order ng-model="Search.order" value="'option_id'"
+                | Категория
             th.numeric ng-if="ctrl.gt1120px"
               | Цена
-              div Цена
+              order ng-model="Search.order" value="'price'"
+                | Цена
             th.numeric ng-if="ctrl.gt1120px"
               | Вес
-              div Вес
+              order ng-model="Search.order" value="'weight_etalon'"
+                | Вес
             th.numeric ng-if="ctrl.gt1120px"
               | Мин. заказ
-              div Мин. заказ
+              order ng-model="Search.order" value="'weight_min_etalon'"
+                | Мин. заказ
             th ng-if="ctrl.lt1120px"
               | Описание
               div Описание
@@ -36,8 +43,8 @@ div content-for="header"
           tr
             td colspan="8"
               md-progress-linear md-mode="indeterminate"
-        tbody ng-repeat="position in Search.positions.collection"
-          tr
+        tbody ng-repeat="position_fields in Search.positions.collection"
+          tr ng-init="position = Position.serialize(position_fields)"
             td
               favorite position="position"
             td
@@ -48,9 +55,9 @@ div content-for="header"
               | {{::position.trade_type.title}}
             td ng-if="ctrl.gt1120px"
               | {{::position.option.title}}
-            td.numeric ng-if="ctrl.gt1120px"
+            td.numeric.green.fw-500 ng-if="ctrl.gt1120px"
               | {{::position.price | number:2}}
-              .dim
+              .dim.green.fw-500
                 | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
             td.numeric ng-if="ctrl.gt1120px"
               | {{::position.weight | number}}
@@ -64,17 +71,24 @@ div content-for="header"
             td ng-if="ctrl.lt1120px"
               | {{::position.trade_type.title}}
               b
-                |  «{{::position.option.title}}»
-              | , {{::position.weight | number}} 
-              .dim 
-                | {{::position.weight_dimension.title}},
-              | {{::position.price | number:2}}
-              .dim
-                | {{::position.currency.title}}/{{::position.price_weight_dimension.title}},  
+                |  «{{::position.option.title}}»  
+              | по цене  
+              span.green.fw-500
+                | {{::position.price | number:2}}
+                .dim.green.fw-500
+                  | {{::position.currency.title}}/{{::position.price_weight_dimension.title}},  
               br
+              | {{::position.weight | number}} 
+              .dim 
+                | {{::position.weight_dimension.title}},  
               | мин. заказ {{::position.weight_min | number}}
               .dim
                 | {{::position.weight_min_dimension.title}}
             td.btns.w0
               a.icon-btn ng-href="{{::show_path(position)}}"
                 i.icon-eye
+        tbody ng-show="Search.positions.collection.length > offset"
+          tr
+            td colspan="10"
+              .show-more ng-init="offset=0"
+                md-button.md-white.md-lg ng-click="Search.offset = Search.offset + 10; Search.byParams(Search.offset)" Показать еще
