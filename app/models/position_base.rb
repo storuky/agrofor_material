@@ -181,9 +181,9 @@ class PositionBase < ActiveRecord::Base
       temp = [self.title, self.description]
       [:en, :ru].each do |locale|
         temp << (self.address || "")
-        temp << I18n.t('position.dictionary.trade_types', :locale => locale)[self.trade_type_id]
-        temp << I18n.t('category.items.'+self.option.category.title, :locale => locale)
-        temp << I18n.t('option.'+Option.all_by_index_from_cache[option_id].title, :locale => locale)
+        temp << I18n.t('position.trade_types', :locale => locale)[self.trade_type_id]
+        temp << I18n.t('category.'+self.option.category.title, :locale => locale)
+        temp << I18n.t('option'+Option.all_by_index_from_cache[option_id].title, :locale => locale)
       end
       self.index_field = temp.join(" ")
     end

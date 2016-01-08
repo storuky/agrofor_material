@@ -1,0 +1,11 @@
+en:
+  currency:
+    AUD: "AUD"
+    CAD: "CAD"
+    CNY: "CNY"
+    EUR: "€"
+    GBP: "£"
+    JPY: "¥"
+    NZD: "NZD"
+    RUB: "RUB"
+    USD: "$"

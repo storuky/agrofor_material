@@ -4,7 +4,8 @@ div content-for="header"
       div[layout="row" layout-wrap layout-align="space-between center"]
         h1.message-page__title.md-title[flex="none" style="width: 275px"]
           toggle-sidebar.hide-gt-md id="left"
-          span.hide-sm Мои сообщения
+          span.hide-sm
+            | {{gon.translations.interface.title.messages}}
         div[flex ng-show="ctrl.contact"]
           .message-page__opponent
             a.message-page__opponent__avatar ui-sref="profile_path(ctrl.contact.opponent)"
@@ -27,8 +28,10 @@ div content-for="header"
   .message-page__contacts style="{{contactsOpened ? 'margin: 0' : ''}}"
     .message-page__contacts__tabs
       .tabs
-        md-button.tab ng-click="ctrl.filter.type = 'CorrespondencePosition'" ng-class="{active: ctrl.filter.type == 'CorrespondencePosition'}" Позиции
-        md-button.tab ng-click="ctrl.filter.type = 'CorrespondenceUser'" ng-class="{active: ctrl.filter.type == 'CorrespondenceUser'}" Пользователи
+        md-button.tab ng-click="ctrl.filter.type = 'CorrespondencePosition'" ng-class="{active: ctrl.filter.type == 'CorrespondencePosition'}"
+          | {{gon.translations.interface.tabs.messages.positions}}
+        md-button.tab ng-click="ctrl.filter.type = 'CorrespondenceUser'" ng-class="{active: ctrl.filter.type == 'CorrespondenceUser'}"
+          | {{gon.translations.interface.tabs.messages.users}}
     .message-page__contacts__search
       i.icon-magnify
       input type="text" placeholder="Поиск" ng-model="ctrl.textSearch"
@@ -64,14 +67,13 @@ div content-for="header"
                 i.icon-menu
             td
               a.message-page__positions__link ng-click="showPosition = 'my'" ng-class="{active: showPosition == 'my'}"
-                span ng-show="positions['my'].type=='Position'" Ваша позиция
-                span ng-show="positions['my'].type=='Offer'" Ваше предложение
+                span
+                  | {{gon.translations.interface.tabs.messages[positions['my'].type].my}}
                 i.icon-chevron-down
             td
               a.message-page__positions__link ng-click="showPosition = 'user'" ng-class="{active: showPosition == 'user'}"
-
-                span ng-show="positions['user'].type=='Position'" Позиция пользователя
-                span ng-show="positions['user'].type=='Offer'" Предложение пользователя
+                span
+                  | {{gon.translations.interface.tabs.messages[positions['user'].type].user}}
                 i.icon-chevron-down
 
         .message-page__position ng-show="showPosition"
@@ -120,8 +122,9 @@ div content-for="header"
                 input.hidden type="file" fileupload="Routes.documents_path()" ng-model="ctrl.form.documents" multiple="true"
                 i.icon-attachment
                 span
-                  | Прикрепить документы
+                  |  {{gon.translations.interface.buttons.messages.attach_documents}}
           
           .message-page__send__button
-            md-button.md-yellow.md-sm type="submit" Отправить
+            md-button.md-yellow.md-sm type="submit"
+              |  {{gon.translations.interface.buttons.messages.send}}
       

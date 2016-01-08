@@ -60,14 +60,8 @@ class ApplicationController < ActionController::Base
         offers_statuses: Offer.statuses,
         rates: Currency.get_rates(gon.settings[:currency][:name]),
         roles: Role.all_from_cache,
-        languages: [{id: "ru", title: "Русский"}, {id: "en", title: "English"}],
-        position_tabs: [{id: 0, title: 'Позиции', type: "Position"}, {id: 1, title: "Предложения", type: "Offer"}, {id: 2, title: 'Шаблоны', type: "Template"}]
+        languages: [{id: "ru", title: "Русский"}, {id: "en", title: "English"}]
       }
-
-      gon.translate = {
-        message: I18n.t("message")
-      }
-
 
       if current_user
         gon.current_user = current_user.info
@@ -75,6 +69,17 @@ class ApplicationController < ActionController::Base
         gon.channel = PrivatePub.subscription(:channel => "/stream/#{current_user.id}").as_json
       end
 
+      gon.translations = translations I18n.locale
+    end
+
+    def translations locale
+      I18n.locale = locale
+
+      {
+        message: I18n.t("message"),
+        interface: I18n.t("interface"),
+        activerecord: I18n.t("activerecord.attributes")
+      }
     end
 
     def check_user

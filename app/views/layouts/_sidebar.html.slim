@@ -5,22 +5,27 @@
         a.logo ui-sref="map_path"
           = image_tag "logo.svg", width: 165, height: 105
 
-        a.create-position.md-yellow md-ink-ripple="" ui-sref="new_position_path" Создать позицию
+        a.create-position.md-yellow md-ink-ripple="" ui-sref="new_position_path"
+          | {{gon.translations.interface.navigation.new_position}}
     tr
       td.v-top
         nav.nav
-          nav-link sref="map_path" ng-class="{active: $state.current.name=='root_path'}" Поиск
+          nav-link sref="map_path" ng-class="{active: $state.current.name=='root_path'}"
+            | {{gon.translations.interface.navigation.search}}
           nav-link sref="positions_path" sign-only="true"
-            | Мои позиции
+            | {{gon.translations.interface.navigation.positions}}
             .nav-link__count ng-show="$root.Counter.new_offers_count"
               | {{Counter.new_offers_count}}
           nav-link sref="correspondences_path" sign-only="true"
-            | Мои сообщения
+            | {{gon.translations.interface.navigation.messages}}
             .nav-link__count ng-show="$root.Counter.new_messages_count"
               | {{Counter.new_messages_count}}
-          nav-link sref="analytics_path" Аналитика
-          nav-link sref="help_path" Помощь
-          nav-link sref="support_path" Поддержка
+          nav-link sref="analytics_path"
+            | {{gon.translations.interface.navigation.analitics}}
+          nav-link sref="help_path"
+            | {{gon.translations.interface.navigation.help}}
+          nav-link sref="support_path"
+            | {{gon.translations.interface.navigation.support}}
     tr.h0 disable-animate=""
       td
         footer
@@ -33,12 +38,15 @@
 
           a.nav__link ui-sref="settings_path" style="border-top: 1px solid #E4E4E4;"
             i.icon-settings
-            span Настройки
+            span
+              | {{gon.translations.interface.navigation.settings}}
 
           a.nav__link.ng-cloak ng-click="Sign.out($event);" ng-show="gon.current_user"
             i.icon-logout
-            span Выход
+            span
+              | {{gon.translations.interface.navigation.sign_out}}
 
           a.nav__link.ng-cloak ng-click="Sign.isShow = true;" ng-hide="gon.current_user"
             i.icon-login
-            span Вход
+            span
+              | {{gon.translations.interface.navigation.sign_in}}

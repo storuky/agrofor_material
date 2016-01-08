@@ -1,0 +1,114 @@
+ru:
+  interface:
+    navigation:
+      new_position: Создать позицию
+      search: Поиск
+      positions: Мои позиции
+      messages: Мои сообщения
+      analitics: Аналитика
+      help: Помощь
+      support: Поддержка
+      settings: Настройки
+      sign_in: Войти
+      sign_out: Выйти
+
+    title:
+      new_position: Новая позиция
+      edit_position: Редактирование позиции
+      edit_offer: Редактировать предложение для позиции
+      new_offer: Новое предложение для позиции
+      MyPosition: Мои позиции
+      MyOffer: Мои предложения
+      MyTemplate: Мои шаблоны
+      messages: Мои сообщения
+      analitics: Аналитика
+      help: Помощь
+      support: Поддержка
+      settings: Настройки
+      profile: Профиль
+      edit_profile: Редактирование профиля
+      search_result: Результаты поиска
+    tabs:
+      position_base:
+        - title: Позиции
+          type: Position
+        - title: Предложение
+          type: Offer
+        - title: Шаблоны
+          type: Template
+      Position:
+        - title: Открыто
+          name: opened
+        - title: В процессе
+          name: in_process
+        - title: Завершено
+          name: completed
+        - title: Архив
+          name: archived
+      Offer:
+        - title: Активно
+          name: active
+        - title: Отклонено
+          name: rejected
+        - title: Отозвано
+          name: deleted
+      messages:
+        users: Пользователи
+        positions: Позиции
+        Offer:
+          my: Ваше предложение
+          user: Предложение пользователя
+        Position:
+          my: Ваша позиция
+          user: Позиция пользователя
+      search:
+        by_params: Поиск по параметрам
+        suitable: Подходящие позиции
+      profile:
+        user_info:
+          - title: Личные данные
+            id: 0
+          - title: Местоположение
+            id: 1
+          - title: Контактные данные
+            id: 2
+        position_info:
+          - title: Совершенные сделки
+            id: 0
+          - title: Открытые позиции
+            id: 1
+    no_result:
+      positions:
+        Position:
+          opened: У вас нет открытых позиций
+          in_process: "У вас нет позиций, находящихся в процессе совершения сделки"
+          completed: У вас нет завершенных позиций
+          archived: У вас нет позиций в архиве
+          other: Ничего не найдено
+        Offer:
+          active: У вас нет активных предложений
+          rejected: У вас нет отклоненных предложений
+          deleted: У вас нет отозванных предложений
+          other: Ничего не найдено
+        Template:
+          other: У вас нет ни одного шаблона
+      search: По вашему запросу ничего не найдено
+
+    buttons:
+      profile:
+        send: Написать
+        upload: Загрузить
+        save: Сохранить
+        add_phone: Добавить телефон
+      positions:
+        more: Показать еще
+      messages:
+        send: Отправить
+        attach_documents: Прикрепить документы
+      position_form:
+        attach_documents: Прикрепить фото и документы
+        save: Сохранить
+      search:
+        add_condition: Добавить условие
+        apply: Применить
+        more: Показать еще

@@ -30,10 +30,10 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
 
     ctrl.filter = {
       type: 'Position',
-      positions: {
+      Position: {
         status: "opened"
       },
-      offers: {
+      Offer: {
         status: "active"
       }
     }

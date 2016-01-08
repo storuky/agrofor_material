@@ -98,6 +98,7 @@
   font-weight: 400 !important;
   text-overflow: ellipsis;
   max-width: 180px;
+  line-height: 18px !important;
 }
 
 .message-page__contacts__content md-list-item h3 {

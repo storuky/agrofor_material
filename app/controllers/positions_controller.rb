@@ -18,7 +18,7 @@ class PositionsController < ApplicationController
           end
           
           plural_name = params[:type].downcase.pluralize.to_sym rescue 'positions'
-          @positions = current_user.send("#{plural_name}_from_cache", params.permit![plural_name])
+          @positions = current_user.send("#{plural_name}_from_cache", params.permit![params[:type]])
 
           counters = current_user.positions.group(:status).count
           render json: Oj.dump({collection: @positions, counters: counters})

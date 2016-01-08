@@ -1,0 +1,6 @@
+en:
+  offer:
+    status:
+      active: "Active"
+      rejected: "Rejected"
+      deleted: "Withdraw"

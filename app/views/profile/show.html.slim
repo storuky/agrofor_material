@@ -5,7 +5,7 @@ div content-for="header"
         h1.md-title[flex=""]
           toggle-sidebar.hide-gt-md id="left"
           span
-            | {{ctrl.disabled ? 'Профиль' : 'Редактирование профиля'}}
+            | {{ctrl.disabled ? gon.translations.interface.title.profile : gon.translations.interface.title.edit_profile}}
         
         div flex="none" ng-show="ctrl.user.id == gon.current_user.id"
           .edit-profile-btn ng-click="ctrl.disabled = !ctrl.disabled"
@@ -20,10 +20,10 @@ div content-for="header"
         .md-title[flex="100"]
           md-input-container.md-block.margin-0.hide-gt-sm
             md-select[ng-model="ctrl.profileInfoTab" placeholder="Статус"]
-              md-option ng-repeat="tab in ctrl.profileInfoTabs" value="{{tab.id}}"
+              md-option ng-repeat="tab in gon.translations.interface.tabs.profile.user_info" value="{{tab.id}}"
                 | {{tab.title}}
           .tabs.hide-sm[style="text-align: left"]
-            md-button.tab.md-title-tab ng-repeat="tab in ctrl.profileInfoTabs" ng-class="{active: ctrl.profileInfoTab == $index}" ng-click="ctrl.profileInfoTab = $index"
+            md-button.tab.md-title-tab ng-repeat="tab in gon.translations.interface.tabs.profile.user_info" ng-class="{active: ctrl.profileInfoTab == $index}" ng-click="ctrl.profileInfoTab = $index"
               | {{tab.title}}
       md-tabs[md-dynamic-height md-selected="ctrl.profileInfoTab" class="noTabPanel"]
         md-tab label="tab"
@@ -34,17 +34,18 @@ div content-for="header"
           = render "contacts", {f: f}
       
       div[layout-row style="text-align: right; padding: 0 10px" ng-show="!ctrl.disabled"]
-        md-button.md-yellow.md-lg[flex-md="30" flex-sm="100" type="submit"] Сохранить
+        md-button.md-yellow.md-lg[flex-md="30" flex-sm="100" type="submit"]
+          | {{gon.translations.interface.buttons.profile.save}}
 
     .profile-positions ng-show="ctrl.disabled"
       div[layout="row" layout-wrap layout-align="center start"]
         .md-title[flex="100"]
           md-input-container.md-block.margin-0.hide-gt-sm
             md-select[ng-model="ctrl.profilePositionsTab" placeholder="Статус"]
-              md-option ng-repeat="tab in ctrl.profilePositionsTabs" value="{{tab.id}}"
+              md-option ng-repeat="tab in gon.translations.interface.tabs.profile.position_info" value="{{tab.id}}"
                 | {{tab.title}}
           .tabs.hide-sm[style="text-align: left"]
-            md-button.tab.md-title-tab ng-repeat="tab in ctrl.profilePositionsTabs" ng-class="{active: ctrl.profilePositionsTab == $index}" ng-click="ctrl.profilePositionsTab = $index"
+            md-button.tab.md-title-tab ng-repeat="tab in gon.translations.interface.tabs.profile.position_info" ng-class="{active: ctrl.profilePositionsTab == $index}" ng-click="ctrl.profilePositionsTab = $index"
               | {{tab.title}}
         .profile-positions__content
           md-tabs[md-dynamic-height md-selected="ctrl.profilePositionsTab" class="noTabPanel"]

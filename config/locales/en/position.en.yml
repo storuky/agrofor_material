@@ -1,0 +1,7 @@
+en:
+  position:
+    status:
+      opened: "Открыто"
+      in_process: "В процессе"
+      completed: "Завершенные"
+      archived: "Архив"

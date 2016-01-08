@@ -1,0 +1,115 @@
+en:
+  interface:
+    navigation:
+      new_position: New position
+      search: Search
+      positions: My positions
+      messages: My messages
+      analitics: Analitics
+      help: Help
+      support: Support
+      settings: Settings
+      sign_in: Sign in
+      sign_out: Sign out
+
+    title:
+      new_position: New position
+      edit_position: Edit position
+      edit_offer: Edit offer for position
+      new_offer: New offer for position
+      MyPosition: My positions
+      MyOffer: My offers
+      MyTemplate: My templates
+      messages: My messages
+      analitics: Analitics
+      help: Help
+      support: Support
+      settings: Settings
+      profile: Profile
+      edit_profile: Edit profile
+      search_result: Search result
+
+    tabs:
+      position_base:
+        - title: Positions
+          type: Position
+        - title: Offers
+          type: Offer
+        - title: Templates
+          type: Template
+      Position:
+        - title: Opened
+          name: opened
+        - title: In process
+          name: in_process
+        - title: Completed
+          name: completed
+        - title: Archive
+          name: archived
+      Offer:
+        - title: Active
+          name: active
+        - title: Rejected
+          name: rejected
+        - title: Deleted
+          name: deleted
+      messages:
+        users: Users
+        positions: Positions
+        Offer:
+          my: Your offer
+          user: User offer
+        Position:
+          my: Your position
+          user: User position
+      search:
+        by_params: Search by params
+        suitable: Suitable positions
+      profile:
+        user_info:
+          - title: Personal info
+            id: 0
+          - title: Location
+            id: 1
+          - title: Contacts
+            id: 2
+        position_info:
+          - title: Completed deals
+            id: 0
+          - title: Opened positions
+            id: 1
+    no_result:
+      positions:
+        Position:
+          opened: You have no opened positions
+          in_process: You have no opened positions in process of deal
+          completed: You have no completed positions
+          archived: You have no archived positions
+          other: Nothing found
+        Offer:
+          active: You have no active offers
+          rejected: You have no rejected positions
+          deleted: You have no withdrawn positions
+          other: Nothing found
+        Template:
+          other: Your have no any templates
+      search: No result
+
+    buttons:
+      profile:
+        send: Send message
+        upload: Upload
+        save: Save
+        add_phone: Add phone number
+      positions:
+        more: Show more
+      messages:
+        send: Send
+        attach_documents: Attach documents
+      position_form:
+        attach_documents: Attach photo or documents
+        save: save
+      search:
+        add_condition: Add condition
+        apply: Apply
+        more: Show more

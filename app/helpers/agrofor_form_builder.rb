@@ -27,7 +27,7 @@ class AgroforFormBuilder < OxymoronFormBuilder
       "aria-label" => "#{singular}.title || 'aria'"
     })
 
-    template = @template.content_tag :label, @object.class.human_attribute_name(method), options
+    template = @template.content_tag :label, "{{gon.translations.activerecord.#{@object.class.name.downcase}.#{method}}}", options
     template += @template.content_tag "md-select", options do
       @template.content_tag "md-option", {"ng-repeat" => "#{singular} in #{collection}", value: "{{#{singular}.id}}"} do
         "#{options[:prefix]}{{#{singular}.title}}"
@@ -36,12 +36,12 @@ class AgroforFormBuilder < OxymoronFormBuilder
   end
 
   def text_field method, options = {}
-    template = @template.content_tag :label, @object.class.human_attribute_name(method), {}
+    template = @template.content_tag :label, "{{gon.translations.activerecord.#{@object.class.name.downcase}.#{method}}}", {}
     template += super(method, options)
   end
 
   def text_area method, options = {}
-    template = @template.content_tag :label, @object.class.human_attribute_name(method), {col: 1, "ng-model" => options["ng-model"] || ng_model("#{method}")}
+    template = @template.content_tag :label, "{{gon.translations.activerecord.#{@object.class.name.downcase}.#{method}}}", {col: 1, "ng-model" => options["ng-model"] || ng_model("#{method}")}
     template += super(method, options)
   end
 

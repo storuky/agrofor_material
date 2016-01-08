@@ -61,7 +61,8 @@
           label.upload-file.md-button.md-ink-ripple ng-disabled="percentCompleted !== undefined"
             md-progress-linear md-mode="determinate" value="{{percentCompleted}}" ng-if="percentCompleted"
             i.icon-upload ng-show="resolve.$$state.status!=0"
-            span Прикрепить фото и документы
+            span
+              |  {{gon.translations.interface.buttons.position_form.attach_documents}}
             input percent-completed="percentCompleted" type="file" fileupload="Routes.files_path()" hash="true" ng-model="ctrl.position" multiple="true" resolve="resolve"
 
       div[layout="row" layout-padding-sm ng-show="ctrl.position.images.length"]
@@ -83,7 +84,7 @@
     md-progress-linear md-mode="query" ng-show="formQuery.$resolved === false"
     .position-form__footer-actions[layout="row" layout-wrap style="" layout-align="start center"]
       md-button.md-yellow.md-lg[flex-sm="100" type="submit" ng-disabled="formQuery.$resolved === false"]
-        | Сохранить
+        |  {{gon.translations.interface.buttons.position_form.save}}
       p[flex-md=70 flex-sm=100]
         | Нажимая кнопку "Сохранить", Вы подтвеждаете свое согласие с  
         a.link href="" правилами работы

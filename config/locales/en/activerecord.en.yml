@@ -1,0 +1,33 @@
+en:
+  activerecord:
+    attributes:
+      position_base:
+        trade_type: "Trade type"
+        title: "Title"
+        weight: "Weight"
+        weight_dimension: ""
+        weight_min: "Min. order"
+        weight_min_dimension: ""
+        price: "Price"
+        price_weight_dimension: ""
+        price_discount: "Deviation"
+        address: "Address"
+        description: "Description"
+        save_template: ""
+        template: "Tempate"
+        status: "Status"
+      user:
+        company: "Company"
+        function: "Position"
+        first_name: "First name"
+        last_name: "Last name"
+        country: "Country"
+        language: "Language"
+        currency: "Currency"
+        interests: "Interests"
+        additional: "Additional"
+        address: "Address"
+        email: "Email"
+        website: "Website"
+        skype: "Skype"
+        phones: "Phones"

@@ -147,6 +147,7 @@ a {
   cursor: default !important;
   margin-top: 10px;
   background: white !important;
+  text-align: center;
 }
 
 .title {

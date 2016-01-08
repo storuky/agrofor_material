@@ -21,7 +21,8 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
     
     if (gon.current_user && params.id == gon.current_user.id) {
       $scope.$watch('ctrl.user.avatar', function (avatar) {
-        gon.current_user.avatar = avatar;
+        if (avatar)
+          gon.current_user.avatar = avatar;
       })
     }
 
@@ -45,7 +46,11 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
       Profile.update({form_name: 'user', id: ctrl.user.id, user: ctrl.user}, function (res) {
         ctrl.disabled = true;
         ctrl.user = res.user;
-        gon.current_user = res.user;
+        gon.current_user = angular.copy(res.user);
+
+        if (res.translations) {
+          gon.translations = res.translations;
+        }
       })
     }
   })

@@ -4,10 +4,12 @@ div content-for="header"
       div[layout="row" layout-wrap layout-align="space-between center"]
         h1.md-title[flex="" flex-sm="100"]
           toggle-sidebar.hide-gt-md id="left"
-          span ng-hide="suitable" Создать позицию
-          span ng-show="suitable"
-            | Создать предложение для  
-            a.link ng-click="ctrl.goTo({id: suitable})" href="" позиции № {{suitable}}
+          span ng-hide="suitable"
+            | {{gon.translations.interface.title.new_position}}
+          span ng-if="suitable"
+            | {{gon.translations.interface.title.new_offer}}  
+            a.link ng-href="{{show_path({id: suitable, type: 'Position'})}}"
+              | № {{suitable}}
 
         .hide-gt-sm style="height: 20px; width: 100%;" ng-hide="suitable"
         md-input-container.margin-0[flex="none" flex-sm="100" ng-hide="suitable"]

@@ -5,11 +5,11 @@
         md-input-container.md-block
           md-icon.icon-email-outline
           = f.text_field :email, "ng-disabled" => "true"
-      .mb-25 ng-show="ctrl.user.website"
+      .mb-25 ng-show="ctrl.user.website || !ctrl.disabled"
         md-input-container.md-block
           md-icon.icon-web
           = f.text_field :website, "ng-disabled" => "ctrl.disabled"
-      .mb-25 ng-show="ctrl.user.skype"
+      .mb-25 ng-show="ctrl.user.skype || !ctrl.disabled"
         md-input-container.md-block
           md-icon.icon-skype-business
           = f.text_field :skype, "ng-disabled" => "ctrl.disabled"
@@ -21,4 +21,5 @@
           input type="text" ng-model="ctrl.user.phones[$index]" ng-disabled="ctrl.disabled"
         i.icon-close ng-click="ctrl.user.phones.splice($index, 1)" ng-hide="ctrl.disabled"
       div[style="padding-left: 36px"]
-        md-button.md-lg.md-yellow[style="width: 100%; margin: 0" ng-click="ctrl.user.phones.push('')" ng-hide="ctrl.disabled"] Добавить телефон
+        md-button.md-lg.md-yellow[style="width: 100%; margin: 0" ng-click="ctrl.user.phones.push('')" ng-hide="ctrl.disabled"]
+          | {{gon.translations.interface.buttons.profile.add_phone}}

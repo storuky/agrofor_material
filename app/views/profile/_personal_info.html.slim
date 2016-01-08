@@ -4,8 +4,9 @@ div[layout="row" layout-wrap layout-align="center start"]
       img height="143" ng-src="{{ctrl.user.avatar.url.thumb || '/avatar.png'}}"
     label.md-button.md-lg.md-yellow ng-show="gon.current_user.id == ctrl.user.id"
       input.hidden type="file" fileupload="Routes.avatar_path()" ng-model="ctrl.user.avatar"
-      | Загрузить
-    md-button.md-lg.md-yellow ng-hide="gon.current_user.id == ctrl.user.id" ng-click="ctrl.send_message()" Написать
+      | {{gon.translations.interface.buttons.profile.upload}}
+    md-button.md-lg.md-yellow ng-hide="gon.current_user.id == ctrl.user.id" ng-click="ctrl.send_message()"
+      | {{gon.translations.interface.buttons.profile.send}}
 
   div[flex flex-sm=100 layout="row" layout-wrap layout-padding]
     div[flex=50 flex-sm=100]

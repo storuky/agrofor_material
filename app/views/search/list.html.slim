@@ -2,10 +2,10 @@ div content-for="header"
   div ng-include="'search.html'"
 
 h1.search-title.md-title
-  | Результаты поиска
+  | {{gon.translations.interface.title.search_result}}
 .search-list__result ng-click="Search.showExtended=false; Search.showFooter=false;"
   .content__no ng-if="Search.positions.collection.length==0"
-    | Ничего не найдено
+    | {{gon.translations.interface.no_result.search}}
 
 
   .table-wrapper ng-if="Search.positions.collection.length"
@@ -115,4 +115,5 @@ h1.search-title.md-title
         tbody ng-show="Search.positions.collection.length > Search.offset && Search.positions.collection.length >= 10"
           tr.show-more ng-init="offset=0"
             td colspan="10"
-              md-button.md-white.md-lg ng-click="Search.offset = Search.offset + 10; Search.byParams(Search.offset)" Показать еще
+              md-button.md-white.md-lg ng-click="Search.offset = Search.offset + 10; Search.byParams(Search.offset)"
+                | {{gon.translations.interface.buttons.search.more}}

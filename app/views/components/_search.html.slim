@@ -14,7 +14,7 @@ script type="text/ng-template" id="search.html"
       .search__tags ng-class="{open: Search.showExtended && Search.showFooter}"
         .tags
           md-button.md-yellow.tags__add ng-click="Search.showExtended = true"
-            | Добавить условие
+            |  {{gon.translations.interface.buttons.search.add_condition}}
 
           .tags__area ng-click="Search.showExtended = false;"
             .tags__wrapper
@@ -39,8 +39,10 @@ script type="text/ng-template" id="search.html"
   .search__extended__wrapper ng-click="Search.showExtended = false; Search.showFooter = false;"
     .search__extended.md-whiteframe-2dp ng-click="$event.stopPropagation();" ng-class="{visible: Search.showExtended}"
       .search__extended__tabs
-        .search__extended__tab ng-click="Search.tab = 'params'" ng-class="{active: Search.tab == 'params'}" Поиск по параметрам
-        .search__extended__tab ng-click="Search.tab = 'suitable'" ng-class="{active: Search.tab == 'suitable'}" Подходящие позиции
+        .search__extended__tab ng-click="Search.tab = 'params'" ng-class="{active: Search.tab == 'params'}"
+          | {{gon.translations.interface.tabs.search.by_params}}
+        .search__extended__tab ng-click="Search.tab = 'suitable'" ng-class="{active: Search.tab == 'suitable'}"
+          | {{gon.translations.interface.tabs.search.suitable}}
       /.title Расширенный поиск
       /.close ng-click="Search.showExtended = false; Search.resetForm();"
         .icon-close
@@ -129,4 +131,5 @@ script type="text/ng-template" id="search.html"
                 div
                   | {{position.weight}} {{position.weight_dimension.title}}, мин. {{position.weight_min}} {{position.weight_min_dimension.title}}, {{position.price}} {{position.currency.title}}/{{position.price_weight_dimension.title}}
         .search__extended__footer
-          md-button.md-yellow.md-lg ng-click="Search.addTag(Search.form)" Применить
+          md-button.md-yellow.md-lg ng-click="Search.addTag(Search.form)"
+            | {{gon.translations.interface.buttons.search.apply}}

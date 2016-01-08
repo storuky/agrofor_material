@@ -1,5 +1,10 @@
 ru:
   activerecord:
+    models:
+      position: Позиции
+      offer: Предложения
+      template: Шаблон
+
     attributes:
       position_base:
         trade_type: "Тип позиции"
