@@ -45,30 +45,36 @@ div content-for="header"
               div
             th
               span ng-if="ctrl.filter.type!='Template'"
-                | Дата
+                | {{gon.translations.activerecord.position.created_at}}
               span ng-if="ctrl.filter.type=='Template'"
-                | Название
+                | {{gon.translations.activerecord.position.title}}
               div ng-if="ctrl.filter.type!='Template'"
-                | Дата
+                | {{gon.translations.activerecord.position.created_at}}
               div ng-if="ctrl.filter.type=='Template'"
-                | Название
+                | {{gon.translations.activerecord.position.title}}
             th ng-if="ctrl.gt1120px && ctrl.filter.type!='Template'"
-              | Тип
-              div Тип
+              | {{gon.translations.activerecord.position.trade_type}}
+              div
+                | {{gon.translations.activerecord.position.trade_type}}
             th ng-if="ctrl.gt1120px && ctrl.filter.type!='Template'"
-              | Категория
-              div Категория
+              | {{gon.translations.activerecord.position.category}}
+              div
+                | {{gon.translations.activerecord.position.category}}
             th.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!='Template'"
-              | Цена
-              div Цена
+              | {{gon.translations.activerecord.position.price}}
+              div
+                | {{gon.translations.activerecord.position.price}}
             th.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!='Template'"
-              | Вес
-              div Вес
+              | {{gon.translations.activerecord.position.weight}}
+              div
+                | {{gon.translations.activerecord.position.weight}}
             th.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!='Template'"
-              | Мин. заказ
-              div Мин. заказ
+              | {{gon.translations.activerecord.position.weight_min}}
+              div
+                | {{gon.translations.activerecord.position.weight_min}}
             th ng-if="ctrl.lt1120px && ctrl.filter.type!='Template'"
-              div Описание
+              div
+                | {{gon.translations.activerecord.position.description}}
             th
         thead ng-if="!ctrl.positions.$resolved"
           tr
@@ -113,7 +119,7 @@ div content-for="header"
               .dim
                 | {{::position.currency.title}}/{{::position.price_weight_dimension.title}},  
               br
-              | мин. заказ {{::position.weight_min | number}}
+              | {{::gon.translations.activerecord.position.weight_min}} {{::position.weight_min | number}}
               .dim
                 | {{::position.weight_min_dimension.title}}
             td.btns.w0
@@ -154,7 +160,7 @@ div content-for="header"
               .dim
                 | {{::offer.currency.title}}/{{::offer.price_weight_dimension.title}},  
               br
-              | мин. заказ {{::offer.weight_min | number}}
+              | {{::gon.translations.activerecord.position.weight_min}} {{::offer.weight_min | number}}
               .dim
                 | {{::offer.weight_min_dimension.title}}
 

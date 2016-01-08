@@ -1,7 +1,8 @@
 en:
   activerecord:
     attributes:
-      position_base:
+      position_base: &generic
+        created_at: Created at
         trade_type: "Trade type"
         title: "Title"
         weight: "Weight"
@@ -16,6 +17,13 @@ en:
         save_template: ""
         template: "Tempate"
         status: "Status"
+        category: Product
+      position:
+        <<: *generic
+      offer:
+        <<: *generic
+      template:
+        <<: *generic
       user:
         company: "Company"
         function: "Position"
