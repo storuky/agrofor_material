@@ -58,33 +58,33 @@ div content-for="header"
       table.table.positions-table
         thead.fixed-header ng-class="{'fixed-header-shadow': scrollPosition > 0}"
           tr
-            th ng-if="ctrl.filter.type!=2"
+            th ng-if="ctrl.filter.type!='Template'"
               div
             th
-              span ng-if="ctrl.filter.type!=2"
+              span ng-if="ctrl.filter.type!='Template'"
                 | Дата
-              span ng-if="ctrl.filter.type==2"
+              span ng-if="ctrl.filter.type=='Template'"
                 | Название
-              div ng-if="ctrl.filter.type!=2"
+              div ng-if="ctrl.filter.type!='Template'"
                 | Дата
-              div ng-if="ctrl.filter.type==2"
+              div ng-if="ctrl.filter.type=='Template'"
                 | Название
-            th ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+            th ng-if="ctrl.gt1120px && ctrl.filter.type!='Template'"
               | Тип
               div Тип
-            th ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+            th ng-if="ctrl.gt1120px && ctrl.filter.type!='Template'"
               | Категория
               div Категория
-            th.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+            th.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!='Template'"
               | Цена
               div Цена
-            th.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+            th.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!='Template'"
               | Вес
               div Вес
-            th.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+            th.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!='Template'"
               | Мин. заказ
               div Мин. заказ
-            th ng-if="ctrl.lt1120px && ctrl.filter.type!=2"
+            th ng-if="ctrl.lt1120px && ctrl.filter.type!='Template'"
               div Описание
             th
         thead ng-if="!ctrl.positions.$resolved"
@@ -93,33 +93,33 @@ div content-for="header"
               md-progress-linear md-mode="indeterminate"
         tbody ng-repeat="position in ctrl.positions.collection | filter: search | limitTo: 10" ng-class="{active: opened}" ng-init="opened=!!position.offers.length"
           tr ng-click="opened = !opened"
-            td ng-if="ctrl.filter.type!=2"
+            td ng-if="ctrl.filter.type!='Template'"
               i.icon-chevron-right
               i.icon-chevron-down
             td style="ctrl.filter.type==2 ? 'width: 100%' : ''"
-              div ng-if="ctrl.filter.type!=2"
+              div ng-if="ctrl.filter.type!='Template'"
                 | {{::position.created_at | date:"dd.MM.yyyy"}}
-              div ng-if="ctrl.filter.type==2"
+              div ng-if="ctrl.filter.type=='Template'"
                 | {{position.template_name}}
             / Greater then 1120px
-            td ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+            td ng-if="ctrl.gt1120px && ctrl.filter.type!='Template'"
               | {{::position.trade_type.title}}
-            td ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+            td ng-if="ctrl.gt1120px && ctrl.filter.type!='Template'"
               | {{::position.option.title}}
-            td.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+            td.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!='Template'"
               | {{::position.price | number:2}}
               .dim
                 | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
-            td.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+            td.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!='Template'"
               | {{::position.weight | number}}
               .dim
                 | {{::position.weight_dimension.title}}
-            td.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!=2"
+            td.numeric ng-if="ctrl.gt1120px && ctrl.filter.type!='Template'"
               | {{::position.weight_min | number}}
               .dim
                 | {{::position.weight_min_dimension.title}}
             / Lower then 1120px
-            td ng-if="ctrl.lt1120px && ctrl.filter.type!=2"
+            td ng-if="ctrl.lt1120px && ctrl.filter.type!='Template'"
               | {{::position.trade_type.title}}
               b
                 |  «{{::position.option.title}}»
