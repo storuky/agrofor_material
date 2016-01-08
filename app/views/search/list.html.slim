@@ -4,7 +4,11 @@ div content-for="header"
 h1.search-title.md-title
   | Результаты поиска
 .search-list__result ng-click="Search.showExtended=false; Search.showFooter=false;"
-  .table-wrapper
+  .content__no ng-if="Search.positions.collection.length==0"
+    | Ничего не найдено
+
+
+  .table-wrapper ng-if="Search.positions.collection.length"
     .table-wrapper-scroll scroll-position="scrollPosition"
       table.table.positions-table
         thead.fixed-header ng-class="{'fixed-header-shadow': scrollPosition > 0}"
@@ -96,10 +100,12 @@ h1.search-title.md-title
             td.btns.w0
               a.icon-btn ng-href="{{::show_path(position)}}"
                 i.icon-eye
-          tr ng-if="opened && full_position.$resolved"
+          /tr ng-if="opened && full_position.$resolved"
             td.position__full-info colspan="10"
               position-header position="full_position"
               position-show position="full_position"
+              .position__full-info__map
+                location.position-map[info="full_position" scroll-zoom="false"]
               .position__full-info__footer
                 md-button.md-yellow.md-lg ng-show="gon.current_user.id != full_position.user_id" ng-href="/offers/new?suitable={{full_position.id}}"
                   | Отправить предложение

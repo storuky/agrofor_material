@@ -6,7 +6,8 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
     // terminal: true,
     scope: {
       draggable: "=draggable",
-      info: "=info"
+      info: "=info",
+      scrollZoom: "="
     }, // {} = isolate, true = child, false/undefined = no change
     // controller: function($scope, $element, $attrs, $transclude) {},
     // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
@@ -17,6 +18,9 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
     // transclude: true,
     // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
     link: function($scope, iElm, iAttrs, controller) {
+      if ($scope.scrollZoom!==false) {
+        $scope.scrollZoom = true;
+      }
 
       var center = [55.7, 37.6];
       ymaps.ready(function () {
@@ -29,6 +33,11 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
               maxZoom: $scope.maxZoom || 15,
               suppressMapOpenBlock: true,
           });
+
+          if (!$scope.scrollZoom) {
+            map.behaviors.disable('scrollZoom');
+            map.controls.add('zoomControl');
+          }
 
           var marker;
 

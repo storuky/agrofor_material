@@ -7,7 +7,7 @@ class Position < PositionBase
     state :opened, :initial => true
     state :in_process
     state :completed
-    state :archive
+    state :archived
 
     event :start_process do
       transitions :to => :in_process, :from => [:opened]
@@ -18,11 +18,11 @@ class Position < PositionBase
     end
 
     event :move_to_archive do
-      transitions :to => :archive, :from => [:opened]
+      transitions :to => :archived, :from => [:opened]
     end
 
     event :open do
-      transitions :to => :opened, :from => [:archive]
+      transitions :to => :opened, :from => [:archived]
     end
   end
 

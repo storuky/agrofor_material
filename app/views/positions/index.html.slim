@@ -4,23 +4,19 @@ div content-for="header"
       div[layout="row" layout-wrap layout-align="space-between center"]
         h1.md-title[flex="" flex-sm="100"]
           toggle-sidebar.hide-gt-md id="left"
-          span ng-switch="ctrl.filter.type"
-            span ng-switch-when="0"
-              | Мои позиции
-            span ng-switch-when="1"
-              | Мои предложения
-            span ng-switch-when="2"
-              | Мои шаблоны
+          span ng-show="ctrl.filter.type == 'Position'" Мои позиции
+          span ng-show="ctrl.filter.type == 'Offer'" Мои предложения
+          span ng-show="ctrl.filter.type == 'Template'" Мои шаблоны
 
         .hide-gt-sm style="height: 20px; width: 100%;"
 
         div[flex="none" flex-sm=100 style="margin: 9px auto;"]
           .tabs.hide-sm
-            md-button.tab ng-repeat="status in gon.data.position_tabs" ng-class="{active: ctrl.filter.type == $index}" ng-click="ctrl.filter.type = $index"
+            md-button.tab ng-repeat="status in gon.data.position_tabs" ng-class="{active: ctrl.filter.type == status.type}" ng-click="ctrl.filter.type = status.type"
               | {{status.title}}
           md-input-container.md-block.margin-0.hide-gt-sm
             md-select[ng-model="ctrl.filter.type" placeholder="Тип"]
-              md-option ng-repeat="status in gon.data.position_tabs" value="{{status.id}}"
+              md-option ng-repeat="status in gon.data.position_tabs" value="{{status.type}}"
                 | {{status.title}}
 
 
@@ -32,18 +28,31 @@ div content-for="header"
       input type="text" placeholder="Поиск" ng-model="search"
 
     div[flex="none" flex-sm=100 style="margin: 9px auto"]
-      .tabs.yellow ng-if="ctrl.filter.type == 0"
+      .tabs.yellow ng-if="ctrl.filter.type == 'Position'"
         md-button.tab ng-repeat="status in gon.data.statuses" ng-class="{active: ctrl.filter.positions.status == status.name}" ng-click="ctrl.filter.positions.status = status.name"
           | {{status.title}}
           span ng-show="ctrl.counters"
             |  ({{ctrl.counters[status.name] || 0}})
-      .tabs.yellow ng-if="ctrl.filter.type == 1"
+      .tabs.yellow ng-if="ctrl.filter.type == 'Offer'"
         md-button.tab ng-repeat="status in gon.data.offers_statuses" ng-class="{active: ctrl.filter.offers.status == status.name}" ng-click="ctrl.filter.offers.status = status.name"
           | {{status.title}}
           span
             |  ({{ctrl.counters[status.name] || 0}})
 
-
+  .content__no ng-show="ctrl.positions.collection.length==0"
+    div ng-show="ctrl.filter.type == 'Position'"
+      span ng-show="ctrl.filter.positions.status == 'opened'" У вас нет открытых позиций
+      span ng-show="ctrl.filter.positions.status == 'in_process'" У вас нет позиций, находящихся в процессе совершения сделки
+      span ng-show="ctrl.filter.positions.status == 'completed'" У вас нет завершенных позиций
+      span ng-show="ctrl.filter.positions.status == 'archived'" У вас нет позиций в архиве
+    
+    div ng-show="ctrl.filter.type == 'Offer'"
+      span ng-show="ctrl.filter.offers.status == 'active'" У вас нет активных предложений
+      span ng-show="ctrl.filter.offers.status == 'rejected'" У вас нет отклоненных предложений
+      span ng-show="ctrl.filter.offers.status == 'deleted'" У вас нет отозванных предложений
+    div ng-show="ctrl.filter.type == 'Template'"
+      span У вас нет ни одного шаблона
+  
   .table-wrapper ng-if="ctrl.positions.collection.length"
     .table-wrapper-scroll scroll-position="scrollPosition"
       table.table.positions-table

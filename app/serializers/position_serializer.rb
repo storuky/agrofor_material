@@ -5,14 +5,12 @@ class PositionSerializer < ActiveModel::Serializer
                                                :lat, :lng, :address
 
   has_one :option, serializer: OptionSerializer
-  # has_one :category, serializer: CategorySerializer
   has_one :weight_dimension
   has_one :weight_min_dimension
   has_many :images, serializer: ImageSerializer
   has_many :documents, serializer: DocumentSerializer
 
   def user
-    ap object.user.avatar
     if object.user
       {
         id: object.user.id,

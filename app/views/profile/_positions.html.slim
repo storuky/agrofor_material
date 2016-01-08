@@ -1,4 +1,4 @@
-.profile-positions__content__no ng-show="ctrl.feedbacks.length==0" Нет совершенных сделок
+.content__no ng-show="ctrl.feedbacks.length==0" Нет совершенных сделок
 div ng-repeat="feedback in ctrl.feedbacks"
   .feedback[layout="row" ng-class="{positive: feedback.positive, negative: !feedback.positive}"]
     .feedback__left[flex]

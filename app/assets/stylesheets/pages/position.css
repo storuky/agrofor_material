@@ -311,14 +311,14 @@ md-dialog.position-modal md-dialog-content {
 }
 
 
-.profile-positions__content__no {
+.content__no {
   padding: 60px 20px;
   font-size: 24px;
   text-align: center;
-  background: #FAFAFA;
-  border-bottom: 1px solid #E4E4E4;
+  /* background: #FAFAFA; */
+  /* border-bottom: 1px solid #E4E4E4; */
   border-top: 1px solid #E4E4E4;
-  margin: 15px 0;
+  /* margin: 15px 0; */
 }
 
 
@@ -591,23 +591,36 @@ md-dialog.position-modal md-dialog-content {
   background: white;
   padding: 0 !important;
   overflow: hidden;
+  position: relative;
+}
+
+.position__full-info__map {
+  padding-bottom: 203px;
 }
 
 .position__full-info .uploaded-documents {
   padding: 15px 0 15px 20px;
 }
+.position__full-info .position-map {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 200px;
+}
 
 .position__full-info__footer {
   background-color: #FAFAFA;
   border-top: 1px solid #E4E4E4;
-  padding: 10px;
+  padding: 12px;
   text-align: right;
+  height: 75px;
 }
 
 .position__full-info__your {
   font-size: 18px;
   color: #666;
   text-align: center;
+  line-height: 52px;
 }
 
 .upload-file md-progress-linear, .upload-file md-progress-linear .md-container, .upload-file .md-bar.md-bar2 {

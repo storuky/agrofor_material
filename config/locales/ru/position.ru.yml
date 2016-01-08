@@ -4,4 +4,4 @@ ru:
       opened: "Открыто"
       in_process: "В процессе"
       completed: "Завершенные"
-      archive: "Архив"
+      archived: "Архив"

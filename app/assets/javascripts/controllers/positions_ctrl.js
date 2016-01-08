@@ -29,7 +29,7 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
 
 
     ctrl.filter = {
-      type: 0,
+      type: 'Position',
       positions: {
         status: "opened"
       },
@@ -40,33 +40,12 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
 
     $scope.$watch('ctrl.filter', function () {
       if (ctrl.filter) {
-        if (ctrl.filter.type==0) {
-          ctrl.positions = Position.get(ctrl.filter.positions, function (res) {
-            ctrl.counters = res.counters;
-            ctrl.global_counters = res.global_counters;
-          });
-        } else if (ctrl.filter.type==1) {
-          ctrl.positions = Offer.get(ctrl.filter.offers, function (res) {
-            ctrl.counters = res.counters;
-            ctrl.global_counters = res.global_counters;
-          });
-        } else if (ctrl.filter.type==2) {
-          ctrl.positions = Template.get();
-        }
+        ctrl.positions = Position.get(ctrl.filter, function (res) {
+          ctrl.counters = res.counters;
+          ctrl.global_counters = res.global_counters;
+        });
       }
     }, true)
-
-    $scope.$watch(function () {
-      return $mdMedia('max-width: 1165px')
-    }, function (media) {
-      ctrl.lt1120px = media;
-    })
-
-    $scope.$watch(function () {
-      return $mdMedia('min-width: 1166px')
-    }, function (media) {
-      ctrl.gt1120px = media;
-    })
   })
 
 

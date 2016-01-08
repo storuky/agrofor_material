@@ -32,8 +32,8 @@ div[layout="row" layout-wrap layout-align="center start"]
         = f.select :currency, collection: "gon.data.currencies", "ng-disabled" => "ctrl.disabled"
 div[layout="row" layout-wrap layout-padding style="margin-top: -20px;"]
   div[flex=100]
-    md-chips ng-model="ctrl.user.interests" md-require-match="true" readonly="ctrl.disabled"
-      md-autocomplete placeholder="{{ctrl.disabled ? '' : '+ Добавить интерес'}}" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.title" md-no-cache="true" ng-disabled="ctrl.disabled"
+    md-chips md-min-length="0" ng-model="ctrl.user.interests" md-require-match="true" readonly="ctrl.disabled"
+      md-autocomplete placeholder="{{ctrl.disabled ? '' : '+ Добавить интерес'}}" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.title" md-no-cache="true" ng-disabled="ctrl.disabled" md-min-length="0"
         span md-highlight-text="ctrl.searchText"
           | {{item.title}}
       md-chip-template
