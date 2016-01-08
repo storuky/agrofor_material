@@ -4,6 +4,8 @@ class Image < ActiveRecord::Base
   mount_uploader :file, ImageUploader
   belongs_to :user
 
+  validates :file, file_size: { less_than: 2.megabytes }
+
   has_many :imageable, as: :imageable
   has_many :images, through: :imageable
 

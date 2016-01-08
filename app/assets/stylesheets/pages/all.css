@@ -199,3 +199,21 @@ input.solid-input:focus {
 .page-background.gray {
   background: #FAFAFA;
 }
+
+
+[slick] * {
+  visibility: hidden;
+}
+
+[slick].flickity-enabled * {
+  visibility: visible;
+}
+
+
+.uploaded-images__container * {
+  visibility: hidden;
+}
+
+.uploaded-images__container.flickity-enabled * {
+  visibility: visible;
+}

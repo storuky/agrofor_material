@@ -134,6 +134,10 @@
     padding: 10px !important;
   }
 
+  .table .position__full-info {
+    padding: 0 !important;
+  }
+
   .position-modal {
     margin-right: 20px;
   }

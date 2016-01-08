@@ -98,6 +98,7 @@ h1.search-title.md-title
                 i.icon-eye
           tr ng-if="opened && full_position.$resolved"
             td.position__full-info colspan="10"
+              position-header position="full_position"
               position-show position="full_position"
               .position__full-info__footer
                 md-button.md-yellow.md-lg ng-show="gon.current_user.id != full_position.user_id" ng-href="/offers/new?suitable={{full_position.id}}"
@@ -105,7 +106,7 @@ h1.search-title.md-title
 
                 .position__full-info__your ng-show="gon.current_user.id == full_position.user_id"
                   | Это ваша позиция
-        tbody ng-show="Search.positions.collection.length > Search.offset"
+        tbody ng-show="Search.positions.collection.length > Search.offset && Search.positions.collection.length >= 10"
           tr.show-more ng-init="offset=0"
             td colspan="10"
               md-button.md-white.md-lg ng-click="Search.offset = Search.offset + 10; Search.byParams(Search.offset)" Показать еще

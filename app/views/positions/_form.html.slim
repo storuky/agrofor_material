@@ -58,10 +58,11 @@
 
       div[layout="row" layout-padding-sm style="margin-bottom: 10px;"]
         div[flex=100]
-          label.upload-file.md-button.md-ink-ripple
-            i.icon-upload
+          label.upload-file.md-button.md-ink-ripple ng-disabled="percentCompleted !== undefined"
+            md-progress-linear md-mode="determinate" value="{{percentCompleted}}" ng-if="percentCompleted"
+            i.icon-upload ng-show="resolve.$$state.status!=0"
             span Прикрепить фото и документы
-            input type="file" fileupload="Routes.files_path()" hash="true" ng-model="ctrl.position" multiple="true"
+            input percent-completed="percentCompleted" type="file" fileupload="Routes.files_path()" hash="true" ng-model="ctrl.position" multiple="true" resolve="resolve"
 
       div[layout="row" layout-padding-sm ng-show="ctrl.position.images.length"]
         div[flex=100]

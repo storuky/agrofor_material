@@ -6,6 +6,10 @@ app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Positi
   if (gon.current_user)
     ctrl.positions = Position.get({status: "opened"})
 
+  $scope.$on('$destroy', function () {
+    Search.positions = undefined;
+  })
+
   action('map', function () {
     Search.type = 'map';
 

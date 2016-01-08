@@ -49,7 +49,7 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
         });
 
         clusterer.events.add('click', function (event) {
-          if ($scope.map.getZoom()==maxZoom) {
+          if ($scope.map.getZoom()==maxZoom && event.get('target').getGeoObjects) {
             var ids = _.map(event.get('target').getGeoObjects(), function (object) {
               return object.properties._data.id
             });

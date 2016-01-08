@@ -66,7 +66,7 @@ app.service('Search', ['$rootScope', '$http', 'ngNotify', function ($rootScope, 
   }
 
   Search.setActiveTag = function (tag) {
-    Search.form = _.clone(tag);
+    Search.form = angular.copy(tag);
     if (Search.form.checked_positions_ids) {
       Search.tab = "suitable";
     } else {

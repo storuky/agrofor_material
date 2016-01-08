@@ -12,11 +12,12 @@ class PositionSerializer < ActiveModel::Serializer
   has_many :documents, serializer: DocumentSerializer
 
   def user
+    ap object.user.avatar
     if object.user
       {
         id: object.user.id,
         fullname: object.user.fullname,
-        avatar: (object.user.avatar.thumb.url rescue nil)
+        avatar: (object.user.avatar.file.thumb.url rescue nil)
       }
     end
   end

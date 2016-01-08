@@ -47,8 +47,8 @@ app.directive('lightbox', ['$compile', '$timeout', '$rootScope', 'Image', functi
               }
             })
 
-            // flkty.resize()
-          }, 100);
+            flkty.resize()
+          });
         }
       }, true)
 
@@ -87,6 +87,8 @@ app.directive('lightbox', ['$compile', '$timeout', '$rootScope', 'Image', functi
             });
 
             flktyLightboxMin.stopPlayer();
+
+            flktyLightbox.select($scope.activeImage)
 
             // flktyLightboxMin.on('cellSelect', function (event, pointer, cellElement, cellIndex) {
             //   if (flktyLightbox.selectedIndex != flktyLightboxMin.selectedIndex)

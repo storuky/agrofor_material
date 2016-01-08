@@ -5,6 +5,7 @@
   /* overflow: hidden; */
   /* position: relative; */
   /*table-layout: fixed;*/
+  border-bottom: 1px solid #C3C3C3;
 }
 
 .table > thead > tr > th {

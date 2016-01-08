@@ -1,28 +1,7 @@
 script type="text/ng-template" id="position.tmpl.html"
   md-dialog.position-modal aria-label="Mango (Fruit)"  ng-cloak=""
     md-toolbar.position-modal__header ng-class="{'position-modal-shadow': scrollPosition > 0}"
-      .position-modal__title
-        .position-modal__avatar
-          img src="/avatar.png" height="35"
-        span.position-modal__user
-          a ui-sref="profile_path({id: ctrl.position.user_id})"
-            | {{ctrl.position.user.fullname}}
-          i
-            | Создано {{ctrl.position.created_at | date:"dd.MM.yyyy"}}
-
-        .position-modal__rating
-          .rating
-            .rating__negative
-              | 0
-            .rating__positive
-              | 0
-
-        .position-modal__sep
-        .position-modal__favorite
-          favorite position="ctrl.position"
-          
-
-        .position-modal__date
+      position-header position="ctrl.position"
       .close ng-click="ctrl.close()"
         .icon-close
     md-dialog-content.disabled-show scroll-position="scrollPosition"
