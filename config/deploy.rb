@@ -6,8 +6,6 @@ set :repo_url, 'git@github.com:storuky/agrofor_material.git'
 
 # set :rvm_bin_path, "/home/deploy/.rvm/bin"
 # set :rvm_type, :system
-set :rvm_ruby_version, '2.2.3@agrofor'
-
 
 set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
