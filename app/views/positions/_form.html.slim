@@ -80,9 +80,9 @@
           md-input-container.md-block
             input ng-disabled="!ctrl.position.save_as_template && ctrl.position.type!='Template'" type="text" placeholder="Сохранить как шаблон" ng-model="ctrl.position.template_name"
   .position-form__footer
-    md-progress-linear md-mode="query" ng-show="formSubmit.$resolved === false"
+    md-progress-linear md-mode="query" ng-show="formQuery.$resolved === false"
     .position-form__footer-actions[layout="row" layout-wrap style="" layout-align="start center"]
-      md-button.md-yellow.md-lg[flex-sm="100" type="submit" ng-disabled="formSubmit.$resolved === false"]
+      md-button.md-yellow.md-lg[flex-sm="100" type="submit" ng-disabled="formQuery.$resolved === false"]
         | Сохранить
       p[flex-md=70 flex-sm=100]
         | Нажимая кнопку "Сохранить", Вы подтвеждаете свое согласие с  
