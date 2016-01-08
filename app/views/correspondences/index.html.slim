@@ -1,13 +1,30 @@
 div content-for="header"
   .page-header
-    .page-layout[style="margin: 0"]
+    .page-layout[style="margin: 0;"]
       div[layout="row" layout-wrap layout-align="space-between center"]
-        h1.md-title[flex="" flex-sm="100"]
+        h1.message-page__title.md-title[flex="none" style="width: 275px"]
           toggle-sidebar.hide-gt-md id="left"
-          span Мои сообщения
+          span.hide-sm Мои сообщения
+        div[flex ng-show="ctrl.contact"]
+          .message-page__opponent
+            a.message-page__opponent__avatar ui-sref="profile_path(ctrl.contact.opponent)"
+              img ng-src="{{ctrl.contact.opponent.avatar.url.thumb || '/avatar.png'}}"
+            .message-page__opponent__fullname
+              a ui-sref="profile_path(ctrl.contact.opponent)"
+                | {{ctrl.contact.opponent.fullname}}
+              .rating.message-page__opponent__rating
+                .rating__negative
+                  | 0
+                .rating__positive
+                  | 0
+
+          .message-page__settings
+            md-button.md-white.md-icon-button aria-label="Настройки"
+              i.icon-settings
 
 .message-page
-  .message-page__contacts
+  .message-page__contacts__overlay.hide-gt-sm ng-show="contactsOpened" ng-click="contactsOpened=false"
+  .message-page__contacts style="{{contactsOpened ? 'margin: 0' : ''}}"
     .message-page__contacts__tabs
       .tabs
         md-button.tab ng-click="ctrl.filter.type = 'CorrespondencePosition'" ng-class="{active: ctrl.filter.type == 'CorrespondencePosition'}" Позиции
@@ -16,9 +33,9 @@ div content-for="header"
       i.icon-magnify
       input type="text" placeholder="Поиск" ng-model="ctrl.textSearch"
     .message-page__contacts__content
-      a href="/correspondences?id={{correspondence.id}}" ng-repeat="correspondence in Correspondence.correspondences | filter:ctrl.filter | filter:ctrl.textSearch | orderBy:'timestamp':true"
+      a href="/correspondences?id={{correspondence.id}}" ng-repeat="correspondence in Correspondence.correspondences | filter:ctrl.filter | filter:ctrl.textSearch | orderBy:'timestamp':true" ng-click="$parent.contactsOpened = false"
         md-list-item class="md-3-line" ng-class="{active: correspondence==ctrl.contact}" ng-click="test=1"
-          img.md-avatar ng-src="{{opponent_user(correspondence.users).avatar.url.thumb || '/avatar.png'}}"
+          img.md-avatar ng-src="{{correspondence.opponent.avatar.url.thumb || '/avatar.png'}}"
           .md-list-item-text layout="column"
             .message-page__contacts__count ng-show="correspondence.new_messages[gon.current_user.id].length"
               | {{correspondence.new_messages[gon.current_user.id].length}}
@@ -26,7 +43,7 @@ div content-for="header"
               | {{correspondence.updated_at | dateFormat}}
             .md-list-item-author
               h3
-                | {{::opponent_user(correspondence.users).fullname}}
+                | {{correspondence.opponent.fullname}}
             p ng-init="position = opponent_position(correspondence.positions)"
               span ng-show="correspondence.type == 'CorrespondenceUser'"
                 | {{correspondence.last_message}}
@@ -38,10 +55,13 @@ div content-for="header"
   .message-page__body
     .message-page__progress ng-show="Correspondence.active.$resolved==false"
       md-progress-linear md-mode="query"
-    .message-page__messages ng-show="ctrl.contact"
+    .message-page__messages
       .message-page__positions ng-show="positions" click-outside="showPosition = ''"
         table
           tr
+            td.hide-gt-sm
+              .message-page__toggle-contacts ng-click="contactsOpened = !contactsOpened"
+                i.icon-menu
             td
               a.message-page__positions__link ng-click="showPosition = 'my'" ng-class="{active: showPosition == 'my'}"
                 span ng-show="positions['my'].type=='Position'" Ваша позиция
@@ -66,7 +86,7 @@ div content-for="header"
               | Перейти к {{positions[showPosition].type=="Position" ? 'позиции' : 'предложению'}}
 
               i.icon-arrow-right
-      .message-page__messages__wrapper
+      .message-page__messages__wrapper ng-show="ctrl.contact"
         .message-page__body__wrapper[layout="row" layout-wrap layout-align="start end"]
           div[flex=100]
             .message[ng-class="::[{my: message.user_id == gon.current_user.id}, message.message_type]" ng-repeat="message in Correspondence.active.messages"]

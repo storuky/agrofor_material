@@ -18,6 +18,7 @@
   overflow: hidden;
   box-shadow: 0px 0px 3px rgba(0,0,0,.3);
   z-index: 3;
+  background: white;
 }
 
 .message-page__body {
@@ -62,13 +63,13 @@
 
 .message-page__contacts .tabs .tab {
   width: 50%;
-  padding: 6px;
+  padding: 7px;
   margin: 0 !important;
 }
 
 .message-page__contacts__content {
   position: absolute;
-  top: 84px;
+  top: 86px;
   bottom: 0;
   width: 300px;
   padding-right: 25px;
@@ -403,7 +404,7 @@ color: #999;font-size: 13px;position: absolute;right: 19px;bottom: 10px;}
   color: #656565;
   white-space: nowrap;
   /* margin-right: 20px; */
-  padding: 11px 10px 10px 35px;
+  padding: 13px 10px 10px 35px;
   display: inline-block;
   margin-left: -1px;
   border-right: 1px solid #FFFFFF;
@@ -468,4 +469,85 @@ color: #999;font-size: 13px;position: absolute;right: 19px;bottom: 10px;}
 
 .message-page__position .md-title {
   padding: 10px 32px;
+}
+
+
+.message-page__opponent__avatar {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  overflow: hidden;
+  width: 44px;
+  height: 44px;
+}
+
+.message-page__opponent__fullname {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+.message-page__opponent__avatar img {
+  height: 44px;
+  width: 44px;
+}
+
+.message-page__opponent__rating {
+  margin-left: 10px;
+}
+
+.message-page__title .toggle-nav {
+  top: 4px;
+  margin-top: -8px;
+}
+
+
+.message-page__settings {
+  position: absolute;
+  right: 0;
+  top: 9px;
+}
+
+.message-page__settings i {
+  font-size: 21px;
+  line-height: 45px;
+  color: rgba(0, 0, 0, 0.44);
+  transition: .1s;
+}
+
+.message-page__settings .md-button:hover i {
+  color: rgba(0, 0, 0, 0.63);
+}
+
+
+.message-page__opponent {
+  height: 34px;
+  margin-top: -5px;
+}
+
+
+.message-page__toggle-contacts .icon-menu {
+  width: 47px;
+  display: inline-block;
+  height: 47px;
+  position: absolute;
+  top: 0px;
+  vertical-align: middle;
+  text-align: center;
+  padding-top: 13px;
+  font-size: 20px;
+  background: #FFDB4C;
+}
+
+
+.message-page__toggle-contacts {width: 47px;height: 47px;cursor: pointer;}
+
+.message-page__contacts__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 2;
 }

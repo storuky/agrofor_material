@@ -5,6 +5,7 @@ script id="position_show.html" type="text/ng-template"
         | {{position.title}}
       .position-status ng-class="position.status.id"
         | {{position.status.title}}
+
     .position-modal__info slick="" reload="position"
       .position-modal__info__item
         b
@@ -26,10 +27,12 @@ script id="position_show.html" type="text/ng-template"
         b
           | {{position.weight_min | number}} {{position.weight_min_dimension.title}}
         span Мин. заказ
-
     lightbox images="position.images"
     pre.position-modal__info__description ng-show="position.description"
       | {{position.description}}
     .position-modal__info__description-no ng-hide="position.description"
       | Нет описания
     documents ng-model="position.documents"
+    .position-modal__address
+      i.icon-marker
+      | {{position.address}}
