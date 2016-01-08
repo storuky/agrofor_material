@@ -6,7 +6,7 @@ class SearchController < ApplicationController
       format.html
       format.json {
         result = if @positions.class == Class
-          @positions.pluck_all_fields
+          @positions.distinct.pluck_all_fields
         else
           @positions.distinct.pluck_fields
         end
