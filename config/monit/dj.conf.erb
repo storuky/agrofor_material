@@ -1,0 +1,6 @@
+check process <%= @taskname %>
+    with pidfile <%= "#{@current}/tmp/pids/delayed_job.pid" %>
+    start program = "/bin/bash -l -c 'cd <%= @current %> && umask 0022 && RAILS_ENV=<%= @environment %> bundle exec bin/delayed_job restart'" as uid www-data and gid www-data with timeout 60 seconds
+    stop program = "/bin/bash -l -c 'cd <%= @current %> && umask 0022 && RAILS_ENV=<%= @environment %> bundle exec bin/delayed_job stop'" as uid www-data and gid www-data
+    if total memory > 300.0 MB for 5 cycles then restart
+    if total cpu > 20% for 2 cycles then restart

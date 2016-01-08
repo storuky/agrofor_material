@@ -1,0 +1,6 @@
+check process <%= @taskname %>
+    with pidfile <%= "#{@current}/log/#{@environment}.sphinx.pid" %>
+    start program = "/bin/bash -l -c 'cd <%= @current %> && umask 0022 && RAILS_ENV=<%= @environment %> bundle exec rake ts:rebuild'" as uid www-data and gid www-data with timeout 60 seconds
+    stop program = "/bin/bash -l -c 'cd <%= @current %> && umask 0022 && RAILS_ENV=<%= @environment %> bundle exec rake ts:stop'" as uid www-data and gid www-data
+    if total memory > 500.0 MB for 5 cycles then restart
+    if total cpu > 20% for 2 cycles then restart
