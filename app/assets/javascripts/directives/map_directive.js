@@ -21,7 +21,7 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
       if (gon.current_user)
         $scope.center = [gon.current_user.lat, gon.current_user.lng];
 
-      var center = $scope.center,
+      var center = $scope.center || [55.7, 37.6],
           geoObjects = [],
           clusterer,
           maxZoom = 17;
@@ -108,7 +108,10 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
 
         if (markers.collection.length && !firstDrawMarkers && !Search.all)
           $scope.map.setBounds($scope.map.geoObjects.getBounds());
+        
+        Search.visible_count = ymaps.geoQuery(geoObjects).searchIntersect($scope.map).getLength();
         firstDrawMarkers = false;
+
       }
 
       function drawCircles (tags) {

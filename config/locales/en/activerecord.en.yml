@@ -18,6 +18,11 @@ en:
         template: "Tempate"
         status: "Status"
         category: Product
+        location: Location
+        weight_from: "Weight, from"
+        weight_to: "Weight, to"
+        price_from: "Price, from"
+        price_to: "Price, to"
       position:
         <<: *generic
       offer:

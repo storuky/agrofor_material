@@ -18,6 +18,11 @@ ru:
         template: "Шаблон"
         status: "Статус"
         category: "Товар"
+        location: Местоположение
+        weight_from: "Вес, от"
+        weight_to: "Вес, до"
+        price_from: "Цена, от"
+        price_to: "Цена, до"
       position:
         <<: *generic
       offer:

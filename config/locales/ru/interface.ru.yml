@@ -120,12 +120,6 @@ ru:
         search: Поиск
     text:
       search:
-        founded:
-          - Найдена
-          - Найдено
-          - Найдены
-        positions:
-          - позиция
-          - позиции
-          - позиций
+        suitable_for: Подходящие позиции для
+        founded: "Найдено <b>{{Search.positions.collection.length}}</b> {{Search.positions.collection.length | plur:['позиция', 'позиции', 'позиций']}}"
         on_map: В области карты

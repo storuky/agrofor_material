@@ -120,12 +120,6 @@ en:
         search: Search
     text:
       search:
-        founded:
-          - founded
-          - founded
-          - founded
-        positions:
-          - position
-          - positions
-          - positions
+        suitable_for: Suitable positions for
+        founded: "<b>{{Search.positions.collection.length}}</b> {{Search.positions.collection.length | plur:['position', 'positions']}} was found"
         on_map: On the map

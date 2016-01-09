@@ -3,12 +3,13 @@ script type="text/ng-template" id="search.html"
     .search__form
       toggle-sidebar.hide-gt-md id="left"
       .search__input
-        input ng-model="Search.query" ng-model-options="{debounce: 300}" type="text" placeholder="Поиск" ng-focus="Search.showFooter = true"
-        .search__addons hint="Вид отображения результатов поиска" place="left-bottom"
+        input ng-model="Search.query" ng-model-options="{debounce: 300}" type="text" placeholder="{{gon.translations.interface.buttons.search.search}}" ng-focus="Search.showFooter = true"
+        .search__addons
           a.icon-earth ui-sref="map_path" ng-class="{active: Search.type == 'map'}"
           a.icon-list ui-sref="list_path" ng-class="{active: Search.type == 'list'}"
       .search__btn
-        span Найти
+        span
+          | {{gon.translations.interface.buttons.search.search}}
     
     .search__footer ng-class="{active: Search.showFooter}"
       .search__tags ng-class="{open: Search.showExtended && Search.showFooter}"
@@ -24,13 +25,11 @@ script type="text/ng-template" id="search.html"
                     | {{gon.data.by_index.trade_types[tag.trade_type_id].title}} &nbsp;
                     span ng-show="tag.option" «{{tag.option.title}}» &nbsp;
                   div ng-show="tag.checkedPositions"
-                    | Подходящие для №{{tag.checked_positions_ids.join(', ')}}
+                    | {{gon.translations.interface.text.search.suitable_for}} №{{tag.checked_positions_ids.join(', ')}}
                 .tag__delete ng-click="Search.tags.splice($index, 1);"
                   | &times;
       .search__count ng-click="Search.showExtended = false;"
-        |   {{Search.positions.collection.length | plur:gon.translations.interface.text.search.founded}}  
-        |  {{Search.positions.collection.length}}
-        |   {{Search.positions.collection.length | plur:gon.translations.interface.text.search.positions}}
+        span ng-bind-html-compile="gon.translations.interface.text.search.founded"
         span ng-show="Search.type=='map'"
           | . {{gon.translations.interface.text.search.on_map}} – 
           b
@@ -50,7 +49,8 @@ script type="text/ng-template" id="search.html"
           div[layout="row" layout-padding layout-wrap]
             div[flex]
               md-input-container.md-block
-                label Тип позиции
+                label
+                  | {{gon.translations.activerecord.position.trade_type}}
                 md-select ng-model="Search.form.trade_type_id"
                   md-option ng-repeat="trade_type in gon.data.trade_types" value="{{trade_type.id}}"
                     | {{trade_type.title}}
@@ -60,19 +60,22 @@ script type="text/ng-template" id="search.html"
             div[flex=100 layout="row"]
               div[flex]
                 md-input-container.md-block
-                  label Местоположение
+                  label
+                    | {{gon.translations.activerecord.position.location}}
                   input.md-block[type="text" suggest ng-model="Search.form.address" coords="Search.form.coords" rebuild="Search.form.id" radius="Search.form.default_radius" bounded-by="Search.form.bounded_by"]
               div[flex="none" style="padding: 25px 10px 0 10px;"]
                 | ±
               div[flex style="max-width: 110px"]
                 md-input-container.md-block
-                  label Радиус
+                  label
+                    | {{gon.translations.activerecord.position.radius}}
                   input[type="text" ng-model="Search.form.radius" aria-label="radius"]
                   .addon км
 
             div[layout="row" flex=50 style="min-width: 180px"]
               md-input-container[flex]
-                label Вес, от
+                label
+                  | {{gon.translations.activerecord.position.weight_from}}
                 input type="text" ng-model="Search.form.weight_from"
               md-input-container[flex="none"]
                 md-select aria-label="weight from" ng-model="Search.form.weight_from_dimension_id"
@@ -82,7 +85,8 @@ script type="text/ng-template" id="search.html"
             div[layout="row" flex=50 style="min-width: 180px"]
               div[flex]
                 md-input-container
-                  label Вес, до
+                  label
+                    | {{gon.translations.activerecord.position.weight_to}}
                   input type="text" ng-model="Search.form.weight_to"
               div[flex="none"]
                 md-input-container
@@ -93,7 +97,8 @@ script type="text/ng-template" id="search.html"
             div[layout="row" flex=50 style="min-width: 180px"]
               div[flex]
                 md-input-container
-                  label Цена, от
+                  label
+                    | {{gon.translations.activerecord.position.price_from}}
                   input type="text" ng-model="Search.form.price_from"
               div[flex="none"]
                 md-input-container
@@ -104,7 +109,8 @@ script type="text/ng-template" id="search.html"
             div[layout="row" flex=50 style="min-width: 180px"]
               div[flex]
                 md-input-container
-                  label Цена, до
+                  label
+                    | {{gon.translations.activerecord.position.price_to}}
                   input type="text" ng-model="Search.form.price_to"
               div[flex="none"]
                 md-input-container
