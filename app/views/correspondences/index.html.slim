@@ -59,6 +59,8 @@ div content-for="header"
     .message-page__progress ng-show="Correspondence.active.$resolved==false"
       md-progress-linear md-mode="query"
     .message-page__messages
+      .message-page__toggle-contacts.hide-gt-sm ng-click="contactsOpened = !contactsOpened"
+        i.icon-menu
       .message-page__positions ng-show="positions" click-outside="showPosition = ''"
         table
           tr
@@ -85,7 +87,7 @@ div content-for="header"
           .message-page__position__goto
 
             md-button.md-yellow ng-href="{{show_path(positions[showPosition])}}"
-              | Перейти к {{positions[showPosition].type=="Position" ? 'позиции' : 'предложению'}}
+              | {{gon.translations.interface.buttons.messages.go_to[positions[showPosition].type]}}
 
               i.icon-arrow-right
       .message-page__messages__wrapper ng-show="ctrl.contact"

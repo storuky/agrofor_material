@@ -77,7 +77,8 @@ app.directive('lightbox', ['$compile', '$timeout', '$rootScope', 'Image', functi
               contain: true,
               selectedAttraction: 0.2,
               friction: 0.8,
-              lazyLoad: true
+              lazyLoad: true,
+              wrapAround: true
             });
 
             flktyLightboxMin = new Flickity(template[0].querySelector('.lightbox__footer'), {

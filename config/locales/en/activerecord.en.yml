@@ -5,7 +5,7 @@ en:
         created_at: Created at
         trade_type: "Trade type"
         title: "Title"
-        weight: "Weight"
+        weight: "Weight (volume)"
         weight_dimension: ""
         weight_min: "Min. order"
         weight_min_dimension: ""

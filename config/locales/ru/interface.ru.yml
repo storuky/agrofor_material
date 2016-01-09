@@ -11,7 +11,6 @@ ru:
       settings: Настройки
       sign_in: Войти
       sign_out: Выйти
-
     title:
       new_position: Новая позиция
       edit_position: Редактирование позиции
@@ -93,18 +92,24 @@ ru:
         Template:
           other: У вас нет ни одного шаблона
       search: По вашему запросу ничего не найдено
-
+      profile:
+        no_deals: Нет совершенных сделок
+        no_positions: Нет открытых позиций
     buttons:
       profile:
         send: Написать
         upload: Загрузить
         save: Сохранить
         add_phone: Добавить телефон
+        to_deal_page: На страницу сделки
       positions:
         more: Показать еще
       messages:
         send: Отправить
         attach_documents: Прикрепить документы
+        go_to:
+          Position: Перейти к позиции
+          Offer: Перейти к предложению
       position_form:
         attach_documents: Прикрепить фото и документы
         save: Сохранить
@@ -112,3 +117,14 @@ ru:
         add_condition: Добавить условие
         apply: Применить
         more: Показать еще
+    text:
+      search:
+        founded:
+          - Найдена
+          - Найдено
+          - Найдены
+        positions:
+          - позиция
+          - позиции
+          - позиций
+        on_map: В области карты

@@ -1,22 +1,27 @@
 script type="text/ng-template" id="trading_conditions.html"
   table
     tr
-      td.dt Тип:
+      td.dt
+        | {{gon.translations.activerecord.position.trade_type}}:
       td.dd
         | {{position.trade_type.title}}
     tr
-      td.dt Категория:
+      td.dt
+        | {{gon.translations.activerecord.position.category}}:
       td.dd
         | {{position.option.title}}
     tr
-      td.dt Цена:
+      td.dt
+        | {{gon.translations.activerecord.position.price}}:
       td.dd
         | {{position.price}} {{position.currency.title}}/{{position.price_weight_dimension.title}}
     tr
-      td.dt Объем:
+      td.dt
+        | {{gon.translations.activerecord.position.weight}}:
       td.dd
         | {{position.weight}} {{position.weight_dimension.title}}
     tr
-      td.dt Мин. заказ:
+      td.dt
+        | {{gon.translations.activerecord.position.weight_min}}:
       td.dd
-        | 10 т
+        | {{position.weight_min}} {{position.weight_min_dimension.title}}

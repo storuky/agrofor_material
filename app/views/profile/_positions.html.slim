@@ -1,36 +1,42 @@
-.content__no ng-show="ctrl.feedbacks.length==0" Нет совершенных сделок
-div ng-repeat="feedback in ctrl.feedbacks"
-  .feedback[layout="row" ng-class="{positive: feedback.positive, negative: !feedback.positive}"]
-    .feedback__left[flex]
-      .feedback__from
-        span Сделка с  
-        a ui-sref="profile_path({id: feedback.author.id})"
-          | {{feedback.author.fullname}}
-      .feedback__description
-        | Все прошло отлично! Договорились обо всем.
-      .feedback__date
-        | {{feedback.created_at | date:"dd.MM.yyyy"}}
-    .feedback__params[flex="none"]
-      table
-        tr
-          td Тип:
-          td
-            | {{feedback.position.trade_type.title}}
-        tr
-          td Категория:
-          td
-            | {{feedback.position.option.title}}
-        tr
-          td Вес (объем):
-          td
-            | {{feedback.position.weight}}
-            |  {{feedback.position.weight_dimension.title}}
-        tr
-          td Цена:
-          td
-            | {{feedback.position.price}}
-            |  {{feedback.position.currency.title}}/{{feedback.position.price_weight_dimension.title}}
-      a.link.feedback__goto href=""
-        | На страницу сделки  
-        i.icon-arrow-right
-  hr
+.content__no ng-show="ctrl.positions.length==0"
+  | {{gon.translations.interface.no_result.profile.no_deals}}
+.table-wrapper ng-init="limitTo = 10"
+  table.table.positions-table
+    thead
+      tr
+        th
+          div Дата
+        th
+          div Категория
+        th.numeric
+          div Цена
+        th.numeric
+          div Вес
+        th.numeric
+          div Мин. вес
+        th
+    thead ng-if="!ctrl.positions"
+      tr
+        td colspan="7"
+          md-progress-linear md-mode="indeterminate"
+    tbody ng-repeat="position in ctrl.positions | limitTo:limitTo"
+      tr ng-click="Position.goTo(position, $event)"
+        td
+          | {{::position.created_at | date:"dd.MM.yyyy"}}
+        td
+          | {{::position.option.title}}
+        td.numeric
+          | {{::position.price | number:2}}
+          .dim
+            | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
+        td.numeric
+          | {{::position.weight | number}}
+          .dim
+            | {{::position.weight_dimension.title}}
+        td.numeric
+          | {{::position.weight_min | number}}
+          .dim
+            | {{::position.weight_min_dimension.title}}
+        td.btns ng-click="$event.stopPropagation()"
+          a.icon-btn
+            i.icon-eye

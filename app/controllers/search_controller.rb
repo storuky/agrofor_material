@@ -32,7 +32,7 @@ class SearchController < ApplicationController
         end
 
         if current_user
-          collection = @positions.joins("LEFT JOIN favorite_positions ON (position_bases.id=favorite_positions.position_id AND favorite_positions.user_id=#{current_user.id})").order("favorite_positions.position_id")
+          collection = @positions.joins("LEFT JOIN favorite_positions ON (position_bases.id=favorite_positions.position_id AND favorite_positions.user_id=#{current_user.id})").order("favorite_positions.position_id, #{order}")
         else
           collection = @positions
         end

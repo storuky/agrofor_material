@@ -1,4 +1,4 @@
-app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Correspondence', '$location', function ($scope, action, Profile, Position, Correspondence, $location) {
+app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Correspondence', '$location', 'Translation', 'Currency', function ($scope, action, Profile, Position, Correspondence, $location, Translation, Currency) {
   var ctrl = this;
 
   ctrl.profileInfoTabs = [{id: 0, title: 'Личные данные'}, {id: 1, title: "Местоположение"}, {id: 2, title: "Контактные данные"}]
@@ -48,8 +48,12 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
         ctrl.user = res.user;
         gon.current_user = angular.copy(res.user);
 
-        if (res.translations) {
-          gon.translations = res.translations;
+        if (res.update_translations) {
+          Translation.update();
+        }
+
+        if (res.update_currency) {
+          Currency.update_user_currency()
         }
       })
     }

@@ -590,7 +590,8 @@ md-dialog.position-modal md-dialog-content {
   background: white;
   padding: 0 !important;
   overflow: hidden;
-  position: relative;
+  /* position: relative; */
+  z-index: 0;
 }
 
 .position__full-info__map {
@@ -643,10 +644,12 @@ md-dialog.position-modal md-dialog-content {
 
 
 .position-modal__address {
-  /* display: inline-block; */
-  /* vertical-align: top; */
-  margin: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 15px 16px 15px -2px;
   white-space: nowrap;
+  color: #616161;
+  font-size: 15px;
 }
 
 
@@ -658,4 +661,9 @@ md-dialog.position-modal md-dialog-content {
   position: relative;
   top: -2px;
   color: #616161;
+}
+
+
+.position__full-info__wrapper {
+  position: relative;
 }

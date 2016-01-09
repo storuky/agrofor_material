@@ -524,6 +524,7 @@ color: #999;font-size: 13px;position: absolute;right: 19px;bottom: 10px;}
 .message-page__opponent {
   height: 34px;
   margin-top: -5px;
+  white-space: nowrap;
 }
 
 
@@ -541,7 +542,7 @@ color: #999;font-size: 13px;position: absolute;right: 19px;bottom: 10px;}
 }
 
 
-.message-page__toggle-contacts {width: 47px;height: 47px;cursor: pointer;}
+.message-page__toggle-contacts {width: 47px;height: 47px;cursor: pointer;position: relative;z-index: 2;}
 
 .message-page__contacts__overlay {
   position: absolute;

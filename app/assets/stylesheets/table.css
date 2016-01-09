@@ -6,6 +6,8 @@
   /* position: relative; */
   /*table-layout: fixed;*/
   border-bottom: 1px solid #C3C3C3;
+  /* border-left: 1px solid #C3C3C3; */
+  /* border-right: 1px solid #C3C3C3; */
 }
 
 .table > thead > tr > th {
@@ -104,7 +106,7 @@
 }
 
 .table > tbody:last-child > tr td {
-  border-bottom: 1px rgba(0, 0, 0, 0.12) solid;
+  border-bottom: 1px rgb(225, 225, 225) solid;
 }
 
 .table > tbody > tr:not(:first-child):hover td {
@@ -144,12 +146,11 @@
 }
 
 .fixed-header-shadow th:first-child div {
-  /* width: 100%; */
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.36);
   position: absolute;
   left: 0;
   right: 0;
-  /*z-index: 2;*/
+  content: "";
 }
 
 

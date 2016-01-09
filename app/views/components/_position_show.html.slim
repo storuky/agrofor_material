@@ -1,38 +1,47 @@
 script id="position_show.html" type="text/ng-template"
   .position_show
-    .md-title
-      span
-        | {{position.title}}
-      .position-status ng-class="position.status.id"
-        | {{position.status.title}}
+    .md-title[layout="row" layout-wrap]
+      div[flex="none" style="padding-top: 10px;"]
+        span
+          | {{position.title}}
+        .position-status ng-class="position.status.id"
+          | {{position.status.title}}
+      
+      div.hide-sm[flex]
+      div[flex="none" flex-sm="100"]
+        .position-modal__address
+          i.icon-marker
+          | {{position.address}}
 
     .position-modal__info slick="" reload="position"
       .position-modal__info__item
         b
           | {{position.trade_type.title}}
-        span Тип
+        span
+          | {{gon.translations.activerecord.position.trade_type}}
       .position-modal__info__item
         b
           | {{position.option.title}}
-        span Категория
+        span
+          | {{gon.translations.activerecord.position.category}}
       .position-modal__info__item
         b
           | {{position.price | number}} {{position.currency.title}}/{{position.weight_dimension.title}}
-        span Цена
+        span
+          | {{gon.translations.activerecord.position.price}}
       .position-modal__info__item
         b
           | {{position.weight | number}} {{position.weight_dimension.title}}
-        span Вес (объем)
+        span
+          | {{gon.translations.activerecord.position.weight}}
       .position-modal__info__item
         b
           | {{position.weight_min | number}} {{position.weight_min_dimension.title}}
-        span Мин. заказ
+        span
+          | {{gon.translations.activerecord.position.weight_min}}
     lightbox images="position.images"
     pre.position-modal__info__description ng-show="position.description"
       | {{position.description}}
     .position-modal__info__description-no ng-hide="position.description"
       | Нет описания
     documents ng-model="position.documents"
-    .position-modal__address
-      i.icon-marker
-      | {{position.address}}

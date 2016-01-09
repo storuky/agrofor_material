@@ -16,6 +16,7 @@ app.directive('order', [function(){
             + '<i class="icon-sort-descending" ng-show="ngModel == value + \' DESC\'"></i>'
             + '</div>',
     // templateUrl: '',
+    restrict: "E",
     replace: true,
     transclude: true,
     // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),

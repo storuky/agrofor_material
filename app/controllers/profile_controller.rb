@@ -15,11 +15,16 @@ class ProfileController < ApplicationController
       format.json {
         if params[:id].to_i == current_user.id
           if user_params[:language] != current_user.language
-            @translations = translations user_params[:language]
+            update_translations = true
           end
+
+          if user_params[:currency_id] != current_user.currency_id
+            update_currency = true
+          end
+
           current_user.update(user_params)
           set_serialized_user
-          render json: {msg: "Профиль успешно обновлен", user: @user, translations: @translations}
+          render json: {msg: "Профиль успешно обновлен", user: @user, update_translations: update_translations, update_currency: update_currency}
         else
           render json: {msg: "Профиль не найден"}, status: 422
         end

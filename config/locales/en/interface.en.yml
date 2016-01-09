@@ -11,7 +11,6 @@ en:
       settings: Settings
       sign_in: Sign in
       sign_out: Sign out
-
     title:
       new_position: New position
       edit_position: Edit position
@@ -28,7 +27,6 @@ en:
       profile: Profile
       edit_profile: Edit profile
       search_result: Search result
-
     tabs:
       position_base:
         - title: Positions
@@ -94,18 +92,24 @@ en:
         Template:
           other: Your have no any templates
       search: No result
-
+      profile:
+        no_deals: Have no completed deals
+        no_positions: Have no opened positions
     buttons:
       profile:
         send: Send message
         upload: Upload
         save: Save
         add_phone: Add phone number
+        to_deal_page: Go to the deal page
       positions:
         more: Show more
       messages:
         send: Send
         attach_documents: Attach documents
+        go_to:
+          Position: Go to the position
+          Offer: Go to the offer
       position_form:
         attach_documents: Attach photo or documents
         save: save
@@ -113,3 +117,14 @@ en:
         add_condition: Add condition
         apply: Apply
         more: Show more
+    text:
+      search:
+        founded:
+          - founded
+          - founded
+          - founded
+        positions:
+          - position
+          - positions
+          - positions
+        on_map: On the map

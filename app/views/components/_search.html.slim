@@ -28,12 +28,12 @@ script type="text/ng-template" id="search.html"
                 .tag__delete ng-click="Search.tags.splice($index, 1);"
                   | &times;
       .search__count ng-click="Search.showExtended = false;"
-        | {{Search.positions.collection.length | plur:['Найдена', 'Найдено', 'Найдены']}}
         b
-          |  {{Search.positions.collection.length}}
-        |  {{Search.positions.collection.length | plur:['позиция', 'позиции', 'позиций']}}
+          | {{Search.positions.collection.length}}
+        |   {{Search.positions.collection.length | plur:gon.translations.interface.text.search.founded}}
+        |  {{Search.positions.collection.length | plur:gon.translations.interface.text.search.positions}}
         span ng-show="Search.type=='map'"
-          | . В области карты – 
+          | . {{gon.translations.interface.text.search.on_map}} – 
           b
             | {{Search.visible_count}}
   .search__extended__wrapper ng-click="Search.showExtended = false; Search.showFooter = false;"

@@ -6,7 +6,7 @@ script id="position_header.html" type="text/ng-template"
       a ui-sref="profile_path({id: position.user_id})"
         | {{position.user.fullname}}
       i
-        | Создано {{position.created_at | date:"dd.MM.yyyy"}}
+        | {{gon.translations.activerecord.position.created_at}} {{position.created_at | date:"dd.MM.yyyy"}}
 
     .position-modal__rating
       .rating

@@ -5,7 +5,7 @@ ru:
         created_at: Дата создания
         trade_type: "Тип позиции"
         title: "Название"
-        weight: "Вес"
+        weight: "Вес (объем)"
         weight_dimension: ""
         weight_min: "Мин. заказ"
         weight_min_dimension: ""

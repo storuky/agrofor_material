@@ -1,6 +1,8 @@
 div content-for="header"
   div ng-include="'search.html'"
 
+.search-overlay
+
 h1.search-title.md-title
   | {{gon.translations.interface.title.search_result}}
 .search-list__result ng-click="Search.showExtended=false; Search.showFooter=false;"
@@ -8,113 +10,4 @@ h1.search-title.md-title
     | {{gon.translations.interface.no_result.search}}
 
 
-  .table-wrapper ng-if="Search.positions.collection.length"
-    .table-wrapper-scroll scroll-position="scrollPosition"
-      table.table.positions-table
-        thead.fixed-header ng-class="{'fixed-header-shadow': scrollPosition > 0}"
-          tr
-            th style="padding-left: 0"
-              div
-            th
-              | {{gon.translations.activerecord.position.created_at}}
-              order ng-model="Search.order" value="'created_at'"
-                | {{gon.translations.activerecord.position.created_at}}
-            th ng-if="ctrl.gt1120px"
-              | {{gon.translations.activerecord.position.trade_type}}
-              order ng-model="Search.order" value="'trade_type_id'"
-                | {{gon.translations.activerecord.position.trade_type}}
-            th ng-if="ctrl.gt1120px"
-              | {{gon.translations.activerecord.position.category}}
-              div
-                | {{gon.translations.activerecord.position.category}}
-            th.numeric ng-if="ctrl.gt1120px"
-              | {{gon.translations.activerecord.position.price}}
-              order ng-model="Search.order" value="'price'"
-                | {{gon.translations.activerecord.position.price}}
-            th.numeric ng-if="ctrl.gt1120px"
-              | {{gon.translations.activerecord.position.weight}}
-              order ng-model="Search.order" value="'weight_etalon'"
-                | {{gon.translations.activerecord.position.weight}}
-            th.numeric ng-if="ctrl.gt1120px"
-              | {{gon.translations.activerecord.position.weight_min}}
-              order ng-model="Search.order" value="'weight_min_etalon'"
-                | {{gon.translations.activerecord.position.weight_min}}
-            th ng-if="ctrl.lt1120px"
-              | {{gon.translations.activerecord.position.description}}
-              div
-                | {{gon.translations.activerecord.position.description}}
-            th
-        thead ng-if="Search.promise.$$state.status == 0"
-          tr
-            td colspan="8"
-              md-progress-linear md-mode="indeterminate"
-        tbody ng-class="{active: opened}" ng-repeat="position_fields in Search.positions.collection"
-          tr ng-click="opened=!opened; full_position = Position.get({id: position.id})" ng-init="position = Position.serialize(position_fields)"
-            td
-              favorite position="position"
-            td
-              div
-                | {{::position.created_at | date:"dd.MM.yyyy"}}
-            / Greater then 1120px
-            td ng-if="ctrl.gt1120px"
-              | {{::position.trade_type.title}}
-            td.table-option ng-if="ctrl.gt1120px"
-              | {{::position.option.title}}
-            td.numeric.fw-500 ng-if="ctrl.gt1120px"
-              | {{::position.price | number:2}}
-              .dim.fw-500
-                | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
-              .green ng-if="position.currency.id != gon.settings.currency.id"
-                | {{::position.price * gon.data.rates[position.currency.id].rate | number:2}}
-                |   {{::gon.settings.currency.title}}/{{::position.price_weight_dimension.title}}
-
-
-            td.numeric ng-if="ctrl.gt1120px"
-              | {{::position.weight | number}}
-              .dim
-                | {{::position.weight_dimension.title}}
-            td.numeric ng-if="ctrl.gt1120px"
-              | {{::position.weight_min | number}}
-              .dim
-                | {{::position.weight_min_dimension.title}}
-            / Lower then 1120px
-            td ng-if="ctrl.lt1120px"
-              | {{::position.trade_type.title}}
-              b
-                |  «{{::position.option.title}}»  
-              | по цене  
-              span.fw-500
-                | {{::position.price | number:2}}
-                .dim.fw-500
-                  | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
-                |  или 
-                span.green ng-if="position.currency.id != gon.settings.currency.id"
-                  |   {{::position.price * gon.data.rates[position.currency.id].rate | number:2}}
-                  |   {{::gon.settings.currency.title}}/{{::position.price_weight_dimension.title}}
-              br
-              | {{::position.weight | number}} 
-              .dim 
-                | {{::position.weight_dimension.title}},  
-              | {{::gon.translations.activerecord.position.weight_min}} {{::position.weight_min | number}}
-              .dim
-                | {{::position.weight_min_dimension.title}}
-            td.btns.w0
-              a.icon-btn ng-href="{{::show_path(position)}}"
-                i.icon-eye
-          tr ng-if="opened && full_position.$resolved"
-            td.position__full-info colspan="10"
-              position-header position="full_position"
-              position-show position="full_position"
-              .position__full-info__map
-                location.position-map[info="full_position" scroll-zoom="false"]
-              .position__full-info__footer
-                md-button.md-yellow.md-lg ng-show="gon.current_user.id != full_position.user_id" ng-href="/offers/new?suitable={{full_position.id}}"
-                  | Отправить предложение
-
-                .position__full-info__your ng-show="gon.current_user.id == full_position.user_id"
-                  | Это ваша позиция
-        tbody ng-show="Search.positions.collection.length > Search.offset && Search.positions.collection.length >= 10"
-          tr.show-more ng-init="offset=0"
-            td colspan="10"
-              md-button.md-white.md-lg ng-click="Search.offset = Search.offset + 10; Search.byParams(Search.offset)"
-                | {{gon.translations.interface.buttons.search.more}}
+  positions-table collection="Search.positions.collection" order="Search.order" offset="Search.offset" search-callback="Search.byParams" limit="10"

@@ -26,7 +26,7 @@ div content-for="header"
       i.icon-magnify
       input type="text" placeholder="Поиск" ng-model="search"
 
-    div[flex="none" flex-sm=100 style="margin: 9px auto"]
+    div[flex="none" flex-sm=100]
       .tabs.yellow
         md-button.tab ng-repeat="status in gon.translations.interface.tabs[ctrl.filter.type]" ng-class="{active: ctrl.filter[ctrl.filter.type].status == status.name}" ng-click="ctrl.filter[ctrl.filter.type].status = status.name"
           | {{status.title}}

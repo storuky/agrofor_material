@@ -21,6 +21,9 @@ Rails.application.routes.draw do
     post 'avatar'
   end
 
+  get "translations" => "application#translations"
+  get "user_currency" => "application#user_currency"
+
   get "counters" => "application#counters"
 
   get 'analytics' => 'analytics#index'
