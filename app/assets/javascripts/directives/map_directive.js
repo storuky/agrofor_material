@@ -5,7 +5,9 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
     // priority: 1,
     // terminal: true,
     scope: {
-      map: "="
+      map: "=",
+      zoom: "=",
+      center: "="
     }, // {} = isolate, true = child, false/undefined = no change
     // controller: function($scope, $element, $attrs, $transclude) {},
     // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
@@ -16,10 +18,12 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
     // transclude: true,
     // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
     link: function($scope, iElm, iAttrs, controller) {
-      var center = [55.7, 37.6],
+      var center = $scope.center || [gon.current_user.lat, gon.current_user.lng],
           geoObjects = [],
           clusterer,
           maxZoom = 17;
+
+      var firstDrawMarkers = true;
 
       function buildMap () {
         clusterer = new ymaps.Clusterer({
@@ -38,9 +42,18 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
             suppressMapOpenBlock: true,
         });
 
-        $scope.map.events.add('click', function (e) {
-          console.log(e.get('coords'))
+        $scope.$watch('center', function (center) {
+          if (center) {
+            $timeout(function () {
+              $scope.map.setCenter(center);
+              $scope.map.setZoom(15);
+            }, 100)
+          }
         })
+
+        // $scope.map.events.add('click', function (e) {
+        //   console.log(e.get('coords'))
+        // })
 
         $scope.map.events.add('boundschange', function (e) {
           $rootScope.safeApply(function () {
@@ -75,7 +88,7 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
         clusterer.removeAll();
         geoObjects = [];
 
-        _.each(markers, function (marker) {
+        _.each(markers.collection, function (marker) {
           var coords = [marker[1], marker[2]],
               properties = shortMarkerProperties(marker);
 
@@ -90,8 +103,9 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
         clusterer.add(geoObjects);
         $scope.map.geoObjects.add(clusterer);
 
-        if (markers.length)
+        if (markers.collection.length && !firstDrawMarkers && !Search.all)
           $scope.map.setBounds($scope.map.geoObjects.getBounds());
+        firstDrawMarkers = false;
       }
 
       function drawCircles (tags) {

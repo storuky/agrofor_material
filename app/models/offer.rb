@@ -33,6 +33,7 @@ class Offer < PositionBase
         {id: index, name: state.name, title: I18n.t("offer.status.#{state.name.to_s}")}
       end
     end
+
   end
 
   private
@@ -73,13 +74,14 @@ class Offer < PositionBase
     def create_correspondence_and_ws
       position_ids = [id, position_id]
       user_ids = [user_id, position.user_id]
-      unless @correspondence = CorrespondencePosition.between_positions(position_ids)
+      @correspondence = CorrespondencePosition.where("user_ids @> ARRAY[?]::integer[] AND position_ids @> ARRAY[?]::integer[]", user_ids, [position_id]).last
+      unless @correspondence
         @correspondence = CorrespondencePosition.create(user_ids: user_ids, position_ids: position_ids)
       end
 
       position.user.increment!(:new_offers_count)
       offer = OfferSerializer.new(self, root: false).as_json
-      @correspondence.messages.create(message_type: "new_offer", body: "Service message", user_id: user_id, offer: offer)
+      @correspondence.messages.create(message_type: "new_offer", body: "Service message", user_id: user_id, offer: self.pluck_fields)
       PrivatePub.publish_to "/stream/#{position.user_id}", {offer: offer}
     end
 
@@ -92,8 +94,7 @@ class Offer < PositionBase
         @correspondence.messages.create(message_type: "delete_offer", body: "Service message", user_id: user_id)
       else
         if price_etalon_changed? or weight_etalon_changed? or weight_min_etalon_changed?
-          offer = OfferSerializer.new(self, root: false).as_json
-          @correspondence.messages.create(message_type: 'change_offer', body: "Service message", user_id: user_id, offer: offer)
+          @correspondence.messages.create(message_type: 'change_offer', body: "Service message", user_id: user_id, offer: self.pluck_fields)
         end
       end
 

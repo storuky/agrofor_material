@@ -28,14 +28,13 @@ script type="text/ng-template" id="search.html"
                 .tag__delete ng-click="Search.tags.splice($index, 1);"
                   | &times;
       .search__count ng-click="Search.showExtended = false;"
-        b
-          | {{Search.positions.collection.length}}
-        |   {{Search.positions.collection.length | plur:gon.translations.interface.text.search.founded}}
-        |  {{Search.positions.collection.length | plur:gon.translations.interface.text.search.positions}}
+        |   {{Search.positions.collection.length | plur:gon.translations.interface.text.search.founded}}  
+        |  {{Search.positions.collection.length}}
+        |   {{Search.positions.collection.length | plur:gon.translations.interface.text.search.positions}}
         span ng-show="Search.type=='map'"
           | . {{gon.translations.interface.text.search.on_map}} – 
           b
-            | {{Search.visible_count}}
+            | {{Search.visible_count || 0}}
   .search__extended__wrapper ng-click="Search.showExtended = false; Search.showFooter = false;"
     .search__extended.md-whiteframe-2dp ng-click="$event.stopPropagation();" ng-class="{visible: Search.showExtended}"
       .search__extended__tabs

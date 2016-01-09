@@ -17,12 +17,22 @@ app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Positi
       return $location.search()
     }, function () {
       var id = $location.search().id,
-          ids = $location.search().ids;
+          ids = $location.search().ids,
+          zoom_to = $location.search().zoom_to;
 
       if (id) {
         Position.openModal({id: id});
       } else if (ids) {
         Position.openClusterModal(ids);
+      } else if (zoom_to) {
+        console.log(zoom_to)
+        $scope.center = zoom_to;
+        $scope.zoom = 15;
+        if ($scope.map) {
+          $scope.map.setCenter(zoom_to);
+          $scope.map.setZoom(15);
+        }
+        Position.closeModal();
       }
     }, true)
   });

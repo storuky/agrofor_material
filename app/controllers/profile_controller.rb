@@ -35,8 +35,8 @@ class ProfileController < ApplicationController
   def positions
     respond_to do |format|
       format.json {
-        @positions = User.positions_from_cache(params[:id])
-        render json: Oj.dump(@positions)
+        @positions = User.find_from_cache(params[:id]).positions.pluck_fields.uniq
+        render json: Oj.dump({collection: @positions})
       }
     end
   end

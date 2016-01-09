@@ -91,7 +91,7 @@ script type="text/ng-template" id="positions_table.html"
               .dim
                 | {{::position.weight_min_dimension.title}}
             td.btns.w0
-              a.icon-btn ng-href="{{::show_path(position)}}"
+              a.icon-btn ng-href="{{::$root.show_path(position)}}"
                 i.icon-eye
           tr ng-if="opened && full_position.$resolved"
             td.position__full-info colspan="10"
@@ -107,7 +107,7 @@ script type="text/ng-template" id="positions_table.html"
                   .position__full-info__your ng-show="gon.current_user.id == full_position.user_id"
                     | Это ваша позиция
         tbody
-          tr.show-more ng-init="$parent.offset=0"
+          tr.show-more ng-init="$parent.offset=0" ng-show="$parent.collection.length > $parent.offset && $parent.collection.length >= $parent.limit"
             td colspan="10" style="height: 70px"
-              md-button.md-white.md-lg ng-click="$parent.offset = $parent.offset + $parent.limit; $parent.searchCallback($parent.offset)" ng-show="$parent.collection.length > $parent.offset && $parent.collection.length >= $parent.limit"
+              md-button.md-white.md-lg ng-click="$parent.offset = $parent.offset + $parent.limit; $parent.searchCallback($parent.offset)"
                 | {{gon.translations.interface.buttons.search.more}}

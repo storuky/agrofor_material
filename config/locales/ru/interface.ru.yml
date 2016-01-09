@@ -31,7 +31,7 @@ ru:
       position_base:
         - title: Позиции
           type: Position
-        - title: Предложение
+        - title: Предложения
           type: Offer
         - title: Шаблоны
           type: Template

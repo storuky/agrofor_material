@@ -21,6 +21,7 @@
           = render "layouts/sidebar"
 
         .page ng-class="{'overflow page-map': Search.type == 'map'}"
+          confirm-modal
           table.page-table
             tr
               td.h0 ng-yield="header"

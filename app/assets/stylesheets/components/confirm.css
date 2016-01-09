@@ -1,0 +1,29 @@
+.confirm-modal {position: absolute;/* z-index: 999; */background: white;max-width: 500px;min-width: 420px;box-shadow: 0px 0px 3px rgba(0,0,0,.2);padding: 17px 20px 0 20px;margin-top: 100px;left: 50%;/* margin-left: -200px; *//* left: 0; *//* right: 0; */transform: translate(-50%);}
+
+.confirm-modal__title {font-size: 20px;margin-bottom: 15px;padding-right: 22px;font-weight: 500;}
+
+.confirm-modal__description {margin-bottom: 9px;line-height: 22px;font-size: 17px;}
+
+.confirm-modal__footer {
+  text-align: right;
+  padding: 19px 0;
+}
+
+.confirm-modal__footer .md-button {
+  margin: 0 0 0 17px;
+}
+.confirm-modal .icon-close {
+  right: 10px;
+  top: 10px;
+  position: absolute;
+}
+
+.confirm-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.58);
+   z-index: 999; 
+}

@@ -9,7 +9,7 @@ script id="position_show.html" type="text/ng-template"
       
       div.hide-sm[flex]
       div[flex="none" flex-sm="100"]
-        .position-modal__address
+        .position-modal__address ng-click="zoomToPosition()"
           i.icon-marker
           | {{position.address}}
 

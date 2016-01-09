@@ -10,7 +10,7 @@ class PositionsController < ApplicationController
       format.json {
         if params[:ids]
           @positions = Position.find_from_cache(params[:ids], serializer: PositionSerializer)
-          render json: Oj.dump(@positions)
+          render json: Oj.dump({collection: @positions})
         else
           check_user
           if params[:type] == 'Position'

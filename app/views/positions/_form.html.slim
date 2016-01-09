@@ -32,7 +32,7 @@
           md-input-container[flex]
             = f.text_field :price
           md-input-container[flex="none"]
-            = f.select :price_weight_dimension, prefix: "руб/", collection: "gon.data.weight_dimensions"
+            = f.select :price_weight_dimension, prefix: "{{gon.settings.currency.title}}/", collection: "gon.data.weight_dimensions"
 
         div[layout="row" flex flex-sm=100]
           md-input-container.md-block

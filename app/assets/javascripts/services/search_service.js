@@ -25,6 +25,9 @@ app.service('Search', ['$rootScope', '$http', 'ngNotify', function ($rootScope, 
       offset: offset,
       order: Search.order
     }
+    
+    Search.all = !Search.tags.length && !Search.query;
+
     Search.promise = $http.get(Routes[Search.type + "_path"]({format: "json"}), {params: params})
       .then(searchCallback)
   }

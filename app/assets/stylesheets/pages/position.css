@@ -650,6 +650,8 @@ md-dialog.position-modal md-dialog-content {
   white-space: nowrap;
   color: #616161;
   font-size: 15px;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 

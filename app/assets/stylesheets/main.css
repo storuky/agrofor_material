@@ -85,6 +85,11 @@ a {
 .icon-close {
   font-size: 24px;
   vertical-align: middle;
+  cursor: pointer;
+}
+
+.icon-close:hover {
+  color: red;
 }
 
 .h0 {

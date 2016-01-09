@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   
   resources :profile do
     member do
-      get 'positions', is_array: true
+      get 'positions'
       get 'feedbacks', is_array: true
     end
   end

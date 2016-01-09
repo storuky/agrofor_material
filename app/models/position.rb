@@ -46,6 +46,8 @@ class Position < PositionBase
       option_id: option_id,
       weight_min: weight_min,
       weight_min_dimension: weight_min_dimension,
+      currency: options[:currency],
+      currency_id: options[:currency].id
     })
   end
 
@@ -57,10 +59,6 @@ class Position < PositionBase
 
 
   class << self
-    def pluck_fields with=[]
-      self.pluck(:id, :lat, :lng, :trade_type_id, :option_id, :weight, :weight_dimension_id, :price, :currency_id, :price_weight_dimension_id, :weight_min, :weight_min_dimension_id, *with)
-    end
-
     def pluck_all_fields
       Rails.cache.fetch("Position.pluck_all_fields") do
         self.pluck_fields

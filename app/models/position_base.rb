@@ -32,6 +32,8 @@ class PositionBase < ActiveRecord::Base
   @@dimensions_ids =  WeightDimension.pluck(:id) rescue []
   @@options_ids =  Option.pluck(:id) rescue []
 
+  @@fields_for_pluck = ["id", "lat", "lng", "trade_type_id", "option_id", "weight", "weight_dimension_id", "price", "currency_id", "price_weight_dimension_id", "weight_min", "weight_min_dimension_id", "created_at", "type"]
+
   validates_presence_of :trade_type_id, :title, :address, :option_id, :weight, :price
 
   validates :trade_type_id, inclusion: { in: @@trade_types_ids }
@@ -50,7 +52,16 @@ class PositionBase < ActiveRecord::Base
   before_save :set_etalon
   before_save :set_index_field
 
+  def pluck_fields with=[]
+    ap @@fields_for_pluck
+    self.attributes.slice(*@@fields_for_pluck, *with).values
+  end
+
   class << self
+    def pluck_fields with=[]
+      self.pluck(*@@fields_for_pluck, *with)
+    end
+
     def look_for query = nil
       if query.try(:present?)
         ids = Position.search_for_ids query

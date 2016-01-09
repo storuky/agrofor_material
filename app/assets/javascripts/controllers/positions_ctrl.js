@@ -1,5 +1,5 @@
-app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache', '$timeout', '$mdDialog', '$location', 'Sign', '$state', '$location', 'Template','Correspondence', 'Counter', '$mdMedia',
-                        function ($scope, action, Position, Offer, Cache, $timeout, $mdDialog, $location, Sign, $state, $location, Template, Correspondence, Counter, $mdMedia) {
+app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache', '$timeout', '$mdDialog', '$location', 'Sign', '$state', '$location', 'Template','Correspondence', 'Counter', 'Action',
+                        function ($scope, action, Position, Offer, Cache, $timeout, $mdDialog, $location, Sign, $state, $location, Template, Correspondence, Counter, Action) {
   
   var ctrl = this;
 
@@ -46,18 +46,6 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
         });
       }
     }, true)
-
-    $scope.$watch(function () {
-      return $mdMedia('max-width: 1165px')
-    }, function (media) {
-      ctrl.lt1120px = media;
-    })
-    
-    $scope.$watch(function () {
-      return $mdMedia('min-width: 1166px')
-    }, function (media) {
-      ctrl.gt1120px = media;
-    })
   })
 
 
@@ -110,14 +98,18 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
     }
 
     ctrl.deleteOffer = function () {
-      ctrl.suitable_positions = [];
-      ctrl.suitable_positions_full = [];
-      
-      ctrl.query = Offer.destroy({id: ctrl.yourOffer.id}, function () {
-        get_offers();
-        get_suitable();
-      });
-      ctrl.yourOffer = undefined;
+      Action.confirm('Вы уверены что хотите отозвать предложение? Если вам нужно изменить его условия, закройте данное окно и нажмите на кнопку "Редактировать".', function (res) {
+        if (res) {
+          ctrl.suitable_positions = [];
+          ctrl.suitable_positions_full = [];
+          
+          ctrl.query = Offer.destroy({id: ctrl.yourOffer.id}, function () {
+            get_offers();
+            get_suitable();
+          });
+          ctrl.yourOffer = undefined;
+        }
+      })
     }
 
     ctrl.position = position;

@@ -10,7 +10,7 @@ class SearchController < ApplicationController
         else
           @positions.distinct.pluck_fields
         end
-        render json: Oj.dump(result)
+        render json: Oj.dump({collection: result})
       }
     end
   end
@@ -41,7 +41,7 @@ class SearchController < ApplicationController
         
         result = {
           offset: offset,
-          collection: collection.pluck_fields([:updated_at, :type]).uniq,
+          collection: collection.pluck_fields.uniq,
         }
         render json: Oj.dump(result)
       }

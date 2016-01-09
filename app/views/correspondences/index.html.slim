@@ -98,11 +98,12 @@ div content-for="header"
                 pre.message__text ng-if="::!message.message_type"
                   | {{::message.body}}
                 div ng-if="::message.message_type"
-                  pre.message__text
-                    | {{::gon.translate.message[message.message_type]}}
+                  span ng-init="offer = Position.serialize(message.offer)"
+                  pre.message__text ng-bind-html-compile="::gon.translations.message[message.message_type]"
+                    / | {{::gon.translations.message[message.message_type] | compile}}
                   
-                  .trading-conditions ng-if="message.offer"
-                    trading-conditions position="message.offer"
+                  .trading-conditions ng-if="offer"
+                    trading-conditions position="offer"
                 documents ng-model="::message.documents"
                 .message__created_at
                   | {{::message.created_at | dateFormat}}

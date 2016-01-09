@@ -1,0 +1,11 @@
+script id="confirm_modal.html" type="text/ng-template"
+  .confirm-overlay ng-if="Action.showConfirm"
+    .confirm-modal
+      .confirm-modal__title
+        | Подтвердите действие
+        i.icon-close ng-click="Action.callback(false)"
+      .confirm-modal__description
+        | {{Action.description}}
+      .confirm-modal__footer
+        md-button.md-white.md-lg ng-click="callback(false)" Отмена
+        md-button.md-yellow.md-lg ng-click="callback(true)" Подтвердить
