@@ -18,7 +18,10 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
     // transclude: true,
     // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
     link: function($scope, iElm, iAttrs, controller) {
-      var center = $scope.center || [gon.current_user.lat, gon.current_user.lng],
+      if (gon.current_user)
+        $scope.center = [gon.current_user.lat, gon.current_user.lng];
+
+      var center = $scope.center,
           geoObjects = [],
           clusterer,
           maxZoom = 17;
