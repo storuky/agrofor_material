@@ -85,7 +85,7 @@ div content-for="header"
             td ng-if="ctrl.filter.type!='Template'"
               i.icon-chevron-right
               i.icon-chevron-down
-            td style="ctrl.filter.type=='Template' ? 'width: 100%' : ''"
+            td style="{{ctrl.filter.type=='Template' ? 'width: 100%' : ''}}"
               div ng-if="ctrl.filter.type!='Template'"
                 | {{::position.created_at | date:"dd.MM.yyyy"}}
               div ng-if="ctrl.filter.type=='Template'"
