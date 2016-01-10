@@ -22,8 +22,8 @@ class PositionSerializer < ActiveModel::Serializer
 
   def status
     {
-      id: object.status.to_sym,
-      title: I18n.t("#{object.type.downcase}.status")[object.try(:status).try(:to_sym)]
+      id: object.status,
+      title: I18n.t("#{object.type.downcase}.status")[object.try(:status)]
     }
   end
 
