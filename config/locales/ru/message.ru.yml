@@ -1,6 +1,6 @@
 ru:
   message:
-    new_offer: "<p>Здравствуйте!<p> Я бы хотел <b>{{offer.trade_type.title.toLowerCase()}}</b> {{offer.weight}} {{offer.weight_dimension.title}} товара <b>«{{offer.option.title}}»</b> по цене <b>{{offer.price}} {{offer.currency.title}}/{{offer.price_weight_dimension.title}}</b> согласно позиции <a href='/search/map?id={{offer.id}}&type=offer'>№ {{offer.id}}</a>. Предлагаю обсудить все условия и заключить сделку!"
+    new_offer: "<p>Здравствуйте!<p>Я бы хотел <b>{{offer.trade_type.title.toLowerCase()}}</b> {{offer.weight}} {{offer.weight_dimension.title}} товара <b>«{{offer.option.title}}»</b> по цене <b>{{offer.price}} {{offer.currency.title}}/{{offer.price_weight_dimension.title}}</b> согласно позиции <a href='/search/map?id={{offer.id}}&type=offer'>№ {{offer.id}}</a>. Предлагаю обсудить все условия и заключить сделку!"
     delete_offer: Я отзываю свое предложение
     offer:
       complete: Получение товара подтверждено

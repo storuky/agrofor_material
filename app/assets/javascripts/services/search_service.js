@@ -19,8 +19,6 @@ app.service('Search', ['$rootScope', '$http', 'ngNotify', function ($rootScope, 
   }
 
   Search.byParams = function (offset) {
-    console.log(offset);
-    console.log(Search.offset);
     var params = {
       tags: Search.tags,
       query: Search.query,

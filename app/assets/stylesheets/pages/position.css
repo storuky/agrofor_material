@@ -647,11 +647,15 @@ md-dialog.position-modal md-dialog-content {
   display: inline-block;
   vertical-align: middle;
   margin: 15px 16px 15px -2px;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   color: #616161;
   font-size: 15px;
   cursor: pointer;
+  max-width: 460px;
   text-decoration: underline;
+  width: 100%;
+  padding-left: 15px;
+  position: relative;
 }
 
 
@@ -660,8 +664,9 @@ md-dialog.position-modal md-dialog-content {
   vertical-align: middle;
   margin-right: 5px;
   font-size: 18px !important;
-  position: relative;
-  top: -2px;
+  position: absolute;
+  top: -1px;
+  left: -5px;
   color: #616161;
 }
 

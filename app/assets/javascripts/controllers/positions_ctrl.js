@@ -1,5 +1,5 @@
-app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache', '$timeout', '$mdDialog', '$location', 'Sign', '$state', '$location', 'Template','Correspondence', 'Counter', 'Action',
-                        function ($scope, action, Position, Offer, Cache, $timeout, $mdDialog, $location, Sign, $state, $location, Template, Correspondence, Counter, Action) {
+app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache', '$timeout', '$mdDialog', '$location', 'Sign', '$state', '$location', 'Template','Correspondence', 'Counter', 'Action', '$mdMedia',
+                        function ($scope, action, Position, Offer, Cache, $timeout, $mdDialog, $location, Sign, $state, $location, Template, Correspondence, Counter, Action, $mdMedia) {
   
   var ctrl = this;
 
@@ -46,6 +46,18 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
         });
       }
     }, true)
+
+    $scope.$watch(function () {
+      return $mdMedia('max-width: 1165px')
+    }, function (media) {
+      ctrl.lt1120px = media;
+    })
+    
+    $scope.$watch(function () {
+      return $mdMedia('min-width: 1166px')
+    }, function (media) {
+      ctrl.gt1120px = media;
+    })
   })
 
 

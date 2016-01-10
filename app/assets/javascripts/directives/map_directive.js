@@ -18,8 +18,13 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
     // transclude: true,
     // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
     link: function($scope, iElm, iAttrs, controller) {
-      if (gon.current_user)
-        $scope.center = [gon.current_user.lat, gon.current_user.lng];
+      var zoom_for_current_user = false;
+      if (gon.current_user) {
+        if (!$scope.center) {
+          $scope.center = [gon.current_user.lat, gon.current_user.lng];
+          var zoom_for_current_user = true;
+        }
+      }
 
       var center = $scope.center || [55.7, 37.6],
           geoObjects = [],
@@ -38,7 +43,7 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
 
         $scope.map = new ymaps.Map(iElm[0], {
             center: center,
-            zoom: $scope.zoom || 10,
+            zoom: $scope.zoom || 8,
             controls: [],
           }, {
             maxZoom: maxZoom,
@@ -49,7 +54,10 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
           if (center) {
             $timeout(function () {
               $scope.map.setCenter(center);
-              $scope.map.setZoom(15);
+              if (!zoom_for_current_user) {
+                $scope.map.setZoom(15);
+              }
+              zoom_for_current_user = false;
             }, 100)
           }
         })

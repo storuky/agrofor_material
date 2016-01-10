@@ -38,13 +38,13 @@ class PositionBase < ActiveRecord::Base
 
   validates :trade_type_id, inclusion: { in: @@trade_types_ids }
   validates :option_id, inclusion: { in: @@options_ids }
+  validates :weight_dimension_id, inclusion: { in: @@dimensions_ids }
+  validates :price_weight_dimension_id, inclusion: { in: @@dimensions_ids }
   validates :weight, numericality: { greater_than: 0 }
   validates :weight_min, numericality: { greater_than_or_equal_to: 0 }
-  validates :weight_dimension_id, inclusion: { in: @@dimensions_ids }
   validate :less_then_weight
   validate :location
   validates :price, numericality: { greater_than_or_equal_to: 0 }
-  validates :price_weight_dimension_id, inclusion: { in: @@dimensions_ids }
   validates :price_discount, :allow_blank => true, numericality: { greater_than_or_equal_to: 5, less_than_or_equal_to: 50 }
 
   
@@ -191,10 +191,9 @@ class PositionBase < ActiveRecord::Base
     def set_index_field
       temp = [self.title, self.description]
       [:en, :ru].each do |locale|
-        temp << (self.address || "")
-        temp << I18n.t('position.trade_types', :locale => locale)[self.trade_type_id]
+        # temp << I18n.t('position.trade_types', :locale => locale)[self.trade_type_id]
         temp << I18n.t('category.'+self.option.category.title, :locale => locale)
-        temp << I18n.t('option'+Option.all_by_index_from_cache[option_id].title, :locale => locale)
+        temp << I18n.t('option.'+Option.all_by_index_from_cache[option_id].title, :locale => locale)
       end
       self.index_field = temp.join(" ")
     end
