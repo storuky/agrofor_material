@@ -14,6 +14,9 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', 'Offer', func
   }
 
   Position.serialize = function (position_fields) {
+    if (!position_fields)
+      return {};
+
     return {
       id: position_fields[0],
       lat: position_fields[1],
