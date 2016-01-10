@@ -68,7 +68,7 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
 
     $scope.$watch('ctrl.template_id', function (template_id) {
       if (template_id) {
-        var position = angular.copy(_.find(ctrl.templates, function (template) {
+        var position = angular.copy(_.find(ctrl.templates.collection, function (template) {
           return template.id == template_id
         }))
         position.id = undefined;
