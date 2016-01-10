@@ -64,18 +64,12 @@ en:
         by_params: Search by params
         suitable: Suitable positions
       profile:
-        user_info:
-          - title: Personal info
-            id: 0
-          - title: Location
-            id: 1
-          - title: Contacts
-            id: 2
-        position_info:
-          - title: Completed deals
-            id: 0
-          - title: Opened positions
-            id: 1
+        - title: Personal info
+          id: 0
+        - title: Opened positions
+          id: 1
+        - title: Completed deals
+          id: 2
     no_result:
       positions:
         Position:
@@ -123,3 +117,6 @@ en:
         suitable_for: Suitable positions for
         founded: "<b>{{Search.positions.collection.length}}</b> {{Search.positions.collection.length | plur:['position', 'positions']}} was found"
         on_map: On the map
+      profile:
+        location: Location
+        contacts: Contacts

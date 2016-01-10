@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   serialization_scope :view_context
 
+  before_action :set_locale
   after_action :set_csrf_cookie
 
   layout proc {
@@ -87,7 +88,6 @@ class ApplicationController < ActionController::Base
     end
 
     def get_translations
-      I18n.locale = current_user.language || "en" rescue "en"
       cache_if(Rails.env.production?, "translations_#{I18n.locale}") do
         {
           dictionary: I18n.t("dictionary"),
@@ -96,6 +96,10 @@ class ApplicationController < ActionController::Base
           activerecord: I18n.t("activerecord.attributes")
         }
       end
+    end
+
+    def set_locale
+      I18n.locale = current_user.language || "en" rescue "en"
     end
 
     def get_data

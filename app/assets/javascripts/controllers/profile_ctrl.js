@@ -17,13 +17,23 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
   }
   
   action('show', function (params) {
-    ctrl.disabled = true;
+    ctrl.disabled = params.id != gon.current_user.id;
     
     if (gon.current_user && params.id == gon.current_user.id) {
       $scope.$watch('ctrl.user.avatar', function (avatar) {
         if (avatar)
           gon.current_user.avatar = avatar;
       })
+
+      var init = true;
+      $scope.$watch('ctrl.user', _.debounce(function (user) {
+        if (user.id) {
+          if (!init)
+            ctrl.save();
+          else
+            init = false;
+        }
+      }, 1000), true)
     }
 
     ctrl.send_message = function () {
@@ -44,11 +54,11 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
 
     ctrl.save = function () {
       Profile.update({form_name: 'user', id: ctrl.user.id, user: ctrl.user}, function (res) {
-        ctrl.disabled = true;
         ctrl.user = res.user;
         gon.current_user = angular.copy(res.user);
 
         if (res.update_translations) {
+          init = true;
           Translation.update();
         }
 

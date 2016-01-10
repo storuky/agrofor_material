@@ -16,6 +16,7 @@ class ProfileController < ApplicationController
         if params[:id].to_i == current_user.id
           if user_params[:language] != current_user.language
             update_translations = true
+            I18n.locale = user_params[:language].to_sym
           end
 
           if user_params[:currency_id] != current_user.currency_id

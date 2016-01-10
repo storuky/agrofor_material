@@ -1,7 +1,7 @@
 app.run(['Offer', function (Offer) {
   Offer.serialize = function (position_fields) {
     if (!position_fields)
-      return {};
+      return null;
     
     return {
       id: position_fields[0],

@@ -9,7 +9,7 @@ ui-view {
   right: 0;
   bottom: 0;
   position: absolute;
-  overflow-y: auto;
+  overflow-y: scroll;
   transition: .5s;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
@@ -33,7 +33,7 @@ ui-view {
   min-height: 100%;
   table-layout: fixed;
 }
-.page.overflow .page-background {
+.page-map.page-background {
   display: none;
 }
 .page-layout {

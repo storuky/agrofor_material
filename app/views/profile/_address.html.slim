@@ -1,6 +1,7 @@
+h2.md-title Местоположение
+location.profile-map[name="user[lat]" draggable="!ctrl.disabled" info="ctrl.user" type="user"]
 .profile-address[layout="row" layout-padding]
   div[flex=100]
     md-input-container.md-block
       md-icon.icon-marker
       = f.text_field :address, "ng-disabled" => "ctrl.disabled", suggest: "", lat: "ctrl.user.lat", lng: "ctrl.user.lng", country: "ctrl.user.country"
-location.profile-map[name="user[lat]" draggable="!ctrl.disabled" info="ctrl.user" type="user"]

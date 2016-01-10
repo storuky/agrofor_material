@@ -106,7 +106,7 @@ script type="text/ng-template" id="positions_table.html"
 
                   .position__full-info__your ng-show="gon.current_user.id == full_position.user_id"
                     | Это ваша позиция
-        tbody
+        tbody ng-hide="hideMore"
           tr.show-more ng-init="$parent.offset=0"
             td colspan="10" style="height: 70px"
               md-button.md-white.md-lg ng-click="callback()" ng-disabled="$parent.collection.length < $parent.offset || $parent.collection.length < $parent.limit"

@@ -330,3 +330,11 @@ i.icon-star {
 .fw-500 {
   font-weight: 500;
 }
+
+.ngn {
+  margin-left: 135px;
+}
+
+.ngn-success {
+  background-color: rgba(73, 182, 77, 0.84);
+}

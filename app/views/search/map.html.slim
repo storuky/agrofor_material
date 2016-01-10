@@ -1,7 +1,7 @@
-div ng-class="{blur: Search.blur}"
+div
   div content-for="header"
     div ng-include="'search.html'"
 
   .search-overlay
 
-  map.map map="map" center="center" zoom="zoom"
+  map.map map="map" center="center" zoom="zoom" ng-class="{blur: Search.blur}"

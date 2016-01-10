@@ -20,7 +20,7 @@
         aside.sidebar
           = render "layouts/sidebar"
 
-        .page ng-class="{'overflow page-map': Search.type == 'map'}"
+        .page ng-class="{'overflow page-map': Search.type == 'map', overflow: Search.type == 'list'}"
           confirm-modal
           table.page-table
             tr

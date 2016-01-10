@@ -1038,7 +1038,7 @@
     ngNotify.config({
         theme: 'pure',
         position: 'top',
-        duration: 2000,
+        duration: 3000,
         type: 'info'
     });
 

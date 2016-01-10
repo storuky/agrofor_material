@@ -529,20 +529,20 @@ color: #999;font-size: 13px;position: absolute;right: 19px;bottom: 10px;}
 
 
 .message-page__toggle-contacts .icon-menu {
-  width: 47px;
+  width: 43px;
   display: inline-block;
-  height: 47px;
+  height: 43px;
   position: absolute;
   top: 0px;
   vertical-align: middle;
   text-align: center;
-  padding-top: 13px;
+  padding-top: 12px;
   font-size: 20px;
   background: #FFDB4C;
 }
 
 
-.message-page__toggle-contacts {width: 47px;height: 47px;cursor: pointer;position: relative;z-index: 2;}
+.message-page__toggle-contacts {width: 43px;height: 43px;cursor: pointer;position: relative;z-index: 2;}
 
 .message-page__contacts__overlay {
   position: absolute;

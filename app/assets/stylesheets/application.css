@@ -28,6 +28,10 @@
 
 
 @media screen and (max-width: 960px) {
+  .ngn {
+    margin-left: 0;
+  }
+
   .position-modal {
     margin-right: 20px;
   }

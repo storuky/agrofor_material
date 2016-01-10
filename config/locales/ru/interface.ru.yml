@@ -64,18 +64,12 @@ ru:
         by_params: Поиск по параметрам
         suitable: Подходящие позиции
       profile:
-        user_info:
-          - title: Личные данные
-            id: 0
-          - title: Местоположение
-            id: 1
-          - title: Контактные данные
-            id: 2
-        position_info:
-          - title: Совершенные сделки
-            id: 0
-          - title: Открытые позиции
-            id: 1
+        - title: Личные данные
+          id: 0
+        - title: Открытые позиции
+          id: 1
+        - title: Совершенные сделки
+          id: 2
     no_result:
       positions:
         Position:
@@ -123,3 +117,6 @@ ru:
         suitable_for: Подходящие позиции для
         founded: "Найдено <b>{{Search.positions.collection.length}}</b> {{Search.positions.collection.length | plur:['позиция', 'позиции', 'позиций']}}"
         on_map: В области карты
+      profile:
+        location: Местоположение
+        contacts: Контактные данные
