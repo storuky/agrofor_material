@@ -21,10 +21,14 @@ class PositionSerializer < ActiveModel::Serializer
   end
 
   def status
-    {
-      id: object.status,
-      title: I18n.t("#{object.type.downcase}.status")[object.try(:status)]
-    }
+    if object.status
+      {
+        id: object.status,
+        title: I18n.t("#{object.type.downcase}.status")[object.try(:status).try(:to_sym)]
+      }
+    else
+      nil
+    end
   end
 
   def trade_type
