@@ -17,10 +17,10 @@ class PositionsController < ApplicationController
             current_user.update(new_offers_count: 0) if current_user.new_offers_count != 0
           end
           
-          plural_name = params[:type].downcase.pluralize.to_sym rescue 'positions'
+          plural_name = params[:type].downcase.pluralize.to_sym rescue :positions
           @positions = current_user.send("#{plural_name}_from_cache", params.permit![params[:type]])
 
-          counters = current_user.positions.group(:status).count
+          counters = current_user.send(plural_name).group(:status).count
           render json: Oj.dump({collection: @positions, counters: counters})
         end
       }
