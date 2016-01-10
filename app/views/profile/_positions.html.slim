@@ -1,7 +1,7 @@
 .content__no ng-show="ctrl.positions.length==0"
   | {{gon.translations.interface.no_result.profile.no_deals}}
 
-positions-table collection="ctrl.positions.collection" order="ctrl.order" offset="ctrl.offset" search-callback="ctrl.more" limit="10"
+positions-table collection="ctrl.positions.collection" order="ctrl.order" offset="ctrl.offset" search-callback="ctrl.more" limit="100" promise="1"
 
 /.table-wrapper ng-init="limitTo = 10"
   table.table.positions-table

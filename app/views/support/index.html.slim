@@ -7,5 +7,7 @@ div content-for="header"
           span
             | {{gon.translations.interface.title.support}}
 
-.page-content.page-layout.md-whiteframe-1dp
-  .wip Эта страница находится в разработке
+.page-content.page-layout.md-whiteframe-1dp.page-support
+  .not-auth
+    | Тикетная система поддержки доступна только для аторизованных пользователей. В случае невозможности авторизоваться, Вы всегда можете направить письмо на адрес электронной почты  
+    a.link href="mailto:support@agrofor.pro" support@agrofor.pro

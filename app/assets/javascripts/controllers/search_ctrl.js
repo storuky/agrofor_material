@@ -1,4 +1,4 @@
-app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Position', '$timeout', '$state', '$mdMedia', function ($scope, action, Search, $location, Position, $timeout, $state, $mdMedia) {
+app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Position', '$timeout', '$state', '$mdMedia', '$timeout', function ($scope, action, Search, $location, Position, $timeout, $state, $mdMedia, $timeout) {
   var ctrl = this;
 
   $scope.Search = Search;
@@ -25,7 +25,6 @@ app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Positi
       } else if (ids) {
         Position.openClusterModal(ids);
       } else if (zoom_to) {
-        console.log(zoom_to)
         $scope.center = zoom_to;
         $scope.zoom = 15;
         if ($scope.map) {
@@ -45,18 +44,13 @@ app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Positi
     $scope.$watch(function () {
       return [Search.tags, Search.query, Search.order]
     }, function () {
+      Search.offset = 0;
       if (Search.query !== undefined || Search.tags !== undefined || Search.order !== undefined) {
-        Search.byParams();
+        $timeout(function () {
+          Search.byParams();
+        })
       }
     }, true)
-
-    $scope.$watch(function () {
-      return Search.order
-    }, function (order) {
-      if (order !== undefined) {
-        Search.offset = 0;
-      }
-    })
   })
 
   action('map', function () {

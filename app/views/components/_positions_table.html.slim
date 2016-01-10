@@ -35,7 +35,7 @@ script type="text/ng-template" id="positions_table.html"
               div
                 | {{gon.translations.activerecord.position.description}}
             th
-        thead ng-if="Search.promise.$$state.status == 0"
+        thead ng-if="$parent.promise.$$state.status == 0"
           tr
             td colspan="8"
               md-progress-linear md-mode="indeterminate"
@@ -107,7 +107,7 @@ script type="text/ng-template" id="positions_table.html"
                   .position__full-info__your ng-show="gon.current_user.id == full_position.user_id"
                     | Это ваша позиция
         tbody
-          tr.show-more ng-init="$parent.offset=0" ng-show="$parent.collection.length > $parent.offset && $parent.collection.length >= $parent.limit"
+          tr.show-more ng-init="$parent.offset=0"
             td colspan="10" style="height: 70px"
-              md-button.md-white.md-lg ng-click="$parent.offset = $parent.offset + $parent.limit; $parent.searchCallback($parent.offset)"
+              md-button.md-white.md-lg ng-click="callback()" ng-disabled="$parent.collection.length < $parent.offset || $parent.collection.length < $parent.limit"
                 | {{gon.translations.interface.buttons.search.more}}
