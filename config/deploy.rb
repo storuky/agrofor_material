@@ -57,6 +57,21 @@ namespace :deploy do
     end
   end
 
+  task :clear_cache do
+    on roles(:app) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :bundle, :exec, :rails, :runner,  'Rails.cache.clear'
+          execute :bundle, :exec, :rake, "sitemap:refresh:no_ping"
+        end
+      end
+    end
+  end
+
+  after 'deploy:published', 'restart' do
+    invoke 'deploy:clear_cache'
+  end
+
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
   after  :deploy, "thinking_sphinx:configure"

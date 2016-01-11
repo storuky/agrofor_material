@@ -8,6 +8,7 @@
   border-bottom: 1px solid #C3C3C3;
   /* border-left: 1px solid #C3C3C3; */
   /* border-right: 1px solid #C3C3C3; */
+  border-collapse:separate;
 }
 
 .table > thead > tr > th {
