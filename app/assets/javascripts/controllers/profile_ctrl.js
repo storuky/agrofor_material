@@ -17,7 +17,7 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
   }
   
   action('show', function (params) {
-    ctrl.disabled = params.id != gon.current_user.id;
+    ctrl.disabled = gon.current_user && params.id != gon.current_user.id;
     
     if (gon.current_user && params.id == gon.current_user.id) {
       $scope.$watch('ctrl.user.avatar', function (avatar) {
