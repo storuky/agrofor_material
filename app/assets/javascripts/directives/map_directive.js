@@ -95,31 +95,32 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
 
 
       function drawMarkers (markers) {
-        $scope.map.geoObjects.removeAll();
-        clusterer.removeAll();
-        geoObjects = [];
+        if (markers) {
+          $scope.map.geoObjects.removeAll();
+          clusterer.removeAll();
+          geoObjects = [];
 
-        _.each(markers.collection, function (marker) {
-          var coords = [marker[1], marker[2]],
-              properties = shortMarkerProperties(marker);
+          _.each(markers.collection, function (marker) {
+            var coords = [marker[1], marker[2]],
+                properties = shortMarkerProperties(marker);
 
-          geoObjects.push(new ymaps.Placemark(
-            coords, properties, {
-              iconLayout: Map.markerLayout,
-              iconPane: 'overlaps'
-            })
-          );
-        })
+            geoObjects.push(new ymaps.Placemark(
+              coords, properties, {
+                iconLayout: Map.markerLayout,
+                iconPane: 'overlaps'
+              })
+            );
+          })
 
-        clusterer.add(geoObjects);
-        $scope.map.geoObjects.add(clusterer);
+          clusterer.add(geoObjects);
+          $scope.map.geoObjects.add(clusterer);
 
-        if (markers.collection.length && !firstDrawMarkers && !Search.all)
-          $scope.map.setBounds($scope.map.geoObjects.getBounds());
-        
-        Search.visible_count = ymaps.geoQuery(geoObjects).searchIntersect($scope.map).getLength();
-        firstDrawMarkers = false;
-
+          if (markers.collection.length && !firstDrawMarkers && !Search.all)
+            $scope.map.setBounds($scope.map.geoObjects.getBounds());
+          
+          Search.visible_count = ymaps.geoQuery(geoObjects).searchIntersect($scope.map).getLength();
+          firstDrawMarkers = false;
+        }
       }
 
       function drawCircles (tags) {
