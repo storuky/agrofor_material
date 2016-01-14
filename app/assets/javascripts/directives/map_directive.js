@@ -95,7 +95,7 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
 
 
       function drawMarkers (markers) {
-        if (markers) {
+        if (markers && markers.collection) {
           $scope.map.geoObjects.removeAll();
           clusterer.removeAll();
           geoObjects = [];
