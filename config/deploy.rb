@@ -62,7 +62,6 @@ namespace :deploy do
       within release_path do
         with rails_env: fetch(:rails_env) do
           execute :bundle, :exec, :rails, :runner,  'Rails.cache.clear'
-          execute :bundle, :exec, :rake, "sitemap:refresh:no_ping"
         end
       end
     end
