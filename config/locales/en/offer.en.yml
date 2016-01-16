@@ -3,4 +3,4 @@ en:
     status:
       active: "Active"
       rejected: "Rejected"
-      deleted: "Withdraw"
+      deleted: "Withdrawn"

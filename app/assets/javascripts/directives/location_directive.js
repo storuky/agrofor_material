@@ -92,7 +92,13 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
           })
 
           $scope.$watch('info', function (info) {
-            marker.properties.set(serializePosition());
+            var serializeCallback;
+            if ($scope.type == "user") {
+              serializeCallback = serializeUser;
+            } else {
+              serializeCallback = serializePosition;
+            }
+            marker.properties.set(serializeCallback());
             if (info.lat && info.lng) {
               var coords = [info.lat, info.lng];
               marker.geometry.setCoordinates(coords);

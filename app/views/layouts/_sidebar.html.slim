@@ -2,8 +2,10 @@
   table.sidebar__wrapper
     tr.h0
       td
-        a.logo ui-sref="map_path"
+        a.logo.ng-hide ui-sref="map_path" ng-show="gon.settings.locale == 'ru'"
           = image_tag "logo_ru.svg", width: 165, height: 105
+        a.logo.ng-hide ui-sref="map_path" ng-show="gon.settings.locale == 'en'"
+          = image_tag "logo_en.svg", width: 185, height: 105
 
         a.create-position.md-yellow md-ink-ripple="" ui-sref="new_position_path"
           | {{gon.translations.interface.navigation.new_position}}

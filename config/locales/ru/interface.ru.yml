@@ -132,7 +132,7 @@ ru:
         your_position: Ваша позиция
         your_offer_for_position: Ваше предложение для позиции
         offer_for_position: Предложение для позиции
-        have_not_suitble_offer: У вас нет подходящего предложения
+        have_not_suitable_offer: У вас нет подходящего предложения
         click_for_create: "Нажмите, чтобы создать"
       positions:
         search: Поиск

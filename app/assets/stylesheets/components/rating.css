@@ -14,11 +14,11 @@
 
 .rating__negative {
   padding: 4px 13px;
-  background: #FF6805;
+  background: #FD5A3E;
 }
 
 .rating__positive {
-  background: #8BC34A;
+  background: #97CC64;
   position: relative;
   color: white;
 }
@@ -35,12 +35,12 @@
 
 .rating__positive:before {
   border-width: 13px 10px 0 0;
-  border-color: #8BC34A transparent transparent transparent;
+  border-color: #97CC64 transparent transparent transparent;
   top: 0;
 }
 
 .rating__positive:after {
   border-width: 12px 0 0 10px;
-  border-color: transparent transparent transparent #8BC34A;
+  border-color: transparent transparent transparent #97CC64;
   bottom: 0;
 }

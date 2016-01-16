@@ -4,6 +4,7 @@ app.service('Translation', ['$http', function ($http) {
   Translation.update = function () {
     $http.get(Routes.translations_path())
       .then(function (res) {
+        gon.settings.locale = res.data.locale;
         gon.translations = res.data.translations;
         angular.extend(gon.data, res.data.data);
 
