@@ -21,19 +21,19 @@ app.service('Map', ['pluralize', '$location', 'Position', function (pluralize, $
 
   var registerFilters = function () {
     ymaps.template.filtersStorage.add('position_pluralize', function (data, count, filterValue) {
-      return pluralize(count, ["позиция", "позиции", "позиций"]);
+      return pluralize(count, gon.translations.pluralize.position);
     });
   }
 
   var registerTemplates = function () {
-      Map.markerLayout = ymaps.templateLayoutFactory.createClass(
+      Map.markerPositionLayout = ymaps.templateLayoutFactory.createClass(
         "<a class='marker-label'>"
             + "<div class='marker-label__head'>{{ properties.trade_type }} {{ properties.weight }} {{ properties.weight_dimension }}, {{ properties.price }} {{ properties.currency }}/{{ properties.price_weight_dimension }}</div>"
             + "<div class='marker-label__body'>{{ properties.title }}</div>"
         + "</a>",
         {
           build: function () {
-            Map.markerLayout.superclass.build.call(this);
+            Map.markerPositionLayout.superclass.build.call(this);
             this._events = ymaps.domEvent.manager.group(this.getElement());
             this._events.add('click', function (event) {
               var id = this.getData().properties.get('id');
@@ -45,7 +45,23 @@ app.service('Map', ['pluralize', '$location', 'Position', function (pluralize, $
           
           clear: function () {
             this._events.removeAll();
-            Map.markerLayout.superclass.clear.call(this);
+            Map.markerPositionLayout.superclass.clear.call(this);
+          }
+        }
+      );
+      Map.markerUserLayout = ymaps.templateLayoutFactory.createClass(
+        "<a class='marker-label'>"
+            + "<div class='marker-label__head'>{{ properties.company }}</div>"
+            + "<div class='marker-label__body'>{{ properties.fullname }}</div>"
+        + "</a>",
+        {
+          build: function () {
+            Map.markerUserLayout.superclass.build.call(this);
+            this._events = ymaps.domEvent.manager.group(this.getElement());
+          },
+          clear: function () {
+            this._events.removeAll();
+            Map.markerUserLayout.superclass.clear.call(this);
           }
         }
       );
@@ -58,8 +74,7 @@ app.service('Map', ['pluralize', '$location', 'Position', function (pluralize, $
           Map.clustererLayout.superclass.build.call(this);
           
           this._parentElement.querySelector('.cluster').click = function (event) {
-            alert(1);
-            event.stopPropagation();
+            // event.stopPropagation();
           }
         },
         getShape: function () {

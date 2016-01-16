@@ -1,4 +1,4 @@
-app.run(['Template', function (Template) {
+app.run(['Template', '$state', function (Template, $state) {
   Template.serialize = function (position_fields) {
     return {
       id: position_fields[0],
@@ -23,5 +23,9 @@ app.run(['Template', function (Template) {
       price_discount: position_fields[15],
       address: position_fields[16]
     }
+  }
+
+  Template.goToEdit = function (template) {
+    $state.go("edit_template_path", {id: template.id})
   }
 }])

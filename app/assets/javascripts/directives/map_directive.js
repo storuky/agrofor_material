@@ -106,7 +106,7 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
 
             geoObjects.push(new ymaps.Placemark(
               coords, properties, {
-                iconLayout: Map.markerLayout,
+                iconLayout: Map.markerPositionLayout,
                 iconPane: 'overlaps'
               })
             );

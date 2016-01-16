@@ -7,7 +7,8 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
     scope: {
       draggable: "=draggable",
       info: "=info",
-      scrollZoom: "="
+      scrollZoom: "=",
+      type: "="
     }, // {} = isolate, true = child, false/undefined = no change
     // controller: function($scope, $element, $attrs, $transclude) {},
     // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
@@ -42,9 +43,17 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
           var marker;
 
           var drawMarker = function () {
+            var serializeCallback, iconLayout;
+            if ($scope.type == "user") {
+              serializeCallback = serializeUser;
+              iconLayout = Map.markerUserLayout;
+            } else {
+              serializeCallback = serializePosition;
+              iconLayout = Map.markerPositionLayout;
+            }
             marker = new ymaps.Placemark(
-                $scope.info.lng ? [$scope.info.lat, $scope.info.lng] : center, serializePosition(), {
-                  iconLayout: Map.markerLayout,
+                $scope.info.lng ? [$scope.info.lat, $scope.info.lng] : center, serializeCallback(), {
+                  iconLayout: iconLayout,
                   iconPane: 'overlaps',
                   draggable: $scope.draggable
                 }
@@ -119,7 +128,7 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
             var info = {
               weight: $scope.info.weight || 0,
               trade_type: $scope.info.trade_type_id ? gon.data.by_index.trade_types[$scope.info.trade_type_id].title : "Тип",
-              title: $scope.info.option ? $scope.info.option.title : 'Категория',
+              title: $scope.info.option ? $scope.info.option.title : gon.translations.dictionary.category,
               weight_dimension: $scope.info.weight_dimension_id ? gon.data.by_index.weight_dimensions[$scope.info.weight_dimension_id].title : "",
               price: $scope.info.price || "0",
               currency: gon.settings.currency.title,
@@ -127,6 +136,15 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
             }
 
             return info;
+          }
+
+          function serializeUser () {
+            var info = {
+              fullname: $scope.info.fullname,
+              company: $scope.info.company || "Компания",
+            }
+
+            return info
           }
         })
       })

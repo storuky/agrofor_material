@@ -5,3 +5,9 @@ en:
     or: or
     by_price: by price
     deal_with: Deal with
+    category: Product
+
+  pluralize:
+    position:
+      - position
+      - positions

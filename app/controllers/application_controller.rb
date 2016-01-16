@@ -91,6 +91,7 @@ class ApplicationController < ActionController::Base
       cache_if(Rails.env.production?, "translations_#{I18n.locale}") do
         {
           dictionary: I18n.t("dictionary"),
+          pluralize: I18n.t("pluralize"),
           message: I18n.t("message"),
           interface: I18n.t("interface"),
           activerecord: I18n.t("activerecord.attributes")

@@ -422,6 +422,17 @@ md-dialog.position-modal md-dialog-content {
   padding: 0 10px;
 }
 
+.position-status.opened,
+.position-status.active,
+.position-status.new {
+  background: #8BC34A;
+  color: white;
+}
+
+.position-status.deleted {
+  background: #FF6805;
+  color: white;
+}
 
 .position-modal .uploaded-documents {
   padding: 0 20px 20px 20px;

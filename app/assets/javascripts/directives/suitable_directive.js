@@ -17,6 +17,7 @@ app.directive('suitable', [function () {
     // transclude: true,
     // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
     link: function($scope, iElm, iAttrs, controller) {
+      $scope.gon = gon;
       $scope.$watch('positions', function (positions) {
         if (positions && positions.length) {
           $scope.position = positions[0];

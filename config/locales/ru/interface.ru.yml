@@ -120,3 +120,23 @@ ru:
       profile:
         location: Местоположение
         contacts: Контактные данные
+      position_show:
+        go_to_position: Вернуться к позиции
+        your_offer_for_this_position: Ваше предложение по данной позиции
+        withdraw: Отозвать
+        edit: Редактировать
+        my_offer: "Моё предложение:"
+        send_offer: Отправить предложение
+        users_offers: "Предложения участников:"
+        no_offers: Предложений нет
+        your_position: Ваша позиция
+        your_offer_for_position: Ваше предложение для позиции
+        offer_for_position: Предложение для позиции
+        have_not_suitble_offer: У вас нет подходящего предложения
+        click_for_create: "Нажмите, чтобы создать"
+      positions:
+        search: Поиск
+        type: Тип
+      position_form:
+        save_as_template: Сохранить как шаблон
+        by_clicking_save: 'Нажимая кнопку "Сохранить", Вы подтвеждаете свое согласие с <a class="link" href="">правилами работы</a> ресурса.'

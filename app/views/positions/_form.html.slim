@@ -79,13 +79,14 @@
           md-checkbox.position_form__template-checkbox ng-model="ctrl.position.save_as_template" aria-label="Template"
         div[flex]
           md-input-container.md-block
-            input ng-disabled="!ctrl.position.save_as_template && ctrl.position.type!='Template'" type="text" placeholder="Сохранить как шаблон" ng-model="ctrl.position.template_name"
+            label
+              | {{gon.translations.interface.text.position_form.save_as_template}}
+            input ng-disabled="!ctrl.position.save_as_template && ctrl.position.type!='Template'" type="text" ng-model="ctrl.position.template_name"
   .position-form__footer
     md-progress-linear md-mode="query" ng-show="formQuery.$resolved === false"
     .position-form__footer-actions[layout="row" layout-wrap style="" layout-align="start center"]
       md-button.md-yellow.md-lg[flex-sm="100" type="submit" ng-disabled="formQuery.$resolved === false"]
         |  {{gon.translations.interface.buttons.position_form.save}}
-      p[flex-md=70 flex-sm=100]
-        | Нажимая кнопку "Сохранить", Вы подтвеждаете свое согласие с  
-        a.link href="" правилами работы
-        |  ресурса.
+      p[flex-md=70 flex-sm=100 ng-bind-html-compile="gon.translations.interface.text.position_form.by_clicking_save"]
+
+

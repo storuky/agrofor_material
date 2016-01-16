@@ -106,7 +106,7 @@ en:
           Offer: Go to the offer
       position_form:
         attach_documents: Attach photo or documents
-        save: save
+        save: Save
       search:
         add_condition: Add condition
         apply: Apply
@@ -120,3 +120,23 @@ en:
       profile:
         location: Location
         contacts: Contacts
+      position_show:
+        go_to_position: Back to position
+        your_offer_for_this_position: Your offer for this position
+        withdraw: Withdraw
+        edit: Edit
+        my_offer: "My offer:"
+        send_offer: Send offer
+        users_offers: "All offers for this position:"
+        no_offers: No offers
+        your_position: Your position
+        your_offer_for_position: Your offer for position
+        offer_for_position: Offer for position
+        have_not_suitable_offer: You have not suitable offer
+        click_for_create: "Click for create"
+      positions:
+        search: Search
+        type: Type
+      position_form:
+        save_as_template: Save as template
+        by_clicking_save: 'By clicking "Save" you agree with <a class="link" href="">Terms and conditions</a> and <a class="link" href="">Privacy policy</a>.'

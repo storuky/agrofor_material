@@ -5,3 +5,9 @@ ru:
     or: или
     by_price: по цене
     deal_with: Сделка с
+    category: Товар
+  pluralize:
+    position:
+      - позиция
+      - позиции
+      - позиций

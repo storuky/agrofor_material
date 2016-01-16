@@ -14,7 +14,7 @@ div content-for="header"
             md-button.tab ng-repeat="status in gon.translations.interface.tabs.position_base" ng-class="{active: ctrl.filter.type == status.type}" ng-click="ctrl.filter.type = status.type"
               | {{status.title}}
           md-input-container.md-block.margin-0.hide-gt-sm
-            md-select[ng-model="ctrl.filter.type" placeholder="Тип"]
+            md-select[ng-model="ctrl.filter.type" placeholder="{{gon.translations.interface.text.positions.type}}"]
               md-option ng-repeat="status in gon.translations.interface.tabs.position_base" value="{{status.type}}"
                 | {{status.title}}
 
@@ -24,7 +24,7 @@ div content-for="header"
   .positions-filter[layout="row" layout-wrap layout-padding]
     .positions-filter__search[flex flex-sm=100]
       i.icon-magnify
-      input type="text" placeholder="Поиск" ng-model="search"
+      input type="text" placeholder="{{gon.translations.interface.text.positions.search}}" ng-model="search"
 
     div[flex="none" flex-sm=100]
       .tabs.yellow
@@ -85,7 +85,7 @@ div content-for="header"
             td ng-if="ctrl.filter.type!='Template'"
               i.icon-chevron-right
               i.icon-chevron-down
-            td style="{{ctrl.filter.type=='Template' ? 'width: 100%' : ''}}"
+            td ng-click="ctrl.filter.type=='Template' ? Template.goToEdit(position) : ''" style="{{ctrl.filter.type=='Template' ? 'width: 100%' : ''}}"
               div ng-if="ctrl.filter.type!='Template'"
                 | {{::position.created_at | date:"dd.MM.yyyy"}}
               div ng-if="ctrl.filter.type=='Template'"
@@ -125,7 +125,7 @@ div content-for="header"
             td.btns.w0
               a.icon-btn ui-sref="{{edit_path(position)}}" ng-hide="ctrl.filter.offers.status=='deleted'"
                 i.icon-pencil
-              a.icon-btn ng-href="{{show_path(position)}}"
+              a.icon-btn ng-href="{{show_path(position)}}" ng-show="ctrl.filter.type!='Template'"
                 i.icon-eye
           tr ng-repeat="offer in position.offers"
             td
