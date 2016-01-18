@@ -564,3 +564,9 @@ color: #999;font-size: 13px;position: absolute;right: 19px;bottom: 10px;}
   text-align: center;
   color: #4E4E4E;
 }
+
+
+.no-correspondence {
+  text-align: center;
+  padding: 30px 10px;
+}

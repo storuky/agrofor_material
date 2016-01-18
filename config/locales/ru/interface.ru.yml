@@ -142,3 +142,4 @@ ru:
         by_clicking_save: 'Нажимая кнопку "Сохранить", Вы подтвеждаете свое согласие с <a class="link" href="">правилами работы</a> ресурса.'
       messages:
         chose_correspondence: Выберите интересующую Вас переписку
+        no_correspondences: У вас нет ни одной переписки

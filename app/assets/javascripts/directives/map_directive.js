@@ -36,10 +36,13 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
       function buildMap () {
         clusterer = new ymaps.Clusterer({
           clusterIconLayout: Map.clustererLayout,
-          gridSize: 256,
           clusterBalloonLayout: ymaps.templateLayoutFactory.createClass(""),
-          clusterBalloonShadow: false
+          clusterBalloonShadow: false,
+          gridSize: 128,
+          margin: [20, 20]
         });
+
+        window.clusterer = clusterer;
 
         $scope.map = new ymaps.Map(iElm[0], {
             center: center,

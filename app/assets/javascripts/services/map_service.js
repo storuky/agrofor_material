@@ -1,4 +1,4 @@
-app.service('Map', ['pluralize', '$location', 'Position', function (pluralize, $location, Position) {
+  app.service('Map', ['pluralize', '$location', 'Position', function (pluralize, $location, Position) {
   var Map = this;
 
   ymaps.ready(function () {

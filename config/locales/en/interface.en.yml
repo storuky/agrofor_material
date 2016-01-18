@@ -142,3 +142,4 @@ en:
         by_clicking_save: 'By clicking "Save" you agree with <a class="link" href="">Terms and conditions</a> and <a class="link" href="">Privacy policy</a>.'
       messages:
         chose_correspondence: Select the desired conversation
+        no_correspondences: Your have not any conversations

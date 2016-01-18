@@ -36,6 +36,8 @@ div content-for="header"
       i.icon-magnify
       input type="text" placeholder="Поиск" ng-model="ctrl.textSearch"
     .message-page__contacts__content
+      .no-correspondence ng-show="Correspondence.correspondences.length == 0"
+        | {{gon.translations.interface.text.messages.no_correspondences}}
       a href="/correspondences?id={{correspondence.id}}" ng-repeat="correspondence in Correspondence.correspondences | filter:ctrl.filter | filter:ctrl.textSearch | orderBy:'timestamp':true" ng-click="$parent.contactsOpened = false"
         md-list-item class="md-3-line" ng-class="{active: correspondence==ctrl.contact}" ng-click="test=1"
           img.md-avatar ng-src="{{correspondence.opponent.avatar.url.thumb || '/avatar.png'}}"
