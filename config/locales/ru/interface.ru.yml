@@ -62,7 +62,7 @@ ru:
           user: Позиция пользователя
       search:
         by_params: Поиск по параметрам
-        suitable: Подходящие позиции
+        suitable: Поиск подходящих
       profile:
         - title: Личные данные
           id: 0
@@ -115,7 +115,7 @@ ru:
     text:
       search:
         suitable_for: Подходящие позиции для
-        founded: "Найдено <b>{{Search.positions.collection.length}}</b> {{Search.positions.collection.length | plur:['позиция', 'позиции', 'позиций']}}"
+        founded: "Найдено <b>{{Search.positions.collection.length}}</b> {{Search.positions.collection.length | plur:['позиция', 'позиции', 'позиций']}} в мире"
         on_map: В области карты
       profile:
         location: Местоположение
@@ -140,3 +140,5 @@ ru:
       position_form:
         save_as_template: Сохранить как шаблон
         by_clicking_save: 'Нажимая кнопку "Сохранить", Вы подтвеждаете свое согласие с <a class="link" href="">правилами работы</a> ресурса.'
+      messages:
+        chose_correspondence: Выберите интересующую Вас переписку

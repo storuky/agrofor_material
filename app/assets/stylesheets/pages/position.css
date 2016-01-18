@@ -101,7 +101,6 @@
   opacity: 1;
   width: 100%;
   overflow: hidden;
-  max-width: 902px;
 }
 .position_show.active {
   transform: scale(.8);

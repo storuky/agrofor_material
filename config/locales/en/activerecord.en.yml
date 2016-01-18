@@ -23,6 +23,7 @@ en:
         weight_to: "Weight, to"
         price_from: "Price, from"
         price_to: "Price, to"
+        radius: Radius
       position:
         <<: *generic
       offer:

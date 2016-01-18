@@ -62,7 +62,7 @@ en:
           user: User position
       search:
         by_params: Search by params
-        suitable: Suitable positions
+        suitable: Search suitable
       profile:
         - title: Personal info
           id: 0
@@ -115,7 +115,7 @@ en:
     text:
       search:
         suitable_for: Suitable positions for
-        founded: "<b>{{Search.positions.collection.length}}</b> {{Search.positions.collection.length | plur:['position', 'positions']}} was found"
+        founded: "<b>{{Search.positions.collection.length}}</b> {{Search.positions.collection.length | plur:['position', 'positions']}} was found in the world"
         on_map: On the map
       profile:
         location: Location
@@ -140,3 +140,5 @@ en:
       position_form:
         save_as_template: Save as template
         by_clicking_save: 'By clicking "Save" you agree with <a class="link" href="">Terms and conditions</a> and <a class="link" href="">Privacy policy</a>.'
+      messages:
+        chose_correspondence: Select the desired conversation

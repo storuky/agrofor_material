@@ -14,7 +14,7 @@ script type="text/ng-template" id="search.html"
     .search__footer ng-class="{active: Search.showFooter}"
       .search__tags ng-class="{open: Search.showExtended && Search.showFooter}"
         .tags
-          md-button.md-yellow.tags__add ng-click="Search.showExtended = true"
+          md-button.md-yellow.tags__add ng-click="Search.showExtended = !Search.showExtended"
             |  {{gon.translations.interface.buttons.search.add_condition}}
 
           .tags__area ng-click="Search.showExtended = false;"
@@ -28,7 +28,7 @@ script type="text/ng-template" id="search.html"
                     | {{gon.translations.interface.text.search.suitable_for}} №{{tag.checked_positions_ids.join(', ')}}
                 .tag__delete ng-click="Search.tags.splice($index, 1);"
                   | &times;
-      .search__count ng-click="Search.showExtended = false;"
+      .search__count ng-click="Search.showExtended = false; Search.showFooter = true;"
         span ng-bind-html-compile="gon.translations.interface.text.search.founded"
         span ng-show="Search.type=='map'"
           | . {{gon.translations.interface.text.search.on_map}} – 

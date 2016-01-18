@@ -278,8 +278,7 @@
   right: -15px;
   padding-right: 15px;
   left: 0;
-  /* margin-right: -15px; */
-  max-width: 1040px;
+  max-width: 1055px;
   overflow-y: scroll !important;
 }
 

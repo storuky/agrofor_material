@@ -214,18 +214,6 @@
 }
 
 
-@media screen and (min-width: 1450px) {
-  .search__extended {
-    margin: 18px 55px;
-    left: auto;
-    right: 0;
-  }
-  .search__extended__wrapper {
-    /*margin-left: 225px;*/
-    /*max-width: 980px;*/
-  }
-}
-
 @media screen and (max-width: 1120px) {
   .table .td-gt-1120 {
     display: none;

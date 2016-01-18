@@ -58,6 +58,8 @@ div content-for="header"
   .message-page__body
     .message-page__progress ng-show="Correspondence.active.$resolved==false"
       md-progress-linear md-mode="query"
+    .message-page__not ng-show="Correspondence.active == undefined"
+      | {{gon.translations.interface.text.messages.chose_correspondence}}
     .message-page__messages
       .message-page__toggle-contacts.hide-gt-sm ng-click="contactsOpened = !contactsOpened"
         i.icon-menu

@@ -23,6 +23,7 @@ ru:
         weight_to: "Вес, до"
         price_from: "Цена, от"
         price_to: "Цена, до"
+        radius: Радиус
       position:
         <<: *generic
       offer:

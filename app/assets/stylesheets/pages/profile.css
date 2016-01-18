@@ -171,3 +171,31 @@
 .profile-contacts__phones .mb-25 {
   position: relative;
 }
+
+
+.profile-avatar .md-button i {
+  position: absolute;
+  left: 0;
+  top: 0px;
+  bottom: 0px;
+  width: 36px;
+  background: rgb(255, 229, 125);
+  padding: 8px 9px;
+  font-size: 19px;
+  text-align: center;
+  color: #5E5E5E;
+  border-right: 1px solid #F3C91E;
+}
+
+
+.profile-avatar .md-button span {
+  left: 35px;
+  right: 0;
+  position: absolute;
+  top: 0;
+  font-size: 14px;
+}
+
+.profile-avatar .md-button:hover {
+  background: #FFE57D !important;
+}

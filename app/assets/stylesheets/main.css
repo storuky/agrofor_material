@@ -295,8 +295,11 @@ i.icon-star {
   cursor: pointer;
 }
 
+.icon-star:hover {
+  color: #FFD452;
+}
 
-.icon-star:hover,  .icon-star.active{
+.icon-star.active{
   color: #ffc107;
 }
 
@@ -337,4 +340,10 @@ i.icon-star {
 
 .ngn-success {
   background-color: rgba(73, 182, 77, 0.84);
+}
+
+
+.md-yellow:hover {
+  background: #FFE57D !important;
+  transition: .2s;
 }
