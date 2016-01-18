@@ -6,6 +6,18 @@ class PositionBase < ActiveRecord::Base
   default_scope {
     includes(:trade_type, :images, :documents, :user, :currency, :weight_dimension, :weight_min_dimension, :price_weight_dimension, :option, :category, :trade_type, option: [:category])
   }
+
+  def self.trade_types_ids
+    TradeType.pluck(:id) rescue []
+  end
+
+  def self.dimensions_ids
+    WeightDimension.pluck(:id) rescue []
+  end
+
+  def self.options_ids
+    Option.pluck(:id) rescue []
+  end
   
   has_many :imageable, as: :imageable
   has_many :images, through: :imageable
@@ -49,7 +61,6 @@ class PositionBase < ActiveRecord::Base
   before_save :set_index_field
 
   def pluck_fields with=[]
-    ap @@fields_for_pluck
     self.attributes.slice(*@@fields_for_pluck, *with).values
   end
 
@@ -162,18 +173,6 @@ class PositionBase < ActiveRecord::Base
       Math.sin(dLon/2) * Math.sin(dLon/2)
       c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
       r * c
-    end
-
-    def trade_types_ids
-      TradeType.pluck(:id) rescue []
-    end
-
-    def dimensions_ids
-      WeightDimension.pluck(:id) rescue []
-    end
-
-    def options_ids
-      Option.pluck(:id) rescue []
     end
   end
 
