@@ -28,18 +28,14 @@ class PositionBase < ActiveRecord::Base
   belongs_to :category
   belongs_to :trade_type
 
-  @@trade_types_ids = TradeType.pluck(:id) rescue []
-  @@dimensions_ids =  WeightDimension.pluck(:id) rescue []
-  @@options_ids =  Option.pluck(:id) rescue []
-
   @@fields_for_pluck = ["id", "lat", "lng", "trade_type_id", "option_id", "weight", "weight_dimension_id", "price", "currency_id", "price_weight_dimension_id", "weight_min", "weight_min_dimension_id", "created_at", "type"]
 
   validates_presence_of :trade_type_id, :title, :address, :option_id, :weight, :price
 
-  validates :trade_type_id, inclusion: { in: @@trade_types_ids }
-  validates :option_id, inclusion: { in: @@options_ids }
-  validates :weight_dimension_id, inclusion: { in: @@dimensions_ids }
-  validates :price_weight_dimension_id, inclusion: { in: @@dimensions_ids }
+  validates :trade_type_id, inclusion: { in: trade_types_ids }
+  validates :option_id, inclusion: { in: options_ids }
+  validates :weight_dimension_id, inclusion: { in: dimensions_ids }
+  validates :price_weight_dimension_id, inclusion: { in: dimensions_ids }
   validates :weight, numericality: { greater_than: 0 }
   validates :weight_min, numericality: { greater_than_or_equal_to: 0 }
   validate :less_then_weight
@@ -167,7 +163,22 @@ class PositionBase < ActiveRecord::Base
       c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
       r * c
     end
+
+    def trade_types_ids
+      TradeType.pluck(:id) rescue []
+    end
+
+    def dimensions_ids
+      WeightDimension.pluck(:id) rescue []
+    end
+
+    def options_ids
+      Option.pluck(:id) rescue []
+    end
   end
+
+  
+
 
 
   private
