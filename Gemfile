@@ -82,6 +82,7 @@ gem 'angularjs-rails'
 gem 'underscore-rails'
 
 gem "oxymoron", git: "https://github.com/storuky/oxymoron.git", branch: :master
+gem 'seed_dump'
 
 
 gem 'oj'

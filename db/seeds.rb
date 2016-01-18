@@ -1,109 +1,448 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-def create_position u
-  lat = 55.831903 + Random.rand(-1.0..1.0)
-  lng = 37.411961 + Random.rand(-1.0..1.0)
-  option = Option.pluck(:id).sample
-  weight = Random.rand(10..1000)
-  currency_id = Currency.pluck(:id).sample
-  
-  weight_dimension_id = WeightDimension.pluck(:id).sample
-  params = {
-      lat: lat,
-      lng: lng,
-      title: Faker::Commerce.product_name,
-      option_id: option,
-      weight: weight,
-      weight_min: Random.rand(9..weight),
-      weight_dimension_id: weight_dimension_id,
-      weight_min_dimension_id: weight_dimension_id,
-      price_weight_dimension_id: weight_dimension_id,
-      price: Faker::Commerce.price,
-      price_discount: Random.rand(5.0..50.0),
-      currency_id: currency_id,
-      user_id: u.id,
-      address: Faker::Address.street_address,
-      city: Faker::Address.city,
-      trade_type_id: TradeType.pluck(:id).sample,
-      description: Faker::Lorem.paragraph
-  }
-
-  position = Position.create params
-  if position.valid?
-    puts "Позиция №#{position.id} создана"
-  else
-    ap position.errors
-  end
-end
-
-puts "Создание категории"
-Category.destroy_all
-Category::CATEGORY.each do |title|
-  category = Category.where(title: title).first_or_create
-
-  Option::OPTIONS[category.title].each do |option|
-    Option.create(category: category, title: option)
-  end
-end
-
-
-puts "Создание типов позиций"
-TradeType.destroy_all
-TradeType::TRADETYPES.each do |trade_type|
-  TradeType.create(title: trade_type[:title], trade_type_id: trade_type[:trade_type_id])
-end
-
-puts "Создание размерности"
-WeightDimension.destroy_all
-WeightDimension::DIMENSIONS.each do |weight_dimension|
-  WeightDimension.where(name: weight_dimension[:name]).first_or_create(:convert => weight_dimension[:convert])
-end
-
-
-puts "Создание валют"
-Currency.destroy_all
-Currency::CURRENCY.each do |currency|
-  Currency.where(name: currency[:name]).first_or_create
-end
-
-
-puts "Создание админа"
-admin = User.where(email: "admin@admin.com").first_or_create(
-  password: "123123123",
-  first_name: "Павел",
-  last_name: "Кононенко",
-  phones: ["+7 (988) 999 6543", "+7 (906) 180 0923"],
-  skype: "storuky",
-  website: "http://agrofor.pro",
-  company: "Agrofor",
-  additional: Faker::Lorem.paragraph(6),
-  address: "#{Faker::Address.city}, #{Faker::Address.street_address}",
-  lat: Faker::Address.latitude,
-  lng: Faker::Address.longitude,
-  country: Faker::Address.country,
-  currency_id: Currency.first.id,
-  interest_ids: Category.pluck(:id).sample(4)
-)
-create_position admin
-
-
-puts "Создание пользователей"
-(10-User.count).times do
-  u = User.create({
-    email: Faker::Internet.free_email,
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    password: "123123123",
-    phones: ["+7 (988) 999 6543"]
-  })
-
-  puts "Создание позиций"
-  10.times do
-    create_position u
-  end
-end
+User.create!([
+  {email: "admin@admin.com", encrypted_password: "$2a$10$vFhNDBzRpL7swVyTxE8SMuy0n9vx68oX0E1vr9.vMVYHgLDh8AsZ6", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2016-01-18 16:42:51", last_sign_in_at: "2016-01-18 16:42:51", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", function: nil, first_name: "Иван", last_name: "Лепницкий", avatar_id: nil, language: nil, phones: ["+7 (950) 859-16-89"], website: nil, skype: nil, city: nil, address: "Россия, Ростов-на-Дону, проспект Ленина, 42Е ", lat: 47.250406, lng: 39.689537, currency_id: 2, company: nil, additional: nil, events: {}, banned: nil, role_id: nil, timezone: nil, country: "Россия, Ростов-на-Дону", new_offers_count: 0, locale: "ru"},
+  {email: "admin@agrofor.pro", encrypted_password: "$2a$10$uk9HNM76AOpgo5Ih9Y2tQOsKlwInUIqDslw21rayWQ5vEEgA8QRkC", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 2, current_sign_in_at: "2016-01-18 14:47:10", last_sign_in_at: "2016-01-18 13:28:06", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", function: "Директор", first_name: "Павел", last_name: "Кононенко", avatar_id: "1", language: "ru", phones: ["+7 (988) 999-65-43"], website: "agrofor.pro", skype: "storuky", city: nil, address: "Россия, Ростов-на-Дону, проспект Ленина, 42Е ", lat: 47.250406, lng: 39.689537, currency_id: 1, company: "Агрофор", additional: "Веду свое частное фермерское хозяйство.  Интересуюсь животноводством и растениеводством. В планах открытие пасеки. Продукция всегда свежая и высокого качества.\nПриглашаю к сотрудничеству всех желающих!", events: {}, banned: nil, role_id: nil, timezone: nil, country: "Россия, Ростов-на-Дону", new_offers_count: 0, locale: "ru"}
+])
+Image.create!([
+  {file: "Копия_BiSUO5oJMEU.jpg", user_id: nil, position_base_id: nil, filename: nil},
+  {file: "119823.jpg", user_id: 1, position_base_id: nil, filename: nil},
+  {file: "poleznie-svojstva-kartofelya.jpg", user_id: 1, position_base_id: nil, filename: nil},
+  {file: "109b39b953b944a16c6077cd7d8cca2c.jpg", user_id: 1, position_base_id: nil, filename: nil},
+  {file: "мясо-говядины-оптом.jpg", user_id: 1, position_base_id: nil, filename: nil},
+  {file: "images.jpeg", user_id: 1, position_base_id: nil, filename: nil},
+  {file: "beef.jpg", user_id: 1, position_base_id: nil, filename: nil},
+  {file: "скачанные_файлы.jpeg", user_id: 1, position_base_id: nil, filename: nil}
+])
+PositionBase.create!([
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Продаем картошку оптом", description: "Картофель \"Гала\" репродукция РС-3, без болезней, высокоурожайный, чистый, сухой, осенняя распродажа.", user_id: 1, option_id: 295, category_id: 21, trade_type_id: 1, currency_id: 1, price: 8.0, price_etalon: 8.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 12.0, weight_min: 100.0, weight_etalon: 12000.0, weight_min_etalon: 100.0, weight_dimension_id: 2, weight_min_dimension_id: 1, index_field: "Продаем картошку оптом Картофель \"Гала\" репродукция РС-3, без болезней, высокоурожайный, чистый, сухой, осенняя распродажа. Vegetables Potato Овощи Картофель", city: nil, address: "Россия, Ростов-на-Дону, проспект Ленина, 42Е ", lat: 47.250406, lng: 39.689537, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Арбузы", description: nil, user_id: 1, option_id: 1, category_id: 1, trade_type_id: 1, currency_id: 1, price: 50.0, price_etalon: 50.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 500.0, weight_min: 0.0, weight_etalon: 500.0, weight_min_etalon: 0.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "Арбузы  berries Watermelon Ягоды Арбузы", city: nil, address: "Россия, Ростов-на-Дону улица Малиновского, 27А", lat: 47.2317011076449, lng: 39.6126327031246, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Полевой мёд", description: nil, user_id: 1, option_id: 235, category_id: 14, trade_type_id: 1, currency_id: 1, price: 300.0, price_etalon: 300.0, price_discount: 5.0, price_weight_dimension_id: 3, weight: 100.0, weight_min: 1.0, weight_etalon: 100.0, weight_min_etalon: 1.0, weight_dimension_id: 3, weight_min_dimension_id: 3, index_field: "Полевой мёд  Honey Field honey Мёд Полевой мёд", city: nil, address: "Россия, Ростов-на-Дону Первомайский район", lat: 47.2588210345826, lng: 39.8076400273432, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Продажа яблок оптом", description: nil, user_id: 1, option_id: 148, category_id: 8, trade_type_id: 2, currency_id: 1, price: 18.0, price_etalon: 18.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 5.0, weight_min: 100.0, weight_etalon: 5000.0, weight_min_etalon: 100.0, weight_dimension_id: 2, weight_min_dimension_id: 1, index_field: "Продажа яблок оптом  Fruits Apple Фрукты Яблоко", city: nil, address: "Россия, Ростов-на-Дону Дополнительная улица", lat: 47.2831235751711, lng: 39.7636947148437, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "лещ", description: nil, user_id: 1, option_id: 83, category_id: 7, trade_type_id: 1, currency_id: 1, price: 70.0, price_etalon: 70.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 10.0, weight_min: 0.0, weight_etalon: 10.0, weight_min_etalon: 0.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "лещ  Fish Bream Рыба Лещ", city: nil, address: "Россия, Ростов-на-Дону Всесоюзная улица", lat: 47.1933353025408, lng: 39.6167525761715, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Масло сливочное", description: nil, user_id: 1, option_id: 54, category_id: 4, trade_type_id: 1, currency_id: 1, price: 220.0, price_etalon: 220.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 150.0, weight_min: 0.0, weight_etalon: 150.0, weight_min_etalon: 0.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "Масло сливочное  Dairy Butter Молочные продукты Масло сливочное", city: nil, address: "Россия, Ростовская область, Аксайский район поселок Верхнетемерницкий", lat: 47.306947853731, lng: 39.7163161748042, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Красная смородина", description: nil, user_id: 1, option_id: 17, category_id: 1, trade_type_id: 1, currency_id: 1, price: 100.0, price_etalon: 100.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 50.0, weight_min: 0.0, weight_etalon: 50.0, weight_min_etalon: 0.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "Красная смородина  berries Redcurrant Ягоды Красная смородина", city: nil, address: "Россия, Ростов-на-Дону 2-й Поклонный переулок", lat: 47.3149567068269, lng: 39.7536236805675, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Виноград", description: nil, user_id: 1, option_id: 5, category_id: 1, trade_type_id: 2, currency_id: 1, price: 120.0, price_etalon: 120.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 360.0, weight_min: 0.0, weight_etalon: 360.0, weight_min_etalon: 0.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "Виноград  berries Grapes Ягоды Виноград", city: nil, address: "Россия, Ростов-на-Дону, проспект Ленина, 42Е ", lat: 47.250406, lng: 39.689537, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Сельдь свежемороженная", description: nil, user_id: 1, option_id: 98, category_id: 7, trade_type_id: 2, currency_id: 1, price: 55.0, price_etalon: 55.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 300.0, weight_min: 10.0, weight_etalon: 300.0, weight_min_etalon: 10.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "Сельдь свежемороженная  Fish Herring Рыба Сельдь", city: nil, address: "Россия, Ростов-на-Дону Береговая улица", lat: 47.2139253047621, lng: 39.7142562382806, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Барбарис", description: nil, user_id: 1, option_id: 2, category_id: 1, trade_type_id: 2, currency_id: 1, price: 100.0, price_etalon: 100.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 135.0, weight_min: 0.0, weight_etalon: 135.0, weight_min_etalon: 0.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "Барбарис  berries Barberry Ягоды Барбарис", city: nil, address: "Россия, Ростов-на-Дону улица Герцена, 115", lat: 47.2260883434602, lng: 39.802146863281, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Клубника", description: nil, user_id: 1, option_id: 15, category_id: 1, trade_type_id: 1, currency_id: 1, price: 85.0, price_etalon: 85.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 25.0, weight_min: 0.0, weight_etalon: 25.0, weight_min_etalon: 0.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "Клубника  berries Strawberry Ягоды Клубника", city: nil, address: "Россия, Ростов-на-Дону, поселок Орджоникидзе Молодежная улица, 13", lat: 47.2662999360377, lng: 39.7788009160148, deal_with_id: nil},
+  {type: "Offer", template_name: nil, delta: true, status: "active", position_id: 2, from_position_id: nil, offer_id: nil, title: "Закупка говядины", description: nil, user_id: 2, option_id: 202, category_id: 13, trade_type_id: 1, currency_id: 2, price: 10.08, price_etalon: 10.08, price_discount: 5.0, price_weight_dimension_id: 1, weight: 2.0, weight_min: 100.0, weight_etalon: 2000.0, weight_min_etalon: 100.0, weight_dimension_id: 2, weight_min_dimension_id: 1, index_field: "Закупка говядины  Meat Beef  Мясо Говядина", city: nil, address: "Россия, Ростов-на-Дону, проспект Ленина, 42Е ", lat: 47.250406, lng: 39.689537, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Закупка говядины оптом", description: "Закупаем говядину оптом при наличии сертификата качества.", user_id: 1, option_id: 202, category_id: 13, trade_type_id: 2, currency_id: 1, price: 800.0, price_etalon: 800.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 2.0, weight_min: 100.0, weight_etalon: 2000.0, weight_min_etalon: 100.0, weight_dimension_id: 2, weight_min_dimension_id: 1, index_field: "Закупка говядины оптом Закупаем говядину оптом при наличии сертификата качества. Meat Beef  Мясо Говядина", city: nil, address: "Россия, Ростовская область Мясниковский район", lat: 47.3416616733414, lng: 39.6266635815913, deal_with_id: nil}
+])
+WeightDimension.create!([
+  {name: "kg", convert: 1.0},
+  {name: "tonn", convert: 1000.0},
+  {name: "liter", convert: 1.0},
+  {name: "m3", convert: 1000.0},
+  {name: "ft3", convert: 28.31}
+])
+TradeType.create!([
+  {title: "buy", trade_type_id: 2},
+  {title: "sell", trade_type_id: 1}
+])
+Option.create!([
+  {title: "watermelon", category_id: 1},
+  {title: "barberry", category_id: 1},
+  {title: "cowberry", category_id: 1},
+  {title: "elder", category_id: 1},
+  {title: "grapes", category_id: 1},
+  {title: "goji berries", category_id: 1},
+  {title: "blueberry", category_id: 1},
+  {title: "cherry", category_id: 1},
+  {title: "melon", category_id: 1},
+  {title: "blackberries", category_id: 1},
+  {title: "strawberry", category_id: 1},
+  {title: "shadberry", category_id: 1},
+  {title: "viburnum", category_id: 1},
+  {title: "dogwood", category_id: 1},
+  {title: "strawberry", category_id: 1},
+  {title: "cranberry", category_id: 1},
+  {title: "redcurrant", category_id: 1},
+  {title: "gooseberry", category_id: 1},
+  {title: "lemongrass", category_id: 1},
+  {title: "raspberry", category_id: 1},
+  {title: "cloudberry", category_id: 1},
+  {title: "sea buckthorn", category_id: 1},
+  {title: "green olives", category_id: 1},
+  {title: "rowan", category_id: 1},
+  {title: "blackthorn", category_id: 1},
+  {title: "feijoa ", category_id: 1},
+  {title: "physalis", category_id: 1},
+  {title: "cherry", category_id: 1},
+  {title: "blackberry", category_id: 1},
+  {title: "blueberry", category_id: 1},
+  {title: "bird-cherry tree", category_id: 1},
+  {title: "chokeberry", category_id: 1},
+  {title: "mulberry", category_id: 1},
+  {title: "briar", category_id: 1},
+  {title: "mung beans", category_id: 2},
+  {title: "vetch", category_id: 2},
+  {title: "peas", category_id: 2},
+  {title: "lupine", category_id: 2},
+  {title: "chick-pea", category_id: 2},
+  {title: "soy", category_id: 2},
+  {title: "beans", category_id: 2},
+  {title: "lentil", category_id: 2},
+  {title: "chin", category_id: 2},
+  {title: "corn sugar", category_id: 3},
+  {title: "waxy maize", category_id: 3},
+  {title: "corn filmy", category_id: 3},
+  {title: "corn burst", category_id: 3},
+  {title: "dent corn", category_id: 3},
+  {title: "starchy corn", category_id: 3},
+  {title: "corn siliceous", category_id: 3},
+  {title: "milk", category_id: 4},
+  {title: "cheese", category_id: 4},
+  {title: "feta cheese", category_id: 4},
+  {title: "butter", category_id: 4},
+  {title: "cream", category_id: 4},
+  {title: "sour cream", category_id: 4},
+  {title: "cottage cheese", category_id: 4},
+  {title: "raisins", category_id: 5},
+  {title: "fig", category_id: 5},
+  {title: "dried apricots", category_id: 5},
+  {title: "date", category_id: 5},
+  {title: "prune", category_id: 5},
+  {title: "goose eggs", category_id: 6},
+  {title: "turkey eggs", category_id: 6},
+  {title: "chicken eggs", category_id: 6},
+  {title: "quail eggs", category_id: 6},
+  {title: "ostrich eggs", category_id: 6},
+  {title: "duck eggs", category_id: 6},
+  {title: "anchovies", category_id: 7},
+  {title: "red mullet (sultan)", category_id: 7},
+  {title: "chub", category_id: 7},
+  {title: "pink salmon", category_id: 7},
+  {title: "dorado", category_id: 7},
+  {title: "ruff", category_id: 7},
+  {title: "lancet fish", category_id: 7},
+  {title: "flounder", category_id: 7},
+  {title: "crucian", category_id: 7},
+  {title: "carp", category_id: 7},
+  {title: "dog-salmon", category_id: 7},
+  {title: "mullet", category_id: 7},
+  {title: "smelt", category_id: 7},
+  {title: "tench", category_id: 7},
+  {title: "bream", category_id: 7},
+  {title: "bluefish", category_id: 7},
+  {title: "mackerel", category_id: 7},
+  {title: "pollack", category_id: 7},
+  {title: "capelin", category_id: 7},
+  {title: "sea bass", category_id: 7},
+  {title: "burbot", category_id: 7},
+  {title: "perch", category_id: 7},
+  {title: "sturgeon", category_id: 7},
+  {title: "halibut", category_id: 7},
+  {title: "haddock", category_id: 7},
+  {title: "roach", category_id: 7},
+  {title: "carp", category_id: 7},
+  {title: "sprat", category_id: 7},
+  {title: "sardine", category_id: 7},
+  {title: "herring", category_id: 7},
+  {title: "salmon", category_id: 7},
+  {title: "whitefish", category_id: 7},
+  {title: "mackerel", category_id: 7},
+  {title: "catfish", category_id: 7},
+  {title: "horse mackerel", category_id: 7},
+  {title: "sterlet", category_id: 7},
+  {title: "zander", category_id: 7},
+  {title: "carp", category_id: 7},
+  {title: "cod", category_id: 7},
+  {title: "tuna", category_id: 7},
+  {title: "trout", category_id: 7},
+  {title: "hake", category_id: 7},
+  {title: "pike", category_id: 7},
+  {title: "ide", category_id: 7},
+  {title: "apricot", category_id: 8},
+  {title: "avocado", category_id: 8},
+  {title: "quince", category_id: 8},
+  {title: "cherry-plum", category_id: 8},
+  {title: "pineapple", category_id: 8},
+  {title: "annona (guanabana)", category_id: 8},
+  {title: "orange", category_id: 8},
+  {title: "banana", category_id: 8},
+  {title: "garnet", category_id: 8},
+  {title: "grapefruit", category_id: 8},
+  {title: "pear", category_id: 8},
+  {title: "guava", category_id: 8},
+  {title: "jackfruit", category_id: 8},
+  {title: "draconian fruit (pitahaya)", category_id: 8},
+  {title: "durian", category_id: 8},
+  {title: "carambola", category_id: 8},
+  {title: "kiwi", category_id: 8},
+  {title: "clementines", category_id: 8},
+  {title: "kumquat", category_id: 8},
+  {title: "lime", category_id: 8},
+  {title: "lemon", category_id: 8},
+  {title: "lichee", category_id: 8},
+  {title: "mango", category_id: 8},
+  {title: "mangosteen", category_id: 8},
+  {title: "tangerine", category_id: 8},
+  {title: "passionfruit", category_id: 8},
+  {title: "medlar", category_id: 8},
+  {title: "nectarine", category_id: 8},
+  {title: "papaya", category_id: 8},
+  {title: "peach", category_id: 8},
+  {title: "witch's broom", category_id: 8},
+  {title: "rambutan", category_id: 8},
+  {title: "sweetie", category_id: 8},
+  {title: "plum", category_id: 8},
+  {title: "persimmon", category_id: 8},
+  {title: "apple", category_id: 8},
+  {title: "artichoke", category_id: 9},
+  {title: "asparagus", category_id: 9},
+  {title: "basil", category_id: 9},
+  {title: "parsley", category_id: 9},
+  {title: "lettuce", category_id: 9},
+  {title: "celery", category_id: 9},
+  {title: "dill", category_id: 9},
+  {title: "chicory", category_id: 9},
+  {title: "wild leek", category_id: 9},
+  {title: "spinach", category_id: 9},
+  {title: "sorrel", category_id: 9},
+  {title: "cep (boletus)", category_id: 10},
+  {title: "oyster mushrooms", category_id: 10},
+  {title: "milk mushroom", category_id: 10},
+  {title: "ivishen (clitopilus prunulus)", category_id: 10},
+  {title: "chanterelles", category_id: 10},
+  {title: "boletus", category_id: 10},
+  {title: "flywheel", category_id: 10},
+  {title: "mushrooms", category_id: 10},
+  {title: "boletus", category_id: 10},
+  {title: "orange-cap boletus", category_id: 10},
+  {title: "saffron milk cap", category_id: 10},
+  {title: "morels", category_id: 10},
+  {title: "russule", category_id: 10},
+  {title: "truffle", category_id: 10},
+  {title: "champignon", category_id: 10},
+  {title: "shiitake", category_id: 10},
+  {title: "vitamins", category_id: 11},
+  {title: "cake", category_id: 11},
+  {title: "pulp", category_id: 11},
+  {title: "wms", category_id: 11},
+  {title: "ingredients", category_id: 11},
+  {title: "fodder", category_id: 11},
+  {title: "feed additives", category_id: 11},
+  {title: "meat meal", category_id: 11},
+  {title: "meat and bone meal", category_id: 11},
+  {title: "bran", category_id: 11},
+  {title: "premixes", category_id: 11},
+  {title: "fishmeal", category_id: 11},
+  {title: "silage", category_id: 11},
+  {title: "soy", category_id: 11},
+  {title: "schroth", category_id: 11},
+  {title: "mustard", category_id: 12},
+  {title: "coriander", category_id: 12},
+  {title: "sesame", category_id: 12},
+  {title: "flax", category_id: 12},
+  {title: "sunflower", category_id: 12},
+  {title: "rape", category_id: 12},
+  {title: "cumin", category_id: 12},
+  {title: "lamb", category_id: 13},
+  {title: "bacon", category_id: 13},
+  {title: "cold boiled pork", category_id: 13},
+  {title: "ham", category_id: 13},
+  {title: "beef ", category_id: 13},
+  {title: "hare", category_id: 13},
+  {title: "goat meat", category_id: 13},
+  {title: "horsemeat", category_id: 13},
+  {title: "rabbit", category_id: 13},
+  {title: "venison", category_id: 13},
+  {title: "liver", category_id: 13},
+  {title: "fat", category_id: 13},
+  {title: "pork", category_id: 13},
+  {title: "veal", category_id: 13},
+  {title: "meat language", category_id: 13},
+  {title: "linden honey", category_id: 14},
+  {title: "acacia honey", category_id: 14},
+  {title: "sunflower honey", category_id: 14},
+  {title: "buckwheat honey", category_id: 14},
+  {title: "raspberry honey", category_id: 14},
+  {title: "barberry honey", category_id: 14},
+  {title: "cornflower honey", category_id: 14},
+  {title: "heather honey", category_id: 14},
+  {title: "honey mustard", category_id: 14},
+  {title: "blackberry honey", category_id: 14},
+  {title: "pumpkin honey", category_id: 14},
+  {title: "melissovy honey", category_id: 14},
+  {title: "clover honey", category_id: 14},
+  {title: "mint honey", category_id: 14},
+  {title: "dandelion honey", category_id: 14},
+  {title: "ryabinovny honey", category_id: 14},
+  {title: "blueberry honey", category_id: 14},
+  {title: "sage honey", category_id: 14},
+  {title: "carrot honey", category_id: 14},
+  {title: "may honey", category_id: 14},
+  {title: "meadow honey", category_id: 14},
+  {title: "forest honey", category_id: 14},
+  {title: "field honey", category_id: 14},
+  {title: "mountain honey", category_id: 14},
+  {title: "tobacco honey", category_id: 14},
+  {title: "stone honey", category_id: 14},
+  {title: "powdered honey", category_id: 14},
+  {title: "comb", category_id: 14},
+  {title: "wheat top grade flour", category_id: 15},
+  {title: "wheat first grade flour", category_id: 15},
+  {title: "wheat second grade flour", category_id: 15},
+  {title: "flaxseed oil", category_id: 15},
+  {title: "olive oil", category_id: 15},
+  {title: "peanuts", category_id: 16},
+  {title: "brazil nuts ", category_id: 16},
+  {title: "walnut", category_id: 16},
+  {title: "chestnut", category_id: 16},
+  {title: "pine nuts", category_id: 16},
+  {title: "cashew", category_id: 16},
+  {title: "coconut", category_id: 16},
+  {title: "almonds", category_id: 16},
+  {title: "nutmeg", category_id: 16},
+  {title: "pistachios", category_id: 16},
+  {title: "hazelnut", category_id: 16},
+  {title: "sunflower oil", category_id: 17},
+  {title: "peanut oil", category_id: 17},
+  {title: "mustard oil", category_id: 17},
+  {title: "sesame oil ", category_id: 17},
+  {title: "corn oil", category_id: 17},
+  {title: "rapeseed oil", category_id: 17},
+  {title: "soybean oil", category_id: 17},
+  {title: "algae", category_id: 18},
+  {title: "squid", category_id: 18},
+  {title: "crab", category_id: 18},
+  {title: "shrimp", category_id: 18},
+  {title: "crayfish", category_id: 18},
+  {title: "scampi", category_id: 18},
+  {title: "lobster", category_id: 18},
+  {title: "mussel", category_id: 18},
+  {title: "laminaria", category_id: 18},
+  {title: "scallops", category_id: 18},
+  {title: "octopus", category_id: 18},
+  {title: "trepang", category_id: 18},
+  {title: "oyster", category_id: 18},
+  {title: "seed", category_id: 19},
+  {title: "seedlings", category_id: 19},
+  {title: "sugar", category_id: 20},
+  {title: "cane sugar", category_id: 20},
+  {title: "lump sugar", category_id: 20},
+  {title: "candy sugar", category_id: 20},
+  {title: "arrowroot", category_id: 21},
+  {title: "eggplant", category_id: 21},
+  {title: "rutabaga", category_id: 21},
+  {title: "buryak", category_id: 21},
+  {title: "squash ", category_id: 21},
+  {title: "capers", category_id: 21},
+  {title: "white cabbage", category_id: 21},
+  {title: "broccoli", category_id: 21},
+  {title: "brussels sprouts", category_id: 21},
+  {title: "cabbage", category_id: 21},
+  {title: "cabbage", category_id: 21},
+  {title: "cauliflower", category_id: 21},
+  {title: "potato", category_id: 21},
+  {title: "corn", category_id: 21},
+  {title: "onions", category_id: 21},
+  {title: "leek", category_id: 21},
+  {title: "shallot", category_id: 21},
+  {title: "carrot", category_id: 21},
+  {title: "cucumber", category_id: 21},
+  {title: "parsnip", category_id: 21},
+  {title: "squash", category_id: 21},
+  {title: "sweet pepper", category_id: 21},
+  {title: "tomato", category_id: 21},
+  {title: "cherry tomatoes", category_id: 21},
+  {title: "radishes", category_id: 21},
+  {title: "radish", category_id: 21},
+  {title: "turnip", category_id: 21},
+  {title: "beet", category_id: 21},
+  {title: "pumpkin", category_id: 21},
+  {title: "horseradish", category_id: 21},
+  {title: "zucchini", category_id: 21},
+  {title: "garlic", category_id: 21},
+  {title: "buckwheat", category_id: 22},
+  {title: "wheat", category_id: 22},
+  {title: "rice", category_id: 22},
+  {title: "rye", category_id: 22},
+  {title: "barley", category_id: 22},
+  {title: "firewood", category_id: 23},
+  {title: "sawdust", category_id: 23},
+  {title: "biofertilizers", category_id: 24},
+  {title: "herbicides", category_id: 24},
+  {title: "primers", category_id: 24},
+  {title: "pesticides", category_id: 24},
+  {title: "plant protection products", category_id: 24},
+  {title: "fertilizers", category_id: 24}
+])
+Category.create!([
+  {title: "berries"},
+  {title: "bobs"},
+  {title: "corn"},
+  {title: "dairy"},
+  {title: "dried fruit"},
+  {title: "eggs"},
+  {title: "fish"},
+  {title: "fruits"},
+  {title: "herbs"},
+  {title: "mushrooms"},
+  {title: "feed for animals"},
+  {title: "oilseeds"},
+  {title: "meat"},
+  {title: "honey"},
+  {title: "flour"},
+  {title: "nuts"},
+  {title: "vegetable oil"},
+  {title: "seafood"},
+  {title: "seed ang seedlings"},
+  {title: "sugar"},
+  {title: "vegetables"},
+  {title: "wheat"},
+  {title: "wood"},
+  {title: "fertilizers and chemicals"}
+])
+Correspondence.create!([
+  {type: "CorrespondencePosition", messages_count: 1, user_ids: [2, 1], position_ids: [13, 2], new_messages: {"2"=>[], "1"=>[]}, last_message: "Service message"}
+])
+Currency.create!([
+  {name: "RUB", to_usd: nil},
+  {name: "USD", to_usd: nil},
+  {name: "EUR", to_usd: nil},
+  {name: "GBP", to_usd: nil},
+  {name: "JPY", to_usd: nil},
+  {name: "CAD", to_usd: nil},
+  {name: "CNY", to_usd: nil},
+  {name: "AUD", to_usd: nil},
+  {name: "NZD", to_usd: nil}
+])
+Imageable.create!([
+  {image_id: 2, imageable_id: 1, imageable_type: "PositionBase"},
+  {image_id: 3, imageable_id: 1, imageable_type: "PositionBase"},
+  {image_id: 5, imageable_id: 1, imageable_type: "PositionBase"},
+  {image_id: 6, imageable_id: 2, imageable_type: "PositionBase"},
+  {image_id: 7, imageable_id: 2, imageable_type: "PositionBase"},
+  {image_id: 8, imageable_id: 2, imageable_type: "PositionBase"},
+  {image_id: 9, imageable_id: 2, imageable_type: "PositionBase"}
+])
+Message.create!([
+  {correspondence_id: 1, body: "Service message", offer: [13, 47.250406, 39.689537, 1, 202, 2.0, 2, 10.08, 2, 1, 100.0, 1, "2016-01-18T16:44:23.017Z", "Offer"], user_id: 2, message_type: "new_offer", readed: false}
+])
+UserInterest.create!([
+  {user_id: 1, category_id: 4},
+  {user_id: 1, category_id: 15},
+  {user_id: 1, category_id: 22},
+  {user_id: 1, category_id: 8},
+  {user_id: 1, category_id: 21}
+])
+Offer.create!([
+  {type: "Offer", template_name: nil, delta: true, status: "active", position_id: 2, from_position_id: nil, offer_id: nil, title: "Закупка говядины", description: nil, user_id: 2, option_id: 202, category_id: 13, trade_type_id: 1, currency_id: 2, price: 10.08, price_etalon: 10.08, price_discount: 5.0, price_weight_dimension_id: 1, weight: 2.0, weight_min: 100.0, weight_etalon: 2000.0, weight_min_etalon: 100.0, weight_dimension_id: 2, weight_min_dimension_id: 1, index_field: "Закупка говядины  Meat Beef  Мясо Говядина", city: nil, address: "Россия, Ростов-на-Дону, проспект Ленина, 42Е ", lat: 47.250406, lng: 39.689537, deal_with_id: nil}
+])
+Position.create!([
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Продаем картошку оптом", description: "Картофель \"Гала\" репродукция РС-3, без болезней, высокоурожайный, чистый, сухой, осенняя распродажа.", user_id: 1, option_id: 295, category_id: 21, trade_type_id: 1, currency_id: 1, price: 8.0, price_etalon: 8.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 12.0, weight_min: 100.0, weight_etalon: 12000.0, weight_min_etalon: 100.0, weight_dimension_id: 2, weight_min_dimension_id: 1, index_field: "Продаем картошку оптом Картофель \"Гала\" репродукция РС-3, без болезней, высокоурожайный, чистый, сухой, осенняя распродажа. Vegetables Potato Овощи Картофель", city: nil, address: "Россия, Ростов-на-Дону, проспект Ленина, 42Е ", lat: 47.250406, lng: 39.689537, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Арбузы", description: nil, user_id: 1, option_id: 1, category_id: 1, trade_type_id: 1, currency_id: 1, price: 50.0, price_etalon: 50.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 500.0, weight_min: 0.0, weight_etalon: 500.0, weight_min_etalon: 0.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "Арбузы  berries Watermelon Ягоды Арбузы", city: nil, address: "Россия, Ростов-на-Дону улица Малиновского, 27А", lat: 47.2317011076449, lng: 39.6126327031246, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Полевой мёд", description: nil, user_id: 1, option_id: 235, category_id: 14, trade_type_id: 1, currency_id: 1, price: 300.0, price_etalon: 300.0, price_discount: 5.0, price_weight_dimension_id: 3, weight: 100.0, weight_min: 1.0, weight_etalon: 100.0, weight_min_etalon: 1.0, weight_dimension_id: 3, weight_min_dimension_id: 3, index_field: "Полевой мёд  Honey Field honey Мёд Полевой мёд", city: nil, address: "Россия, Ростов-на-Дону Первомайский район", lat: 47.2588210345826, lng: 39.8076400273432, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Продажа яблок оптом", description: nil, user_id: 1, option_id: 148, category_id: 8, trade_type_id: 2, currency_id: 1, price: 18.0, price_etalon: 18.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 5.0, weight_min: 100.0, weight_etalon: 5000.0, weight_min_etalon: 100.0, weight_dimension_id: 2, weight_min_dimension_id: 1, index_field: "Продажа яблок оптом  Fruits Apple Фрукты Яблоко", city: nil, address: "Россия, Ростов-на-Дону Дополнительная улица", lat: 47.2831235751711, lng: 39.7636947148437, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "лещ", description: nil, user_id: 1, option_id: 83, category_id: 7, trade_type_id: 1, currency_id: 1, price: 70.0, price_etalon: 70.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 10.0, weight_min: 0.0, weight_etalon: 10.0, weight_min_etalon: 0.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "лещ  Fish Bream Рыба Лещ", city: nil, address: "Россия, Ростов-на-Дону Всесоюзная улица", lat: 47.1933353025408, lng: 39.6167525761715, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Масло сливочное", description: nil, user_id: 1, option_id: 54, category_id: 4, trade_type_id: 1, currency_id: 1, price: 220.0, price_etalon: 220.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 150.0, weight_min: 0.0, weight_etalon: 150.0, weight_min_etalon: 0.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "Масло сливочное  Dairy Butter Молочные продукты Масло сливочное", city: nil, address: "Россия, Ростовская область, Аксайский район поселок Верхнетемерницкий", lat: 47.306947853731, lng: 39.7163161748042, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Красная смородина", description: nil, user_id: 1, option_id: 17, category_id: 1, trade_type_id: 1, currency_id: 1, price: 100.0, price_etalon: 100.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 50.0, weight_min: 0.0, weight_etalon: 50.0, weight_min_etalon: 0.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "Красная смородина  berries Redcurrant Ягоды Красная смородина", city: nil, address: "Россия, Ростов-на-Дону 2-й Поклонный переулок", lat: 47.3149567068269, lng: 39.7536236805675, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Виноград", description: nil, user_id: 1, option_id: 5, category_id: 1, trade_type_id: 2, currency_id: 1, price: 120.0, price_etalon: 120.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 360.0, weight_min: 0.0, weight_etalon: 360.0, weight_min_etalon: 0.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "Виноград  berries Grapes Ягоды Виноград", city: nil, address: "Россия, Ростов-на-Дону, проспект Ленина, 42Е ", lat: 47.250406, lng: 39.689537, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Сельдь свежемороженная", description: nil, user_id: 1, option_id: 98, category_id: 7, trade_type_id: 2, currency_id: 1, price: 55.0, price_etalon: 55.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 300.0, weight_min: 10.0, weight_etalon: 300.0, weight_min_etalon: 10.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "Сельдь свежемороженная  Fish Herring Рыба Сельдь", city: nil, address: "Россия, Ростов-на-Дону Береговая улица", lat: 47.2139253047621, lng: 39.7142562382806, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Барбарис", description: nil, user_id: 1, option_id: 2, category_id: 1, trade_type_id: 2, currency_id: 1, price: 100.0, price_etalon: 100.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 135.0, weight_min: 0.0, weight_etalon: 135.0, weight_min_etalon: 0.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "Барбарис  berries Barberry Ягоды Барбарис", city: nil, address: "Россия, Ростов-на-Дону улица Герцена, 115", lat: 47.2260883434602, lng: 39.802146863281, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Клубника", description: nil, user_id: 1, option_id: 15, category_id: 1, trade_type_id: 1, currency_id: 1, price: 85.0, price_etalon: 85.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 25.0, weight_min: 0.0, weight_etalon: 25.0, weight_min_etalon: 0.0, weight_dimension_id: 1, weight_min_dimension_id: 1, index_field: "Клубника  berries Strawberry Ягоды Клубника", city: nil, address: "Россия, Ростов-на-Дону, поселок Орджоникидзе Молодежная улица, 13", lat: 47.2662999360377, lng: 39.7788009160148, deal_with_id: nil},
+  {type: "Position", template_name: nil, delta: true, status: "opened", position_id: nil, from_position_id: nil, offer_id: nil, title: "Закупка говядины оптом", description: "Закупаем говядину оптом при наличии сертификата качества.", user_id: 1, option_id: 202, category_id: 13, trade_type_id: 2, currency_id: 1, price: 800.0, price_etalon: 800.0, price_discount: 5.0, price_weight_dimension_id: 1, weight: 2.0, weight_min: 100.0, weight_etalon: 2000.0, weight_min_etalon: 100.0, weight_dimension_id: 2, weight_min_dimension_id: 1, index_field: "Закупка говядины оптом Закупаем говядину оптом при наличии сертификата качества. Meat Beef  Мясо Говядина", city: nil, address: "Россия, Ростовская область Мясниковский район", lat: 47.3416616733414, lng: 39.6266635815913, deal_with_id: nil}
+])
+CorrespondencePosition.create!([
+  {type: "CorrespondencePosition", messages_count: 1, user_ids: [2, 1], position_ids: [13, 2], new_messages: {"2"=>[], "1"=>[]}, last_message: "Service message"}
+])
