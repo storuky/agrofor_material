@@ -32,10 +32,10 @@ class PositionBase < ActiveRecord::Base
 
   validates_presence_of :trade_type_id, :title, :address, :option_id, :weight, :price
 
-  validates :trade_type_id, inclusion: { in: trade_types_ids }
-  validates :option_id, inclusion: { in: options_ids }
-  validates :weight_dimension_id, inclusion: { in: dimensions_ids }
-  validates :price_weight_dimension_id, inclusion: { in: dimensions_ids }
+  validates :trade_type_id, inclusion: { in: self.trade_types_ids }
+  validates :option_id, inclusion: { in: self.options_ids }
+  validates :weight_dimension_id, inclusion: { in: self.dimensions_ids }
+  validates :price_weight_dimension_id, inclusion: { in: self.dimensions_ids }
   validates :weight, numericality: { greater_than: 0 }
   validates :weight_min, numericality: { greater_than_or_equal_to: 0 }
   validate :less_then_weight
