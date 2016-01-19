@@ -86,14 +86,12 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
   action('cluster', function (positions) {
     ctrl.close = function () {
       $mdDialog.cancel();
-
       $location.search('ids', undefined);
     }
 
     ctrl.goTo = function (position) {
-      var ids = $location.search().ids;
       ctrl.close();
-      Position.openModal({id: position.id, ids: ids})
+      $location.url('/search/map?type=Position&id='+position.id)
     }
     
     ctrl.positions = positions;
