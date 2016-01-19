@@ -30,8 +30,12 @@ div content-for="header"
       .tabs
         md-button.tab ng-click="ctrl.filter.type = 'CorrespondencePosition'" ng-class="{active: ctrl.filter.type == 'CorrespondencePosition'}"
           | {{gon.translations.interface.tabs.messages.positions}}
+          .message-page__contacts__count ng-show="ctrl.CorrespondencePositionCount"
+            | +{{ctrl.CorrespondencePositionCount}}
         md-button.tab ng-click="ctrl.filter.type = 'CorrespondenceUser'" ng-class="{active: ctrl.filter.type == 'CorrespondenceUser'}"
           | {{gon.translations.interface.tabs.messages.users}}
+          .message-page__contacts__count ng-show="ctrl.CorrespondenceUserCount"
+            | +{{ctrl.CorrespondenceUserCount}}
     .message-page__contacts__search
       i.icon-magnify
       input type="text" placeholder="Поиск" ng-model="ctrl.textSearch"
@@ -81,6 +85,13 @@ div content-for="header"
                 span
                   | {{gon.translations.interface.tabs.messages[positions['user'].type].user}}
                 i.icon-chevron-down
+            td
+              md-button.md-green.md-lg.message-page__deal-button ng-click="confirmMakeDeal()" ng-if="positions.my.type=='Position' && positions.my.status.id=='opened'"
+                | Заключить сделку
+              md-button.md-green.md-lg.message-page__deal-button ng-click="confirmShipping()" ng-if="positions.my.trade_type_id==2 && positions.my.status.id=='in_process' && Correspondence.active.deal.status == 'new'"
+                | Подтвердить отправку
+              md-button.md-green.md-lg.message-page__deal-button ng-click="confirmReceiving()" ng-if="positions.my.trade_type_id==1 && positions.my.status.id=='in_process' && Correspondence.active.deal.status == 'shipping'"
+                | Подтвердить получение
 
         .message-page__position ng-show="showPosition"
           .md-title

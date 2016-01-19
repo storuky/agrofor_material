@@ -1,5 +1,7 @@
 class Position < PositionBase
-  has_many :offers, -> () {where("status = 'active'")}
+  include Cacheable
+  has_many :offers, -> () {where("status != 'deleted' AND status != 'rejected'")}
+  has_one :deal
 
   after_commit :regenerate_cache
 
@@ -81,6 +83,8 @@ class Position < PositionBase
     def regenerate_cache
       Rails.cache.delete_matched(/User\.positions_from_cache\(#{self.user_id}\,/)
       Rails.cache.delete("Position.pluck_all_fields")
+      Rails.cache.delete_matched(/PositionBase\.cache\.all/)
+      Rails.cache.delete_matched(/PositionBase\.cache\.find\(#{self.id}\)/)
     end
     
 end

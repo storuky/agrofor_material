@@ -289,6 +289,9 @@ hr {
   text-transform: none;
   color: white;
 }
+.md-green:hover, .md-green.md-button:hover, a.md-green:hover {
+  background: #98D056 !important;
+}
 
 i.icon-star {
   color: #c3c3c3;

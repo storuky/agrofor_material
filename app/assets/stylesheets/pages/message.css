@@ -498,8 +498,9 @@ color: #999;font-size: 13px;position: absolute;right: 19px;bottom: 10px;}
 }
 
 .message-page__title .toggle-nav {
-  top: 4px;
-  margin-top: -8px;
+  top: 15px;
+  position: absolute;
+  left: 22px;
 }
 
 
@@ -531,7 +532,7 @@ color: #999;font-size: 13px;position: absolute;right: 19px;bottom: 10px;}
 .message-page__toggle-contacts .icon-menu {
   width: 43px;
   display: inline-block;
-  height: 43px;
+  height: 44px;
   position: absolute;
   top: 0px;
   vertical-align: middle;
@@ -569,4 +570,20 @@ color: #999;font-size: 13px;position: absolute;right: 19px;bottom: 10px;}
 .no-correspondence {
   text-align: center;
   padding: 30px 10px;
+}
+
+
+.message-page__contacts .tabs .message-page__contacts__count {
+  right: 0;
+  padding: 1px;
+  background: transparent;
+  color: red;
+  font-weight: bold;
+}
+
+.message-page__deal-button {
+  margin: 0px 0px 0 10px;
+  min-height: 32px;
+  line-height: 32px;
+  height: 32px;
 }

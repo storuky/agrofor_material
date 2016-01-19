@@ -1,6 +1,8 @@
 en:
   offer:
     status:
+      in_process: "In process"
+      completed: "Completed"
       active: "Active"
       rejected: "Rejected"
       deleted: "Withdrawn"

@@ -3,5 +3,5 @@ ru:
     status:
       opened: "Открыто"
       in_process: "В процессе"
-      completed: "Завершенные"
+      completed: "Завершено"
       archived: "Архив"

@@ -1,4 +1,4 @@
-app.run(['Position', 'Search', '$mdDialog', '$location', '$state', 'Offer', function (Position, Search, $mdDialog, $location, $state, Offer) {
+app.run(['Position', 'Search', '$mdDialog', '$location', '$state', 'Offer', 'Action', function (Position, Search, $mdDialog, $location, $state, Offer, Action) {
   Position.openModal = function (params) {
     var type = $location.search().type,
         Resource;
@@ -36,8 +36,7 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', 'Offer', func
   }
 
   Position.openClusterModal = function (ids) {
-    $location.search({ids: ids});
-    Position.query({ids: ids}, clusterCallback)
+    Position.get({ids: ids}, clusterCallback)
   }
 
   function positionCallback (res, params) {
@@ -56,7 +55,7 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', 'Offer', func
               if (actionNames.indexOf('modal')!=-1) {
                 callback(res, function () {
                   if (params['ids']) {
-                    Position.openClusterModal(params['ids'])
+                    $location.search({ids: params['ids']});
                   }
                 }, params);
               }
@@ -69,8 +68,11 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', 'Offer', func
     }).then(function () {
       // body...
     }, function () {
-      $location.search('id', undefined)
-      $location.search('type', undefined)
+      if ($location.search().id) {
+        $location.search('id', undefined)
+        $location.search('type', undefined)
+      }
+      
       if (!$location.search().ids)
         Search.blur = false;
     })
@@ -90,7 +92,7 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', 'Offer', func
               var actionNames = angular.isArray(actionNames) ? actionNames : [actionNames];
               
               if (actionNames.indexOf('cluster')!=-1) {
-                callback(res);
+                callback(res.collection);
               }
             } catch (e) {
               console.error(e);
@@ -122,4 +124,5 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', 'Offer', func
     $location.search(search)
     if ($event) $event.stopPropagation();
   }
+
 }])

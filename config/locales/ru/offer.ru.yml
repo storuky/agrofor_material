@@ -1,6 +1,8 @@
 ru:
   offer:
     status:
+      in_process: "В процессе"
+      completed: "Завершено"
       active: "Активно"
       rejected: "Отклонено"
       deleted: "Отозвано"

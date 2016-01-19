@@ -17,7 +17,7 @@
 
 var app = angular.module('app', ['ui.router', 'oxymoron', 'ngMaterial', 'ngTouch'])
 
-app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', 'Counter', '$state', 'Position', 'Offer', 'Template', 'Ws', function ($rootScope, Sign, $mdDialog, Cache, Counter, $state, Position, Offer, Template, Ws) {
+app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', 'Counter', '$state', 'Position', 'Offer', 'Template', 'Ws', '$timeout', function ($rootScope, Sign, $mdDialog, Cache, Counter, $state, Position, Offer, Template, Ws, $timeout) {
   $rootScope._ = _;
   $rootScope.gon = gon;
   $rootScope.Sign = Sign;
@@ -59,6 +59,16 @@ app.run(['$rootScope', 'Sign', '$mdDialog', 'Cache', 'Counter', '$state', 'Posit
           this.$apply(fn);
       }
   };
+
+  $rootScope.$watch(function () {
+    return $state.current.name
+  }, function () {
+    $rootScope.show_background = false;
+
+    $timeout(function () {
+      $rootScope.show_background = true;
+    })
+  })
 }])
 
 app.run([function(){

@@ -1,5 +1,7 @@
 class Offer < PositionBase
+  include Cacheable
   after_commit :regenerate_cache
+  has_one :deal
 
   belongs_to :position, touch: true
 
@@ -15,8 +17,18 @@ class Offer < PositionBase
 
   aasm :column => :status do
     state :active, :initial => true
+    state :in_process
+    state :completed
     state :rejected
     state :deleted
+
+    event :start_process do
+      transitions :to => :in_process, :from => [:active]
+    end
+
+    event :complete do
+      transitions :to => :completed, :from => [:in_process]
+    end
 
     event :delete do
       transitions :to => :deleted, :from => [:active]
@@ -69,6 +81,8 @@ class Offer < PositionBase
     def regenerate_cache
       Rails.cache.delete_matched(/User\.offers_from_cache\(#{user_id}\,/)
       Rails.cache.delete_matched(/Position\.offers_from_cache\(#{position_id}\,/)
+      Rails.cache.delete_matched(/PositionBase\.cache\.all/)
+      Rails.cache.delete_matched(/PositionBase\.cache\.find\(#{self.id}\)/)
     end
 
     def create_correspondence_and_ws

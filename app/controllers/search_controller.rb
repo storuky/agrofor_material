@@ -24,7 +24,6 @@ class SearchController < ApplicationController
         if params[:order] == 'price' 
           order = 'position_bases.price_etalon * currencies.to_usd'
         elsif params[:order] == 'price DESC'
-          ap "------"
           order = 'position_bases.price_etalon * currencies.to_usd DESC'
         else
           if Position.accept_for_order.include?(params[:order])

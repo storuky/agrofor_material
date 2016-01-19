@@ -13,6 +13,8 @@ app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Positi
   action('map', function () {
     Search.type = 'map';
 
+    var pm;
+
     $scope.$watch(function () {
       return $location.search()
     }, function () {
@@ -24,14 +26,6 @@ app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Positi
         Position.openModal({id: id});
       } else if (ids) {
         Position.openClusterModal(ids);
-      } else if (zoom_to) {
-        $scope.center = zoom_to;
-        $scope.zoom = 15;
-        if ($scope.map) {
-          $scope.map.setCenter(zoom_to);
-          $scope.map.setZoom(15);
-        }
-        Position.closeModal();
       }
     }, true)
   });

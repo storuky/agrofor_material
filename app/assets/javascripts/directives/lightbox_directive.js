@@ -52,24 +52,11 @@ app.directive('lightbox', ['$compile', '$timeout', '$rootScope', 'Image', functi
         }
       }, true)
 
-      function keydownManage ($event){
-        if ($event.keyCode == 39)
-          $scope.next();
-        else if ($event.keyCode == 37)
-          $scope.prev();
-
-        $scope.$apply();
-        $event.stopPropagation();
-      }
-
       $scope.$watch('isShow', function (isShow) {
         if (isShow) {
           $rootScope.blurPage = true;
           template = $compile(document.getElementById('lightbox.html').innerHTML)($scope);
           angular.element(document.body).append(template);
-
-          document.addEventListener("keydown", keydownManage, false);
-          // wheel(document.querySelector('.lightbox__image img'));
 
           $timeout(function () {
             flktyLightbox = new Flickity(template[0].querySelector('.lightbox__images'), {

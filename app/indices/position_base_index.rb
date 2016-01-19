@@ -5,5 +5,5 @@ config =  {
 
 ThinkingSphinx::Index.define :position_base, config do
   indexes index_field
-  where "type = 'Position'"
+  where "type = 'Position' AND status = 'opened'"
 end

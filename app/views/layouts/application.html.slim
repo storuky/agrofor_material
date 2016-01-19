@@ -27,7 +27,7 @@
               td.h0 ng-yield="header"
             tr
               td style="vertical-align: top" ng-click="Search.showExtended=false; Search.showFooter=false;"
-                .page-background.page-layout ng-class="{'page-search': Search.type == 'list', gray: is_position_form_path()}"
+                .page-background.page-layout ng-class="{'page-search': Search.type == 'list', gray: is_position_form_path()}" ng-if="$root.show_background"
                 ui-view
 
       = render template: 'modals/index'

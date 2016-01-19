@@ -49,6 +49,30 @@
           }
         }
       );
+
+      Map.markerOfferLayout = ymaps.templateLayoutFactory.createClass(
+        "<a class='marker-label marker-offer'>"
+            + "<div class='marker-label__body'>{{ properties.title }}</div>"
+        + "</a>",
+        {
+          build: function () {
+            Map.markerOfferLayout.superclass.build.call(this);
+            this._events = ymaps.domEvent.manager.group(this.getElement());
+            this._events.add('click', function (event) {
+              var id = this.getData().properties.get('id');
+              if (id) {
+                Position.goTo({id: id, type: "offer"});
+              }
+            }, this);
+          },
+          
+          clear: function () {
+            this._events.removeAll();
+            Map.markerOfferLayout.superclass.clear.call(this);
+          }
+        }
+      );
+
       Map.markerUserLayout = ymaps.templateLayoutFactory.createClass(
         "<a class='marker-label'>"
             + "<div class='marker-label__head'>{{ properties.company }}</div>"

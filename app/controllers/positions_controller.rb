@@ -1,8 +1,9 @@
 class PositionsController < ApplicationController
-  before_action :set_position, only: [:destroy, :update, :suitable, :offers, :send_offer]
+  before_action :set_position, only: [:destroy, :update, :suitable, :offers, :send_offer, :make_deal]
   before_action :set_serialized_position, only: [:show, :edit]
+  before_action :set_deal, only: [:receiving, :shipping]
   before_action :check_user, except: [:show, :index]
-  before_action :check_owner, only: [:destroy, :update, :edit]
+  before_action :check_owner, only: [:destroy, :update, :edit, :make_deal]
 
   def index
     respond_to do |format|
@@ -152,6 +153,47 @@ class PositionsController < ApplicationController
     end
   end
 
+  def make_deal
+    respond_to do |format|
+      format.json {
+        @offer = @position.offers.find params[:offer_id]
+        @position.start_process!
+        @offer.start_process!
+        @position.offers.where.not(id: @offer.id).update_all(status: "rejected")
+        @deal = Deal.create(position_id: @position.id, offer_id: @offer.id)
+        render json: {msg: "Сделка успешно заключена", deal: @deal, user: serialize(@offer), my: serialize(@position)}
+      }
+    end
+  end
+
+  def shipping
+    respond_to do |format|
+      format.json {
+        if @position_base.trade_type_id == 2
+          @deal.ship!
+          render json: {msg: "Отправка подтверждена", deal: @deal}
+        else
+          render json: {msg: "Неверный тип позиции"}, status: 422
+        end
+      }
+    end
+  end
+
+  def receiving
+    respond_to do |format|
+      format.json {
+        if @position_base.trade_type_id == 1
+          @deal.receive!
+          @my_position.complete!
+          @user_position.complete!
+          render json: {msg: "Получение подтверждено", deal: @deal, my: serialize(@my_position), user: serialize(@user_position)}
+        else
+          render json: {msg: "Неверный тип позиции"}, status: 422
+        end
+      }
+    end
+  end
+
   private
     def set_serialized_position
       @position = Position.find_from_cache params[:id], serializer: PositionSerializer
@@ -159,6 +201,19 @@ class PositionsController < ApplicationController
 
     def set_position
       @position = Position.find_from_cache params[:id]
+    end
+
+    def set_deal
+      @position_base = current_user.position_bases.find(params[:id])
+      @deal = @position_base.deal
+
+      if @position_base.type == 'Position'
+        @my_position = Position.find_from_cache(params[:id])
+        @user_position = Offer.find_from_cache(@my_position.offers.first.id)
+      elsif @position_base.type == 'Offer'
+        @my_position = Offer.find_from_cache(params[:id])
+        @user_position = Position.find_from_cache(@my_position.position.id)
+      end
     end
 
     def check_owner

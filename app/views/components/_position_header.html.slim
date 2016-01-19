@@ -15,8 +15,8 @@ script id="position_header.html" type="text/ng-template"
         .rating__positive
           | 0
 
-    .position-modal__sep
-    .position-modal__favorite
+    .position-modal__sep ng-show="position.type=='Position'"
+    .position-modal__favorite ng-show="position.type=='Position'"
       favorite position="position"
 
     

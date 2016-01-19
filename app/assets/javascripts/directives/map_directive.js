@@ -1,4 +1,4 @@
-app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$rootScope', function (Map, Search, $timeout, $mdMedia, Position, $rootScope) {
+app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$rootScope', '$location', function (Map, Search, $timeout, $mdMedia, Position, $rootScope, $location) {
   // Runs during compile
   return {
     // name: '',
@@ -42,7 +42,6 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
           margin: [20, 20]
         });
 
-        window.clusterer = clusterer;
 
         $scope.map = new ymaps.Map(iElm[0], {
             center: center,
@@ -52,6 +51,7 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
             maxZoom: maxZoom,
             suppressMapOpenBlock: true,
         });
+        window.map = $scope.map;
 
         $scope.$watch('center', function (center) {
           if (center) {
@@ -80,8 +80,7 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
             var ids = _.map(event.get('target').getGeoObjects(), function (object) {
               return object.properties._data.id
             });
-
-            Position.openClusterModal(ids);
+            $location.search({ids: ids});
           }
         });
 
@@ -94,6 +93,33 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
         }, drawCircles, true)
 
         resizeMap();
+
+        var offer;
+        $scope.$watch(function () {
+          return $location.search()
+        }, function (search) {
+          if (search) {
+            if (offer) {
+              $scope.map.geoObjects.remove(offer);
+            }
+
+            if (search.zoom_to) {
+              $scope.map.setCenter(search.zoom_to);
+              $scope.map.setZoom(15);
+              if ($location.search().type == 'offer') {
+                offer = new ymaps.Placemark(search.zoom_to, {
+                  title: "Предложение",
+                  id: $location.search().offer_id
+                }, {
+                    iconLayout: Map.markerOfferLayout,
+                    iconPane: 'overlaps'
+                });
+                $scope.map.geoObjects.add(offer);
+              }
+              Position.closeModal();
+            }
+          }
+        })
       }
 
 

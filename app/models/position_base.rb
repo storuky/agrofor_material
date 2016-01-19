@@ -74,7 +74,7 @@ class PositionBase < ActiveRecord::Base
         ids = Position.search_for_ids query
         Position.where(id: ids)
       else
-        Position
+        Position.opened
       end
     end
 

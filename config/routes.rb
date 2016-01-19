@@ -68,6 +68,10 @@ Rails.application.routes.draw do
       get 'offers', is_array: true
       put 'send_offer'
       put 'toggle_favorite', is_array: true
+
+      put 'make_deal'
+      put 'shipping'
+      put 'receiving'
     end
   end
 

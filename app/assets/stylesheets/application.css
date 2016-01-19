@@ -28,6 +28,10 @@
 
 
 @media screen and (max-width: 960px) {
+  h1 {
+    padding-left: 50px;
+  }
+
   .ngn {
     margin-left: 0;
   }
@@ -108,7 +112,7 @@
 
   .message-page__title {
     width: auto !important;
-    padding: 0;
+    /*padding: 0;*/
   }
 
   .message-page__opponent {

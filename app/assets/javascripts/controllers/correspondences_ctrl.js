@@ -1,4 +1,4 @@
-app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout', 'Correspondence', '$location', 'Counter', function ($scope, action, $state, $timeout, Correspondence, $location, Counter) {
+app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout', 'Correspondence', '$location', 'Counter', 'Action', 'Position', function ($scope, action, $state, $timeout, Correspondence, $location, Counter, Action, Position) {
   var ctrl = this;
 
   action('index', function () {
@@ -20,6 +20,13 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
     });
 
     $scope.$watch(function () {
+      return Correspondence.correspondences
+    }, function (correspondences) {
+      if (correspondences)
+        updateTabCount();
+    }, true)
+
+    $scope.$watch(function () {
       return $location.search().id
     }, function (id) {
       if (id && $location.path()=='/correspondences') {
@@ -36,6 +43,7 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
             $scope.positions = undefined;
           }
           setContact();
+          updateTabCount();
         });
 
       }
@@ -117,6 +125,54 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
       }
     }
   })
+
+  $scope.confirmMakeDeal = function () {
+    Action.confirm("Вы уверены, что хотите заключить сделку? Действие не может быть отменено без участия администратора.", function (res) {
+      if (res) {
+        Position.make_deal({id: $scope.positions.my.id, offer_id: $scope.positions.user.id}, function (res) {
+          $scope.positions.my = res.my;
+          $scope.positions.user = res.user;
+          Correspondence.active.deal = res.deal;
+        })
+      }
+    })
+  }
+
+  $scope.confirmShipping = function () {
+    Action.confirm("Требуется подтверждение действия", function (res) {
+      if (res) {
+        Position.shipping({id: $scope.positions.my.id}, function (res) {
+          Correspondence.active.deal = res.deal;
+        })
+      }
+    })
+  }
+
+  $scope.confirmReceiving = function () {
+    Action.confirm("Требуется подтверждение действия", function (res) {
+      if (res) {
+        Position.receiving({id: $scope.positions.my.id}, function (res) {
+          $scope.positions.my = res.my;
+          $scope.positions.user = res.user;
+          Correspondence.active.deal = res.deal;
+        })
+      }
+    })
+  }
+
+  function updateTabCount () {
+    ctrl.CorrespondencePositionCount = calculateTabCount('CorrespondencePosition');
+    ctrl.CorrespondenceUserCount = calculateTabCount('CorrespondenceUser');
+  }
+
+  function calculateTabCount (type) {
+    return _.reduce(Correspondence.correspondences, function (memo, correspondence) {
+      if (correspondence.type == type)
+        return memo + correspondence.new_messages[gon.current_user.id].length
+      else
+        return memo
+    }, 0)
+  }
 
   function scrollBottom () {
     $timeout(function () {

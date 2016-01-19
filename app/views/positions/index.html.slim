@@ -9,7 +9,7 @@ div content-for="header"
 
         .hide-gt-sm style="height: 20px; width: 100%;"
 
-        div[flex="none" flex-sm=100 style="margin: 9px auto;"]
+        div[flex="none" flex-sm=100]
           .tabs.hide-sm
             md-button.tab ng-repeat="status in gon.translations.interface.tabs.position_base" ng-class="{active: ctrl.filter.type == status.type}" ng-click="ctrl.filter.type = status.type"
               | {{status.title}}

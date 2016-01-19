@@ -70,6 +70,7 @@
   right: 0;
   width: 5px;
   height: 25px;
+  transition: .3s;
 }
   
 .marker-label__head:before {
@@ -86,4 +87,33 @@
   
 .marker-label:hover > .marker-label__body, .marker-label:hover > .marker-label__head {
   max-width: none;
+}
+
+
+.marker-offer .marker-label__head {
+  background: #FF9800;
+}
+
+.marker-offer .marker-label__head:before {
+  background: #FF9800;
+}
+
+.marker-offer .marker-label__body {
+  background: #FAAD3D;
+}
+
+.marker-offer .marker-label__body:before {
+  background: #FAAD3D;
+}
+
+.marker-offer:after {
+  border-color: transparent #FF9800 transparent transparent;
+}
+
+.marker-offer:hover > .marker-label__body {
+  background: #FAB95C;
+}
+
+.marker-offer:hover > .marker-label__body:before {
+  background: #FAB95C;
 }

@@ -19,7 +19,12 @@ app.directive('positionShow', ['$location', function ($location) {
       $scope.gon = gon;
 
       $scope.zoomToPosition = function () {
-        $location.url('/search/map?zoom_to='+$scope.position.lat + '&zoom_to=' + $scope.position.lng)
+        var location = '/search/map?zoom_to='+$scope.position.lat + '&zoom_to=' + $scope.position.lng;
+
+        if ($scope.position.type=="Offer") {
+          location += ('&type=offer&offer_id=' + $scope.position.id)
+        }
+        return location;
       }
     }
   };
