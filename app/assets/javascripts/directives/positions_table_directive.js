@@ -1,4 +1,4 @@
-app.directive('positionsTable', ['$mdMedia', 'Position', '$timeout', function ($mdMedia, Position, $timeout) {
+app.directive('positionsTable', ['$mdMedia', 'Position', '$timeout', '$rootScope', function ($mdMedia, Position, $timeout, $rootScope) {
   // Runs during compile
   return {
     // name: '',
@@ -11,7 +11,8 @@ app.directive('positionsTable', ['$mdMedia', 'Position', '$timeout', function ($
       collection: "=",
       limit: "=",
       promise: "=",
-      hideMore: "="
+      hideMore: "=",
+      minWidth: "="
     }, // {} = isolate, true = child, false/undefined = no change
     // controller: function($scope, $element, $attrs, $transclude) {},
     // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
@@ -26,16 +27,18 @@ app.directive('positionsTable', ['$mdMedia', 'Position', '$timeout', function ($
 
       $scope.Position = Position;
 
-      $scope.$watch(function () {
-        return $mdMedia('max-width: 1165px')
-      }, function (media) {
-        $scope.lt1120px = media;
-      })
+      window.onresize = function () {
+        $rootScope.safeApply(function () {
+          $scope.full = iElm[0].querySelector('.table-wrapper').offsetWidth >= $scope.minWidth;
+        })
+      }
 
-      $scope.$watch(function () {
-        return $mdMedia('min-width: 1166px')
-      }, function (media) {
-        $scope.gt1120px = media;
+      $scope.$watch('collection', function (collection) {
+        if (collection) {
+          $timeout(function () {
+            window.onresize();
+          })
+        }
       })
 
       $scope.callback = function () {

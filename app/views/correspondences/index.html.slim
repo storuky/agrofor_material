@@ -115,7 +115,6 @@ div content-for="header"
                 div ng-if="::message.message_type"
                   span ng-init="offer = Position.serialize(message.offer)"
                   pre.message__text ng-bind-html-compile="::gon.translations.message[message.message_type]"
-                    / | {{::gon.translations.message[message.message_type] | compile}}
                   
                   .trading-conditions ng-if="offer"
                     trading-conditions position="offer"

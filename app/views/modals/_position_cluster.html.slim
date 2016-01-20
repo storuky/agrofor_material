@@ -9,63 +9,8 @@ script type="text/ng-template" id="position_cluster.tmpl.html"
       .close ng-click="ctrl.close()"
         i.icon-close
     md-dialog-content
-      .table-wrapper
-        .table-wrapper-scroll
-          table.table.positions-table
-            thead.fixed-header
-              tr
-                th
-                  div
-                th
-                  | {{gon.translations.activerecord.position.created_at}}
-                  div
-                    | {{gon.translations.activerecord.position.created_at}}
-                th
-                  | {{gon.translations.activerecord.position.trade_type}}
-                  div
-                    | {{gon.translations.activerecord.position.trade_type}}
-                th
-                  | {{gon.translations.activerecord.position.category}}
-                  div
-                    | {{gon.translations.activerecord.position.category}}
-                th.numeric
-                  | {{gon.translations.activerecord.position.price}}
-                  div
-                    | {{gon.translations.activerecord.position.price}}
-                th.numeric
-                  | {{gon.translations.activerecord.position.weight}}
-                  div
-                    | {{gon.translations.activerecord.position.weight}}
-                th.numeric
-                  | {{gon.translations.activerecord.position.weight_min}}
-                  div
-                    | {{gon.translations.activerecord.position.weight_min}}
-            thead ng-if="!ctrl.positions"
-              tr
-                td colspan="7"
-                  md-progress-linear md-mode="indeterminate"
-            tbody ng-repeat="position in ctrl.positions | filter: search"
-              tr ng-click="ctrl.goTo(position)"
-                td
-                  favorite position="position"
-                td
-                  | {{::position.created_at | date:"dd.MM.yyyy"}}
-                td
-                  | {{::position.trade_type.title}}
-                td
-                  | {{::position.option.title}}
-                td.numeric
-                  | {{::position.price | number:2}}
-                  .dim
-                    | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
-                td.numeric
-                  | {{::position.weight | number}}
-                  .dim
-                    | {{::position.weight_dimension.title}}
-                td.numeric
-                  | {{::position.weight_min | number}}
-                  .dim
-                    | {{::position.weight_min_dimension.title}}
+      positions-table collection="ctrl.positions" limit="100" min-width="825" hide-more="true"
+      
     md-dialog-actions.position-modal__footer
       div[layout="row" layout-align="end center"]
-        md-button.md-white.md-lg[flex-md=40 flex-sm=100  ng-click="ctrl.close()" ng-show="gon.current_user.id != ctrl.position.user_id"] Закрыть
+        md-button.md-white.md-lg[ng-click="ctrl.close()" ng-show="gon.current_user.id != ctrl.position.user_id"] Закрыть

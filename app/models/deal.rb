@@ -3,6 +3,7 @@ class Deal < ActiveRecord::Base
   
   belongs_to :position
   belongs_to :offer
+  belongs_to :correspondence
 
   aasm :column => :status do
     state :new, :initial => true

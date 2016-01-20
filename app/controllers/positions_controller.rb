@@ -10,7 +10,7 @@ class PositionsController < ApplicationController
       format.html
       format.json {
         if params[:ids]
-          @positions = Position.find_from_cache(params[:ids], serializer: PositionSerializer)
+          @positions = Position.where(id: params[:ids]).distinct.pluck_fields
           render json: Oj.dump({collection: @positions})
         else
           check_user
@@ -160,7 +160,10 @@ class PositionsController < ApplicationController
         @position.start_process!
         @offer.start_process!
         @position.offers.where.not(id: @offer.id).update_all(status: "rejected")
-        @deal = Deal.create(position_id: @position.id, offer_id: @offer.id)
+        @correspondence = CorrespondencePosition.between_positions([@offer.id, @position.id])
+        @deal = Deal.create(position_id: @position.id, offer_id: @offer.id, correspondence_id: @correspondence.id)
+
+        @correspondence.messages.create(message_type: "make_deal", body: "Service message", user_id: current_user.id, offer: @offer.pluck_fields)
         render json: {msg: "Сделка успешно заключена", deal: @deal, user: serialize(@offer), my: serialize(@position)}
       }
     end
@@ -171,6 +174,7 @@ class PositionsController < ApplicationController
       format.json {
         if @position_base.trade_type_id == 2
           @deal.ship!
+          @deal.correspondence.messages.create(message_type: "shipping", body: "Service message", user_id: current_user.id)
           render json: {msg: "Отправка подтверждена", deal: @deal}
         else
           render json: {msg: "Неверный тип позиции"}, status: 422
@@ -186,6 +190,8 @@ class PositionsController < ApplicationController
           @deal.receive!
           @my_position.complete!
           @user_position.complete!
+          @deal.correspondence.messages.create(message_type: "receiving", body: "Service message", user_id: current_user.id)
+          @deal.correspondence.messages.create(message_type: "completed", body: "Service message", user_id: current_user.id)
           render json: {msg: "Получение подтверждено", deal: @deal, my: serialize(@my_position), user: serialize(@user_position)}
         else
           render json: {msg: "Неверный тип позиции"}, status: 422

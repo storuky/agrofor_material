@@ -10,27 +10,27 @@ script type="text/ng-template" id="positions_table.html"
               | {{gon.translations.activerecord.position.created_at}}
               order ng-model="$parent.order" value="'created_at'"
                 | {{gon.translations.activerecord.position.created_at}}
-            th ng-if="$parent.gt1120px"
+            th ng-if="$parent.full"
               | {{gon.translations.activerecord.position.trade_type}}
               order ng-model="$parent.$parent.order" value="'trade_type_id'"
                 | {{gon.translations.activerecord.position.trade_type}}
-            th ng-if="$parent.gt1120px"
+            th ng-if="$parent.full"
               | {{gon.translations.activerecord.position.category}}
               div
                 | {{gon.translations.activerecord.position.category}}
-            th.numeric ng-if="$parent.gt1120px"
+            th.numeric ng-if="$parent.full"
               | {{gon.translations.activerecord.position.price}}
               order ng-model="$parent.$parent.order" value="'price'"
                 | {{gon.translations.activerecord.position.price}}
-            th.numeric ng-if="$parent.gt1120px"
+            th.numeric ng-if="$parent.full"
               | {{gon.translations.activerecord.position.weight}}
               order ng-model="$parent.$parent.order" value="'weight_etalon'"
                 | {{gon.translations.activerecord.position.weight}}
-            th.numeric ng-if="$parent.gt1120px"
+            th.numeric ng-if="$parent.full"
               | {{gon.translations.activerecord.position.weight_min}}
               order ng-model="$parent.$parent.order" value="'weight_min_etalon'"
                 | {{gon.translations.activerecord.position.weight_min}}
-            th ng-if="$parent.lt1120px"
+            th ng-if="!$parent.full"
               | {{gon.translations.activerecord.position.description}}
               div
                 | {{gon.translations.activerecord.position.description}}
@@ -47,11 +47,11 @@ script type="text/ng-template" id="positions_table.html"
               div
                 | {{::position.created_at | date:"dd.MM.yyyy"}}
             / Greater then 1120px
-            td ng-if="$parent.gt1120px"
+            td ng-if="$parent.full"
               | {{::position.trade_type.title}}
-            td.table-option ng-if="$parent.gt1120px"
+            td.table-option ng-if="$parent.full"
               | {{::position.option.title}}
-            td.numeric.fw-500 ng-if="$parent.gt1120px"
+            td.numeric.fw-500 ng-if="$parent.full"
               | {{::position.price | number:2}}
               .dim.fw-500
                 | {{::position.currency.title}}/{{::position.price_weight_dimension.title}}
@@ -60,16 +60,16 @@ script type="text/ng-template" id="positions_table.html"
                 |   {{::gon.settings.currency.title}}/{{::position.price_weight_dimension.title}}
 
 
-            td.numeric ng-if="$parent.gt1120px"
+            td.numeric ng-if="$parent.full"
               | {{::position.weight | number}}
               .dim
                 | {{::position.weight_dimension.title}}
-            td.numeric ng-if="$parent.gt1120px"
+            td.numeric ng-if="$parent.full"
               | {{::position.weight_min | number}}
               .dim
                 | {{::position.weight_min_dimension.title}}
             / Lower then 1120px
-            td ng-if="$parent.lt1120px"
+            td ng-if="!$parent.full"
               | {{::position.trade_type.title}}
               b
                 |  «{{::position.option.title}}»  
