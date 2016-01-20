@@ -424,8 +424,8 @@ md-dialog.position-modal md-dialog-content {
 .position-status.opened,
 .position-status.active,
 .position-status.new {
-  background: #97CC64;
-  color: white;
+  /* background: #97CC64; */
+  /* color: white; */
 }
 
 .position-status.deleted {
