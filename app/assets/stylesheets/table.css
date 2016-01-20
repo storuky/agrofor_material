@@ -82,7 +82,7 @@
 
 .table > tbody > tr > td.numeric {
   white-space: nowrap;
-  position: relative;
+  /* position: relative; */
 }
 
 .table > tbody > tr {

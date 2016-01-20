@@ -1,5 +1,9 @@
 en:
   message:
+    completed: "The deal was successfully completed. You can rate it and leave a feedback."
+    receiving: "Receipt of the <b>«{{::Correspondence.active.positions[0].option.title}}»</b> is confirmed"
+    shipping: "I confirm sending the <b>«{{::Correspondence.active.positions[0].option.title}}»</b>"
+    make_deal: "I have confirmed my participation in this deal. My final offer:"
     new_offer: "<p>Dear {{Correspondence.active.opponent.fullname}},</p>I'd like {{gon.translations.message.tradetype_plur[offer.trade_type.id]}} <b>{{offer.trade_type.title.toLowerCase()}}</b> {{offer.weight}} {{offer.weight_dimension.title}} of <b>«{{offer.option.title}}»</b> at the price of <b>{{offer.price}} {{offer.currency.title}}/{{offer.price_weight_dimension.title}}</b> according to the position <a href='/search/map?id={{offer.id}}&type=offer'>№ {{offer.id}}</a>. I propose to discuss the terms of a deal and make it!"
     delete_offer: I cancel my offer
     offer:

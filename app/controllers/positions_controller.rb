@@ -10,7 +10,8 @@ class PositionsController < ApplicationController
       format.html
       format.json {
         if params[:ids]
-          @positions = Position.where(id: params[:ids]).distinct.pluck_fields
+          @positions = Position.where(id: params[:ids])
+          @positions = order_positions(@positions).pluck_fields.uniq
           render json: Oj.dump({collection: @positions})
         else
           check_user
@@ -191,7 +192,7 @@ class PositionsController < ApplicationController
           @my_position.complete!
           @user_position.complete!
           @deal.correspondence.messages.create(message_type: "receiving", body: "Service message", user_id: current_user.id)
-          @deal.correspondence.messages.create(message_type: "completed", body: "Service message", user_id: current_user.id)
+          @deal.correspondence.messages.create(message_type: "completed", body: "Service message")
           render json: {msg: "Получение подтверждено", deal: @deal, my: serialize(@my_position), user: serialize(@user_position)}
         else
           render json: {msg: "Неверный тип позиции"}, status: 422

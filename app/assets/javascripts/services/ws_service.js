@@ -15,19 +15,16 @@ app.service('Ws',  ['$rootScope', '$location', 'Correspondence', 'Offer', 'Posit
         $rootScope.$apply();
       });
 
-
-
-
-
-
       var resetMessageCount = _.debounce(Correspondence.reset_counter, 1000),
           resetOffersCount = _.debounce(Offer.reset_counter, 1000)
 
       function ws_message (data) {
         var inCorrespondence = $location.search().id == data.correspondence_id && $location.path()=='/correspondences';
         if (inCorrespondence) {
-          Correspondence.active.messages.push(data);
-          resetMessageCount({id: data.correspondence_id});
+          if (data.message_type && gon.current_user.id == data.user_id || gon.current_user.id != data.user_id || !window.isActive) {
+            Correspondence.active.messages.push(data);
+            resetMessageCount({id: data.correspondence_id});
+          }
         } else {
           Counter.new_messages_count+=1;
         }
@@ -55,6 +52,16 @@ app.service('Ws',  ['$rootScope', '$location', 'Correspondence', 'Offer', 'Posit
           Counter.new_offers_count+=1;
         }
       }
+
+      window.isActive = true;
+      
+      window.onfocus = function () { 
+        window.isActive = true; 
+      }; 
+
+      window.onblur = function () { 
+        window.isActive = false; 
+      }; 
     }
 
   }

@@ -84,6 +84,8 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
   })
 
   action('cluster', function (positions) {
+    var ids = $location.search().ids;
+
     ctrl.close = function () {
       $mdDialog.cancel();
       $location.search('ids', undefined);
@@ -95,6 +97,16 @@ app.controller('PositionsCtrl', ['$scope', 'action', 'Position', 'Offer', 'Cache
     }
     
     ctrl.positions = positions;
+
+    ctrl.order = "created_at";
+
+    $scope.$watch('ctrl.order', function (order) {
+      if (order) {
+        Position.get({ids: ids, order: order}, function (res) {
+          ctrl.positions = res;
+        })
+      }
+    })
   })
 
 

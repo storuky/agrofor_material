@@ -43,7 +43,6 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
     }
     ctrl.user = Profile.get({id: params.id})
 
-    ctrl.positions = Profile.positions({id: params.id})
     ctrl.feedbacks = Profile.feedbacks({id: params.id})
 
     ctrl.resetProfile = function () {
@@ -67,5 +66,13 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
         }
       })
     }
+
+    ctrl.order = "created_at";
+
+    $scope.$watch('ctrl.order', function () {
+      Profile.positions({id: params.id, order: ctrl.order}, function (res) {
+        ctrl.positions = res;
+      })
+    })
   })
 }])
