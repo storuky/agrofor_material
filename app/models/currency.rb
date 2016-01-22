@@ -6,7 +6,7 @@ class Currency < ActiveRecord::Base
 
   CURRENCY = [
     {
-      name: "RUB", title: "руб"
+      name: "RUB", title: "₽"
     },
     {
       name: "USD", title: "$"

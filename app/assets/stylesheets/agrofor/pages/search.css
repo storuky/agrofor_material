@@ -156,7 +156,7 @@
   position: absolute;
   background-color: rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
   -webkit-transition: background-color 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955), -webkit-box-shadow 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955);
   transition: background-color 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955), box-shadow 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }

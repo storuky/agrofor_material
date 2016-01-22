@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   has_many :documents
   has_many :templates
 
+  after_initialize :init_language
+
   has_many :feedbacks
 
   belongs_to :currency
@@ -28,11 +30,15 @@ class User < ActiveRecord::Base
   has_many :interests, through: :user_interests, source: :category
 
 
-  validates_presence_of :first_name, :last_name, :phones
+  validates_presence_of :first_name, :last_name, :phones, :address, :lat, :lng
 
   # def offers
   #   self.positions.joins("INNER JOIN positions_offers ON positions_offers.offer_id = positions.id").distinct
   # end
+
+  def init_language
+    self.language ||= "ru"
+  end
 
   def info
     UserSerializer.new(self).as_json

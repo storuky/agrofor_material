@@ -1,4 +1,6 @@
 class ImagesController < ApplicationController
+  skip_before_action :user_valid, only: [:avatar]
+
   def create
     images = params[:attachments].map do |attachment|
       image = current_user.images.new(file: attachment)
@@ -21,7 +23,7 @@ class ImagesController < ApplicationController
     image = Image.create(file: params[:attachments][0])
 
     if image.valid?
-      current_user.update(avatar_id: image.id)
+      current_user.update_attribute("avatar_id", image.id)
       render json: [ImageSerializer.new(image)]
     else
       render json: {msg: "Нельзя загрузить изображение с таким расширением"}, status: 422

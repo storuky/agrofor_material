@@ -45,3 +45,5 @@ en:
         website: "Website"
         skype: "Skype"
         phones: "Phones"
+        lat: Latitude
+        lng: Laptitude

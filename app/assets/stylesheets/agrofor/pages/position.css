@@ -111,21 +111,6 @@ md-icon.icon-calendar {
   color: #5C5C5C;
 }
 
-.disabled-show md-input-container.md-default-theme .md-input[disabled],
-.disabled-show md-input-container .md-input[disabled],
-.disabled-show md-input-container.md-default-theme .md-input [disabled],
-.disabled-show md-input-container .md-input [disabled],
-.disabled-show md-select.md-default-theme[disabled] .md-select-value, md-select[disabled] .md-select-value {
-  color: rgba(0,0,0,0.87);
-  border-color: rgba(0,0,0,0.12);
-  background-image: none;
-  -webkit-appearance: none;
-  opacity: 1;
-}
-
-.disabled-show md-select.md-default-theme[disabled] .md-select-value, md-select[disabled] .md-select-icon {
-  display: none;
-}
 md-dialog.position-modal md-dialog-content {
   -webkit-order: 0; 
   -ms-flex-order: 0;

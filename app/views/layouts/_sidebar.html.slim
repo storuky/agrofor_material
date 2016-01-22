@@ -43,12 +43,7 @@
             span
               | {{gon.translations.interface.navigation.settings}}
 
-          a.nav__link.ng-cloak ng-click="Sign.out($event);" ng-show="gon.current_user"
+          a.nav__link.ng-cloak ng-click="Sign.out($event);"
             i.icon-logout
             span
               | {{gon.translations.interface.navigation.sign_out}}
-
-          a.nav__link.ng-cloak ng-click="Sign.isShow = true;" ng-hide="gon.current_user"
-            i.icon-login
-            span
-              | {{gon.translations.interface.navigation.sign_in}}

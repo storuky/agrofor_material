@@ -1,0 +1,36 @@
+/*
+*= require oxymoron/normalize
+*= require angular-material
+*= require oxymoron/ng-notify
+*= require agrofor/components/marker
+*= require agrofor/style
+*= require_tree ./shared
+*= require_tree ./fill
+*= require_self
+*/
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+* {
+  box-sizing: border-box;
+  outline: none !important;
+}
+
+html, body {
+  height: 100%;
+}
+
+.ng-cloak {
+  display: none;
+}
+
+
+body {
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-family: "Roboto", sans-serif;
+}

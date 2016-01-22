@@ -2,7 +2,6 @@ class OffersController < ApplicationController
   before_action :set_offer, only: [:update, :destroy]
   before_action :set_serialized_offer, only: [:show, :edit]
   before_action :check_owner, only: [:update, :destroy]
-  before_action :check_user
 
 
   def index

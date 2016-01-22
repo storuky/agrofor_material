@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -6,20 +7,27 @@ class ApplicationController < ActionController::Base
   serialization_scope :view_context
 
   before_action :set_locale
+
   after_action :set_csrf_cookie
+  before_action :user_needed
+  before_action :user_valid
 
   layout proc {
     if request.xhr?
       false
     else
-      set_gon
-      'application'
+      if current_user
+        set_gon
+        if current_user.valid?
+          'application'
+        else
+          'fill'
+        end
+      else
+        'landing'
+      end
     end
   }
-
-  def index
-    redirect_to map_path
-  end
 
   def counters
     render json: {
@@ -100,7 +108,7 @@ class ApplicationController < ActionController::Base
     end
 
     def set_locale
-      I18n.locale = current_user.language || "en" rescue "en"
+      I18n.locale = current_user.language || "ru" rescue "ru"
     end
 
     def get_data
@@ -123,38 +131,29 @@ class ApplicationController < ActionController::Base
       (serialize(current_user.currency) rescue Currency.all_by_index_from_cache(serializer: CurrencySerializer)[1])
     end
 
-    def check_user
+    def user_needed
       unless current_user
         respond_to do |format|
-          format.html
+          format.html {
+            redirect_to root_path
+          }
           format.json {
-              render json: {msg: "Вы не авторизованы"}, status: 401
+            render json: {msg: "Вы не авторизованы"}, status: 401
           }
         end
       end
     end
 
-    def order_positions positions
-      if params[:order] == 'price' 
-        order = 'position_bases.price_etalon * currencies.to_usd'
-      elsif params[:order] == 'price DESC'
-        order = 'position_bases.price_etalon * currencies.to_usd DESC'
-      else
-        if Position.accept_for_order.include?(params[:order])
-          order = "position_bases.#{params[:order]}"
+    def user_valid
+      if current_user && current_user.invalid?
+        respond_to do |format|
+          format.html {
+            redirect_to fill_path
+          }
+          format.json {
+            render json: {msg: "Вы не заполнили всю информацию о себе"}, status: 401
+          }
         end
-      end
-
-      if order
-        if current_user
-          collection = positions.joins("LEFT JOIN favorite_positions ON (position_bases.id=favorite_positions.position_id AND favorite_positions.user_id=#{current_user.id})").order("favorite_positions.position_id, #{order}")
-        else
-          collection = positions
-        end
-
-        collection.order(order)
-      else
-        positions
       end
     end
 end

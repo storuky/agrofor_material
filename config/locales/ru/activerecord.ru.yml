@@ -45,3 +45,5 @@ ru:
         website: "Веб-сайт"
         skype: "Skype"
         phones: "Контактные телефоны"
+        lat: Долгота
+        lng: Широта

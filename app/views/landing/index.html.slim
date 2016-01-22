@@ -1,0 +1,18 @@
+div ng-controller="LandingCtrl as ctrl"
+  h1 Типа лендинг
+  form.ng-cloak style="max-width: 730px" ng-submit="ctrl.signIn(ctrl.form, $event);"
+    div[layout="row" layout-wrap layout-padding]
+      input type="password" style="display: none !important"
+      
+      div[flex="none"]
+        md-input-container.md-block
+          label Эл. почта
+          input type="email" ng-model="ctrl.form.user.email"
+      
+      div[flex="none"]
+        md-input-container.md-block
+          label Пароль
+          input type="password" ng-model="ctrl.form.user.password"
+      div[flex]
+        md-button.md-yellow.md-lg type="submit" style="margin-top: 10px;" Войти
+        md-button.md-white.md-lg ng-click="ctrl.signUp(ctrl.form, $event)" Зарегистрироваться

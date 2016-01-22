@@ -2,7 +2,6 @@ class PositionsController < ApplicationController
   before_action :set_position, only: [:destroy, :update, :suitable, :offers, :send_offer, :make_deal]
   before_action :set_serialized_position, only: [:show, :edit]
   before_action :set_deal, only: [:receiving, :shipping]
-  before_action :check_user, except: [:show, :index]
   before_action :check_owner, only: [:destroy, :update, :edit, :make_deal]
 
   def index
@@ -14,7 +13,6 @@ class PositionsController < ApplicationController
           @positions = order_positions(@positions).pluck_fields.uniq
           render json: Oj.dump({collection: @positions})
         else
-          check_user
           if params[:type] == 'Position'
             current_user.update(new_offers_count: 0) if current_user.new_offers_count != 0
           end

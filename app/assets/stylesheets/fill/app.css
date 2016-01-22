@@ -1,0 +1,194 @@
+body {
+  overflow-y: scroll !important;
+}
+
+html {
+  overflow-y: hidden !important;
+}
+
+.wrap {
+  max-width: 750px;
+  margin: 50px auto;
+}
+
+h1 {
+  font-weight: normal;
+  letter-spacing: 3px;
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 53px;
+}
+
+.tabs {border-bottom: 1px solid #E0E0E0;text-align: center;letter-spacing: 0;margin-bottom: 20px;}
+
+.tab {
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: .04em;
+  color: #999;
+  padding: 12px 28px;
+  border-bottom: 2px solid #FFFFFF;
+  cursor: pointer;
+  height: 42px;
+  white-space: nowrap;
+}
+.tab.active {
+  color: #333;
+  border-bottom: 2px solid #FCA001;
+}
+.tab:hover {
+  color: #333;
+}
+
+a.link {
+
+}
+
+.tabdata {
+  
+}
+
+.tabdata__left md-input-container{
+  margin-top: 25px;
+}
+
+.company-info {
+  background: rgba(248, 248, 248, 0.64);
+  padding: 1px 10px;
+  border: 1px solid #E3E3E3;
+}
+
+.tabdata__left {
+  padding-right: 15px;
+}
+
+.tabdata__right {
+  padding-left: 15px;
+}
+
+.tabdata__right .text {
+  margin-top: 15px;
+}
+
+.md-button {
+  margin: 0;
+}
+.text {
+  line-height: 1.5;
+}
+
+.profile-avatar {
+  margin: 24px 0 0 0;
+  overflow: hidden;
+}
+
+.profile-avatar .md-button {
+  margin: 0;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.profile-info md-input-container {
+  margin-bottom: 5px;
+}
+
+.profile-map {
+  height: 280px;
+  border-top: 3px solid rgb(255, 219, 76);
+  border-bottom: 3px solid rgb(255, 219, 76);
+  /* margin-top: 20px; */
+  display: block;
+}
+
+.profile-address {
+  background: #FAFAFA;
+  border-top: 1px solid #E4E4E4;
+  border-bottom: 1px solid #E4E4E4;
+  padding-left: 0;
+  margin-bottom: 20px;
+  /* margin-top: 20px; */
+  /* overflow: auto; */
+  /* margin-top: 20px; */
+  border-left: 1px solid #E4E4E4;
+  border-right: 1px solid #E4E4E4;
+}
+
+
+.profile-address .icon-marker {
+  font-size: 20px;
+  margin: 2px;
+  text-align: center;
+  color: #2278cc;
+}
+
+.profile-contacts__phones {
+  padding-left: 8px;
+}
+
+.profile-address .icon-marker {
+  font-size: 20px;
+  margin: 2px;
+  text-align: center;
+  color: #2278cc;
+}
+
+.profile-contacts [class*="icon-"] {
+  font-size: 20px;
+  margin: 2px;
+  text-align: center;
+  color: #2278cc;
+}
+
+.profile-contacts__phones {
+  padding-left: 20px;
+  position: relative;
+}
+
+
+.profile-contacts__phones .icon-close {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  cursor: pointer;
+  color: red;
+  font-size: 18px;
+}
+
+.profile-contacts__phones .mb-25 {
+  position: relative;
+}
+
+
+.profile-avatar .md-button i {
+  position: absolute;
+  left: 0;
+  top: 0px;
+  bottom: 0px;
+  width: 36px;
+  /* background: rgb(255, 229, 125); */
+  padding: 8px 9px;
+  font-size: 19px;
+  text-align: center;
+  color: #5E5E5E;
+  border-right: 1px solid #F3C91E;
+}
+
+
+.profile-avatar .md-button span {
+  left: 35px;
+  right: 0;
+  position: absolute;
+  top: 0;
+  font-size: 14px;
+}
+
+.profile-avatar .md-button:hover {
+  background: #FFE57D !important;
+}
+
+.footer {
+  text-align: right;
+  padding: 15px 0;
+  margin-top: 14px;
+  /* border-top: 1px solid rgba(0, 0, 0, 0.05); */
+}

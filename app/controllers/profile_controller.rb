@@ -1,4 +1,6 @@
 class ProfileController < ApplicationController
+  skip_before_action :user_valid
+
   before_action :set_serialized_user, only: [:show]
 
   def show
@@ -23,11 +25,14 @@ class ProfileController < ApplicationController
             update_currency = true
           end
 
-          current_user.update(user_params)
-          set_serialized_user
-          render json: {msg: "Профиль успешно обновлен", user: @user, update_translations: update_translations, update_currency: update_currency}
+          if current_user.update(user_params)
+            set_serialized_user
+            render json: {msg: "Профиль успешно обновлен", user: @user, update_translations: update_translations, update_currency: update_currency}
+          else
+            render json: {errors: current_user.errors, msg: current_user.errors.full_messages.join(", ")}, status: 422
+          end
         else
-          render json: {msg: "Профиль не найден"}, status: 422
+          render json: {msg: "Профиль не найден"}, status: 404
         end
       }
     end

@@ -13,7 +13,7 @@
 //= require flickity.pkgd.min
 //= require angular-material
 //= require_self
-//= require_tree .
+//= require_tree ./agrofor
 
 var app = angular.module('app', ['ui.router', 'oxymoron', 'ngMaterial', 'ngTouch'])
 

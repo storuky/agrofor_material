@@ -8,7 +8,8 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
       draggable: "=draggable",
       info: "=info",
       scrollZoom: "=",
-      type: "="
+      type: "=",
+      map: "=map"
     }, // {} = isolate, true = child, false/undefined = no change
     // controller: function($scope, $element, $attrs, $transclude) {},
     // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
@@ -26,7 +27,7 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
       var center = [55.7, 37.6];
       ymaps.ready(function () {
         $timeout(function () {
-          var map = new ymaps.Map(iElm[0], {
+          $scope.map = new ymaps.Map(iElm[0], {
               center: $scope.coords || center,
               zoom: $scope.zoom || 10,
               controls: [],
@@ -36,8 +37,8 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
           });
 
           if (!$scope.scrollZoom) {
-            map.behaviors.disable('scrollZoom');
-            map.controls.add('zoomControl');
+            $scope.map.behaviors.disable('scrollZoom');
+            $scope.map.controls.add('zoomControl');
           }
 
           var marker;
@@ -58,7 +59,7 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
                   draggable: $scope.draggable
                 }
               )
-            map.geoObjects.add(marker)
+            $scope.map.geoObjects.add(marker)
           }
 
 
@@ -75,18 +76,18 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
 
           if ($scope.draggable) {
             drawMarker();
-            map.events.add('click', dragClick);
+            $scope.map.events.add('click', dragClick);
             marker.events.add('dragend', dragMarker);
           }
 
           $scope.$watch('draggable', function (draggable) {
-            map.geoObjects.removeAll();
+            $scope.map.geoObjects.removeAll();
             drawMarker();
             if (draggable) {
-              map.events.add('click', dragClick);
+              $scope.map.events.add('click', dragClick);
               marker.events.add('dragend', dragMarker);
             } else {
-              map.events.remove('click', dragClick);
+              $scope.map.events.remove('click', dragClick);
               marker.events.remove('dragend', dragMarker);
             }
           })
@@ -102,7 +103,7 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
             if (info.lat && info.lng) {
               var coords = [info.lat, info.lng];
               marker.geometry.setCoordinates(coords);
-              map.setCenter(coords);
+              $scope.map.setCenter(coords);
             }
           }, true)
 
@@ -110,7 +111,7 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
             return $mdMedia('gt-md')
           }, function (v) {
             $timeout(function () {
-              map.container.fitToViewport()
+              $scope.map.container.fitToViewport()
             }, 600)
           })
 
@@ -146,7 +147,7 @@ app.directive('location', ['$timeout', 'Map', '$mdMedia', '$timeout', function (
 
           function serializeUser () {
             var info = {
-              fullname: $scope.info.fullname,
+              fullname: $scope.info.first_name ? $scope.info.first_name + " " + $scope.info.last_name : "Имя",
               company: $scope.info.company || "Компания",
             }
 

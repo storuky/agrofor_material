@@ -1,7 +1,6 @@
 class TemplatesController < ApplicationController
   before_action :set_template, only: :update
   before_action :set_serialized_template, only: [:show, :edit]
-  before_action :check_user
   def index
     respond_to do |format|
       format.json {

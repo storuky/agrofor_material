@@ -12,10 +12,10 @@
  *= require oxymoron/normalize
  *= require oxymoron/ng-notify
  *= require oxymoron/perfect-scrollbar
- *= require oxymoron/md-data-table
  *= require flickity
  *= require angular-material
- *= require_tree .
+ *= require_tree ./shared 
+ *= require_tree ./agrofor
  *= require_self
  */
 

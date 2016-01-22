@@ -29,9 +29,15 @@ app.directive('positionsTable', ['$mdMedia', 'Position', '$timeout', '$rootScope
 
       window.onresize = function () {
         $rootScope.safeApply(function () {
-          $scope.full = iElm[0].querySelector('.table-wrapper').offsetWidth >= $scope.minWidth;
+          var el = iElm[0].querySelector('.table-wrapper');
+          if (el)
+            $scope.full = el.offsetWidth >= $scope.minWidth;
         })
       }
+
+      $scope.$on("$destroy", function () {
+        window.onresize = undefined;
+      })
 
       $scope.$watch('collection', function (collection) {
         if (collection) {

@@ -18,19 +18,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-family: "Roboto", sans-serif;
-  background-color: #f5f5f5 !important;
 }
 
 .wrapper {
-  transform: scale(1);
-  transition: .3s;
   height: 100%;
   position: relative;
   overflow: hidden;
-}
-
-.wrapper.active {
-  transform: scale(0.8);
 }
 
 h1 {
@@ -338,6 +331,10 @@ i.icon-star {
 }
 
 .ngn {
+  margin-left: 0;
+}
+
+.sign .ngn {
   margin-left: 135px;
 }
 
@@ -349,4 +346,16 @@ i.icon-star {
 .md-yellow:hover {
   background: #FFE57D !important;
   transition: .2s;
+}
+
+.align-center {
+  text-align: center;
+}
+.align-justify {
+  text-align: justify;
+}
+
+.rails-errors {
+  font-size: 12px;
+  color: rgb(244,67,54);
 }

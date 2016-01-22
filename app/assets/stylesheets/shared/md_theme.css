@@ -4,7 +4,7 @@ md-select.md-default-theme:not([disabled]):focus .md-select-value, md-select:not
 }
 
 md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input, md-input-container:not(.md-input-invalid).md-input-focused .md-input {
-  border-color: rgb(255, 219, 76);
+  border-color: rgb(255, 219, 76) !important;
 }
 
 md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label, md-input-container:not(.md-input-invalid).md-input-focused label {
@@ -119,4 +119,39 @@ a.md-button.md-yellow.md-raised:not([disabled]).md-focused,
 
 md-autocomplete[disabled] input {
   cursor: default;
+}
+
+md-input-container .md-input {
+  border-color: rgb(225, 225, 225);
+}
+
+md-radio-group.md-default-theme .md-checked .md-ink-ripple, md-radio-group .md-checked .md-ink-ripple {
+  color: rgba(252, 160, 1, 0.26);
+}
+
+md-radio-button.md-default-theme.md-checked .md-ink-ripple, md-radio-button.md-checked .md-ink-ripple {
+  color: rgb(252, 160, 1);
+}
+
+md-radio-button.md-default-theme.md-checked .md-off, md-radio-button.md-checked .md-off {
+  border-color: rgb(252, 160, 1);
+}
+
+md-radio-button.md-default-theme .md-on, md-radio-button .md-on {
+  background-color: rgb(252, 160, 1);
+}
+.disabled-show md-input-container.md-default-theme .md-input[disabled],
+.disabled-show md-input-container .md-input[disabled],
+.disabled-show md-input-container.md-default-theme .md-input [disabled],
+.disabled-show md-input-container .md-input [disabled],
+.disabled-show md-select.md-default-theme[disabled] .md-select-value, md-select[disabled] .md-select-value {
+  color: rgba(0,0,0,0.87);
+  border-color: rgba(0,0,0,0.12);
+  background-image: none;
+  -webkit-appearance: none;
+  opacity: 1;
+}
+
+.disabled-show md-select.md-default-theme[disabled] .md-select-value, md-select[disabled] .md-select-icon {
+  display: none;
 }

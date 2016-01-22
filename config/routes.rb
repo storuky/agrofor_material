@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  
+  root to: "landing#index"
 
-  root to: "application#index"
+  get "fill" => "fill#index"
 
   devise_for :users, controllers: {
         sessions: 'users/sessions',

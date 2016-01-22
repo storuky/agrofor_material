@@ -8,19 +8,22 @@
         = I18n.t "company"
       link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"
       link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'
-      = stylesheet_link_tag 'application'
+      = stylesheet_link_tag 'agrofor'
       = csrf_meta_tags
       base href="/"
       css:
         .ng-cloak {
           display: none !important;
         }
-    body ng-controller="MainCtrl"
+    body ng-controller="MainCtrl" ng-class="{sign: gon.current_user}"
       .wrapper.ng-cloak ng-class="{active: Sign.isShow, blur: $root.blurPage}"
-        aside.sidebar
+        .logo_for_not_sign
+          = image_tag "logo_ru.svg", width: 110, height: 70
+
+        aside.sidebar ng-if="gon.current_user"
           = render "layouts/sidebar"
 
-        .page ng-class="{'overflow page-map': Search.type == 'map', overflow: Search.type == 'list'}"
+        .page ng-class="{'overflow page-map': Search.type == 'map', overflow: Search.type == 'list', not_sign: !gon.current_user}"
           confirm-modal
           table.page-table
             tr
@@ -33,8 +36,7 @@
       = render template: 'modals/index'
       = render template: 'components/index'
 
-      div ng-include="'sign.html'"
       script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"
-      = javascript_include_tag 'application'
+      = javascript_include_tag 'agrofor'
 
 = Gon::Base.render_data({})

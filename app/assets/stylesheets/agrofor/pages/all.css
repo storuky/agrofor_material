@@ -3,6 +3,11 @@ ui-view {
   height: 100%;
   display: block;
 }
+
+body {
+  background-color: #f5f5f5 !important;
+}
+
 .page {
   top: 0;
   left: 270px;
@@ -15,6 +20,14 @@ ui-view {
   -webkit-overflow-scrolling: touch;
   max-width: 100%;
 }
+
+.page.not_sign {
+  left: 125px;
+}
+.page.not_sign .map {
+  position: fixed;
+}
+
 .page-background {
   position: absolute;
   left: 0;
@@ -219,4 +232,12 @@ input.solid-input:focus {
 
 .uploaded-images__container.flickity-enabled * {
   visibility: visible;
+}
+
+
+.logo_for_not_sign {
+  position: absolute;
+  left: 13px;
+  top: 13px;
+  z-index: 2;
 }
