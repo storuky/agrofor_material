@@ -80,7 +80,7 @@ div content-for="header"
           tr
             td colspan="8"
               md-progress-linear md-mode="indeterminate"
-        tbody ng-repeat="position in ctrl.positions.collection | filter: search | limitTo: 10" ng-class="{active: opened}" ng-init="opened=!!position.offers.length"
+        tbody ng-repeat="position in ctrl.positions.collection | filter: search" ng-class="{active: opened}" ng-init="opened=!!position.offers.length"
           tr ng-click="opened = !opened"
             td ng-if="ctrl.filter.type!='Template'"
               i.icon-chevron-right
