@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   include Cacheable
 
+  after_initialize :init_language
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -16,7 +18,6 @@ class User < ActiveRecord::Base
   has_many :documents
   has_many :templates
 
-  after_initialize :init_language
 
   has_many :feedbacks
 
@@ -30,7 +31,7 @@ class User < ActiveRecord::Base
   has_many :interests, through: :user_interests, source: :category
 
 
-  validates_presence_of :first_name, :last_name, :phones, :address, :lat, :lng
+  validates_presence_of :first_name, :last_name, :phones, :address, :lat, :lng, :if => lambda {|u| created_at}
 
   # def offers
   #   self.positions.joins("INNER JOIN positions_offers ON positions_offers.offer_id = positions.id").distinct
@@ -94,6 +95,5 @@ class User < ActiveRecord::Base
       end
     end
   end
-
 
 end
