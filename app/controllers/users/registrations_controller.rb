@@ -10,14 +10,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    unless sign_up_params[:email]
-      return render json: {msg: "Укажите email"}, status: 422
-    end
-
-    unless sign_up_params[:password]
-      return render json: {msg: "Укажите пароль"}, status: 422
-    end
-
     build_resource(sign_up_params)
     resource.save
 
