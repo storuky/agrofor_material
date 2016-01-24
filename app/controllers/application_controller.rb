@@ -95,6 +95,6 @@ class ApplicationController < ActionController::Base
 
     def set_company
       Company.current_company = @current_company = OpenStruct.new Rails.application.secrets[:companies][request.host]
-      config.action_mailer.default_url_options = {host: "https://#{@current_company.name}.pro"}
+      ActionMailer::Base.default_url_options[:host] = "https://#{@current_company.name}.pro"
     end
 end
