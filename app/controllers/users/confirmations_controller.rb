@@ -1,7 +1,7 @@
-class User::ConfirmationsController < DeviseController
+class Users::ConfirmationsController < DeviseController
   skip_before_action :user_needed
   skip_before_action :user_valid
-  
+
   # GET /resource/confirmation/new
   def new
     self.resource = resource_class.new
