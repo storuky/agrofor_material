@@ -5,6 +5,8 @@ set :sidekiq_role, [:sidekiq_small, :sidekiq_big]
 set :sidekiq_small_processes, 1
 set :sidekiq_big_processes, 4
 set :sidekiq_monit_use_sudo, false
+
+set :sidekiq_options_per_process, ["--queue high", "--queue default --queue mailer --queue low"]
 # set :rvm_type, :user
 
 # set :bundle_path, nil
