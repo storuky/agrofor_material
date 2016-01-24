@@ -20,11 +20,11 @@
 }
 
 .search__btn span:hover {
-  background: #14B2FA;
+  background: #0AA3E9;
 }
 
 .search__btn span:hover:after {
-  border-color: transparent transparent transparent #14B2FA;
+  border-color: transparent transparent transparent #0AA3E9;
 }
 
 .search__input input[type="text"]:focus {
