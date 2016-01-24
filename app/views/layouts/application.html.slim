@@ -1,4 +1,4 @@
-= cache_if Rails.env.production?, "#{I18n.locale}_#{$layout_cache}" do
+= cache_if Rails.env.production?, "application_#{current_company.name}_#{I18n.locale}_#{$layout_cache}" do
   <!DOCTYPE html>
   html ng-app="app"
     head
