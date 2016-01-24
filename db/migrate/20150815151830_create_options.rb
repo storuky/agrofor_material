@@ -4,6 +4,8 @@ class CreateOptions < ActiveRecord::Migration
       t.string :title
       t.integer :category_id
       t.index :category_id
+      t.integer :company_id
+      t.index :company_id
     end
   end
 end

@@ -1,10 +1,12 @@
-app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Position', '$timeout', '$state', '$mdMedia', '$timeout', function ($scope, action, Search, $location, Position, $timeout, $state, $mdMedia, $timeout) {
+app.controller('SearchCtrl', ['$scope', 'action', 'Search', '$location', 'Position', '$timeout', '$state', '$mdMedia', '$timeout', '$http', function ($scope, action, Search, $location, Position, $timeout, $state, $mdMedia, $timeout, $http) {
   var ctrl = this;
 
   $scope.Search = Search;
 
   if (gon.current_user)
-    ctrl.positions = Position.get({status: "opened"})
+    $http.get(Routes.my_positions_path()).then(function (res) {
+      ctrl.positions = res.data;
+    })
 
   $scope.$on('$destroy', function () {
     Search.positions = undefined;

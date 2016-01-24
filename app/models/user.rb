@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   end
 
   def favorite_ids
-    Rails.cache.fetch("User.favorite_ids(#{id})") do
+    Rails.cache.fetch("User.favorite_ids(#{id}, #{Company.current_company.id})") do
       super
     end
   end
@@ -64,33 +64,33 @@ class User < ActiveRecord::Base
   end
 
   def templates_from_cache params = {}
-    Rails.cache.fetch("User.templates_from_cache(#{id}, #{params})_#{I18n.locale}") do
+    Rails.cache.fetch("User.templates_from_cache(#{id}, #{params})_#{I18n.locale}_#{Company.current_company.id}") do
       ActiveModel::ArraySerializer.new(self.templates.order("updated_at DESC"), each_serializer: TemplateSerializer)
     end
   end
 
   def offers_from_cache params = {}
-    Rails.cache.fetch("User.offers_from_cache(#{id}, #{params})_#{I18n.locale}") do
+    Rails.cache.fetch("User.offers_from_cache(#{id}, #{params})_#{I18n.locale}_#{Company.current_company.id}") do
       ActiveModel::ArraySerializer.new(User.find(id).offers.where(params).order("updated_at DESC"), each_serializer: OfferWithPositionSerializer).as_json
     end
   end
 
   def positions_from_cache params = {}
-    Rails.cache.fetch("User.positions_from_cache(#{id}, #{params})_#{I18n.locale}") do
+    Rails.cache.fetch("User.positions_from_cache(#{id}, #{params})_#{I18n.locale}_#{Company.current_company.id}") do
       ActiveModel::ArraySerializer.new(User.find(id).positions.where(params).order("updated_at DESC"), each_serializer: PositionWithOffersSerializer).as_json
     end
   end
 
   class << self
     def positions_from_cache id, params = {}
-      Rails.cache.fetch("User.positions_from_cache(#{id}, #{params})_#{I18n.locale}") do
+      Rails.cache.fetch("User.positions_from_cache(#{id}, #{params})_#{I18n.locale}_#{Company.current_company.id}") do
         User.find(id).positions_from_cache
       end
     end
 
 
     def feedbacks_from_cache id, params = {}
-      Rails.cache.fetch("User.feedbacks_from_cache(#{id}, #{params})_#{I18n.locale}") do
+      Rails.cache.fetch("User.feedbacks_from_cache(#{id}, #{params})_#{I18n.locale}_#{Company.current_company.id}") do
         ActiveModel::ArraySerializer.new(User.find(id).feedbacks.order("updated_at DESC"), each_serializer: FeedbackSerializer, root: false).as_json
       end
     end

@@ -1,4 +1,4 @@
-= cache_if Rails.env.production?, $layout_cache do
+= cache_if Rails.env.production?, "#{I18n.locale}_#{$layout_cache}" do
   <!DOCTYPE html>
   html ng-app="app"
     head
@@ -17,9 +17,6 @@
         }
     body ng-controller="MainCtrl" ng-class="{sign: gon.current_user}"
       .wrapper.ng-cloak ng-class="{active: Sign.isShow, blur: $root.blurPage}"
-        .logo_for_not_sign
-          = image_tag "logo_ru.svg", width: 110, height: 70
-
         aside.sidebar ng-if="gon.current_user"
           = render "layouts/sidebar"
 

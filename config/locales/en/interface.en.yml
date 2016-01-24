@@ -94,6 +94,7 @@ en:
         send: Send message
         upload: Upload
         save: Save
+        reset: Reset
         add_phone: Add phone number
         to_deal_page: Go to the deal page
       positions:

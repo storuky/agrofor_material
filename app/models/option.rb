@@ -1,4 +1,5 @@
 class Option < ActiveRecord::Base
+  include Companiable
   include Cacheable
 
   belongs_to :category

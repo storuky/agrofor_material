@@ -1,4 +1,6 @@
 class Feedback < ActiveRecord::Base
+  include Companiable
+  
   belongs_to :user
   belongs_to :position
 

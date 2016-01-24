@@ -1,4 +1,5 @@
 class Offer < PositionBase
+  include Companiable
   include Cacheable
   after_commit :regenerate_cache
   has_one :deal

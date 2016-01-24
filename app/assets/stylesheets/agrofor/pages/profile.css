@@ -1,6 +1,6 @@
-.profile-page {
-
-  /* padding: 20px; */
+.profile-page {}
+.profile-page.was_changed {
+  padding-bottom: 50px;
 }
 .profile-info {
 
@@ -9,7 +9,7 @@
 .profile-avatar {
 
   /* max-width: 160px !important; */
-  margin: 24px 0 0 18px;
+  margin: 25px 0 0 18px;
   overflow: hidden;
 }
 .profile-avatar .md-button {
@@ -29,6 +29,7 @@
 .profile-info .md-title, .profile-positions .md-title {
   padding: 5px 17px;
   margin-top: 20px;
+  margin-bottom: 25px;
 }
 .feedback {
   margin: 20px 25px;
@@ -198,4 +199,16 @@
 
 .profile-avatar .md-button:hover {
   background: #FFE57D !important;
+}
+
+.profile__footer {
+  position: fixed;
+  bottom: 0;
+  background: white;
+  box-shadow: 0px -1px 3px rgba(0,0,0,.12);
+  width: 100%;
+  z-index: 1;
+  max-width: 900px;
+  text-align: right;
+  padding: 5px;
 }

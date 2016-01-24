@@ -14,7 +14,7 @@ module Cacheable
   class_methods do
 
     def cache_name name, options
-      "#{self.to_s}.cache.#{name}(locale: #{I18n.locale}, serializer: #{options[:serializer]})"
+      "#{self.to_s}.cache.#{name}(locale: #{I18n.locale}, serializer: #{options[:serializer]}, company_id: #{Company.current_company.id})"
     end
 
     def all_from_cache options = {}

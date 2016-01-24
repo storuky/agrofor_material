@@ -1,4 +1,5 @@
 class Template < PositionBase
+  include Companiable
   before_save :set_template_name
   after_commit :regenerate_cache
 

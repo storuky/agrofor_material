@@ -1,4 +1,4 @@
-app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Correspondence', '$location', 'Translation', 'Currency', function ($scope, action, Profile, Position, Correspondence, $location, Translation, Currency) {
+app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Correspondence', '$location', 'Translation', 'Currency', '$timeout', function ($scope, action, Profile, Position, Correspondence, $location, Translation, Currency, $timeout) {
   var ctrl = this;
 
   ctrl.profileInfoTabs = [{id: 0, title: 'Личные данные'}, {id: 1, title: "Местоположение"}, {id: 2, title: "Контактные данные"}]
@@ -25,15 +25,13 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
           gon.current_user.avatar = avatar;
       })
 
-      var init = true;
-      $scope.$watch('ctrl.user', _.debounce(function (user) {
-        if (user.id) {
-          if (!init)
-            ctrl.save();
-          else
-            init = false;
+      ctrl.wasChanged = false;
+
+      $scope.$watch('ctrl.user', function (user, old) {
+        if (user && user.id && old) {
+          ctrl.wasChanged = true;
         }
-      }, 1000), true)
+      }, true)
     }
 
     ctrl.send_message = function () {
@@ -41,15 +39,20 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
         $location.url('/correspondences?id='+res.id)
       })
     }
-    ctrl.user = Profile.get({id: params.id})
-
-    ctrl.feedbacks = Profile.feedbacks({id: params.id})
 
     ctrl.resetProfile = function () {
       Profile.get({id: params.id}, function (res) {
         ctrl.user = res;
+        $timeout(function () {
+          ctrl.wasChanged = false;
+        })
       })
     }
+
+    ctrl.resetProfile();
+
+    ctrl.feedbacks = Profile.feedbacks({id: params.id})
+
 
     ctrl.save = function () {
       Profile.update({form_name: 'user', id: ctrl.user.id, user: ctrl.user}, function (res) {
@@ -57,13 +60,16 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
         gon.current_user = angular.copy(res.user);
 
         if (res.update_translations) {
-          init = true;
           Translation.update();
         }
 
         if (res.update_currency) {
           Currency.update_user_currency()
         }
+
+        $timeout(function () {
+          ctrl.wasChanged = false;
+        })
       })
     }
 

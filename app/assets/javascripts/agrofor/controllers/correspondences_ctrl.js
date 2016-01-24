@@ -2,11 +2,6 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
   var ctrl = this;
 
   action('index', function () {
-    if (!gon.current_user) {
-      $state.go('map_path');
-      Sign.isShow = true;
-    }
-
     ctrl.filter = {
       type: 'CorrespondencePosition'
     }
@@ -72,21 +67,6 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
       }
     }
 
-    $scope.opponent_user = function (users) {
-      var user = _.find(users, function (user) {
-        return user.id != gon.current_user.id
-      })
-
-      return user
-    }
-
-    $scope.opponent_position = function (positions) {
-      return _.find(positions, function (position) {
-        return position.user_id != gon.current_user.id
-      });
-    }
-
-
     $scope.$watch('ctrl.contact', function (contact) {
       scrollBottom()
     })
@@ -98,33 +78,21 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
       }
     });
 
-    function setContact () {
-      if ($location.search().id) {
-        ctrl.contact = _.find(Correspondence.correspondences, function (corr) {
-          return corr.id == $location.search().id
-        });
-
-        if (!ctrl.contact) {
-          ctrl.contact = Correspondence.active;
-          if (Correspondence.correspondences && ctrl.contact) {
-            Correspondence.correspondences.push(ctrl.contact)
-          }
-        }
-
-        ctrl.filter = {
-          type: ctrl.contact.type
-        }
-
-        if (ctrl.contact.new_messages) {
-          var count = Counter.new_messages - ctrl.contact.new_messages[gon.current_user.id].length;
-          if (count < 0)
-            count = 0;
-          Counter.new_messages_count = 0;
-          ctrl.contact.new_messages[gon.current_user.id] = []
-        }
-      }
-    }
   })
+
+  $scope.opponent_user = function (users) {
+    var user = _.find(users, function (user) {
+      return user.id != gon.current_user.id
+    })
+
+    return user
+  }
+
+  $scope.opponent_position = function (positions) {
+    return _.find(positions, function (position) {
+      return position.user_id != gon.current_user.id
+    });
+  }
 
   $scope.confirmMakeDeal = function () {
     Action.confirm("Вы уверены, что хотите заключить сделку? Действие не может быть отменено без участия администратора.", function (res) {
@@ -158,6 +126,32 @@ app.controller('CorrespondencesCtrl', ['$scope', 'action', '$state', '$timeout',
         })
       }
     })
+  }
+
+  function setContact () {
+    var id = parseInt($location.search().id);
+    if (id) {
+      ctrl.contact = _.findWhere(Correspondence.correspondences, {id: id});
+
+      if (!ctrl.contact) {
+        ctrl.contact = Correspondence.active;
+        if (Correspondence.correspondences && ctrl.contact) {
+          Correspondence.correspondences.push(ctrl.contact)
+        }
+      }
+
+      ctrl.filter = {
+        type: ctrl.contact.type
+      }
+
+      if (ctrl.contact.new_messages) {
+        var count = Counter.new_messages - ctrl.contact.new_messages[gon.current_user.id].length;
+        if (count < 0)
+          count = 0;
+        Counter.new_messages_count = 0;
+        ctrl.contact.new_messages[gon.current_user.id] = []
+      }
+    }
   }
 
   function updateTabCount () {

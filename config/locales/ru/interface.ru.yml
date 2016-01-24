@@ -94,6 +94,7 @@ ru:
         send: Написать
         upload: Загрузить
         save: Сохранить
+        reset: Отменить
         add_phone: Добавить телефон
         to_deal_page: На страницу сделки
       positions:

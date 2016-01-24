@@ -1,4 +1,5 @@
 class PositionBase < ActiveRecord::Base
+  include Companiable
   include AASM
   include Cacheable
   include FixSphinx

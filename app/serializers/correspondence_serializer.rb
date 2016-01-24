@@ -6,6 +6,8 @@ class CorrespondenceSerializer < CorrespondencesSerializer
   end
 
   def deal
-    object.positions.first.deal
+    if type == "CorrespondencePosition"
+      object.positions.first.deal
+    end
   end
 end

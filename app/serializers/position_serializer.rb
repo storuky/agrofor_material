@@ -2,7 +2,7 @@ class PositionSerializer < ActiveModel::Serializer
   attributes *(Position.attribute_names - []), :user, :status, :trade_type,
                                                :currency, :weight_dimension,
                                                :weight_min_dimension, :price_weight_dimension,
-                                               :lat, :lng, :address
+                                               :lat, :lng, :address, :currency_id
 
   has_one :option, serializer: OptionSerializer
   has_one :weight_dimension
@@ -38,10 +38,14 @@ class PositionSerializer < ActiveModel::Serializer
     }
   end
 
+  def currency_id
+    object.currency_id || scope.current_user.currency_id
+  end
+
   def currency
     {
-      id: object.currency_id,
-      title: I18n.t("currency")[object.currency.try(:name).try(:to_sym)]
+      id: object.currency_id || scope.current_user.currency_id,
+      title: I18n.t("currency")[object.currency.try(:name).try(:to_sym)] || I18n.t("currency")[scope.current_user.currency.try(:name).try(:to_sym)]
     }
   end
 

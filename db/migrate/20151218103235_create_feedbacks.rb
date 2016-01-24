@@ -6,6 +6,9 @@ class CreateFeedbacks < ActiveRecord::Migration
       t.integer :position_base_id
       t.text :description
       t.boolean :positive, default: true
+      
+      t.integer :company_id
+      t.index :company_id
 
       t.timestamps null: false
     end

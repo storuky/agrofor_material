@@ -32,6 +32,15 @@ class SearchController < ApplicationController
     end
   end
 
+  def my_positions
+    respond_to do |format|
+      format.json {
+        result = {collection: current_user.positions_from_cache(status: 'opened')}
+        render json: result
+      }
+    end
+  end
+
   private
     def set_search_result
       @positions = PositionBase.look_for(params[:query])

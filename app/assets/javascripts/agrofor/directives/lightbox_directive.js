@@ -101,7 +101,6 @@ app.directive('lightbox', ['$compile', '$timeout', '$rootScope', 'Image', functi
           template.remove();
           flktyLightbox.destroy()
           flktyLightboxMin.destroy()
-          document.removeEventListener("keydown", keydownManage, false)
         }
       })
 

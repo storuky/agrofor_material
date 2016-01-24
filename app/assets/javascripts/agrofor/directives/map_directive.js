@@ -185,7 +185,7 @@ app.directive('map', ['Map', 'Search', '$timeout', '$mdMedia', 'Position', '$roo
           title: title ? title.title : "Категория",
           weight: marker[5] || 0,
           weight_dimension: weight_dimension,
-          price: (marker[7] * gon.data.rates[marker[8]].rate).toFixed(2) || 0,
+          price: (marker[7] * gon.settings.rates[marker[8]].rate).toFixed(2) || 0,
           currency: gon.settings.currency.title,
           price_weight_dimension: price_weight_dimension,
           coords: [marker[1], marker[2]]

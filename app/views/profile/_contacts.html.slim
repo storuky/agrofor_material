@@ -23,5 +23,5 @@ h2.md-title
           input type="text" ng-model="ctrl.user.phones[$index]" ng-disabled="ctrl.disabled"
         i.icon-close ng-click="ctrl.user.phones.splice($index, 1)" ng-hide="ctrl.disabled"
       div[style="padding-left: 36px"]
-        md-button.md-lg.md-yellow[style="width: 100%; margin: 0" ng-click="ctrl.user.phones.push('')" ng-hide="ctrl.disabled"]
+        md-button.md-lg.md-white[style="width: 100%; margin: 0" ng-click="ctrl.user.phones.push('')" ng-hide="ctrl.disabled"]
           | {{gon.translations.interface.buttons.profile.add_phone}}

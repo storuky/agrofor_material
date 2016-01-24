@@ -1,4 +1,5 @@
 class Deal < ActiveRecord::Base
+  include Companiable
   include AASM
   
   belongs_to :position

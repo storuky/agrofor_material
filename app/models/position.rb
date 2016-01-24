@@ -62,7 +62,7 @@ class Position < PositionBase
 
   class << self
     def pluck_all_fields
-      Rails.cache.fetch("Position.pluck_all_fields") do
+      Rails.cache.fetch("Position.pluck_all_fields(#{Company.current_company.id})") do
         self.pluck_fields
       end
     end
@@ -82,7 +82,7 @@ class Position < PositionBase
   private
     def regenerate_cache
       Rails.cache.delete_matched(/User\.positions_from_cache\(#{self.user_id}\,/)
-      Rails.cache.delete("Position.pluck_all_fields")
+      Rails.cache.delete("Position.pluck_all_fields(#{Company.current_company.id})")
       Rails.cache.delete_matched(/PositionBase\.cache\.all/)
       Rails.cache.delete_matched(/PositionBase\.cache\.find\(#{self.id}\)/)
     end

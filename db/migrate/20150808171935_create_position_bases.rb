@@ -32,7 +32,7 @@ class CreatePositionBases < ActiveRecord::Migration
       t.integer :trade_type_id, default: 1
       t.index :trade_type_id
 
-      t.integer :currency_id, default: 1
+      t.integer :currency_id
 
       t.float :price
       t.index :price
@@ -72,6 +72,9 @@ class CreatePositionBases < ActiveRecord::Migration
 
       t.integer :deal_with_id
       t.index :deal_with_id
+      
+      t.integer :company_id
+      t.index :company_id
       
       t.timestamps null: false
     end

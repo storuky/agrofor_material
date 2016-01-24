@@ -79,3 +79,11 @@ app.run([function(){
     weight_dimensions: _.indexBy(gon.data.weight_dimensions, 'id'),
   }
 }])
+
+app.run(['Currency', '$interval', function (Currency, $interval) {
+  Currency.update_rates()
+  
+  $interval(function () {
+    Currency.update_rates()
+  }, 1000 * 60 * 60)
+}])

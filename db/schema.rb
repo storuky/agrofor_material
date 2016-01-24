@@ -11,13 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120112937) do
+ActiveRecord::Schema.define(version: 20160123223716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string   "title"
+    t.integer  "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "categories", ["company_id"], name: "index_categories_on_company_id", using: :btree
+
+  create_table "companies", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -28,11 +37,13 @@ ActiveRecord::Schema.define(version: 20160120112937) do
     t.integer  "user_ids",       default: [],              array: true
     t.integer  "position_ids",   default: [],              array: true
     t.json     "new_messages",   default: {}
+    t.integer  "company_id"
     t.string   "last_message"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
 
+  add_index "correspondences", ["company_id"], name: "index_correspondences_on_company_id", using: :btree
   add_index "correspondences", ["position_ids"], name: "index_correspondences_on_position_ids", using: :gin
   add_index "correspondences", ["type"], name: "index_correspondences_on_type", using: :btree
   add_index "correspondences", ["user_ids"], name: "index_correspondences_on_user_ids", using: :gin
@@ -47,12 +58,15 @@ ActiveRecord::Schema.define(version: 20160120112937) do
   create_table "deals", force: :cascade do |t|
     t.integer  "position_id"
     t.integer  "offer_id"
+    t.integer  "correspondence_id"
     t.string   "status",            default: "new"
+    t.integer  "company_id"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
-    t.integer  "correspondence_id"
   end
 
+  add_index "deals", ["company_id"], name: "index_deals_on_company_id", using: :btree
+  add_index "deals", ["correspondence_id"], name: "index_deals_on_correspondence_id", using: :btree
   add_index "deals", ["offer_id", "position_id"], name: "index_deals_on_offer_id_and_position_id", using: :btree
   add_index "deals", ["offer_id"], name: "index_deals_on_offer_id", using: :btree
   add_index "deals", ["position_id"], name: "index_deals_on_position_id", using: :btree
@@ -77,9 +91,12 @@ ActiveRecord::Schema.define(version: 20160120112937) do
   create_table "favorite_positions", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "position_id"
+    t.integer  "company_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  add_index "favorite_positions", ["company_id"], name: "index_favorite_positions_on_company_id", using: :btree
 
   create_table "feedbacks", force: :cascade do |t|
     t.integer  "author_id"
@@ -87,9 +104,12 @@ ActiveRecord::Schema.define(version: 20160120112937) do
     t.integer  "position_base_id"
     t.text     "description"
     t.boolean  "positive",         default: true
+    t.integer  "company_id"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
   end
+
+  add_index "feedbacks", ["company_id"], name: "index_feedbacks_on_company_id", using: :btree
 
   create_table "imageables", force: :cascade do |t|
     t.integer  "image_id"
@@ -125,9 +145,11 @@ ActiveRecord::Schema.define(version: 20160120112937) do
   create_table "options", force: :cascade do |t|
     t.string  "title"
     t.integer "category_id"
+    t.integer "company_id"
   end
 
   add_index "options", ["category_id"], name: "index_options_on_category_id", using: :btree
+  add_index "options", ["company_id"], name: "index_options_on_company_id", using: :btree
 
   create_table "position_bases", force: :cascade do |t|
     t.string   "type"
@@ -143,7 +165,7 @@ ActiveRecord::Schema.define(version: 20160120112937) do
     t.integer  "option_id"
     t.integer  "category_id",               default: 1
     t.integer  "trade_type_id",             default: 1
-    t.integer  "currency_id",               default: 1
+    t.integer  "currency_id"
     t.float    "price"
     t.float    "price_etalon"
     t.float    "price_discount",            default: 5.0,  null: false
@@ -160,12 +182,14 @@ ActiveRecord::Schema.define(version: 20160120112937) do
     t.float    "lat"
     t.float    "lng"
     t.integer  "deal_with_id"
+    t.integer  "company_id"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
   end
 
   add_index "position_bases", ["category_id"], name: "index_position_bases_on_category_id", using: :btree
   add_index "position_bases", ["city"], name: "index_position_bases_on_city", using: :btree
+  add_index "position_bases", ["company_id"], name: "index_position_bases_on_company_id", using: :btree
   add_index "position_bases", ["deal_with_id"], name: "index_position_bases_on_deal_with_id", using: :btree
   add_index "position_bases", ["from_position_id"], name: "index_position_bases_on_from_position_id", using: :btree
   add_index "position_bases", ["lat"], name: "index_position_bases_on_lat", using: :btree
@@ -198,9 +222,12 @@ ActiveRecord::Schema.define(version: 20160120112937) do
   create_table "user_interests", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "category_id"
+    t.integer  "company_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  add_index "user_interests", ["company_id"], name: "index_user_interests_on_company_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",   null: false

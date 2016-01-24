@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   serialization_scope :view_context
 
+  before_action :set_company
   before_action :set_locale
   before_action :user_needed
   before_action :user_valid
@@ -22,7 +23,7 @@ class ApplicationController < ActionController::Base
           'fill'
         end
       else
-        'landing'
+        "landings/#{@current_company.name}"
       end
     end
   }
@@ -32,20 +33,6 @@ class ApplicationController < ActionController::Base
       new_messages_count: (current_user.new_messages_count rescue 0),
       new_offers_count: (current_user.new_offers_count rescue 0),
     }
-  end
-
-  def translations
-    currency = get_user_currency
-    result = {
-      translations: get_translations,
-      data: get_data.merge!(rates: Currency.get_rates(currency[:name])),
-      locale: I18n.locale
-    }
-    render json: Oj.dump(result)
-  end
-
-  def user_currency
-    render json: Oj.dump(get_user_currency)
   end
 
   def serialize res, options = {}
@@ -64,6 +51,10 @@ class ApplicationController < ActionController::Base
     else
       yield
     end
+  end
+
+  def current_company
+    @current_company
   end
 
   private
@@ -95,5 +86,13 @@ class ApplicationController < ActionController::Base
           }
         end
       end
+    end
+
+    def set_locale
+      I18n.locale = current_user.language || extract_locale_from_accept_language_header rescue extract_locale_from_accept_language_header
+    end
+
+    def set_company
+      Company.current_company = @current_company = OpenStruct.new Rails.application.secrets[:companies][request.host]
     end
 end

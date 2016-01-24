@@ -15,7 +15,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     unless resource.persisted?
       render json: {
-        msg: resource.errors.full_messages.first
+        msg: resource.errors.full_messages.first,
+        errors: resource.errors
       }, status: 403
     else
       if resource.active_for_authentication?

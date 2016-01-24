@@ -1,5 +1,6 @@
 /*
 *= require oxymoron/normalize
+*= require oxymoron/ng-notify
 *= require angular-material
 *= require_tree ./shared
 *= require_tree ./landing

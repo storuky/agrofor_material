@@ -14,6 +14,9 @@ class CreateCorrespondences < ActiveRecord::Migration
 
       t.json :new_messages, default: {}
 
+      t.integer :company_id
+      t.index :company_id
+
 
       t.string :last_message
 

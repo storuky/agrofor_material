@@ -26,14 +26,12 @@ module ApplicationHelper
   def set_gon
     ActionView::Base.default_form_builder = AgroforFormBuilder
     
-    currency = get_user_currency
-    
     gon.settings = {
       locale: I18n.locale,
-      currency: currency
+      currency: get_user_currency
     }
 
-    gon.data = get_data.merge!(rates: Currency.get_rates(currency[:name]))
+    gon.data = get_data
 
     if current_user
       gon.current_user = current_user.info
@@ -45,7 +43,7 @@ module ApplicationHelper
   end
 
   def get_translations
-    cache_if(Rails.env.production?, "translations_#{I18n.locale}") do
+    cache_if(Rails.env.production?, "translations_#{current_company.name}_#{I18n.locale}") do
       {
         dictionary: I18n.t("dictionary"),
         pluralize: I18n.t("pluralize"),
@@ -56,12 +54,8 @@ module ApplicationHelper
     end
   end
 
-  def set_locale
-    I18n.locale = current_user.language || "ru" rescue "ru"
-  end
-
   def get_data
-    cache_if(Rails.env.production?, "data_#{I18n.locale}") do
+    cache_if(Rails.env.production?, "data_#{current_company.name}_#{I18n.locale}") do
       {
         trade_types: TradeType.all_from_cache(serializer: TradeTypeSerializer),
         weight_dimensions: WeightDimension.all_from_cache(serializer: WeightDimensionSerializer),
@@ -77,6 +71,14 @@ module ApplicationHelper
   end
 
   def get_user_currency
-    (serialize(current_user.currency) rescue Currency.all_by_index_from_cache(serializer: CurrencySerializer)[1])
+    serialize(current_user.currency || Currency.first)
+  end
+
+  def extract_locale_from_accept_language_header
+    if request.env['HTTP_ACCEPT_LANGUAGE']
+      request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+    else
+      :en
+    end
   end
 end

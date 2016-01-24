@@ -13,10 +13,10 @@ text-align: center;}
 
 .tab {
   display: inline-block;
-  font-size: 15px !important;
+  font-size: 16px !important;
   text-transform: inherit !important;
   cursor: pointer;
-  background: white !important;
+  /*background: white !important;*/
   border-radius: 0 !important;
   line-height: 30px !important;
   min-height: 30px !important;

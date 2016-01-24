@@ -1,5 +1,6 @@
 class Category < ActiveRecord::Base
   include Cacheable
+  include Companiable
 
   has_many :options
 
