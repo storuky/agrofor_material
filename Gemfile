@@ -31,6 +31,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-rails-console'
   gem 'capistrano-rvm'
+  gem 'capistrano-sidekiq'
 
   gem 'pry'
   gem 'pry-remote'
@@ -89,3 +90,7 @@ gem 'oj'
 gem 'oj_mimic_json'
 gem 'file_validators'
 gem 'whenever', :require => false
+
+gem 'sidekiq'
+gem 'devise-async'
+gem 'sinatra', :require => nil
