@@ -4,7 +4,7 @@
     head
       meta charset="UTF-8"
       title
-        | Вудфор: Международная биржа в сфере пиломатериалов
+        | Вудфор: Международная биржа пиломатериалов
       meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no"
       meta name="description" content="На вашу продукцию есть спрос, но вы об этом еще не знаете. Спешите открыть для себя новый, перспективныйи и динамично развивающийся рынок!"
       link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"
@@ -12,7 +12,8 @@
       = stylesheet_link_tag 'landing'
       = stylesheet_link_tag "companies/#{current_company.name}"
     body
-      = image_tag "logos/woodfor_ru.svg", width: 200, height: 108
+      .logo
+        = image_tag "logos/woodfor_ru.svg", width: 200, height: 108
       = yield
     = javascript_include_tag 'landing'
 
