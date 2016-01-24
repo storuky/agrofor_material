@@ -5,9 +5,7 @@ app.service('Ws',  ['$rootScope', '$location', 'Correspondence', 'Offer', 'Posit
     if (gon.current_user) {
       
       PrivatePub.sign(gon.channel);
-      var stream = "/stream/" + gon.current_company.name + '/' + gon.current_user.id;
-      console.log(stream)
-      PrivatePub.subscribe(stream, function(data, channel) {
+      PrivatePub.subscribe(gon.channel.channel, function(data, channel) {
         if (data.message)
           ws_message(data.message)
         if (data.offer)

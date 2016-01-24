@@ -37,7 +37,7 @@ module ApplicationHelper
     if current_user
       gon.current_user = current_user.info
       gon.favorite_ids = current_user.favorite_ids
-      gon.channel = PrivatePub.subscription(:channel => "/stream/#{current_company.name}/#{current_user.id}").as_json
+      gon.channel = PrivatePub.subscription(:channel => current_user.channel).as_json
     end
 
     gon.translations = get_translations

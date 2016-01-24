@@ -20,7 +20,7 @@ class Message < ActiveRecord::Base
       correspondence.update(last_message: self.body, new_messages: new_messages)
 
       new_messages.keys.each do |user_id|
-        PrivatePub.publish_to("/stream/#{Company.current_company.name}/#{user_id}", {message: MessageSerializer.new(self, root: false).as_json})
+        PrivatePub.publish_to(User.channel(user_id), {message: MessageSerializer.new(self, root: false).as_json})
       end
     end
 

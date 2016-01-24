@@ -45,6 +45,14 @@ class User < ActiveRecord::Base
     UserSerializer.new(self).as_json
   end
 
+  def channel
+    "/#{Company.current_company.name}/#{id}"
+  end
+
+  def self.channel id
+    "/#{Company.current_company.name}/#{id}"
+  end
+
   def fullname
     "#{first_name} #{last_name}"
   end
@@ -87,7 +95,6 @@ class User < ActiveRecord::Base
         User.find(id).positions_from_cache
       end
     end
-
 
     def feedbacks_from_cache id, params = {}
       Rails.cache.fetch("User.feedbacks_from_cache(#{id}, #{params})_#{I18n.locale}_#{Company.current_company.id}") do
