@@ -20,6 +20,10 @@ html, body {
   height: 100%;
 }
 
+body {
+  overflow-y: auto !important;
+}
+
 .ng-cloak {
   display: none;
 }
@@ -31,4 +35,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-family: "Roboto", sans-serif;
+}
+
+.logo {
+  text-align: center;
+  padding-top: 50px;
 }
