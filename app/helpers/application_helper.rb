@@ -32,6 +32,7 @@ module ApplicationHelper
     }
 
     gon.data = get_data
+    gon.current_company = current_company
 
     if current_user
       gon.current_user = current_user.info
