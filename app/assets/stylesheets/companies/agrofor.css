@@ -48,3 +48,7 @@
   border-top: 3px solid rgb(255, 219, 76);
   border-bottom: 3px solid rgb(255, 219, 76);
 }
+
+.nav-link__count {
+  background: #FFDB4C;
+}

@@ -48,3 +48,7 @@
   border-top: 3px solid #4CAF50;
   border-bottom: 3px solid #4CAF50;
 }
+
+.nav-link__count {
+  background: #4CAF50;
+}

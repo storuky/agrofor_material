@@ -47,3 +47,7 @@
   border-top: 3px solid #2196F3;
   border-bottom: 3px solid #2196F3;
 }
+
+.nav-link__count {
+  background: #2196F3;
+}
