@@ -1,0 +1,6 @@
+port: 9292
+ssl: true
+ssl_key_file: /etc/nginx/ssl/woodfor.key
+ssl_cert_file: /etc/nginx/ssl/woodfor.crt
+environment: production
+rackup: private_pub.ru
