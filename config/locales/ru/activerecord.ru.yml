@@ -1,5 +1,11 @@
 ru:
   activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              not_found: не найдена
     attributes:
       position_base: &generic
         created_at: Дата создания
@@ -47,3 +53,4 @@ ru:
         phones: "Контактные телефоны"
         lat: Долгота
         lng: Широта
+

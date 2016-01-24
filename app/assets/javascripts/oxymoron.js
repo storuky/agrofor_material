@@ -87,7 +87,7 @@ angular.module("oxymoron.config.states", [])
             
             return Routes['new_user_password_path'](params);
           },
-          controller: 'DevisePasswordsCtrl as ctrl',
+          controller: 'UsersPasswordsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
               return resolve('new', $stateParams)
@@ -102,7 +102,7 @@ angular.module("oxymoron.config.states", [])
             
             return Routes['edit_user_password_path'](params);
           },
-          controller: 'DevisePasswordsCtrl as ctrl',
+          controller: 'UsersPasswordsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
               return resolve('edit', $stateParams)

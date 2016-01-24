@@ -1,21 +1,23 @@
-= cache_if Rails.env.production?, "landing_#{current_company.name}_#{I18n.locale}_#{$layout_cache}" do
+= cache_if Rails.env.production?, "devise_#{current_company.name}_#{I18n.locale}_#{$layout_cache}" do
   <!DOCTYPE html>
   html ng-app="app"
     head
       meta charset="UTF-8"
-      title
-        | Агрофор: Международная аграрная биржа
       meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no"
-      meta name="description" content="На вашу продукцию есть спрос, но вы об этом еще не знаете. Спешите открыть для себя новый, перспективныйи и динамично развивающийся рынок!"
+      title
+        = I18n.t "company.#{current_company.name}"
       link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"
       link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'
       = stylesheet_link_tag 'landing'
       = stylesheet_link_tag "companies/#{current_company.name}"
+      = csrf_meta_tags
       base href="/"
     body
       .logo
-        = image_tag "logos/agrofor_ru.svg", width: 200, height: 108
+        = image_tag "logos/#{current_company.name}_#{I18n.locale}.svg", width: 200, height: 108
       = yield
+    script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"
+    = render template: 'components/index'
     = javascript_include_tag 'landing'
-
-= csrf_meta_tags
+  
+= Gon::Base.render_data({})

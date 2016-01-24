@@ -26,7 +26,6 @@ app.controller("FillCtrl", ["$scope", "Profile", '$timeout', function ($scope, P
     Profile.update(data, function (res) {
       window.location = "/search/map"
     }, function (res) {
-      console.log(res)
       if (res.data.errors.first_name || res.data.errors.last_name)
         ctrl.tab = 1;
       else if (res.data.errors.address || res.data.errors.lat || res.data.errors.lng)

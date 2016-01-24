@@ -16,3 +16,5 @@
       div[flex="none" flex-sm=100 style="min-width: 330px"]
         md-button.md-primary.md-lg type="submit" Войти
         md-button.md-white.md-lg ng-click="ctrl.signUp(ctrl.form, $event)" Зарегистрироваться
+      div[flex-sm=100 ng-show="ctrl.invalidEmail"]
+        a.link href="" ng-click="ctrl.reset(ctrl.form)" Забыли пароль?
