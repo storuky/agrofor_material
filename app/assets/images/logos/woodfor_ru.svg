@@ -9,7 +9,7 @@
             <text id="ВудФОР" sketch:type="MSTextLayer" font-family="Prosto Sans" font-size="21.1873" font-weight="bold" fill="#4D4D4F">
                 <tspan x="43.0039" y="81.0077885">ВудФОР</tspan>
             </text>
-            <path d="M102.119,0.513 L85.938,0.513 L58.843,32.326 L58.843,58.807 L67.293,58.807 L67.293,34.017 L89.262,8.034 L98.809,8.034 L120.767,34.017 L120.767,58.807 L129.214,58.807 L129.214,32.326 L102.119,0.513" id="Fill-1" fill="#8D6E63" sketch:type="MSShapeGroup"></path>
+            <path d="M102.119,0.513 L85.938,0.513 L58.843,32.326 L58.843,58.807 L67.293,58.807 L67.293,34.017 L89.262,8.034 L98.809,8.034 L120.767,34.017 L120.767,58.807 L129.214,58.807 L129.214,32.326 L102.119,0.513" id="Fill-1" fill="#4CAF50" sketch:type="MSShapeGroup"></path>
             <text id="Международная-биржа-" sketch:type="MSTextLayer" font-family="Prosto Sans" font-size="7.171" font-weight="bold" fill="#4D4D4F">
                 <tspan x="0.8633" y="94.6023231">Межд</tspan>
                 <tspan x="26.865346" y="94.6023231" letter-spacing="0.14342">у</tspan>
@@ -21,8 +21,8 @@
                 <tspan x="94.44485" y="94.6023231" letter-spacing="-0.14342">ж</tspan>
                 <tspan x="102.390318" y="94.6023231">а пиломатериалов</tspan>
             </text>
-            <path d="M58.843,58.837 L67.293,58.837 L67.293,34.047 L58.843,32.356 L58.843,58.837" id="Fill-2" fill="#795548" sketch:type="MSShapeGroup"></path>
-            <path d="M129.214,58.837 L120.764,58.837 L120.764,34.047 L129.214,32.356 L129.214,58.837" id="Fill-3" fill="#795548" sketch:type="MSShapeGroup"></path>
+            <path d="M58.843,58.837 L67.293,58.837 L67.293,34.047 L58.843,32.356 L58.843,58.837" id="Fill-2" fill="#43A047" sketch:type="MSShapeGroup"></path>
+            <path d="M129.214,58.837 L120.764,58.837 L120.764,34.047 L129.214,32.356 L129.214,58.837" id="Fill-3" fill="#43A047" sketch:type="MSShapeGroup"></path>
             <path d="M89.35,22.748 L58.843,58.807 L71.511,58.807 L93.588,32.824 L94.469,32.824 L116.546,58.807 L129.214,58.807 L98.707,22.748 L89.35,22.748" id="Fill-4" fill="#4D4D4F" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
