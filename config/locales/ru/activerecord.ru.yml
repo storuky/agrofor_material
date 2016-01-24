@@ -52,5 +52,7 @@ ru:
         skype: "Skype"
         phones: "Контактные телефоны"
         lat: Долгота
+        password: Пароль
+        password_confirmation: Пароль
         lng: Широта
 

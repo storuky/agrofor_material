@@ -27,7 +27,6 @@ class ProfileController < ApplicationController
 
           if current_user.update(user_params)
             @user = serialize(current_user)
-            ap @user
             render json: {msg: "Профиль успешно обновлен", user: @user, update_translations: update_translations, update_currency: update_currency}
           else
             render json: {errors: current_user.errors, msg: current_user.errors.full_messages.join(", ")}, status: 422

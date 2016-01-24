@@ -5,11 +5,11 @@
       div[flex="none" flex-sm=100]
         md-input-container.md-block
           label Пароль
-          input type="password" ng-model="ctrl.form.user.password" name="user[password]"
+          input type="password" ng-model="ctrl.form.user.password" name="user[password]" ng-init="ctrl.form.user.password = ''"
       
       div[flex="none" flex-sm=100]
         md-input-container.md-block
           label Подтвердите пароль
-          input type="password" ng-model="ctrl.form.user.password_confirmation" name="user[password_confirmation]"
+          input type="password" ng-model="ctrl.form.user.password_confirmation" name="user[password_confirmation]" ng-init="ctrl.form.user.password_confirmation = ''"
       div[flex="none" flex-sm=100 style="min-width: 150px"]
         md-button.md-primary.md-lg type="submit" Сохранить

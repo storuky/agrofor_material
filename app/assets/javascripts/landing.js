@@ -17,7 +17,7 @@ app.run(['ngNotify', function (ngNotify) {
   ngNotify.config({
     theme: 'pure',
     position: 'top',
-    duration: 200000,
+    duration: 3000,
     type: 'info'
   });
 
@@ -59,16 +59,7 @@ app.controller("LandingCtrl", ["$scope", "$http", "Validate", "ngNotify", "$loca
   }
 
   ctrl.set_password = function (form, $event) {
-    if (form) {
-      var form = form;
-    } else {
-      var form = {
-        user: {
-          password: "",
-          password_confirmation: "",
-        }
-      }
-    }
+    var form = form;
 
     form.user.reset_password_token = $location.search().reset_password_token;
     $http.put('/users/password', form).then(function (res) {
