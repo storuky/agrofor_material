@@ -496,6 +496,46 @@ Category.create!([
   {id: 1037, title: "aircraft oils", company_id: 2},
 ])
 
+Option.create([
+  {id: 2001, title: "boards", category_id: 2001, company_id: 3},
+  {id: 2002, title: "brus", category_id: 2002, company_id: 3},
+  {id: 2003, title: "wooden moldings", category_id: 2003, company_id: 3},
+  {id: 2004, title: "molded", category_id: 2004, company_id: 3},
+  {id: 2005, title: "lining", category_id: 2005, company_id: 3},
+  {id: 2006, title: "bruschi", category_id: 2006, company_id: 3},
+  {id: 2007, title: "log houses", category_id: 2007, company_id: 3},
+  {id: 2008, title: "block house", category_id: 2008, company_id: 3},
+  {id: 2009, title: "imitation of beam", category_id: 2010, company_id: 3},
+  {id: 2010, title: "logs cylindered", category_id: 2011, company_id: 3},
+  {id: 2011, title: "planken", category_id: 2012, company_id: 3},
+  {id: 2012, title: "wood logs", category_id: 2013, company_id: 3},
+  {id: 2013, title: "wooden sleepers", category_id: 2014, company_id: 3},
+  {id: 2014, title: "pallet harvesting", category_id: 2015, company_id: 3},
+  {id: 2015, title: "firewood", category_id: 2009, company_id: 3},
+  {id: 2016, title: "pellets", category_id: 2009, company_id: 3},
+  {id: 2017, title: "sawdust", category_id: 2009, company_id: 3},
+  {id: 2018, title: "slab", category_id: 2009, company_id: 3},
+  {id: 2019, title: "wood chips", category_id: 2009, company_id: 3},
+  {id: 2020, title: "bark", category_id: 2009, company_id: 3},
+  {id: 2021, title: "excelsior", category_id: 2009, company_id: 3},
+])
+
+Category.create([
+  {id: 2001, title: "boards", company_id: 3},
+  {id: 2002, title: "brus", company_id: 3},
+  {id: 2003, title: "wooden moldings", company_id: 3},
+  {id: 2004, title: "molded", company_id: 3},
+  {id: 2005, title: "lining", company_id: 3},
+  {id: 2006, title: "bruschi", company_id: 3},
+  {id: 2007, title: "log houses", company_id: 3},
+  {id: 2008, title: "block house", company_id: 3},
+  {id: 2009, title: "wood waste", company_id: 3},
+  {id: 2010, title: "imitation of beam", company_id: 3},
+  {id: 2011, title: "logs cylindered", company_id: 3},
+  {id: 2012, title: "planken", company_id: 3},
+  {id: 2013, title: "wood logs", company_id: 3},
+])
+
 # Correspondence.create!([
 #   {id: 1, type: "CorrespondencePosition", messages_count: 1, user_ids: [2, 1], position_ids: [13, 2], new_messages: {"2"=>[], "1"=>[]}, last_message: "Service message", updated_at: "2016-01-18 16:44:34"}
 # ])
