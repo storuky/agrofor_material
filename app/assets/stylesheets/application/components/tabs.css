@@ -30,7 +30,6 @@ text-align: center;}
 }
 
 .tab.active:before {
-  border-bottom: 2px solid rgb(253, 90, 62);
   content: "";
   display: block;
   position: absolute;

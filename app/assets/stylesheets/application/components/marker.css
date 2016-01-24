@@ -25,12 +25,10 @@
   bottom: -37px;
   border-style: solid;
   border-width: 0 14px 12px 0;
-  border-color: transparent #0d89ec transparent transparent;
 }
 
 .marker-label__head {
   height: 15px;
-  background: #0d89ec;
   white-space: nowrap;
   color: white;
   font-size: 10px;
@@ -52,7 +50,6 @@
   overflow: hidden;
   position: absolute;
   min-width: 70px;
-  background: #2196F3;
   white-space: nowrap;
   color: white;
   padding: 5px;
@@ -72,22 +69,10 @@
   height: 25px;
   transition: .3s;
 }
-  
-.marker-label__head:before {
-  background: #0d89ec;
-}
-  
-.marker-label__body:before {
-  background: #2196F3;
-}
-  
-.marker-label:hover > .marker-label__body {
-  background: #2c9bf4;
-}
-  
 .marker-label:hover > .marker-label__body, .marker-label:hover > .marker-label__head {
   max-width: none;
 }
+  
 
 
 .marker-offer .marker-label__head {

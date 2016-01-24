@@ -142,8 +142,7 @@ input.solid-input:focus {
 }
 
 .uploaded-images__container.border {
-  border: 3px solid #FFDB4C;
-  border-width: 3px 0px;
+  border-width: 3px 0px !important;
   height: 162px;
   overflow: hidden;
 }
