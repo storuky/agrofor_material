@@ -27,13 +27,16 @@ h1 {
   letter-spacing: .04em;
   color: #999;
   padding: 12px 28px;
-  border-bottom: 2px solid #FFFFFF;
   cursor: pointer;
   height: 42px;
   white-space: nowrap;
+  position: relative;
+  margin: 0 !important;
 }
 .tab.active {
   color: #333;
+}
+.tab.active:before {
   border-bottom: 2px solid #FCA001;
 }
 .tab:hover {

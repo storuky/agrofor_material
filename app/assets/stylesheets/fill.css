@@ -34,4 +34,5 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-family: "Roboto", sans-serif;
+  background: white !important;
 }

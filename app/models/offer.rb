@@ -97,7 +97,7 @@ class Offer < PositionBase
       position.user.increment!(:new_offers_count)
       offer = OfferSerializer.new(self, root: false).as_json
       @correspondence.messages.create(message_type: "new_offer", body: "Service message", user_id: user_id, offer: self.pluck_fields)
-      PrivatePub.publish_to("/stream/#{position.user_id}", {offer: offer}) rescue nil
+      PrivatePub.publish_to("/stream/#{Company.current_company.name}/#{position.user_id}", {offer: offer}) rescue nil
     end
 
     def send_message
