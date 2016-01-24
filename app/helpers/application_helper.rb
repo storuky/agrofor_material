@@ -32,7 +32,7 @@ module ApplicationHelper
     }
 
     gon.data = get_data
-    gon.current_company = current_company
+    gon.current_company = current_company.marshal_dump
 
     if current_user
       gon.current_user = current_user.info
