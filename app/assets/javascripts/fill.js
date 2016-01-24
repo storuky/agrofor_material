@@ -9,8 +9,8 @@
 //= require oxymoron
 //= require angular-material
 //= require_self
-//= require_tree ./agrofor/directives
-//= require_tree ./agrofor/services
+//= require_tree ./application/directives
+//= require_tree ./application/services
 
 var app = angular.module('app', ['ngMaterial', 'oxymoron'])
 
