@@ -77,9 +77,18 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_controller.asset_host = Proc.new { |source, request|
-    if request && request.ssl?
+  # config.action_controller.asset_host = Proc.new { |source, request|
+  #   if request && request.ssl?
+  #     "#{request.protocol}#{request.host_with_port}"
+  #   else
+  #     "https://agrofor.pro"
+  #   end
+  # }
+  config.action_mailer.asset_host = Proc.new { |source, request|
+    if request
       "#{request.protocol}#{request.host_with_port}"
+    else
+      "https://agrofor.pro"
     end
   }
 end
