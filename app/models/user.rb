@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   after_initialize :init_language
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   belongs_to :avatar, class_name: Image
 
