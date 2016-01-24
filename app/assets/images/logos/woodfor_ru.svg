@@ -21,8 +21,8 @@
                 <tspan x="94.44485" y="94.6023231" letter-spacing="-0.14342">ж</tspan>
                 <tspan x="102.390318" y="94.6023231">а пиломатериалов</tspan>
             </text>
-            <path d="M58.843,58.837 L67.293,58.837 L67.293,34.047 L58.843,32.356 L58.843,58.837" id="Fill-2" fill="#43A047" sketch:type="MSShapeGroup"></path>
-            <path d="M129.214,58.837 L120.764,58.837 L120.764,34.047 L129.214,32.356 L129.214,58.837" id="Fill-3" fill="#43A047" sketch:type="MSShapeGroup"></path>
+            <path d="M58.843,58.837 L67.293,58.837 L67.293,34.047 L58.843,32.356 L58.843,58.837" id="Fill-2" fill="#428C45" sketch:type="MSShapeGroup"></path>
+            <path d="M129.214,58.837 L120.764,58.837 L120.764,34.047 L129.214,32.356 L129.214,58.837" id="Fill-3" fill="#428C45" sketch:type="MSShapeGroup"></path>
             <path d="M89.35,22.748 L58.843,58.807 L71.511,58.807 L93.588,32.824 L94.469,32.824 L116.546,58.807 L129.214,58.807 L98.707,22.748 L89.35,22.748" id="Fill-4" fill="#4D4D4F" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

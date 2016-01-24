@@ -21,8 +21,8 @@
                 <tspan x="146.262496" y="94.6023231" letter-spacing="-0.14342">ж</tspan>
                 <tspan x="154.207964" y="94.6023231">а</tspan>
             </text>
-            <path d="M44.843,58.837 L53.293,58.837 L53.293,34.047 L44.843,32.356 L44.843,58.837" id="Fill-2" fill="#1C80D0" sketch:type="MSShapeGroup"></path>
-            <path d="M115.214,58.837 L106.764,58.837 L106.764,34.047 L115.214,32.356 L115.214,58.837" id="Fill-3" fill="#1C80D0" sketch:type="MSShapeGroup"></path>
+            <path d="M44.843,58.837 L53.293,58.837 L53.293,34.047 L44.843,32.356 L44.843,58.837" id="Fill-2" fill="#2175B8" sketch:type="MSShapeGroup"></path>
+            <path d="M115.214,58.837 L106.764,58.837 L106.764,34.047 L115.214,32.356 L115.214,58.837" id="Fill-3" fill="#2175B8" sketch:type="MSShapeGroup"></path>
             <path d="M75.35,22.748 L44.843,58.807 L57.511,58.807 L79.588,32.824 L80.469,32.824 L102.546,58.807 L115.214,58.807 L84.707,22.748 L75.35,22.748" id="Fill-4" fill="#4D4D4F" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
