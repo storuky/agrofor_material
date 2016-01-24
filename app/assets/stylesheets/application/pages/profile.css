@@ -2,9 +2,8 @@
 .profile-page.was_changed {
   padding-bottom: 50px;
 }
-.profile-info {
-
-  /* padding-right: 0 !important; */
+.profile-info md-tab-content {
+  padding-top: 5px;
 }
 .profile-avatar {
 
