@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
-  
+
   root to: "landing#index"
   
   for_routes = ->() do
@@ -10,7 +10,8 @@ Rails.application.routes.draw do
     devise_for :users, controllers: {
           sessions: 'users/sessions',
           registrations: 'users/registrations',
-          passwords: 'users/passwords'
+          passwords: 'users/passwords',
+          confirmations: 'users/confirmations'
     }
 
     scope :search, controller: "search" do
