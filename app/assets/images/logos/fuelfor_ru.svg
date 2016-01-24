@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="180px" height="97px" viewBox="0 0 180 97" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
+    <title>fuelfor_ru</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="ЂЃ£Ѓ-†£аЃ-2" sketch:type="MSLayerGroup" transform="translate(10.000000, 0.000000)">
+            <text id="ФьюлФОР" sketch:type="MSTextLayer" font-family="Prosto Sans" font-size="21.1873" font-weight="bold" fill="#4D4D4F">
+                <tspan x="15.0039" y="81.0077885">ФьюлФОР</tspan>
+            </text>
+            <path d="M88.119,0.513 L71.938,0.513 L44.843,32.326 L44.843,58.807 L53.293,58.807 L53.293,34.017 L75.262,8.034 L84.809,8.034 L106.767,34.017 L106.767,58.807 L115.214,58.807 L115.214,32.326 L88.119,0.513" id="Fill-1" fill="#2196F3" sketch:type="MSShapeGroup"></path>
+            <text id="Международная-топлив" sketch:type="MSTextLayer" font-family="Prosto Sans" font-size="7.171" font-weight="bold" fill="#1A1918">
+                <tspan x="0.8633" y="94.6023231">Межд</tspan>
+                <tspan x="26.865346" y="94.6023231" letter-spacing="0.14342">у</tspan>
+                <tspan x="32.236425" y="94.6023231">на</tspan>
+                <tspan x="43.53075" y="94.6023231" letter-spacing="-0.28684">р</tspan>
+                <tspan x="48.213413" y="94.6023231" letter-spacing="-0.1441371">о</tspan>
+                <tspan x="53.8921279" y="94.6023231" letter-spacing="-0.1427029">д</tspan>
+                <tspan x="59.393002" y="94.6023231">ная топливная бир</tspan>
+                <tspan x="146.262496" y="94.6023231" letter-spacing="-0.14342">ж</tspan>
+                <tspan x="154.207964" y="94.6023231">а</tspan>
+            </text>
+            <path d="M44.843,58.837 L53.293,58.837 L53.293,34.047 L44.843,32.356 L44.843,58.837" id="Fill-2" fill="#1C80D0" sketch:type="MSShapeGroup"></path>
+            <path d="M115.214,58.837 L106.764,58.837 L106.764,34.047 L115.214,32.356 L115.214,58.837" id="Fill-3" fill="#1C80D0" sketch:type="MSShapeGroup"></path>
+            <path d="M75.35,22.748 L44.843,58.807 L57.511,58.807 L79.588,32.824 L80.469,32.824 L102.546,58.807 L115.214,58.807 L84.707,22.748 L75.35,22.748" id="Fill-4" fill="#4D4D4F" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

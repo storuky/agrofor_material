@@ -8,7 +8,8 @@
         = I18n.t "company"
       link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"
       link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'
-      = stylesheet_link_tag 'agrofor'
+      = stylesheet_link_tag 'application'
+      = stylesheet_link_tag "companies/#{current_company.name}"
       = csrf_meta_tags
       base href="/"
       css:
@@ -34,6 +35,7 @@
       = render template: 'components/index'
 
       script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"
-      = javascript_include_tag 'agrofor'
+      = javascript_include_tag 'application'
+      = javascript_include_tag "companies/#{current_company.name}"
 
 = Gon::Base.render_data({})

@@ -77,7 +77,6 @@
 }
 
 .nav__link.active {
-  box-shadow: -2px 0 0px #ffdb4c inset;
   color: black;
   background-color: whitesmoke;
 }

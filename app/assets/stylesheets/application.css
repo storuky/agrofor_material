@@ -15,7 +15,7 @@
  *= require flickity
  *= require angular-material
  *= require_tree ./shared 
- *= require_tree ./agrofor
+ *= require_tree ./application
  *= require_self
  */
 

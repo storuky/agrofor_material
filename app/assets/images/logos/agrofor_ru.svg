@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="180px" height="97px" viewBox="0 0 180 97" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
+    <title>agrofor_ru</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="ЂЃ£Ѓ-†£аЃ" sketch:type="MSLayerGroup" transform="translate(7.000000, -1.000000)">
+            <text id="АГРОФОР" sketch:type="MSTextLayer" font-family="Prosto Sans" font-size="21.1873" font-weight="bold" fill="#4D4D4F">
+                <tspan x="24.0039" y="81.0077885">АГРОФОР</tspan>
+            </text>
+            <path d="M92.119,0.513 L75.938,0.513 L48.843,32.326 L48.843,58.807 L57.293,58.807 L57.293,34.017 L79.262,8.034 L88.809,8.034 L110.767,34.017 L110.767,58.807 L119.214,58.807 L119.214,32.326 L92.119,0.513" id="Fill-1" fill="#F5B827" sketch:type="MSShapeGroup"></path>
+            <text id="Международная-аграрная-биржа" sketch:type="MSTextLayer" font-family="Prosto Sans" font-size="7.171" font-weight="bold" fill="#4D4D4F">
+                <tspan x="7.8633" y="94.6023231">Межд</tspan>
+                <tspan x="33.865346" y="94.6023231" letter-spacing="0.14342">у</tspan>
+                <tspan x="39.236425" y="94.6023231">на</tspan>
+                <tspan x="50.53075" y="94.6023231" letter-spacing="-0.28684">р</tspan>
+                <tspan x="55.213413" y="94.6023231" letter-spacing="-0.1441371">о</tspan>
+                <tspan x="60.8921279" y="94.6023231" letter-spacing="-0.1427029">д</tspan>
+                <tspan x="66.393002" y="94.6023231">ная аг</tspan>
+                <tspan x="95.170225" y="94.6023231" letter-spacing="-0.14342">р</tspan>
+                <tspan x="100.139728" y="94.6023231">арная бир</tspan>
+                <tspan x="145.991102" y="94.6023231" letter-spacing="-0.14342">ж</tspan>
+                <tspan x="153.93657" y="94.6023231">а</tspan>
+            </text>
+            <path d="M48.843,58.837 L57.293,58.837 L57.293,34.047 L48.843,32.356 L48.843,58.837" id="Fill-2" fill="#ED992D" sketch:type="MSShapeGroup"></path>
+            <path d="M119.214,58.837 L110.764,58.837 L110.764,34.047 L119.214,32.356 L119.214,58.837" id="Fill-3" fill="#ED992D" sketch:type="MSShapeGroup"></path>
+            <path d="M79.35,22.748 L48.843,58.807 L61.511,58.807 L83.588,32.824 L84.469,32.824 L106.546,58.807 L119.214,58.807 L88.707,22.748 L79.35,22.748" id="Fill-4" fill="#4D4D4F" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

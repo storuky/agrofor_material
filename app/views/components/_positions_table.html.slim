@@ -101,7 +101,7 @@ script type="text/ng-template" id="positions_table.html"
                 .position__full-info__map
                   location.position-map[info="full_position" scroll-zoom="false"]
                 .position__full-info__footer
-                  md-button.md-yellow.md-lg ng-show="gon.current_user.id != full_position.user_id" ng-href="/offers/new?suitable={{full_position.id}}"
+                  md-button.md-primary.md-lg ng-show="gon.current_user.id != full_position.user_id" ng-href="/offers/new?suitable={{full_position.id}}"
                     | Отправить предложение
 
                   .position__full-info__your ng-show="gon.current_user.id == full_position.user_id"

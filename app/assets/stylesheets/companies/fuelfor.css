@@ -1,0 +1,49 @@
+/*
+*= require_tree ./fuelfor
+*= require_self
+*/
+
+.nav__link.active {
+  box-shadow: -2px 0 0px #2196F3 inset;
+}
+.search__btn {
+  color: #fff;
+  background: #2196F3;
+}
+
+.search__btn span {
+  background: #2196F3;
+}
+
+.search__btn span:after {
+  border-color: transparent transparent transparent #2196F3;
+}
+
+.search__btn span:hover {
+  background: #14B2FA;
+}
+
+.search__btn span:hover:after {
+  border-color: transparent transparent transparent #14B2FA;
+}
+
+.search__input input[type="text"]:focus {
+  box-shadow: 0 0 0 2px #2196F3 inset;
+}
+
+.tags .tags__add:before {
+  border-right: 1px solid #1C80D0;
+}
+
+.page-header {
+  border-bottom: 2px solid #2196F3;
+}
+
+.position-map {
+  box-shadow: 0px 0px 0px 3px #2196F3;
+}
+
+.profile-map {
+  border-top: 3px solid #2196F3;
+  border-bottom: 3px solid #2196F3;
+}

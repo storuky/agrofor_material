@@ -1,9 +1,6 @@
 .position-map {
   height: 215px;
-  /* box-shadow: 0px 0px 0px 3px #FFDB4C inset; */
   position: relative;
-  /* z-index: 9999; */
-  box-shadow: 0px 0px 0px 3px #FFDB4C;
 }
 .upload-image {
   border: 1px solid rgba(0, 0, 0, 0.12);
@@ -29,12 +26,9 @@
   display: none;
 }
 .upload-file i {
-  font-size: 18px;
+  font-size: 20px;
   vertical-align: middle;
   padding-right: 5px;
-}
-.upload-file span {
-  vertical-align: middle;
 }
 .positions-table > tbody > tr:not(:first-child) {
   display: none;
@@ -629,7 +623,9 @@ md-dialog.position-modal md-dialog-content {
 
 .upload-file span {
   position: relative;
+  vertical-align: middle;
   z-index: 1;
+  margin-left: 35px;
 }
 
 

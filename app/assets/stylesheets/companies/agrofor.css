@@ -1,0 +1,50 @@
+/*
+*= require_tree ./agrofor
+*= require_self
+*/
+
+.nav__link.active {
+  box-shadow: -2px 0 0px #ffdb4c inset;
+}
+
+.search__btn {
+  color: #2B2B2B;
+  background: #ffdb4c;
+}
+
+.search__btn span {
+  background: #ffdb4c;
+}
+
+.search__btn span:after {
+  border-color: transparent transparent transparent #ffdb4c;
+}
+
+.search__btn span:hover {
+  background: #ffe067;
+}
+
+.search__btn span:hover:after {
+  border-color: transparent transparent transparent #ffe067;
+}
+
+.search__input input[type="text"]:focus {
+  box-shadow: 0 0 0 2px #ffdb4c inset;
+}
+
+.tags .tags__add:before {
+  border-right: 1px solid #d7b940;
+}
+
+.page-header {
+  border-bottom: 2px solid rgb(255, 219, 76);
+}
+
+.position-map {
+  box-shadow: 0px 0px 0px 3px #FFDB4C;
+}
+
+.profile-map {
+  border-top: 3px solid rgb(255, 219, 76);
+  border-bottom: 3px solid rgb(255, 219, 76);
+}

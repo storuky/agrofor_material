@@ -28,7 +28,7 @@ script type="text/ng-template" id="position.tmpl.html"
                   md-button.md-lg.md-white ng-disabled="ctrl.query.$resolved === false" ng-click="ctrl.deleteOffer()"
                     | {{gon.translations.interface.text.position_show.withdraw}}
                 div[flex=50]
-                  md-button.md-yellow.md-lg ui-sref="{{$root.edit_path(ctrl.yourOffer)}}"
+                  md-button.md-primary.md-lg ui-sref="{{$root.edit_path(ctrl.yourOffer)}}"
                     | {{gon.translations.interface.text.position_show.edit}}
                 
             div ng-hide="ctrl.yourOffer"
@@ -37,7 +37,7 @@ script type="text/ng-template" id="position.tmpl.html"
                   | *
                 | {{gon.translations.interface.text.position_show.my_offer}}
               suitable positions="ctrl.suitable_positions" ng-model="ctrl.suitable_position"
-              md-button.md-yellow.md-lg.add-offer ng-disabled="ctrl.suitable_positions.length == 0 || ctrl.query.$resolved === false" ng-click="ctrl.send_offer(ctrl.suitable_position)"
+              md-button.md-primary.md-lg.add-offer ng-disabled="ctrl.suitable_positions.length == 0 || ctrl.query.$resolved === false" ng-click="ctrl.send_offer(ctrl.suitable_position)"
                 | {{gon.translations.interface.text.position_show.send_offer}}
                 i.icon-chevron-right
           .position-modal__other-offers[flex flex-sm=100]
@@ -54,7 +54,7 @@ script type="text/ng-template" id="position.tmpl.html"
     md-dialog-actions.position-modal__footer
       div style="width: 100%" ng-show="ctrl.position.type=='Position'"
         div[layout="row" layout-align="end center"]
-          md-button.md-yellow.md-lg[flex-md=40 flex-sm=100 ng-click="isShowOfferOverlay = true" ng-show="gon.current_user.id != ctrl.position.user_id" ng-disabled="!gon.current_user"]
+          md-button.md-primary.md-lg[flex-md=40 flex-sm=100 ng-click="isShowOfferOverlay = true" ng-show="gon.current_user.id != ctrl.position.user_id" ng-disabled="!gon.current_user"]
             | {{gon.translations.interface.text.position_show.send_offer}}
         .position-modal__your-position ng-hide="gon.current_user.id != ctrl.position.user_id"
           | {{gon.translations.interface.text.position_show.your_position}}

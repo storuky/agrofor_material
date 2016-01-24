@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   serialization_scope :view_context
 
+  helper_method :current_company
   before_action :set_company
   before_action :set_locale
   before_action :user_needed

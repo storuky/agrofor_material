@@ -14,7 +14,7 @@ script type="text/ng-template" id="search.html"
     .search__footer ng-class="{active: Search.showFooter}"
       .search__tags ng-class="{open: Search.showExtended && Search.showFooter}"
         .tags
-          md-button.md-yellow.tags__add ng-click="Search.showExtended = !Search.showExtended"
+          md-button.md-primary.tags__add ng-click="Search.showExtended = !Search.showExtended"
             |  {{gon.translations.interface.buttons.search.add_condition}}
 
           .tags__area ng-click="Search.showExtended = false;"
@@ -136,5 +136,5 @@ script type="text/ng-template" id="search.html"
                 div
                   | {{position.weight}} {{position.weight_dimension.title}}, мин. {{position.weight_min}} {{position.weight_min_dimension.title}}, {{position.price}} {{position.currency.title}}/{{position.price_weight_dimension.title}}
         .search__extended__footer
-          md-button.md-yellow.md-lg ng-click="Search.addTag(Search.form)"
+          md-button.md-primary.md-lg ng-click="Search.addTag(Search.form)"
             | {{gon.translations.interface.buttons.search.apply}}

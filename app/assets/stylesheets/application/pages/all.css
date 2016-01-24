@@ -64,7 +64,6 @@ body {
 }
 .page-header {
   background: white;
-  border-bottom: 2px solid rgb(255, 219, 76);
   position: relative;
   z-index: 1;
   min-height: 65px;

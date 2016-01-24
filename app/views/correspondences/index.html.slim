@@ -101,7 +101,7 @@ div content-for="header"
           trading-conditions position="positions[showPosition]"
           .message-page__position__goto
 
-            md-button.md-yellow ng-href="{{show_path(positions[showPosition])}}"
+            md-button.md-primary ng-href="{{show_path(positions[showPosition])}}"
               | {{gon.translations.interface.buttons.messages.go_to[positions[showPosition].type]}}
 
               i.icon-arrow-right
@@ -142,6 +142,6 @@ div content-for="header"
                   |  {{gon.translations.interface.buttons.messages.attach_documents}}
           
           .message-page__send__button
-            md-button.md-yellow.md-sm type="submit"
+            md-button.md-primary.md-sm type="submit"
               |  {{gon.translations.interface.buttons.messages.send}}
       

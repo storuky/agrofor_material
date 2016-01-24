@@ -15,7 +15,7 @@
             .profile-avatar[flex="none"]
               div
                 img height="143" ng-src="{{ctrl.user.avatar.url.thumb || '/avatar.png'}}"
-              label.md-button.md-lg.md-yellow
+              label.md-button.md-lg.md-primary
                 i.icon-upload
                 input.hidden type="file" fileupload="'/images/avatar'" ng-model="ctrl.user.avatar"
                 span
@@ -46,7 +46,7 @@
                   = f.select :currency, collection: "gon.data.currencies"
 
           .footer
-            md-button.md-yellow.md-lg ng-click="ctrl.tab = 2"
+            md-button.md-primary.md-lg ng-click="ctrl.tab = 2"
               | Продолжить
         
         div[ng-show="ctrl.tab == 2"]
@@ -57,7 +57,7 @@
                 md-icon.icon-marker
                 = f.text_field :address, "ng-disabled" => "ctrl.disabled", suggest: "", lat: "ctrl.user.lat", lng: "ctrl.user.lng", country: "ctrl.user.country"
           .footer
-            md-button.md-yellow.md-lg ng-click="ctrl.tab = 3"
+            md-button.md-primary.md-lg ng-click="ctrl.tab = 3"
               | Продолжить
 
 
@@ -90,7 +90,7 @@
                     | {{gon.translations.interface.buttons.profile.add_phone}}
 
           .footer
-            md-button.md-yellow.md-lg type="submit"
+            md-button.md-primary.md-lg type="submit"
               | Приступить к работе
         /.text
           | «Агрофор» – открытый международный сельскохозяйственный рынок на котором собрана информация о спросе и предложении на продукцию аграриев со всего мира. Мы заботимся о наших пользователях и стараемся сделать вашу работу максимально комфортной.

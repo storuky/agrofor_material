@@ -1,0 +1,50 @@
+/*
+*= require_tree ./woodfor
+*= require_self
+*/
+
+
+.nav__link.active {
+  box-shadow: -2px 0 0px #8D6E63 inset;
+}
+.search__btn {
+  color: #fff;
+  background: #8D6E63;
+}
+
+.search__btn span {
+  background: #8D6E63;
+}
+
+.search__btn span:after {
+  border-color: transparent transparent transparent #8D6E63;
+}
+
+.search__btn span:hover {
+  background: #A1887F;
+}
+
+.search__btn span:hover:after {
+  border-color: transparent transparent transparent #A1887F;
+}
+
+.search__input input[type="text"]:focus {
+  box-shadow: 0 0 0 2px #8D6E63 inset;
+}
+
+.tags .tags__add:before {
+  border-right: 1px solid #795548;
+}
+
+.page-header {
+  border-bottom: 2px solid #8D6E63;
+}
+
+.position-map {
+  box-shadow: 0px 0px 0px 3px #8D6E63;
+}
+
+.profile-map {
+  border-top: 3px solid #8D6E63;
+  border-bottom: 3px solid #8D6E63;
+}

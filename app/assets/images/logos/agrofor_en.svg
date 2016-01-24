@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="180px" height="97px" viewBox="0 0 180 97" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
+    <title>agrofor_en</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="ЂЃ£Ѓ-†£аЃ" sketch:type="MSLayerGroup" transform="translate(6.000000, -128.000000)">
+            <text id="AGROFOR" sketch:type="MSTextLayer" font-family="Prosto Sans" font-size="21.1873" font-weight="bold" letter-spacing="-1.05936503" fill="#4D4D4F">
+                <tspan x="31.0978" y="209.007988">AGROFOR</tspan>
+            </text>
+            <path d="M92.1475,128.513 L75.9665,128.513 L48.8715,160.326 L48.8715,186.807 L57.3215,186.807 L57.3215,162.017 L79.2905,136.034 L88.8375,136.034 L110.7955,162.017 L110.7955,186.807 L119.2425,186.807 L119.2425,160.326 L92.1475,128.513" id="Fill-5" fill="#F5B827" sketch:type="MSShapeGroup"></path>
+            <text id="International-Agricultural-Exchange" sketch:type="MSTextLayer" font-family="Prosto Sans" font-size="7.171" font-weight="bold" fill="#4D4D4F">
+                <tspan x="0.0285" y="222.602623">Intern</tspan>
+                <tspan x="28.7125" y="222.602623" letter-spacing="-0.4295429">a</tspan>
+                <tspan x="33.3958801" y="222.602623">tional Agricu</tspan>
+                <tspan x="93.3884661" y="222.602623" letter-spacing="-0.57368">l</tspan>
+                <tspan x="97.3612001" y="222.602623">t</tspan>
+                <tspan x="102.065376" y="222.602623">ural E</tspan>
+                <tspan x="130.240235" y="222.602623" letter-spacing="-0.14342">x</tspan>
+                <tspan x="135.3675" y="222.602623">change</tspan>
+            </text>
+            <path d="M48.8715,186.837 L57.3215,186.837 L57.3215,162.047 L48.8715,160.356 L48.8715,186.837" id="Fill-6" fill="#ED992D" sketch:type="MSShapeGroup"></path>
+            <path d="M119.2425,186.837 L110.7925,186.837 L110.7925,162.047 L119.2425,160.356 L119.2425,186.837" id="Fill-7" fill="#ED992D" sketch:type="MSShapeGroup"></path>
+            <path d="M79.3785,150.748 L48.8715,186.807 L61.5395,186.807 L83.6165,160.825 L84.4975,160.825 L106.5745,186.807 L119.2425,186.807 L88.7355,150.748 L79.3785,150.748" id="Fill-8" fill="#4D4D4F" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

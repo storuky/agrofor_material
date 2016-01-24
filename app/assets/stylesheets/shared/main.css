@@ -243,8 +243,7 @@ hr {
   font-size: 15px;
 }
 
-.md-yellow, .md-yellow.md-button, a.md-yellow {
-  color: #2b2b2b;
+.md-primary, .md-primary.md-button, a.md-primary {
   text-decoration: none;
   overflow: hidden;
   position: relative;
@@ -252,38 +251,6 @@ hr {
   text-transform: none;
   font-weight: normal;
   /* box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.11); */
-}
-
-.md-yellow:not(:disabled) {
-  border: 1px solid rgb(243, 201, 30);
-  background: rgb(255, 219, 76) !important;
-}
-.md-yellow:disabled {
-  border: 1px solid #e5e5e5;
-}
-
-.md-white, .md-white.md-button, a.md-white {
-  background: white !important;
-  text-transform: none;
-  border: 1px solid #E5E5E5;
-}
-.md-white:hover, .md-white.md-button:hover, a.md-white:hover {
-  background-color: #f7f7f7 !important;
-}
-
-.md-red, .md-red.md-button, a.md-red {
-  background: #FF6805 !important;
-  text-transform: none;
-  color: white;
-}
-
-.md-green, .md-green.md-button, a.md-green {
-  background: #8BC34A !important;
-  text-transform: none;
-  color: white;
-}
-.md-green:hover, .md-green.md-button:hover, a.md-green:hover {
-  background: #98D056 !important;
 }
 
 i.icon-star {
@@ -342,11 +309,6 @@ i.icon-star {
   background-color: rgba(73, 182, 77, 0.84);
 }
 
-
-.md-yellow:hover {
-  background: #FFE57D !important;
-  transition: .2s;
-}
 
 .align-center {
   text-align: center;

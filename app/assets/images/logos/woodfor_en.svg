@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="198px" height="97px" viewBox="0 0 198 97" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
+    <title>woodfor_en</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="ЂЃ£Ѓ-†£аЃ-3" sketch:type="MSLayerGroup" transform="translate(4.000000, -130.000000)">
+            <path d="M102.0944,130.683988 L85.9134,130.683988 L58.8184,162.496988 L58.8184,188.977988 L67.2684,188.977988 L67.2684,164.187988 L89.2374,138.204988 L98.7844,138.204988 L120.7424,164.187988 L120.7424,188.977988 L129.1894,188.977988 L129.1894,162.496988 L102.0944,130.683988" id="Fill-16" fill="#8D6E63" sketch:type="MSShapeGroup"></path>
+            <path d="M58.8184,189.007988 L67.2684,189.007988 L67.2684,164.217988 L58.8184,162.526988 L58.8184,189.007988" id="Fill-15" fill="#795548" sketch:type="MSShapeGroup"></path>
+            <path d="M129.1894,189.007988 L120.7394,189.007988 L120.7394,164.217988 L129.1894,162.526988 L129.1894,189.007988" id="Fill-14" fill="#795548" sketch:type="MSShapeGroup"></path>
+            <path d="M89.3254,152.918988 L58.8184,188.977988 L71.4864,188.977988 L93.5634,162.994988 L94.4444,162.994988 L116.5214,188.977988 L129.1894,188.977988 L98.6824,152.918988 L89.3254,152.918988" id="Fill-13" fill="#4D4D4F" sketch:type="MSShapeGroup"></path>
+            <text id="WoodFOR" sketch:type="MSTextLayer" font-family="Prosto Sans" font-size="21.1873" font-weight="bold" letter-spacing="-1.05936503" fill="#4D4D4F">
+                <tspan x="37.0978" y="211.007988">WoodFOR</tspan>
+            </text>
+            <text id="International-lumber" sketch:type="MSTextLayer" font-family="Prosto Sans" font-size="7.171" font-weight="bold" fill="#4D4D4F">
+                <tspan x="23.0285" y="223.602623">Intern</tspan>
+                <tspan x="51.7125" y="223.602623" letter-spacing="-0.4295429">a</tspan>
+                <tspan x="56.3958801" y="223.602623">tional lumber E</tspan>
+                <tspan x="127.058914" y="223.602623" letter-spacing="-0.14342">x</tspan>
+                <tspan x="132.042759" y="223.602623">change</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
