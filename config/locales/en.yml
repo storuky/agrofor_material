@@ -1,5 +1,8 @@
 en:
-  company: Agrofor
+  company:
+    agrofor: Agrofor
+    woodfor: Woodfor
+    fuelfor: Fuelfor
 
   dictionary:
     or: or

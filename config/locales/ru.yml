@@ -1,5 +1,8 @@
 ru:
-  company: Агрофор
+  company:
+    agrofor: Агрофор
+    woodfor: Вудфор
+    fuelfor: Фьюлфор
 
   dictionary:
     or: или

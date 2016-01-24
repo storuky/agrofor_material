@@ -45,6 +45,7 @@ module ApplicationHelper
   def get_translations
     cache_if(Rails.env.production?, "translations_#{current_company.name}_#{I18n.locale}") do
       {
+        company: I18n.t("company"),
         dictionary: I18n.t("dictionary"),
         pluralize: I18n.t("pluralize"),
         message: I18n.t("message"),
