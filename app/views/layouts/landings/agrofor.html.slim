@@ -1,21 +1,183 @@
-= cache_if Rails.env.production?, "landing_#{current_company.name}_#{params[:controller]}_#{params[:action]}_#{I18n.locale}_#{$layout_cache}" do
+= csrf_meta_tags
+= cache_if Rails.env.production?, "landing_#{current_company.name}_#{I18n.locale}_#{$layout_cache}" do
   <!DOCTYPE html>
   html ng-app="app"
     head
-      meta charset="UTF-8"
-      title
-        | Агрофор: Международная аграрная биржа
-      meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no"
-      meta name="description" content="На вашу продукцию есть спрос, но вы об этом еще не знаете. Спешите открыть для себя новый, перспективныйи и динамично развивающийся рынок!"
-      link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"
-      link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'
+      title Агрофор: Международная аграрная биржа
+      meta content=("text/html; charset=UTF-8") http-equiv="Content-Type"
+      meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"
+      meta content="На вашу продукцию есть спрос, но вы об этом еще не знаете. Спешите открыть для себя новый, перспективный и динамично развивающийся рынок!" name="description"
+      link href="http://fonts.googleapis.com/css?family=Roboto:400,900,700,500,300,100" rel="stylesheet" type="text/css"
       = stylesheet_link_tag 'landing'
-      = stylesheet_link_tag "companies/#{current_company.name}"
       base href="/"
-    body
-      .logo
-        = image_tag "logos/agrofor_ru.svg", width: 200, height: 108
-      = yield
-    = javascript_include_tag 'landing'
 
-= csrf_meta_tags
+      script src="/modernizr.custom.js"
+    body ng-controller="LandingCtrl as ctrl"
+      #preloader_container
+        header.preloader_header
+          .preloader_loader
+            svg.preloader_inner height="60px" viewbox=("0 0 80 80") width="60px" 
+              path.preloader_loader_circlebg d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z"
+              path#preloader_loader_circle.preloader_loader_circle d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z"
+        section.hero_fullscreen.background_solid
+          .bg-top.visible-lg.visible-md
+            img src="/landing/images/top.jpg"
+          .container
+            .row
+              .col-xs-12.col-sm-12.col-md-12.col-lg-12.outher
+                img.logo.inner width="180" alt="logo" src="/landing/images/logos/#{current_company.name}_#{I18n.locale}.png"
+          #main_content.container.align-center
+            .content_container.row
+              .col-xs-12.col-sm-12.col-md-12.col-lg-12.home_content
+                h2.slogan
+                  | Высокий спрос.
+                  br.visible-lg.visible-md
+                  | Хорошее предложение.
+                h6
+                  | Откройте для себя новый, перспективный и динамично развивающийся рынок!
+                
+                .cta_button_area
+                  form.form-sign_in ng-submit="ctrl.signIn(ctrl.form, $event);" name="user"
+                    div[layout="row" layout-wrap layout-padding layout-align-md="center center" layout-align="end center"]
+                      input type="password" style="display: none !important"
+                      
+                      div[flex="none" flex-sm=100]
+                        md-input-container.md-block
+                          label Эл. почта
+                          input type="email" ng-model="ctrl.form.user.email" name="user[email]"
+                      
+                      div[flex="none" flex-sm=100]
+                        md-input-container.md-block
+                          label Пароль
+                          input type="password" ng-model="ctrl.form.user.password" name="user[password]"
+                      .pr0[flex="none" flex-sm=100 style="min-width: 330px"]
+                        md-button.md-primary.md-lg type="submit" Войти
+                        md-button.md-white.md-lg.mr0 ng-click="ctrl.signUp(ctrl.form, $event)" Зарегистрироваться
+                      .remind-password[flex=100 ng-show="ctrl.invalidEmail"]
+                        a.link href="" ng-click="ctrl.reset(ctrl.form)" Забыли пароль?
+                .home_mockups
+                  img.img_responsive.home_mockups_3 alt="" src="/landing/images/home_mockups_3.png"
+                  img.img_responsive.home_mockups_2 alt="" src="/landing/images/home_mockups_2.png"
+                  img.img_responsive.home_mockups_1 alt="" src="/landing/images/home_mockups_1.png"
+        section#more_info.subsection.darker_bg.align-center
+          .container
+            .row
+              .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                .iconbox.content_anim1
+                  .iconbox_icon data-icon="" 
+                  .iconbox_content
+                    h5 Открытость информации
+                    p Рынок максимально открыт. Все операции происходящие на нем может наблюдать любой пользователь системы.
+              .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                .iconbox.content_anim2
+                  .iconbox_icon data-icon="" 
+                  .iconbox_content
+                    h5 Без посредников
+                    p Мы считаем, что данного промежуточного звена не должно быть в отношениях «Продавец-Покупатель».
+              .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                .iconbox.content_anim3
+                  .iconbox_icon data-icon="" 
+                  .iconbox_content
+                    h5 Без региональных барьеров
+                    p Мультиязычная и мультивалютная основа системы открывает Вам перспективы торговли во всем мире.
+        section#features.subsection
+          .container
+            .row.feature_row
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6.content_anim4
+                h3 Цели проекта
+                p У нас нет и никогда не будет платных объявлений. Мы считаем, что вы сами должны зарабатывать свою репутацию честной торговлей.
+                p Проект нацелен на то, чтобы предоставить аграриям полноценную торговую площадку в сети, обеспечить полную открытость информации и защитить от машеннических действий со стороны недобросовестных участников рынка.
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6.align-center.content_anim5.deatures_image
+                img.img_responsive alt="" src="/landing/images/feature_mockup_1.png"
+            .row.feature_row
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6.align-center.content_anim6.features_image
+                img.img_responsive alt="" src="/landing/images/feature_mockup_2.png"
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6.content_anim7
+                h3 Удобные инструменты поиска
+                p Поиск в системе делится на 2 типа. Вы можете искать интересующий Вас товар, используя полнотекстовый поиск и дополнительную фильтрацию. Так же Вам доступен поиск подходящих позиций на основе уже созданных Вами.
+                p Хотите приобрести 100 кг. картофеля по цене 15 ₽/кг? Найдите продавца, который предлагает такие условия. Это очень просто!
+            .row.feature_row
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6.content_anim4
+                h3 Коммуникации внутри системы
+                p Обсуждайте все условия ваших сделок в специальных защищенных переписках. Эти переписки позволят вам максимально защититься от несоблюдения условий сделки со стороны бизнес-партнера.
+                p
+                  b В скором времени появится возможность осуществления бесплатных звонков внутри системы!
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6.align-center.content_anim5.deatures_image
+                img.img_responsive alt="" src="/landing/images/feature_mockup_1.png"
+            .row.feature_row
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6.align-center.content_anim6.features_image
+                img.img_responsive alt="" src="/landing/images/feature_mockup_2.png"
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6.content_anim7
+                h3 
+                p Поиск в системе делится на 2 типа. Вы можете искать интересующий Вас товар, используя полнотекстовый поиск и дополнительную фильтрацию. Так же Вам доступен поиск подходящих позиций на основе уже созданных Вами.
+                p Хотите приобрести 100 кг. картофеля по цене 15 ₽/кг? Найдите продавца, который предлагает такие условия. Это очень просто!
+        section#reviews.subsection.color_bg
+          .container
+            .row
+              .col-xs-12.col-sm-8.col-md-8.col-lg-8.col-sm-offset-2.col-md-offset-2.col-lg-offset-2.content_anim26
+                .owl-carousel.align-center
+                  .single_review
+                    img.img-circle alt="" src="/landing/images/review_01.jpg"
+                    .review_content
+                      h6 A husband and wife are trying to set up a new password for their computer. The husband puts, "Mypenis," and the wife falls on the ground laughing because on the screen it says, "Error. Not long enough."
+                      p - Jenny McLane, Microsoft
+                  .single_review
+                    img.img-circle alt="" src="/landing/images/review_02.jpg"
+                    .review_content
+                      h6 Do not be racist; be like Mario. He's an Italian plumber, who was made by the Japanese, speaks English, looks like a Mexican, jumps like a black man, and grabs coins like a Jew!
+                      p - Jahn Kovalsky, Apple
+                  .single_review
+                    img.img-circle alt="" src="/landing/images/review_03.jpg"
+                    .review_content
+                      h6 I decided to make my password "incorrect" because if I type it in wrong, my computer will remind me, "Your password is incorrect."
+                      p - Meggie Patterson, Google
+                  .single_review
+                    img.img-circle alt="" src="/landing/images/review_04.jpg"
+                    .review_content
+                      h6 A bank robber pulls out gun points it at the teller, and says, "Give me all the money or you're geography!" The puzzled teller replies, "Did you mean to say 'or you're history?'" The robber says, "Don't change the subject!"
+                      p - Billy McDillon
+        section#faq.subsection
+          .container
+            .row
+              .col-xs-12.col-sm-12.col-md-12.col-lg-12.align-center.content_anim27
+                .intro
+                  h3 Frequently Asked Questions
+                  p Got questions? We have answers.
+            .row.align-left.content_anim28
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                .iconbox.content_anim1
+                  h5 How does the free trial work?
+                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                .iconbox.content_anim1
+                  h5 Do I need to choose plan now?
+                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.
+            .row.align-left.content_anim29
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                .iconbox.content_anim1
+                  h5 Can I switch plans later?
+                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                .iconbox.content_anim1
+                  h5 What payment types do you accept?
+                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        section.subsection.darker_bg
+          .container
+            .row.align-center
+              .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                h3
+                  | A very clear closing argument
+                  br.visible-lg.visible-md
+                  | statement of your offer.
+                div
+                  button.btn.waves-effect.waves-light.subscribe-submit Cta button
+        section#footer.subsection.color_bg
+          .container
+            .row
+              .col-xs-12.col-sm-12.col-md-12.col-lg-12.outher
+                img.logo.inner alt="logo" src="/landing/images/logo.png"
+                p.inner © Copyright 2015
+                p.float-right.inner.visible-lg.visible-md
+                  | Call us
+                  strong 1.800.439.7656
+      = javascript_include_tag "landing"

@@ -5,6 +5,19 @@
 //= require oxymoron/services/validate
 //= require oxymoron/ng-notify
 //= require angular-material
+
+//= require landing/jquery-2.1.3.min.js
+//= require landing/jquery.easing.min.js
+//= require landing/jquery.cycle.all.min.js
+//= require landing/classie.js
+//= require landing/pathLoader.js
+//= require landing/preloader.js
+//= require landing/retina.js
+//= require landing/waypoints.min.js
+//= require landing/nivo-lightbox.min.js
+//= require landing/owl.carousel.js
+//= require landing/main.js
+
 //= require_self
 
 var app = angular.module('app', ['ngMaterial', 'oxymoron.services.validate', 'ngNotify'])

@@ -2,42 +2,161 @@
 *= require oxymoron/normalize
 *= require oxymoron/ng-notify
 *= require angular-material
-*= require_tree ./shared
-*= require_tree ./landing
-*= require_self
+
+*= require landing/grid12.css
+*= require landing/james_typography.css
+*= require landing/color_scheme_light.css
+*= require landing/main.css
+*= require landing/rapid-icons.css
+*= require landing/responsivity.css
+*= require landing/animate.css
+*= require landing/nivo-lightbox.css
+*= require landing/nivo_lightbox_themes/default/default.css
+*= require landing/owl.carousel.css
+*= require landing/owl.theme.css
+*= require landing/owl.transitions.css
+
+* require_self
 */
 
-input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px white inset;
+.rails-errors {
+  position: absolute !important;
 }
 
-* {
-  box-sizing: border-box;
-  outline: none !important;
+.rails-errors div {
+  padding-right: 0 !important;
 }
 
-html, body {
-  height: 100%;
+.md-button {
+  display: inline-block;
+  height: 2.57rem;
+  margin-bottom: 15px !important;
+  padding: 0 1.5rem;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  background-clip: padding-box;
+  line-height: 2.57rem;
+  text-transform: uppercase;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  font-weight: normal;
+  vertical-align: bottom;
 }
 
-body {
-  overflow-y: auto !important;
+.md-primary {
+  border: 1px solid rgb(243, 201, 30);
+  background: rgb(255, 219, 76) !important;
+  color: #2b2b2b !important;
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.08), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.08), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.08), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
-.ng-cloak {
-  display: none;
+.md-primary:hover {
+  background: #FFE57D !important;
+  -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
 
+.md-white {
+  border: 2px solid #FFDB4C;
+}
 
-body {
-  overflow: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  font-family: "Roboto", sans-serif;
+.md-white:hover {
+  background-color: rgba(158, 158, 158, 0.07) !important;
+}
+
+.hero_fullscreen.background_solid,
+.color_bg {
+  background-color: #fff;
+}
+
+a {
+  color: #f44336;
+}
+
+.hero_fullscreen, nav a, #message, .cta_button_area a, .color_bg {
+  color: #333;
+}
+
+.slogan {
+  text-align: right;
+}
+
+#main_content h2, #main_content h6, .cta_button_area {
+  text-align: right;
+}
+
+.form-sign_in {
+  text-align: left;
+}
+
+label {
+  font-size: 16px;
+}
+
+.mr0 {
+  margin-right: 0;
+}
+
+.pr0 {
+  padding-right: 0;
+}
+
+.link {
+  color: #2278cc;
+  text-decoration: underline;
+}
+
+.remind-password {
+  max-width: 732px;
+  margin-top: -30px;
+}
+
+#main_content {
+  margin-top: 0;
+}
+
+.bg-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.bg-top img {
+  width: 60%;
+  height: auto;
+}
+
+.outher {
+  height: 100px;
+  text-align: right;
 }
 
 .logo {
-  text-align: center;
-  padding-top: 50px;
+  margin: 0;
+}
+
+@media screen and (max-width: 960px) {
+  .slogan {
+    text-align: center;
+  }
+
+  #main_content h2, #main_content h6, .cta_button_area {
+    text-align: center;
+  }
+
+  .outher {
+    height: 100px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 960px) {
+  .visible-md {
+    display: block !important;
+  }
 }
