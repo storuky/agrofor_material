@@ -8,7 +8,7 @@ set :pty,  false
 
 # set :sidekiq_options_per_process, ["--queue high", "--queue default --queue mailer --queue low"]
 set :sidekiq_config, -> { File.join(release_path, 'config', 'sidekiq.yml') }
-
+set :sidekiq_monit_use_sudo, false
 # set :rvm_type, :user
 
 # set :bundle_path, nil
