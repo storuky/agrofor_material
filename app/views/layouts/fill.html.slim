@@ -9,6 +9,7 @@
       link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"
       link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'
       = stylesheet_link_tag 'fill'
+      = stylesheet_link_tag "companies/#{current_company.name}"
       = csrf_meta_tags
       base href="/"
     body

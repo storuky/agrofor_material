@@ -1,0 +1,12 @@
+p
+  | Здравствуйте!
+
+p
+  | Вы зарегистрированы в системе  
+  a style="color: #15c;" href="https://agrofor.pro" Агрофор
+  |. Пожалуйста, подтвердите ваш адрес электронной почты, нажав по ссылки ниже.
+
+p style="color: #9D9D9D" Если вы не регистрировались, проигнорируйте данное письмо.
+
+p
+  = link_to 'Подтвердить', confirmation_url(@resource, confirmation_token: @token), class: "btn-primary"

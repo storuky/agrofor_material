@@ -83,4 +83,13 @@ module ApplicationHelper
       :en
     end
   end
+
+  def set_company
+    Company.current_company = OpenStruct.new Rails.application.secrets[:companies][request.host]
+    ActionMailer::Base.default_url_options[:host] = "https://#{Company.current_company.name}.pro"
+  end
+
+  def current_company
+    Company.current_company
+  end
 end

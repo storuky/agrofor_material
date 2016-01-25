@@ -14,13 +14,17 @@
 
 var app = angular.module('app', ['ngMaterial', 'oxymoron'])
 
-app.controller("FillCtrl", ["$scope", "Profile", '$timeout', function ($scope, Profile, $timeout) {
+app.controller("FillCtrl", ["$scope", "Profile", '$timeout', 'ngNotify', function ($scope, Profile, $timeout, ngNotify) {
   var ctrl = this;
   $scope.gon = gon;
 
   Profile.get({id: gon.current_user.id}, function (res) {
     ctrl.user = res;
   })
+
+  if (!gon.current_user.confirmed) {
+    ngNotify.set("Подтвердите ваш email", 'info');
+  }
 
   ctrl.save = function (data) {
     Profile.update(data, function (res) {

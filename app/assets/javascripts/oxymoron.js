@@ -162,7 +162,7 @@ angular.module("oxymoron.config.states", [])
             
             return Routes['new_user_confirmation_path'](params);
           },
-          controller: 'DeviseConfirmationsCtrl as ctrl',
+          controller: 'UsersConfirmationsCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
               return resolve('new', $stateParams)

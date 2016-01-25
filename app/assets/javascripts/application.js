@@ -86,4 +86,5 @@ app.run(['Currency', '$interval', function (Currency, $interval) {
   $interval(function () {
     Currency.update_rates()
   }, 1000 * 60 * 60)
+
 }])

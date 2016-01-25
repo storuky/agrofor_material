@@ -94,3 +94,4 @@ gem 'whenever', :require => false
 gem 'sidekiq'
 gem 'devise-async'
 gem 'sinatra', :require => nil
+gem 'premailer-rails'

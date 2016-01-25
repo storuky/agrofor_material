@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
           'fill'
         end
       else
-        "landings/#{@current_company.name}"
+        "landings/#{Company.current_company.name}"
       end
     end
   }
@@ -54,9 +54,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def current_company
-    @current_company
-  end
 
   private
     def set_csrf_cookie
@@ -93,8 +90,4 @@ class ApplicationController < ActionController::Base
       I18n.locale = current_user.language || extract_locale_from_accept_language_header rescue extract_locale_from_accept_language_header
     end
 
-    def set_company
-      Company.current_company = @current_company = OpenStruct.new Rails.application.secrets[:companies][request.host]
-      ActionMailer::Base.default_url_options[:host] = "https://#{@current_company.name}.pro"
-    end
 end
