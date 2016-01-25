@@ -1,5 +1,5 @@
 set :repo_url, 'git@github.com:storuky/agrofor_material.git'
-set :pty,  false
+# set :pty,  false
 
 # set :sidekiq_role, [:sidekiq_small, :sidekiq_big]
 # set :sidekiq_small_processes, 1
@@ -7,7 +7,6 @@ set :pty,  false
 # set :sidekiq_monit_use_sudo, false
 
 # set :sidekiq_options_per_process, ["--queue high", "--queue default --queue mailer --queue low"]
-set :sidekiq_monit_use_sudo, false
 set :sidekiq_config, -> { File.join(release_path, 'config', 'sidekiq.yml') }
 
 # set :rvm_type, :user
