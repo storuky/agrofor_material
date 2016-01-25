@@ -1,5 +1,6 @@
 set :repo_url, 'git@github.com:storuky/agrofor_material.git'
 set :pty,  false
+set :use_sudo, true
 
 # set :sidekiq_role, [:sidekiq_small, :sidekiq_big]
 # set :sidekiq_small_processes, 1

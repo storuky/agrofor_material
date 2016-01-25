@@ -3,7 +3,8 @@ p
 
 p
   | Вы зарегистрированы в системе  
-  a style="color: #15c;" href="https://agrofor.pro" Агрофор
+  a style="color: #15c;" href="https://#{Company.current_company.name}.pro"
+    | #{I18n.t("mailer.#{Company.current_company.name}.name")}
   |. Пожалуйста, подтвердите ваш адрес электронной почты, нажав по ссылки ниже.
 
 p style="color: #9D9D9D" Если вы не регистрировались, проигнорируйте данное письмо.
