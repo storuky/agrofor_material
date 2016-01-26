@@ -347,7 +347,7 @@
   content: "~";
 }
 .icon-budicon-93:before {
-  content: "\";
+  content: "\\";
 }
 .icon-budicon-94:before {
   content: "\e000";
@@ -665,7 +665,7 @@
   content: "~";
 }
 .icon-budicon-93:before {
-  content: "\";
+  content: "\\";
 }
 .icon-budicon-94:before {
   content: "\e000";
