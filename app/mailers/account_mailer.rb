@@ -6,6 +6,7 @@ class AccountMailer < Devise::Mailer
   include Devise::Controllers::UrlHelpers
   include Devise::Mailers::Helpers
   default template_path: 'devise/mailer'
+
   
   helper_method :current_company
 
@@ -21,6 +22,7 @@ class AccountMailer < Devise::Mailer
   #   super
   # end
 
+    # default from: "#{Time.now.to_i}"
   def set_company
     Company.current_company = OpenStruct.new Rails.application.secrets[:companies][ActionMailer::Base.default_url_options[:host]]
   end

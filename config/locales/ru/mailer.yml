@@ -3,9 +3,12 @@ ru:
     agrofor:
       name: Агрофор
       copyright: Международная аграрная биржа «Агрофор»
+      from: Международная аграрная биржа <admin@agrofor.pro>
     woodfor:
       name: Вудфор
       copyright: Международная биржа пиломатериалов «Вудфор»
+      from: Международная биржа пиломатериалов <admin@woodfor.pro>
     fuelfor:
       name: Фьюлфор
       copyright: Международная топливная биржа «Фьюлфор»
+      from: Международная топливная биржа <admin@fuel.pro>

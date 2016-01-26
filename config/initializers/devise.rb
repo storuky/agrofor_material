@@ -16,7 +16,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = "Международная аграрная биржа <admin@agrofor.pro>"
+  config.mailer_sender = Proc.new {I18n.t("mailer.#{Company.current_company.name}.from")}
 
   # Configure the class responsible to send e-mails.
   config.mailer = 'AccountMailer'
