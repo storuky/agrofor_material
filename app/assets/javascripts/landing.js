@@ -1,3 +1,5 @@
+//= require landing/modernizr.custom.js
+
 //= require oxymoron/angular
 //= require oxymoron/angular-aria
 //= require oxymoron/angular-touch
