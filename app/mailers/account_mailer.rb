@@ -9,17 +9,17 @@ class AccountMailer < Devise::Mailer
   
   helper_method :current_company
 
-  def confirmation_instructions(record, token, opts={})
-    super
-  end
+  # def confirmation_instructions(record, token, opts={})
+  #   super
+  # end
 
-  def reset_password_instructions(record, token, opts={})
-    super
-  end
+  # def reset_password_instructions(record, token, opts={})
+  #   super
+  # end
 
-  def password_change(record, opts={})
-    super
-  end
+  # def password_change(record, opts={})
+  #   super
+  # end
 
   def set_company
     Company.current_company = OpenStruct.new Rails.application.secrets[:companies][ActionMailer::Base.default_url_options[:host]]

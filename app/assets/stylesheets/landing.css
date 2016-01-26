@@ -15,6 +15,7 @@
 *= require landing/owl.carousel.css
 *= require landing/owl.theme.css
 *= require landing/owl.transitions.css
+*= require shared/md_theme
 
 * require_self
 */
@@ -45,38 +46,22 @@
 }
 
 .md-primary {
-  border: 1px solid rgb(243, 201, 30);
-  background: rgb(255, 219, 76) !important;
-  color: #2b2b2b !important;
   -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.08), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.08), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.08), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .md-primary:hover {
-  background: #FFE57D !important;
   -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
   box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
 
-.md-white {
-  border: 2px solid #FFDB4C;
-}
-
-.md-white:hover {
-  background-color: rgba(158, 158, 158, 0.07) !important;
-}
 
 .hero_fullscreen.background_solid,
 .color_bg {
   background-color: #fff;
 }
-
-a {
-  color: #f44336;
-}
-
 .hero_fullscreen, nav a, #message, .cta_button_area a, .color_bg {
   color: #333;
 }
@@ -127,7 +112,8 @@ label {
 }
 
 .bg-top img {
-  width: 60%;
+  width: 70%;
+  max-width: 880px;
   height: auto;
 }
 
@@ -148,6 +134,11 @@ label {
 
 #footer p {
   margin: 0;
+}
+
+.feature_row img {
+  height: auto;
+  width: 560px;
 }
 
 @media screen and (max-width: 960px) {

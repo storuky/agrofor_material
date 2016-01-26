@@ -10,7 +10,8 @@
       link href="http://fonts.googleapis.com/css?family=Roboto:400,900,700,500,300,100" rel="stylesheet" type="text/css"
       = stylesheet_link_tag 'landing'
       = stylesheet_link_tag "companies/#{current_company.name}"
-
+      = stylesheet_link_tag "landing/#{current_company.name}/theme"
+      
       base href="/"
 
       script src="/modernizr.custom.js"
@@ -73,10 +74,10 @@
                 p У нас нет и никогда не будет платных объявлений. Мы считаем, что вы сами должны зарабатывать свою репутацию честной торговлей.
                 p Проект нацелен на то, чтобы предоставить аграриям полноценную торговую площадку в сети, обеспечить полную открытость информации и защитить от машеннических действий со стороны недобросовестных участников рынка.
               .col-xs-12.col-sm-6.col-md-6.col-lg-6.align-center.content_anim5.deatures_image
-                img.img_responsive alt="" src="/landing/images/feature_mockup_1.png"
+                img.img_responsive alt="" src="/landing/images/screenshots/index_#{current_company.name}.jpg"
             .row.feature_row
               .col-xs-12.col-sm-6.col-md-6.col-lg-6.align-center.content_anim6.features_image
-                img.img_responsive alt="" src="/landing/images/feature_mockup_2.png"
+                img.img_responsive alt="" src="/landing/images/screenshots/search_#{current_company.name}.jpg"
               .col-xs-12.col-sm-6.col-md-6.col-lg-6.content_anim7
                 h3 Удобные инструменты поиска
                 p Поиск в системе делится на 2 типа. Вы можете искать интересующий Вас товар, используя полнотекстовый поиск и дополнительную фильтрацию. Так же Вам доступен поиск подходящих позиций на основе уже созданных Вами.
@@ -87,11 +88,11 @@
                 p Не нужно нам платить, для того, чтобы быть в первых позициях поиска. Нами выстроена система ранжирования в основу которой входит рейтинг пользователя.
                 p Чем больше вы совершаете сделок и получаете положительных отзывов, тем выше ваш ретинг. На открытом рынке есть место лишь честной конкуренции!
               .col-xs-12.col-sm-6.col-md-6.col-lg-6.align-center.content_anim5.deatures_image
-                img.img_responsive alt="" src="/landing/images/feature_mockup_1.png"
+                img.img_responsive alt="" src="/landing/images/screenshots/rating_#{current_company.name}.jpg"
             
             .row.feature_row
               .col-xs-12.col-sm-6.col-md-6.col-lg-6.align-center.content_anim6.features_image
-                img.img_responsive alt="" src="/landing/images/feature_mockup_2.png"
+                img.img_responsive alt="" src="/landing/images/screenshots/correspondence_#{current_company.name}.jpg"
               .col-xs-12.col-sm-6.col-md-6.col-lg-6.content_anim7
                 h3 Коммуникации внутри системы
                 p Обсуждайте все условия ваших сделок в специальных защищенных переписках. Эти переписки позволят вам максимально защититься от несоблюдения условий сделки со стороны бизнес-партнера.
@@ -175,10 +176,11 @@
                 h3
                   | Аграрии всех стран, соединяйтесь!
                 div
+                  md-button.md-primary.md-lg Присоединиться
         section#footer.subsection.color_bg
           .container
             div layout="row" layout-align="space-between center"
-              p © Агрофор 2015
+              p © #{I18n.t "company.#{current_company.name}"} 2015
               img.logo.inner alt="logo" src="/landing/images/logos/#{current_company.name}_#{I18n.locale}.png"
               p
                 a.link href="" Связаться с нами

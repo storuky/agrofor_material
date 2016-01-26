@@ -93,7 +93,7 @@ md-radio-button.md-default-theme .md-on, md-radio-button .md-on {
 }
 
 .md-primary, .md-primary.md-button, a.md-primary {
-  color: white;
+  color: white !important;
 }
 
 .md-primary:not(:disabled) {

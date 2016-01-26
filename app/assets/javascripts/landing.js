@@ -47,6 +47,7 @@ app.controller("LandingCtrl", ["$scope", "$http", "Validate", "ngNotify", "$loca
     }, function (res) {
       ngNotify.set(res.data.msg, 'error');
       ctrl.invalidEmail = true;
+      Validate("user", res.data.errors)
     })
     $event.preventDefault();
   }

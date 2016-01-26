@@ -1,0 +1,12 @@
+.btn-white {
+  border: 2px solid #2196F3;
+}
+
+.btn-white:hover {
+  background-color: rgba(158, 158, 158, 0.07) !important;
+}
+
+.link {
+  color: #0C60A3;
+  text-decoration: underline;
+}

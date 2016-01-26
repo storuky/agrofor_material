@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
           'fill'
         end
       else
-        "landings/#{Company.current_company.name}"
+        "landing"
       end
     end
   }

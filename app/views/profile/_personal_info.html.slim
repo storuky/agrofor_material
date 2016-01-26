@@ -1,7 +1,7 @@
 div[layout="row" layout-wrap layout-align="center start" style="margin-top: -25px"]
   .profile-avatar[flex="none"]
     div
-      img height="143" ng-src="{{ctrl.user.avatar.url.thumb || '/avatar.png'}}"
+      img height="143" width="143" ng-src="{{ctrl.user.avatar.url.thumb || '/avatar.png'}}"
     label.md-button.md-lg.md-primary ng-show="gon.current_user.id == ctrl.user.id"
       i.icon-upload
       input.hidden type="file" fileupload="Routes.avatar_path()" ng-model="ctrl.user.avatar"
