@@ -3,7 +3,7 @@ ru:
     shared:
       form:
         sign_in: "Войти"
-        sign_up: "Загеристироваться"
+        sign_up: "Зарегистироваться"
         email: "Эл. почта"
         password: "Пароль"
         remind: "Забыли пароль?"
