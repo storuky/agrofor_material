@@ -24,7 +24,7 @@
             img src="/landing/images/top.jpg"
           .container
             .row
-              .col-xs-12.col-sm-12.col-md-12.col-lg-12.outher
+              .col-xs-12.col-sm-12.col-md-12.col-lg-12.outher.top-outher
                 img.logo.inner width="180" alt="logo" src="/landing/images/logos/#{current_company.name}_#{I18n.locale}.png"
           #main_content.container.align-center
             .content_container.row
@@ -37,24 +37,7 @@
                   | Откройте для себя новый, перспективный и динамично развивающийся рынок!
                 
                 .cta_button_area
-                  form.form-sign_in ng-submit="ctrl.signIn(ctrl.form, $event);" name="user"
-                    div[layout="row" layout-wrap layout-padding layout-align-md="center center" layout-align="end center"]
-                      input type="password" style="display: none !important"
-                      
-                      div[flex="none" flex-sm=100]
-                        md-input-container.md-block
-                          label Эл. почта
-                          input type="email" ng-model="ctrl.form.user.email" name="user[email]"
-                      
-                      div[flex="none" flex-sm=100]
-                        md-input-container.md-block
-                          label Пароль
-                          input type="password" ng-model="ctrl.form.user.password" name="user[password]"
-                      .pr0[flex="none" flex-sm=100 style="min-width: 330px"]
-                        md-button.md-primary.md-lg type="submit" Войти
-                        md-button.md-white.md-lg.mr0 ng-click="ctrl.signUp(ctrl.form, $event)" Зарегистрироваться
-                      .remind-password[flex=100 ng-show="ctrl.invalidEmail"]
-                        a.link href="" ng-click="ctrl.reset(ctrl.form)" Забыли пароль?
+                  = render "landing/sign"
                 .home_mockups
                   img.img_responsive.home_mockups_3 alt="" src="/landing/images/home_mockups_3.png"
                   img.img_responsive.home_mockups_2 alt="" src="/landing/images/home_mockups_2.png"
@@ -109,8 +92,23 @@
                 img.img_responsive alt="" src="/landing/images/feature_mockup_2.png"
               .col-xs-12.col-sm-6.col-md-6.col-lg-6.content_anim7
                 h3 
-                p Поиск в системе делится на 2 типа. Вы можете искать интересующий Вас товар, используя полнотекстовый поиск и дополнительную фильтрацию. Так же Вам доступен поиск подходящих позиций на основе уже созданных Вами.
-                p Хотите приобрести 100 кг. картофеля по цене 15 ₽/кг? Найдите продавца, который предлагает такие условия. Это очень просто!
+                h3 Поддержка пользователей 24/7
+                p Команда технической поддержки в любое время суток оперативно отреагирует на любое ваше обращение касательно площадки и действий, совершаемых участниками рынка.
+                p У Вас есть претензия или пожелание? Скорее напишите нам. Ведь без вашей помощи, мы не добьемся успеха.
+            .row.feature_row
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6.content_anim4
+                h3 Система рейтингов
+                p Не нужно нам платить, для того, чтобы быть в первых позициях поиска. Нами выстроена система ранжирования в основу которой входит рейтинг пользователя.
+                p Чем больше вы совершаете сделок и получаете положительных отзывов, тем выше ваш ретинг. На открытом рынке есть место лишь честной конкуренции!
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6.align-center.content_anim5.deatures_image
+                img.img_responsive alt="" src="/landing/images/feature_mockup_1.png"
+            .row.feature_row
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6.align-center.content_anim6.features_image
+                img.img_responsive alt="" src="/landing/images/feature_mockup_2.png"
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6.content_anim7
+                h3 
+                h3 Поддержание актуальности базы
+                p У нас всегда только самые свежие и актуальные данные. Все позиции создаются сроком на 1 месяц. Если по истечении этого времени сделка не будет заключена, позиция переместится в архив. В любой момент Вы сможете восстановить позицию в рынок.
         section#reviews.subsection.color_bg
           .container
             .row
@@ -141,43 +139,49 @@
             .row
               .col-xs-12.col-sm-12.col-md-12.col-lg-12.align-center.content_anim27
                 .intro
-                  h3 Frequently Asked Questions
-                  p Got questions? We have answers.
+                  h3 Часто задаваемы вопросы
+                  p У вас есть вопросы? У нас есть ответы!
             .row.align-left.content_anim28
               .col-xs-12.col-sm-6.col-md-6.col-lg-6
                 .iconbox.content_anim1
-                  h5 How does the free trial work?
-                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                  h5 Сколько стоит регистрация и пользование системой?
+                  p
+                    | Регистрация и пользвание системой полностью  
+                    u бесплатные
+                    |. Наша цель – помочь Вам заработать, а не забрать ваши деньги. Конечно же при желании, Вы можете пожертвовать любую сумму для поддержания проекта.
               .col-xs-12.col-sm-6.col-md-6.col-lg-6
                 .iconbox.content_anim1
-                  h5 Do I need to choose plan now?
-                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.
+                  h5 Какую продукцию я могу продавать на этом рынке?
+                  p На площадке представлено более 500 наименований товаров сельскохозяйственной продукции. Если Вы все же не нашли нужную Вам, пожалуйста свяжитесь с нами.
             .row.align-left.content_anim29
               .col-xs-12.col-sm-6.col-md-6.col-lg-6
                 .iconbox.content_anim1
-                  h5 Can I switch plans later?
-                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  h5 Я торгую пиломатериалами/топливом, могу ли я разместить у вас свои позиции?
+                  p
+                    | Система Агрофор создана исключительно для торговли товарами сельского хозяйства. Однако существуют так же системы  
+                    a.link href="https://woodfor.pro" Вудфор
+                    |  и  
+                    a.link href="https://fuelfor.pro" Фьюлфор
+                    |, работающие по тем же принципам, но в области пиломатериалов и топлива соответственно.
               .col-xs-12.col-sm-6.col-md-6.col-lg-6
                 .iconbox.content_anim1
-                  h5 What payment types do you accept?
-                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  h5 Каким образом осуществляется доставка товара после совершения сделки?
+                  p На данный момент, функции доставки возлагают на себя сами участники рынка. В скором времени будет введен функционал для работы грузоперевозчиков, и Вы сможете воспользоваться их услугами.
         section.subsection.darker_bg
           .container
             .row.align-center
               .col-xs-12.col-sm-12.col-md-12.col-lg-12
                 h3
-                  | A very clear closing argument
+                  | A very clear closing argument
                   br.visible-lg.visible-md
                   | statement of your offer.
                 div
-                  button.btn.waves-effect.waves-light.subscribe-submit Cta button
+                  = render "landing/sign"
         section#footer.subsection.color_bg
           .container
-            .row
-              .col-xs-12.col-sm-12.col-md-12.col-lg-12.outher
-                img.logo.inner alt="logo" src="/landing/images/logo.png"
-                p.inner © Copyright 2015
-                p.float-right.inner.visible-lg.visible-md
-                  | Call us
-                  strong 1.800.439.7656
+            div layout="row" layout-align="space-between center"
+              p © Агрофор 2015
+              img.logo.inner alt="logo" src="/landing/images/logos/#{current_company.name}_#{I18n.locale}.png"
+              p
+                a.link href="" Связаться с нами
       = javascript_include_tag "landing"

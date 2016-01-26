@@ -106,13 +106,13 @@ label {
 }
 
 .link {
-  color: #2278cc;
+  color: #f44336;
   text-decoration: underline;
 }
 
-.remind-password {
-  max-width: 732px;
-  margin-top: -30px;
+.reset-password {
+  position: absolute;
+  margin-top: 0;
 }
 
 #main_content {
@@ -131,12 +131,22 @@ label {
   height: auto;
 }
 
-.outher {
+.top-outher {
   height: 100px;
   text-align: right;
 }
 
 .logo {
+  margin: -20px 0 0 0;
+}
+
+#footer .logo {
+  width: auto;
+  margin: 0;
+  height: 65px;
+}
+
+#footer p {
   margin: 0;
 }
 
@@ -149,7 +159,7 @@ label {
     text-align: center;
   }
 
-  .outher {
+  .top-outher {
     height: 100px;
     text-align: center;
   }
@@ -159,4 +169,14 @@ label {
   .visible-md {
     display: block !important;
   }
+}
+
+#reviews .owl-theme .owl-controls .owl-page span {
+  border-color: #333 !important;
+  background: rgba(0,0,0,0);
+}
+
+#reviews .owl-theme .owl-controls .owl-page.active span, #reviews .owl-theme .owl-controls.clickable .owl-page:hover span {
+  background: #333;
+  border-color: #333 !important;
 }
