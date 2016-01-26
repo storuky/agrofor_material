@@ -74,6 +74,11 @@
   text-align: right;
 }
 
+h6 {
+  font-weight: 300;
+  margin: 15px 0;
+}
+
 .form-sign_in {
   text-align: left;
 }
@@ -98,6 +103,7 @@ label {
 .reset-password {
   position: absolute;
   margin-top: 0;
+  margin-left: 262px;
 }
 
 #main_content {
@@ -170,4 +176,22 @@ label {
 #reviews .owl-theme .owl-controls .owl-page.active span, #reviews .owl-theme .owl-controls.clickable .owl-page:hover span {
   background: #333;
   border-color: #333 !important;
+}
+
+md-input-container > md-icon {
+  font-size: 17px;
+  margin-top: 5px;
+  margin-left: 6px;
+}
+
+.img_responsive {
+  height: auto;
+}
+
+.nivo-lightbox-close, .nivo-lightbox-nav {
+  display: none !important;
+}
+
+#more_info {
+  box-shadow: 0px -9px 22px -9px rgba(0,0,0,.2);
 }

@@ -1,6 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
 # before_filter :configure_sign_in_params, only: [:create]
   skip_before_action :user_needed
+  before_action :check_fields, only: [:create]
 
   # GET /resource/sign_in
   # def new
@@ -30,4 +31,16 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.for(:sign_in) << :attribute
   # end
+
+  def check_fields
+    params[:user] ||= {}
+    
+    if !params[:user][:email]
+      errors = {email: ["не может быть пустым"]}
+      render json: {msg: "Укажите адрес эл. почты", errors: errors}, status: 401
+    elsif !params[:user][:password]
+      errors = {password: ["не может быть пустым"]}
+      render json: {msg: "Укажите пароль", errors: errors}, status: 401
+    end
+  end
 end

@@ -1,0 +1,31 @@
+section#features.subsection
+  .container.screenshots_gallery
+    .row.feature_row
+      .col-xs-12.col-sm-6.col-md-6.col-lg-6.content_anim4
+        h3 = t "landing.shared.features.objective_of_the_project.title"
+        = t("landing.shared.features.objective_of_the_project.description").html_safe
+      .col-xs-12.col-sm-6.col-md-6.col-lg-6.align-center.content_anim5.features_image
+        a href="/landing/images/#{current_company.name}/#{I18n.locale}/screenshots/index@2x.jpg" data-lightbox-gallery="gallery1"
+          img.img_responsive.shadow alt="" src="/landing/images/#{current_company.name}/#{I18n.locale}/screenshots/index.jpg"
+    .row.feature_row
+      .col-xs-12.col-sm-6.col-md-6.col-lg-6.align-center.content_anim6.features_image
+        a href="/landing/images/#{current_company.name}/#{I18n.locale}/screenshots/search@2x.jpg" data-lightbox-gallery="gallery1"
+          img.img_responsive.shadow alt="" src="/landing/images/#{current_company.name}/#{I18n.locale}/screenshots/search.jpg"
+      .col-xs-12.col-sm-6.col-md-6.col-lg-6.content_anim7
+        h3 = t "landing.shared.features.search_tools.title"
+        = t("landing.shared.features.search_tools.description").html_safe
+    .row.feature_row
+      .col-xs-12.col-sm-6.col-md-6.col-lg-6.content_anim4
+        h3 = t "landing.shared.features.rating_system.title"
+        = t("landing.shared.features.rating_system.description").html_safe
+      .col-xs-12.col-sm-6.col-md-6.col-lg-6.align-center.content_anim5.features_image
+        a href="/landing/images/#{current_company.name}/#{I18n.locale}/screenshots/rating@2x.jpg" data-lightbox-gallery="gallery1"
+          img.img_responsive.shadow  alt="" src="/landing/images/#{current_company.name}/#{I18n.locale}/screenshots/rating.jpg"
+    
+    .row.feature_row
+      .col-xs-12.col-sm-6.col-md-6.col-lg-6.align-center.content_anim6.features_image
+        a href="/landing/images/#{current_company.name}/#{I18n.locale}/screenshots/correspondence@2x.jpg" data-lightbox-gallery="gallery1"
+          img.img_responsive.shadow alt="" src="/landing/images/#{current_company.name}/#{I18n.locale}/screenshots/correspondence.jpg"
+      .col-xs-12.col-sm-6.col-md-6.col-lg-6.content_anim7
+        h3 = t "landing.shared.features.communications.title"
+        = t("landing.shared.features.communications.description").html_safe

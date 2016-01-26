@@ -9,3 +9,8 @@
 a {
   color: #f44336;
 }
+
+
+md-input-container > md-icon {
+  color: #F89E00 !important;
+}
