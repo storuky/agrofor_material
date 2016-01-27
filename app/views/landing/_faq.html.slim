@@ -22,10 +22,5 @@ section#faq.subsection
           
       .col-xs-12.col-sm-6.col-md-6.col-lg-6
         .iconbox.content_anim1
-          h5 Я торгую пиломатериалами/топливом, могу ли я разместить у вас свои позиции?
-          p
-            | Система Агрофор создана исключительно для торговли товарами сельского хозяйства. Однако существуют так же системы  
-            a.link href="https://woodfor.pro" target="_blank" Вудфор
-            |  и  
-            a.link href="https://fuelfor.pro" target="_blank" Фьюлфор
-            |, работающие по тем же принципам, но в области пиломатериалов и топлива соответственно.
+          h5 = t "landing.#{current_company.name}.faq.trade.title"
+          = t("landing.#{current_company.name}.faq.trade.description").html_safe
