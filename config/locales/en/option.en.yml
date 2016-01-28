@@ -1,6 +1,7 @@
 en:
   option:
     "watermelon": "Watermelon"
+    "cabbage": "Cabbage"
     "barberry": "Barberry"
     "cowberry": "Cowberry"
     "elder": "Elder"
@@ -378,7 +379,7 @@ en:
     "electrode coke": "Electrode coke"
     "conservation oils": "Conservation oils"
     "crude oil": "Crude oil"
-    "oil trading": "Oil trading"
+    "oil trading": "Trading oil"
     "litol": "Litol"
     "ciatim": "Ciatim"
     "torsiol": "Torsiol"

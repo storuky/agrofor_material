@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
-  root to: "landing#index"
+  root to: "public#index"
   
   for_routes = ->() do
     get "fill" => "fill#index"

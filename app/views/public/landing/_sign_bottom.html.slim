@@ -1,0 +1,8 @@
+section.subsection.darker_bg
+  .container
+    .row.align-center
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h3 = t "landing.#{current_company.name}.losung"
+        h6 = t "landing.shared.open_for_you"
+        div
+          = render "public/landing/sign", name: "user_last", align: "center"

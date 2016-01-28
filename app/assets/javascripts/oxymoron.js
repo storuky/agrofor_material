@@ -42,7 +42,7 @@ angular.module("oxymoron.config.states", [])
             
             return Routes['root_path'](params);
           },
-          controller: 'LandingCtrl as ctrl',
+          controller: 'PublicCtrl as ctrl',
           resolve: {
             action: ['$stateParams', function ($stateParams) {
               return resolve('index', $stateParams)

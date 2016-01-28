@@ -1,0 +1,33 @@
+= csrf_meta_tags
+= cache_if Rails.env.production?, "landing_#{current_company.name}_#{I18n.locale}_#{$layout_cache}" do
+  <!DOCTYPE html>
+  html ng-app="app"
+    head
+      title = t "landing.#{current_company.name}.title"
+      meta content=("text/html; charset=UTF-8") http-equiv="Content-Type"
+      meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"
+      meta content="#{t "landing.#{current_company.name}.description"}" name="description"
+      link href='https://fonts.googleapis.com/css?family=Roboto:900,700,500,300,100,400&subset=latin,cyrillic' rel='stylesheet' type='text/css'
+      = stylesheet_link_tag 'public'
+      = stylesheet_link_tag "companies/#{current_company.name}"
+      = stylesheet_link_tag "public/#{current_company.name}/theme"
+      
+      base href="/"
+    body ng-controller="LandingCtrl as ctrl"
+      /= yield
+      #preloader_container
+        header.preloader_header
+          .preloader_loader
+            svg.preloader_inner height="60px" viewbox=("0 0 80 80") width="60px" 
+              path.preloader_loader_circlebg d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z"
+              path#preloader_loader_circle.preloader_loader_circle d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z"
+        = yield
+        section#footer.subsection.color_bg
+          .container
+            div layout="row" layout-align="space-between center"
+              p © #{I18n.t "company.#{current_company.name}"} 2015
+              img.logo.inner alt="logo" src="/landing/images/logos/#{current_company.name}_#{I18n.locale}.png"
+              p
+                a.link href="mailto:support@#{current_company.name}.pro" Связаться с нами
+      = javascript_include_tag "public"
+      = javascript_include_tag "metrics/#{current_company.name}"

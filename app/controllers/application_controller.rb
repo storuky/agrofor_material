@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
           'fill'
         end
       else
-        "landing"
+        "public"
       end
     end
   }
@@ -64,7 +64,12 @@ class ApplicationController < ActionController::Base
       unless current_user
         respond_to do |format|
           format.html {
-            redirect_to root_path
+            if params[:controller] == "positions" && params[:action] == "show"
+              @position = Position.find_from_cache(params[:id])
+              render template: "public/position"
+            else
+              redirect_to root_path
+            end
           }
           format.json {
             render json: {msg: "Вы не авторизованы"}, status: 401
@@ -88,6 +93,7 @@ class ApplicationController < ActionController::Base
 
     def set_locale
       I18n.locale = current_user.language || extract_locale_from_accept_language_header rescue extract_locale_from_accept_language_header
+      # I18n.locale = "en"
     end
 
 end
