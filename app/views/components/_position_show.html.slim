@@ -43,5 +43,5 @@ script id="position_show.html" type="text/ng-template"
     pre.position-modal__info__description ng-show="position.description"
       | {{position.description}}
     .position-modal__info__description-no ng-hide="position.description"
-      | Нет описания
+      | {{gon.translations.interface.text.position_show.no_description}}
     documents ng-model="position.documents"

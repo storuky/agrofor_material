@@ -13,4 +13,6 @@ Rails.application.config.assets.precompile += %w( public.css public.js
                                                   fill.css fill.js
                                                   companies/woodfor.css companies/woodfor.js companies/agrofor.css companies/agrofor.js companies/fuelfor.css companies/fuelfor.js
                                                   mailers/agrofor.css mailers/fuelfor.css mailers/woodfor.css mailers.css
-                                                  metrics/agrofor.js metrics/woodfor.js metrics/fuelfor.js)
+                                                  metrics/agrofor.js metrics/woodfor.js metrics/fuelfor.js
+                                                  oxymoron/i18n/angular-locale_ru.js
+                                                )

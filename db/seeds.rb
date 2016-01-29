@@ -23,6 +23,7 @@ WeightDimension.create!([
   {id: 3, name: "liter", convert: 1.0, updated_at: "2016-01-18 13:25:11"},
   {id: 4, name: "m3", convert: 1000.0, updated_at: "2016-01-18 13:25:11"},
   {id: 5, name: "ft3", convert: 28.31, updated_at: "2016-01-18 13:25:11"}
+  {id: 6, name: "m2", convert: 1, updated_at: "2016-01-18 13:25:11"},
 ])
 TradeType.create!([
   {id: 1, title: "buy", trade_type_id: 2, updated_at: "2016-01-18 13:25:05"},

@@ -16,7 +16,7 @@
               div
                 img height="143" ng-src="{{ctrl.user.avatar.url.thumb || '/avatar.png'}}"
               label.md-button.md-lg.md-primary
-                i.icon-upload
+                i.icon-upload.addon
                 input.hidden type="file" fileupload="'/images/avatar'" ng-model="ctrl.user.avatar"
                 span
                   | {{gon.translations.interface.buttons.profile.upload}}

@@ -51,7 +51,8 @@ module ApplicationHelper
         pluralize: I18n.t("pluralize"),
         message: I18n.t("message"),
         interface: I18n.t("interface"),
-        activerecord: I18n.t("activerecord.attributes")
+        activerecord: I18n.t("activerecord.attributes"),
+        localize: I18n.t("localize"),
       }
     end
   end

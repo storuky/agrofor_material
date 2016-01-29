@@ -17,10 +17,12 @@ app.filter('dateFormat', ['pluralize', '$filter', function (pluralize, $filter) 
       if (date.toDateString() == today.toDateString()) {
         res = ""
       } else if (date.toDateString() == yesterday.toDateString()) {
-        res = "вчера"
-      } else {
+        res = gon.translations.localize.tomorrow
+      } else if (days_between(date, today) < 4) {
         res = days_between(date, today) + " " + pluralize(days_between(date, today), ['день', 'дня', 'дней']) + " назад"
+      } else {
+        res = $filter("date")(date, gon.translations.localize.date_format)
       }
-      return res + " в " + $filter('date')(date, 'HH:mm')
+      return res + " " + gon.translations.localize.date_at + " " + $filter('date')(date, 'HH:mm')
     };
 }]);

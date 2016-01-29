@@ -38,7 +38,7 @@ div content-for="header"
             | +{{ctrl.CorrespondenceUserCount}}
     .message-page__contacts__search
       i.icon-magnify
-      input type="text" placeholder="Поиск" ng-model="ctrl.textSearch"
+      input type="text" placeholder="{{gon.translations.interface.text.messages.search}}" ng-model="ctrl.textSearch"
     .message-page__contacts__content
       .no-correspondence ng-show="Correspondence.correspondences.length == 0"
         | {{gon.translations.interface.text.messages.no_correspondences}}
@@ -87,11 +87,11 @@ div content-for="header"
                 i.icon-chevron-down
             td
               md-button.md-green.md-lg.message-page__deal-button ng-click="confirmMakeDeal()" ng-if="positions.my.type=='Position' && positions.my.status.id=='opened'"
-                | Заключить сделку
+                | {{gon.translations.interface.buttons.messages.make_deal}}
               md-button.md-green.md-lg.message-page__deal-button ng-click="confirmShipping()" ng-if="positions.my.trade_type_id==2 && positions.my.status.id=='in_process' && Correspondence.active.deal.status == 'new'"
-                | Подтвердить отправку
+                | {{gon.translations.interface.buttons.messages.confirm_shipping}}
               md-button.md-green.md-lg.message-page__deal-button ng-click="confirmReceiving()" ng-if="positions.my.trade_type_id==1 && positions.my.status.id=='in_process' && Correspondence.active.deal.status == 'shipping'"
-                | Подтвердить получение
+                | {{gon.translations.interface.buttons.messages.confirm_recieving}}
 
         .message-page__position ng-show="showPosition"
           .md-title
@@ -128,7 +128,7 @@ div content-for="header"
       form.message-page__body__wrapper ng-submit="send()"
         .message-page__send__textarea
           md-input-container.md-block md-no-float=""
-            textarea placeholder="Текст сообщения" ng-model="ctrl.form.body"
+            textarea placeholder="{{gon.translations.interface.text.messages.your_message}}" ng-model="ctrl.form.body"
         .message-page__send__actions[layout="row" layout-align="space-between center"]
           .message-page__send__attach
             div ng-repeat="document in ctrl.form.documents"

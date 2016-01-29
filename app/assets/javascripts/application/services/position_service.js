@@ -31,7 +31,8 @@ app.run(['Position', 'Search', '$mdDialog', '$location', '$state', 'Offer', 'Act
       weight_min: position_fields[10],
       weight_min_dimension: gon.data.by_index.weight_dimensions[position_fields[11]],
       created_at: position_fields[12],
-      type: position_fields[13]
+      type: position_fields[13],
+      user_id: position_fields[14],
     }
   }
 

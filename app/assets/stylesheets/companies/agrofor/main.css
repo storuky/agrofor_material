@@ -1,0 +1,16 @@
+.tag {
+  border: 1px solid #F5B800;
+  background: #FFF09C;
+}
+
+.tag.active {
+  background: #FFD83D;
+}
+
+.toggle-nav {
+  box-shadow: 0px 0px 0px 2px #FFDB4C;
+}
+
+.message-page__contacts__content md-list-item.active {
+  border-right: 2px solid #FFDB4C;
+}

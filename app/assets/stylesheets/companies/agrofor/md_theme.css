@@ -104,7 +104,7 @@ md-radio-button.md-default-theme .md-on, md-radio-button .md-on {
   border: 1px solid #e5e5e5;
 }
 
-.md-primary:hover {
+.md-primary:not(:disabled):hover {
   background: #FFE57D !important;
   transition: .2s;
 }
@@ -134,13 +134,7 @@ md-radio-button.md-default-theme .md-on, md-radio-button .md-on {
 }
 
 
-.md-button i {
-  color: white;
-  border-right: 1px solid rgba(0, 0, 0, 0.12);
-  color: #6A6A6A;
-}
-
-.md-button.md-primary i {
+.md-button.md-primary i.addon {
   color: #5E5E5E;
   border-right: 1px solid #F3C91E;
 }

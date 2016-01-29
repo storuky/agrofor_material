@@ -36,6 +36,8 @@
 
       script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"
       = javascript_include_tag 'application'
+      - if I18n.locale.to_s != "en"
+        = javascript_include_tag "oxymoron/i18n/angular-locale_#{I18n.locale}"
       = javascript_include_tag "companies/#{current_company.name}"
 
 = Gon::Base.render_data({})

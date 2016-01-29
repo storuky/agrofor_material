@@ -38,8 +38,6 @@
   font-size: 13px;
   min-height: 27px;
   line-height: 26px;
-  border: 1px solid #F5B800;
-  background: #FFF09C;
   border-radius: 2px;
   color: #6A5218;
   display: inline-block;
@@ -48,11 +46,6 @@
   margin: 9px 6px 0 0;
   cursor: pointer;
 }
-
-.tag.active {
-  background: #FFD83D;
-}
-
 .tag__title {
 
 }

@@ -65,7 +65,7 @@ md-autocomplete[disabled] input {
   cursor: default;
 }
 
-.md-button i {
+.md-button i.addon {
   position: absolute;
   left: 0;
   top: 0px;

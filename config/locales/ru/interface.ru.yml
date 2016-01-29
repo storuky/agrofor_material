@@ -105,6 +105,9 @@ ru:
         go_to:
           Position: Перейти к позиции
           Offer: Перейти к предложению
+        make_deal: Заключить сделку
+        confirm_shipping: Подтвердить отправку
+        confirm_recieving: Подтвердить получение
       position_form:
         attach_documents: Прикрепить фото и документы
         save: Сохранить
@@ -121,6 +124,7 @@ ru:
       profile:
         location: Местоположение
         contacts: Контактные данные
+        add_interests: Добавить интересы
       position_show:
         go_to_position: Вернуться к позиции
         your_offer_for_this_position: Ваше предложение по данной позиции
@@ -135,6 +139,7 @@ ru:
         offer_for_position: Предложение для позиции
         have_not_suitable_offer: У вас нет подходящего предложения
         click_for_create: "Нажмите, чтобы создать"
+        no_description: Нет описания
       positions:
         search: Поиск
         type: Тип
@@ -144,3 +149,5 @@ ru:
       messages:
         chose_correspondence: Выберите интересующую Вас переписку
         no_correspondences: У вас нет ни одной переписки
+        search: Поиск
+        your_message: Ваше сообщение

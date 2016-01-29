@@ -91,6 +91,8 @@ script type="text/ng-template" id="positions_table.html"
               .dim
                 | {{::position.weight_min_dimension.title}}
             td.btns.w0
+              a.icon-btn ui-sref="edit_position_path(position)" ng-if="position.user_id == gon.current_user.id"
+                i.icon-pencil
               a.icon-btn ng-href="{{::$root.show_path(position)}}"
                 i.icon-eye
           tr ng-if="opened && full_position.$resolved"

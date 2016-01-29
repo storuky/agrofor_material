@@ -20,7 +20,6 @@ class SearchController < ApplicationController
       format.html
       format.json {
         offset = params[:offset].to_i
-
         collection = order_positions(@positions).offset(offset).limit(10)
         
         result = {

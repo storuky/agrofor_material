@@ -5,7 +5,7 @@ class PositionBase < ActiveRecord::Base
   include FixSphinx
 
   default_scope {
-    includes(:trade_type, :images, :documents, :user, :currency, :weight_dimension, :weight_min_dimension, :price_weight_dimension, :option, :category, :trade_type, option: [:category])
+    # includes(:trade_type, :images, :documents, :user, :currency, :weight_dimension, :weight_min_dimension, :price_weight_dimension, :option, :category, :trade_type,  option: [:category])
   }
 
   def self.trade_types_ids
@@ -41,7 +41,7 @@ class PositionBase < ActiveRecord::Base
   belongs_to :category
   belongs_to :trade_type
 
-  @@fields_for_pluck = ["id", "lat", "lng", "trade_type_id", "option_id", "weight", "weight_dimension_id", "price", "currency_id", "price_weight_dimension_id", "weight_min", "weight_min_dimension_id", "created_at", "type"]
+  @@fields_for_pluck = ["id", "lat", "lng", "trade_type_id", "option_id", "weight", "weight_dimension_id", "price", "currency_id", "price_weight_dimension_id", "weight_min", "weight_min_dimension_id", "created_at", "type", "user_id"]
 
   validates_presence_of :trade_type_id, :title, :address, :option_id, :weight, :price
 

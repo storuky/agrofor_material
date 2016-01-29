@@ -105,6 +105,9 @@ en:
         go_to:
           Position: Go to the position
           Offer: Go to the offer
+        make_deal: Make a deal
+        confirm_shipping: Confirm Shipping
+        confirm_recieving: Confirm Recieving
       position_form:
         attach_documents: Attach photo or documents
         save: Save
@@ -121,6 +124,7 @@ en:
       profile:
         location: Location
         contacts: Contacts
+        add_interests: Add interests
       position_show:
         go_to_position: Back to position
         your_offer_for_this_position: Your offer for this position
@@ -135,6 +139,7 @@ en:
         offer_for_position: Offer for position
         have_not_suitable_offer: You have not suitable offer
         click_for_create: "Click for create"
+        no_description: No description
       positions:
         search: Search
         type: Type
@@ -144,3 +149,5 @@ en:
       messages:
         chose_correspondence: Select the desired conversation
         no_correspondences: Your have not any conversations
+        search: Search
+        your_message: Your message

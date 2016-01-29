@@ -14,3 +14,8 @@ ru:
       - позиция
       - позиции
       - позиций
+
+  localize:
+    tomorrow: Вчера
+    date_at: "в"
+    date_format: "d MMM"

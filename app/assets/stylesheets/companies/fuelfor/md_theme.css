@@ -28,7 +28,7 @@ md-checkbox.md-default-theme.md-checked.md-focused .md-container:before, md-chec
 }
 
 md-progress-linear.md-default-theme .md-container, md-progress-linear .md-container {
-  background-color: rgba(255, 219, 76, 0.37);
+  background-color: rgba(33, 150, 243, 0.37);
 }
 
 md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
@@ -43,13 +43,13 @@ a.md-button.md-primary.md-raised:not([disabled]).md-focused,
 }
 
 .md-chips .md-chip {
-  border: 1px solid #F5B800;
-  background: #FFF09C;
-  color: #6A5218 !important;
+  border: 1px solid #1C80D0;
+  background: rgba(33, 150, 243, 0.3);
+  color: #000000 !important;
 }
 
-.md-chips  md-icon {
-  color: #6A5218 !important;
+.md-chips md-icon {
+  color: #000 !important;
 }
 
 .md-chips strong {
@@ -57,7 +57,12 @@ a.md-button.md-primary.md-raised:not([disabled]).md-focused,
 }
 
 .md-chip.md-focused {
-  background-color: #FFD83D !important;
+  background-color: #2196F3 !important;
+  color: white !important;
+}
+
+.md-chip.md-focused md-icon {
+  color: white !important;
 }
 
 .md-chips  md-icon:hover {
@@ -99,12 +104,13 @@ md-radio-button.md-default-theme .md-on, md-radio-button .md-on {
 .md-primary:not(:disabled) {
   border: 1px solid #1C80D0;
   background: #2196F3 !important;
+  color: white !important;
 }
 .md-primary:disabled {
   border: 1px solid #e5e5e5;
 }
 
-.md-primary:hover {
+.md-primary:not(:disabled):hover {
   background: #0AA3E9 !important;
   transition: .2s;
 }
@@ -133,13 +139,7 @@ md-radio-button.md-default-theme .md-on, md-radio-button .md-on {
   background: #98D056 !important;
 }
 
-.md-button i {
-  color: white;
-  border-right: 1px solid rgba(0, 0, 0, 0.12);
-  color: #6A6A6A;
-}
-
-.md-button.md-primary i {
+.md-button.md-primary i.addon {
   color: white;
   border-right: 1px solid #1C80D0;
 }

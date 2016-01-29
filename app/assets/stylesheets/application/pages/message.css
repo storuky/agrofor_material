@@ -90,7 +90,6 @@
 }
 .message-page__contacts__content md-list-item.active {
   background: rgb(250, 250, 250);
-  border-right: 2px solid #FFDB4C;
 }
 
 .message-page__contacts__content md-list-item p {
