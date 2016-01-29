@@ -1,0 +1,105 @@
+en:
+  landing:
+    shared:
+      form:
+        sign_in: "Sign in"
+        sign_up: "Sign up"
+        email: "Email"
+        password: "Password"
+        remind: "Forgot password?"
+      open_for_you: "Discover a new, promising and dynamic market!"
+      first_screen:
+        hight_demand: "Hight demand. "
+        best_offer: "Best offer."
+      more_info_first:
+        open_information:
+          title: "Open data"
+          description: "Most open market. All transactions are taking place it can monitor any user of the system."
+        without_intermediary:
+          title: "Without intermediary"
+          description: "We believe that this intermediary should not be in a relationship «Buyer-Seller»."
+        without_regional_barriers:
+          title: "Without regional barriers"
+          description: "Multilingual and multi-currency basis for the system opens up the prospect of trade worldwide."
+
+      features:
+        objective_of_the_project:
+          title: "Objective of the project"
+          description: "<p>We do not and never will be paid ads. We believe that you do have to earn its reputation as a fair trade. </p> <p> The project aims to give farmers full-fledged trading platform on the network, to ensure full transparency of information and to protect against fraud by unscrupulous market participants.</p>"
+        search_tools:
+          title: "Search tools"
+          description: "<p>Search in the system is divided into two types. You can search for your desired product, using full-text search, and additional filtering. As you search for available suitable positions on the basis of already created by you. </p>"
+        rating_system:
+          title: "Rating system"
+          description: "<p>We do not need to pay to be in the first positions of the search. We have built a ranking system which is based on the rating comes by. </p><p> The more you make deals and get a positive feedback, the higher your ranking. On the open market, there is a place only a fair competition!</p>"
+        communications:
+          title: "Communication inside system"
+          description: "<p>Discuss all the conditions of your transactions in special protective correspondence. This correspondence will allow you maximum protection from non-compliance with conditions of the transaction by the business partner. </p><p><b>In the near future will be able to make free calls within the system!</b></p>"
+
+      more_info_second:
+        actual_database:
+          title: "Relevance of the database"
+          description: "All positions are for a period of 1 month. If during this Time deal is concluded, the position moves to the archive."
+        support:
+          title: "24/7 Support"
+          description: "Support team always promptly respond to your appeal, complaints and suggestions."
+        products_count:
+          description: "Multilingual and multi-currency basis for the system opens up the prospect of trade worldwide."
+
+
+      faq:
+        title: Frequently asked questions
+        subtitle: You have a questions? We have the answers!
+        price:
+          title: How much is the registration and use of the system?
+          description: "<p>Registration and use of the system is completely <u>free</u>. Our goal - to help you make money and not take your money. Of course, if you wish, you can donate any amount to maintain the project.</p>"
+        delivery:
+          title: How is the delivery and payment after making a deal?
+          description: "<p>About payment negotiate personally. At this point, the function of delivery assumes the market participants themselves. Soon to be introduced functionality for carriers, and you can use their services.</p>"
+        product:
+          title: What products can I buy/sell in this market?
+
+    agrofor:
+      title: "Agrofor: International Agricultural Exchange"
+      description: "Buy and sell agricultural products on the international agricultural exchange «Agrofor». Discover a new, promising and dynamic market!"
+      losung: "Farmers of all countries, unite!"
+      want_to_buy: "<p> Want to buy 100 kg. potatoes at a price of $15 per kg? Find a vendor that offers such conditions. It's very easy!</p>"
+      more_info_second:
+        products_count:
+          title: "More than 500 items of goods"
+      faq:
+        product:
+          description: "<p>On-site features more than 500 items of goods of agricultural products. If you still have not found the desired, please contact us.</p>"
+        trade:
+          title: "I trade lumber/fuel, can I do it at this market?"
+          description: "<p>Agrofor system created exclusively for trade in agriculture. However, there are also system <a class='link' target='_blank' href='https://woodfor.pro'>Woodfor</a> and <a class='link' target='_blank' href='https://fuelfor.pro'>Fuelfor</a>, operating on the same principles, but in the lumber and fuel, respectively.</p>"
+
+    fuelfor:
+      title: "Fuelfor: International Fuel Exchange"
+      description: "Sell them to buy oil products, fuel and grease to fuel international exchange «Fuelfor». Discover a new, promising and dynamic market!"
+      losung: "Traders of all countries, unite!"
+      want_to_buy: "<p> Want to buy 100 litter of motor oil a price of $15 per liter? Find a vendor that offers such conditions. It's very easy!</p>"
+      more_info_second:
+        products_count:
+          title: "More than 50 items of goods"
+      faq:
+        product:
+          description: "<p>On-site features more than 50 kinds of products, including petroleum products, fuels and grease. If you still have not found your desired, please contact us.</p>"
+        trade:
+          title: "I trade lumber/agricultural, can I do it at this market?"
+          description: "<p>Fuelfor system created exclusively for trade in petroleum products, fuels and lubricants. However, there are also systems <a class='link' target='_blank' href='https://agrofor.pro'>Agrofor</a> and <a class='link' target='_blank' href='https:/woodfor.pro'>Woodfor</a>, operating on the same principles, but in the lumber and fuel, respectively.</p>"
+
+    woodfor:
+      title: "Woodford: International Lumber Exchange"
+      description: "Sell them to buy lamber to lumber international exchange «Woodfor». Discover a new, promising and dynamic market!"
+      losung: "Loggers in all countries, unite! But beware of the forest!"
+      want_to_buy: "<p> Want to buy 100 m³ of Brus a price of $340 per m³? Find a vendor that offers such conditions. It's very easy!</p>"
+      more_info_second:
+        products_count:
+          title: "More than 20 categories of lumber"
+      faq:
+        product:
+          description: "<p>On-site features more than 20 types of lumber. If you still have not found your desired, please contact us.</p>"
+        trade:
+          title: "I trade fuel/agricultural, can I do it at this market?"
+          description: "<p>Woodfor system created exclusively for the lumber trade. However, there are also system <a class='link' target='_blank' href='https://agrofor.pro'>Agrofor</a> and <a class='link' target='_blank' href='https://fuelfor.pro'>Fuelfor</a>, operating on the same principles, but in the lumber and fuel, respectively.</p>"

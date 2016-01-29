@@ -92,8 +92,11 @@ class ApplicationController < ActionController::Base
     end
 
     def set_locale
-      I18n.locale = current_user.language || extract_locale_from_accept_language_header rescue extract_locale_from_accept_language_header
-      # I18n.locale = "en"
+      if params[:controller] == "public"
+        I18n.locale = ["ru", "en"].include?(params[:lang]) ? params[:lang] : "ru"
+      else
+        I18n.locale = current_user.language || extract_locale_from_accept_language_header rescue extract_locale_from_accept_language_header
+      end
     end
 
 end
