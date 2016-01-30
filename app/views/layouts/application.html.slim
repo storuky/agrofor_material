@@ -34,7 +34,7 @@
       = render template: 'modals/index'
       = render template: 'components/index'
 
-      script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"
+      script src="https://api-maps.yandex.ru/2.1/?lang=#{t "localize.map"}" type="text/javascript"
       = javascript_include_tag 'application'
       - if I18n.locale.to_s != "en"
         = javascript_include_tag "oxymoron/i18n/angular-locale_#{I18n.locale}"
