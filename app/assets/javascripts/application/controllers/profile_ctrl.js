@@ -64,7 +64,8 @@ app.controller('ProfileCtrl', ['$scope', 'action', 'Profile', 'Position', 'Corre
         }
 
         if (res.update_currency) {
-          Currency.update_user_currency()
+          Currency.update_user_currency();
+          Currency.update_rates();
         }
 
         $timeout(function () {

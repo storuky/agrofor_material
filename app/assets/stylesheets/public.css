@@ -195,6 +195,7 @@ md-input-container > md-icon {
 
 .img_responsive {
   height: auto;
+  width: 100%;
 }
 
 .nivo-lightbox-close, .nivo-lightbox-nav {
@@ -210,6 +211,9 @@ md-input-container > md-icon {
   right: 15px;
   top: -55px;
   font-size: 14px;
+  height: 50px;
+  padding-top: 20px;
+  line-height: 1;
 }
 .langs a {
   margin-right: 10px;
