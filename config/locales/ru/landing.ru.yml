@@ -1,6 +1,7 @@
 ru:
   landing:
     shared:
+      our_services: Наши сервисы
       form:
         sign_in: "Войти"
         sign_up: "Зарегистрироваться"
