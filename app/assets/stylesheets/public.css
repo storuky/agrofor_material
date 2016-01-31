@@ -138,6 +138,8 @@ label {
 .logo {
   margin-right: -8px;
   margin-top: 5px;
+  height: 97px;
+  width: auto;
 }
 
 #footer .logo {
