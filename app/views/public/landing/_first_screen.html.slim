@@ -4,6 +4,9 @@ section.hero_fullscreen.background_solid
   .container
     .row
       .col-xs-12.col-sm-12.col-md-12.col-lg-12.outher.top-outher
+        .langs
+          a.link class="#{I18n.locale.to_s == 'en' ? 'disabled' : ''}" href="?lang=en" target="_self" English
+          a.link class="#{I18n.locale.to_s == 'ru' ? 'disabled' : ''}" href="?locale=ru" target="_self" Русский
         a href="/"
           img.logo.inner width="180" alt="logo" src="/landing/images/logos/#{current_company.name}_#{I18n.locale}.png"
   #main_content.container.align-center

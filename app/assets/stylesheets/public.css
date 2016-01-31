@@ -101,6 +101,12 @@ label {
   text-decoration: underline;
 }
 
+.link.disabled {
+  text-decoration: none;
+  color: #4D4D4F;
+  cursor: default;
+}
+
 .reset-password {
   position: absolute;
   margin-top: 0;
@@ -130,7 +136,8 @@ label {
 }
 
 .logo {
-  margin: -20px 0 0 0;
+  margin-right: -8px;
+  margin-top: 5px;
 }
 
 #footer .logo {
@@ -146,6 +153,7 @@ label {
 .feature_row img {
   height: auto;
   width: 560px;
+  border: 1px solid #E1E1E1;
 }
 
 @media screen and (max-width: 960px) {
@@ -196,3 +204,14 @@ md-input-container > md-icon {
 #more_info {
   box-shadow: 0px -9px 22px -9px rgba(0,0,0,.2);
 }
+
+.langs {
+  position: absolute;
+  right: 15px;
+  top: -55px;
+  font-size: 14px;
+}
+.langs a {
+  margin-right: 10px;
+}
+

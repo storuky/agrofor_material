@@ -10,3 +10,7 @@
   color: #0C60A3;
   text-decoration: underline;
 }
+
+md-input-container > md-icon {
+  color: #1C80D0 !important;
+}
