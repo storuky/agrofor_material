@@ -14,8 +14,8 @@
 //= require public/landing/classie.js
 //= require public/landing/pathLoader.js
 //= require public/landing/nivo-lightbox.min
-//= require public/landing/preloader.js
-//= require public/landing/retina.js
+// require public/landing/preloader.js
+// require public/landing/retina.js
 //= require public/landing/waypoints.min.js
 //= require public/landing/nivo-lightbox.min.js
 //= require public/landing/owl.carousel.js

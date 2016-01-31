@@ -219,3 +219,6 @@ md-input-container > md-icon {
   margin-right: 10px;
 }
 
+.ng-cloak {
+  visibility: hidden !important;
+}
