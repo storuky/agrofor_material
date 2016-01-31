@@ -224,3 +224,16 @@ md-input-container > md-icon {
 .ng-cloak {
   visibility: hidden !important;
 }
+
+#companies {
+  border-bottom: 1px solid #F3F3F3;
+}
+
+#companies img {
+  width: auto;
+  height: 120px;
+  margin: 10px;
+}
+.companies-images {
+  margin-top: 40px;
+}
