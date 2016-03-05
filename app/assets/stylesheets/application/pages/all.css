@@ -244,3 +244,9 @@ input.solid-input:focus {
   top: 13px;
   z-index: 2;
 }
+
+.profile-info .icon-message-text {
+  position: absolute;
+  left: 19px;
+  top: 10px;
+}
